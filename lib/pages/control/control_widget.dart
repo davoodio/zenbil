@@ -420,9 +420,22 @@ class _ControlWidgetState extends State<ControlWidget>
         'jwt: $currentJwtToken',
       );
       logFirebaseEvent('Control_custom_action');
-      await actions.handleDynamicLink(
+      _model.marketId = await actions.handleDynamicLink(
         context,
       );
+      if ((_model.marketId != null) && (_model.marketId != 0)) {
+        logFirebaseEvent('Control_navigate_to');
+
+        context.pushNamed(
+          'StoreFront',
+          queryParameters: {
+            'marketID': serializeParam(
+              _model.marketId,
+              ParamType.int,
+            ),
+          }.withoutNulls,
+        );
+      }
     });
 
     animationsMap.addAll({
