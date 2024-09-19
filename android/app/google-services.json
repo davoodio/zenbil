@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1082335730266",
+    "project_id": "zenbil-app",
+    "storage_bucket": "zenbil-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082335730266:android:bc1c801a97fbff1b105663",
+        "android_client_info": {
+          "package_name": "com.gettico.zenbil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqeUBRBfPLXOMcvP_iiqkSGwt9lboDQUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082335730266:android:56cbe121e4c422f6105663",
+        "android_client_info": {
+          "package_name": "io.builderking.zenbil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqeUBRBfPLXOMcvP_iiqkSGwt9lboDQUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

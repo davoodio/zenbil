@@ -1,0 +1,5 @@
+NSCameraUsageDescription = "To enable you to take a new photo for your profile picture, this app requires permission to access the camera.";
+NSPhotoLibraryUsageDescription = "To allow you to customize your profile, this app requires access to your photo library for selecting a profile picture.";
+NSMicrophoneUsageDescription = "To provide support through audio messages, this app requires permission to access the microphone for recording voice messages in chat support.";
+NSLocationWhenInUseUsageDescription = "To provide accurate delivery services, this app requires access to your location to allow you to save your shipping address when placing an order.";
+PermissionGroupNotification = "To keep you informed about order updates and important alerts, this app requires permission to send you notifications.";
