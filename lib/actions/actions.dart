@@ -163,22 +163,30 @@ Future userControl(BuildContext context) async {
       }
     }
 
+    logFirebaseEvent('UserControl_update_app_state');
+    FFAppState().storeID = 0;
     logFirebaseEvent('UserControl_custom_action');
     await actions.handleDynamicLink(
       context,
     );
-    logFirebaseEvent('UserControl_navigate_to');
+    if (FFAppState().storeID != 0) {
+      logFirebaseEvent('UserControl_navigate_to');
 
-    context.goNamed(
-      'StoreFront',
-      queryParameters: {
-        'marketID': serializeParam(
-          FFAppState().storeID,
-          ParamType.int,
-        ),
-      }.withoutNulls,
-    );
+      context.goNamed(
+        'StoreFront',
+        queryParameters: {
+          'marketID': serializeParam(
+            FFAppState().storeID,
+            ParamType.int,
+          ),
+        }.withoutNulls,
+      );
+    } else {
+      logFirebaseEvent('UserControl_navigate_to');
+
+      context.goNamed('zenbil');
     }
+  }
 }
 
 Future anonUserCheck(BuildContext context) async {
