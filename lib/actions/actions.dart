@@ -18,7 +18,6 @@ Future userControl(BuildContext context) async {
   String? userAuthProvider;
   List<UserRoleRow>? userRole;
   List<RolesRow>? roleOfTheUser;
-  int? marketId;
 
   if (!loggedIn) {
     logFirebaseEvent('UserControl_custom_action');
@@ -165,25 +164,21 @@ Future userControl(BuildContext context) async {
     }
 
     logFirebaseEvent('UserControl_custom_action');
-    marketId = await actions.handleDynamicLink();
-    if ((marketId != null) && (marketId != 0)) {
-      logFirebaseEvent('UserControl_navigate_to');
+    await actions.handleDynamicLink(
+      context,
+    );
+    logFirebaseEvent('UserControl_navigate_to');
 
-      context.goNamed(
-        'StoreFront',
-        queryParameters: {
-          'marketID': serializeParam(
-            marketId,
-            ParamType.int,
-          ),
-        }.withoutNulls,
-      );
-    } else {
-      logFirebaseEvent('UserControl_navigate_to');
-
-      context.goNamed('zenbil');
+    context.goNamed(
+      'StoreFront',
+      queryParameters: {
+        'marketID': serializeParam(
+          FFAppState().storeID,
+          ParamType.int,
+        ),
+      }.withoutNulls,
+    );
     }
-  }
 }
 
 Future anonUserCheck(BuildContext context) async {

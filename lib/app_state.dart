@@ -311,6 +311,12 @@ class FFAppState extends ChangeNotifier {
     _MapCenterDefault = value;
   }
 
+  int _storeID = 0;
+  int get storeID => _storeID;
+  set storeID(int value) {
+    _storeID = value;
+  }
+
   final _countriesAllManager = FutureRequestManager<List<CountriesRow>>();
   Future<List<CountriesRow>> countriesAll({
     String? uniqueQueryKey,
