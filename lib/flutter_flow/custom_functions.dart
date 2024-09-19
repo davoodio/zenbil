@@ -385,3 +385,10 @@ bool emailValidation(String? email) {
   // Return true if the email matches the pattern, otherwise false
   return emailRegExp.hasMatch(email);
 }
+
+bool isValueInteger(dynamic value) {
+  if (value != null && value is int) {
+    return true;
+  }
+  return false;
+}

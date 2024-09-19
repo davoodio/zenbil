@@ -195,7 +195,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                             ),
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
-                                        enableActiveFill: true,
+                                        enableActiveFill: false,
                                         autoFocus: true,
                                         enablePinAutofill: true,
                                         errorTextSpace: 36.0,
