@@ -19,7 +19,7 @@ Future<String> generateProductStoreLink(int marketId) async {
 // Set parameters for the Branch link
 
   BranchUniversalObject buo = BranchUniversalObject(
-    canonicalIdentifier: 'productsStore/$marketId',
+    canonicalIdentifier: 'store/$marketId',
     //canonicalUrl: '',
     title: 'Check out this Product Store!',
     imageUrl:
@@ -35,8 +35,7 @@ Future<String> generateProductStoreLink(int marketId) async {
     feature: 'sharing',
     stage: 'new share',
   );
-  lp.addControlParam('url', 'http://www.google.com');
-  lp.addControlParam('url2', 'http://flutter.dev');
+  lp.addControlParam('\$uri_redirect__mode', '1');
 
   // Generate the Branch link
   BranchResponse response =
@@ -51,6 +50,6 @@ Future<String> generateProductStoreLink(int marketId) async {
     // Use a sharing plugin, for example:
     // Share.share(branchLink);
   } else {
-    return "";
+    return '';
   }
 }
