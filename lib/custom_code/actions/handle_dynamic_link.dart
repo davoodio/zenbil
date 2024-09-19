@@ -15,7 +15,7 @@ import 'dart:async';
 
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
-Future<int> handleDynamicLink(BuildContext context) async {
+Future<int> handleDynamicLink() async {
   var returnedMarketId = 0;
   await FlutterBranchSdk.init();
   StreamSubscription<Map> streamSubscription =
