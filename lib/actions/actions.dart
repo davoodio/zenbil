@@ -165,27 +165,9 @@ Future userControl(BuildContext context) async {
 
     logFirebaseEvent('UserControl_update_app_state');
     FFAppState().storeID = 0;
-    logFirebaseEvent('UserControl_custom_action');
-    await actions.handleDynamicLink(
-      context,
-    );
-    if (FFAppState().storeID != 0) {
-      logFirebaseEvent('UserControl_navigate_to');
+    logFirebaseEvent('UserControl_navigate_to');
 
-      context.goNamed(
-        'StoreFront',
-        queryParameters: {
-          'marketID': serializeParam(
-            FFAppState().storeID,
-            ParamType.int,
-          ),
-        }.withoutNulls,
-      );
-    } else {
-      logFirebaseEvent('UserControl_navigate_to');
-
-      context.goNamed('zenbil');
-    }
+    context.goNamed('zenbil');
   }
 }
 
