@@ -24,8 +24,6 @@ class ControlModel extends FlutterFlowModel<ControlWidget> {
   List<UserFavoritesRow>? userFavorites;
   // Stores action output result for [Backend Call - Query Rows] action in Control widget.
   List<ProductsRow>? userCartProducts;
-  // Stores action output result for [Custom Action - handleDynamicLink] action in Control widget.
-  int? marketId;
 
   @override
   void initState(BuildContext context) {}

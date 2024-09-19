@@ -79,6 +79,8 @@ class ZenbilModel extends FlutterFlowModel<ZenbilWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - handleDynamicLink] action in zenbil widget.
+  int? marketId;
   // State field(s) for Carousel widget.
   CarouselController? carouselController;
   int carouselCurrentIndex = 0;
