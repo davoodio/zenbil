@@ -210,12 +210,20 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'STORE_FRONT_Container_9uz8p28m_ON_TAP');
+                                          logFirebaseEvent(
+                                              'ShareBadge_custom_action');
+                                          _model.generatedLink = await actions
+                                              .generateProductStoreLink(
+                                            widget.marketID!,
+                                          );
                                           logFirebaseEvent('ShareBadge_share');
                                           await Share.share(
-                                            'https://link.zenbil.io${GoRouterState.of(context).uri.toString()}',
+                                            _model.generatedLink!,
                                             sharePositionOrigin:
                                                 getWidgetBoundingBox(context),
                                           );
+
+                                          safeSetState(() {});
                                         },
                                         child: wrapWithModel(
                                           model: _model.shareBadgeModel,

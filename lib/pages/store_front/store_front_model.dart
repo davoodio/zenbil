@@ -26,6 +26,8 @@ class StoreFrontModel extends FlutterFlowModel<StoreFrontWidget> {
   List<BrandsRow>? currentBrand;
   // Model for ShareBadge component.
   late ShareBadgeModel shareBadgeModel;
+  // Stores action output result for [Custom Action - generateProductStoreLink] action in ShareBadge widget.
+  String? generatedLink;
   // Model for SearchBadge component.
   late SearchBadgeModel searchBadgeModel;
   // Model for CartBadge component.
