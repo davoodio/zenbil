@@ -15,24 +15,18 @@ import 'dart:async';
 
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
-Future<int> handleDynamicLink() async {
-  var returnedMarketId = 0;
-  await FlutterBranchSdk.init();
+Future<void> handleDynamicLink(BuildContext context) async {
   StreamSubscription<Map> streamSubscription =
-      FlutterBranchSdk.listSession().listen((data) {
+      FlutterBranchSdk.initSession().listen((data) {
     if (data.containsKey("+clicked_branch_link") &&
         data["+clicked_branch_link"] == true) {
-      print("Branch called! Data: $data");
-      // Extract the custom data (marketId) from the Branch link
       if (data.containsKey("marketId")) {
-        String marketID = data["marketId"];
+        int marketID = int.parse(data["marketId"]);
         print('Navigating to ProductsStore with marketId: $marketID');
-        // Navigate to the ProductsStore page with the marketId
-        returnedMarketId = int.parse(marketID);
+        FFAppState().storeID = marketID;
       }
     }
   }, onError: (error) {
     print('listSession error: ${error.toString()}');
   });
-  return returnedMarketId;
 }
