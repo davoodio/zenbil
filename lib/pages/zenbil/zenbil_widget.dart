@@ -54,9 +54,27 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
         Future(() async {
           logFirebaseEvent('zenbil_wait__delay');
           await Future.delayed(const Duration(milliseconds: 1));
-          logFirebaseEvent('zenbil_action_block');
-          await _model.loadHomePageData(context);
-          safeSetState(() {});
+          logFirebaseEvent('zenbil_custom_action');
+          await actions.handleDynamicLink(
+            context,
+          );
+          if (FFAppState().storeID != 0) {
+            logFirebaseEvent('zenbil_navigate_to');
+
+            context.goNamed(
+              'StoreFront',
+              queryParameters: {
+                'marketID': serializeParam(
+                  FFAppState().storeID,
+                  ParamType.int,
+                ),
+              }.withoutNulls,
+            );
+          } else {
+            logFirebaseEvent('zenbil_action_block');
+            await _model.loadHomePageData(context);
+            safeSetState(() {});
+          }
         }),
         Future(() async {
           logFirebaseEvent('zenbil_custom_action');
