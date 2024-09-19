@@ -15,6 +15,7 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,7 @@ void main() async {
   }
 
   // Start final custom actions code
+  await FlutterBranchSdk.init(enableLogging: false, disableTracking: false);
   await actions.oneSignalInitialize();
   // End final custom actions code
 
@@ -69,6 +71,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    //FlutterBranchSdk.validateSDKIntegration();
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
