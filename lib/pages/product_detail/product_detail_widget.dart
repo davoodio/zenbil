@@ -218,7 +218,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                 _model.generatedLink =
                                     await actions.generateProductDetailLink(
                                   widget.productId!,
-                                  widget.marketID!,
+                                  _model.marketData!.id,
                                 );
                                 logFirebaseEvent('ShareBadge_share');
                                 await Share.share(
