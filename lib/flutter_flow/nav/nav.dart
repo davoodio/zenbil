@@ -243,7 +243,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ProductDetail',
           path: '/productDetail',
-          requireAuth: true,
           builder: (context, params) => ProductDetailWidget(
             productId: params.getParam(
               'productId',

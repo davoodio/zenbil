@@ -45,7 +45,7 @@ class _SplashWidgetState extends State<SplashWidget>
         if (FFAppState().productID != 0) {
           logFirebaseEvent('Splash_navigate_to');
 
-          context.pushNamed(
+          context.goNamed(
             'ProductDetail',
             queryParameters: {
               'productId': serializeParam(
