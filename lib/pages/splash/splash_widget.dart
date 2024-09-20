@@ -49,6 +49,9 @@ class _SplashWidgetState extends State<SplashWidget>
             ),
           }.withoutNulls,
         );
+
+        logFirebaseEvent('Splash_update_app_state');
+        FFAppState().storeID = 0;
       } else {
         logFirebaseEvent('Splash_navigate_to');
 
