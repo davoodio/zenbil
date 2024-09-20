@@ -57,7 +57,7 @@ class _CartWidgetState extends State<CartWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -65,7 +65,7 @@ class _CartWidgetState extends State<CartWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -86,15 +86,15 @@ class _CartWidgetState extends State<CartWidget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            if (FFAppState().Cart.products.isNotEmpty)
+                            if (FFAppState().Cart.products.length > 0)
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 10.0, 0.0),
                                       child: wrapWithModel(
                                         model: _model.cartBadgeModel,
@@ -142,7 +142,7 @@ class _CartWidgetState extends State<CartWidget> {
                                             ),
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 16.0)),
+                                  ].divide(SizedBox(width: 16.0)),
                                 ),
                               ),
                             Expanded(
@@ -182,7 +182,7 @@ class _CartWidgetState extends State<CartWidget> {
                                             productCart[productCartIndex];
                                         return Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Semantics(
                                             label: 'Product cart details item',
@@ -195,20 +195,20 @@ class _CartWidgetState extends State<CartWidget> {
                                           ),
                                         );
                                       })
-                                              .divide(const SizedBox(height: 16.0))
-                                              .addToEnd(const SizedBox(height: 24.0)),
+                                              .divide(SizedBox(height: 16.0))
+                                              .addToEnd(SizedBox(height: 24.0)),
                                     ),
                                   );
                                 },
                               ),
                             ),
-                            if (FFAppState().Cart.products.isNotEmpty)
+                            if (FFAppState().Cart.products.length > 0)
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.0, 1.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    if (FFAppState().Cart.products.isNotEmpty)
+                                    if (FFAppState().Cart.products.length > 0)
                                       Container(
                                         width: double.infinity,
                                         height: 44.0,
@@ -218,7 +218,7 @@ class _CartWidgetState extends State<CartWidget> {
                                         ),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -287,14 +287,14 @@ class _CartWidgetState extends State<CartWidget> {
                                                                       .titleLargeFamily),
                                                         ),
                                                   ),
-                                                ].divide(const SizedBox(width: 8.0)),
+                                                ].divide(SizedBox(width: 8.0)),
                                               ),
-                                            ].divide(const SizedBox(width: 8.0)),
+                                            ].divide(SizedBox(width: 8.0)),
                                           ),
                                         ),
                                       ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 8.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -305,7 +305,9 @@ class _CartWidgetState extends State<CartWidget> {
                                               child: FFButtonWidget(
                                                 onPressed: (FFAppState()
                                                             .Cart
-                                                            .products.isEmpty)
+                                                            .products
+                                                            .length ==
+                                                        0)
                                                     ? null
                                                     : () async {
                                                         logFirebaseEvent(
@@ -443,7 +445,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                                 'Checkoutting_custom_action');
                                                             await actions
                                                                 .printAction(
-                                                              'Order group: ${_model.orderGroup?.id.toString()}',
+                                                              'Order group: ${_model.orderGroup?.id?.toString()}',
                                                             );
                                                             logFirebaseEvent(
                                                                 'Checkoutting_update_page_state');
@@ -562,7 +564,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                                   'Checkoutting_custom_action');
                                                               await actions
                                                                   .printAction(
-                                                                'Order product: ${_model.orderProduct?.id.toString()}',
+                                                                'Order product: ${_model.orderProduct?.id?.toString()}',
                                                               );
                                                               logFirebaseEvent(
                                                                   'Checkoutting_update_page_state');
@@ -644,11 +646,11 @@ class _CartWidgetState extends State<CartWidget> {
                                                 ),
                                                 options: FFButtonOptions(
                                                   height: 48.0,
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           24.0, 0.0, 24.0, 0.0),
                                                   iconPadding:
-                                                      const EdgeInsetsDirectional
+                                                      EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
@@ -672,7 +674,7 @@ class _CartWidgetState extends State<CartWidget> {
                                                                         .titleSmallFamily),
                                                           ),
                                                   elevation: 0.0,
-                                                  borderSide: const BorderSide(
+                                                  borderSide: BorderSide(
                                                     color: Colors.transparent,
                                                     width: 1.0,
                                                   ),
@@ -694,8 +696,8 @@ class _CartWidgetState extends State<CartWidget> {
                                 ),
                               ),
                           ]
-                              .divide(const SizedBox(height: 16.0))
-                              .addToStart(const SizedBox(height: 16.0)),
+                              .divide(SizedBox(height: 16.0))
+                              .addToStart(SizedBox(height: 16.0)),
                         ),
                       ),
                     ],

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'user_info_card_model.dart';
 export 'user_info_card_model.dart';
 
@@ -47,7 +48,7 @@ class _UserInfoCardWidgetState extends State<UserInfoCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -61,14 +62,14 @@ class _UserInfoCardWidgetState extends State<UserInfoCardWidget> {
                 shape: BoxShape.circle,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: EdgeInsets.all(3.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100.0),
                   child: CachedNetworkImage(
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    fadeOutDuration: const Duration(milliseconds: 500),
+                    fadeInDuration: Duration(milliseconds: 500),
+                    fadeOutDuration: Duration(milliseconds: 500),
                     imageUrl: valueOrDefault<String>(
-                      widget.currentUser?.avatarUrl,
+                      widget!.currentUser?.avatarUrl,
                       'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/muztoi9l6z3w/avatarMen.png',
                     ),
                     width: double.infinity,
@@ -97,10 +98,10 @@ class _UserInfoCardWidgetState extends State<UserInfoCardWidget> {
                           Flexible(
                             child: Text(
                               valueOrDefault<String>(
-                                widget.currentUser?.displayName != null &&
-                                        widget.currentUser?.displayName != ''
+                                widget!.currentUser?.displayName != null &&
+                                        widget!.currentUser?.displayName != ''
                                     ? valueOrDefault<String>(
-                                        widget.currentUser?.displayName,
+                                        widget!.currentUser?.displayName,
                                         'Welcome!',
                                       )
                                     : 'Welcome!',
@@ -131,10 +132,10 @@ class _UserInfoCardWidgetState extends State<UserInfoCardWidget> {
                           Flexible(
                             child: Text(
                               valueOrDefault<String>(
-                                widget.currentUser?.mobileNumber != null &&
-                                        widget.currentUser?.mobileNumber != ''
-                                    ? widget.currentUser?.mobileNumber
-                                    : widget.currentUser?.email,
+                                widget!.currentUser?.mobileNumber != null &&
+                                        widget!.currentUser?.mobileNumber != ''
+                                    ? widget!.currentUser?.mobileNumber
+                                    : widget!.currentUser?.email,
                                 '-',
                               ),
                               textAlign: TextAlign.center,
@@ -157,11 +158,11 @@ class _UserInfoCardWidgetState extends State<UserInfoCardWidget> {
                           ),
                         ],
                       ),
-                    ].divide(const SizedBox(height: 4.0)),
+                    ].divide(SizedBox(height: 4.0)),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                   child: FlutterFlowIconButton(
                     borderColor: Colors.transparent,
                     borderRadius: 20.0,
@@ -191,7 +192,7 @@ class _UserInfoCardWidgetState extends State<UserInfoCardWidget> {
               ],
             ),
           ),
-        ].divide(const SizedBox(width: 16.0)),
+        ].divide(SizedBox(width: 16.0)),
       ),
     );
   }

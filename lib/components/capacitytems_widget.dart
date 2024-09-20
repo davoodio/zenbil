@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'capacitytems_model.dart';
 export 'capacitytems_model.dart';
 
@@ -38,7 +39,7 @@ class _CapacitytemsWidgetState extends State<CapacitytemsWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CAPACITYTEMS_Capacitytems_ON_INIT_STATE');
       logFirebaseEvent('Capacitytems_update_component_state');
-      _model.itemSelected = widget.initalValue;
+      _model.itemSelected = widget!.initalValue;
       _model.updatePage(() {});
     });
 
@@ -56,7 +57,7 @@ class _CapacitytemsWidgetState extends State<CapacitytemsWidget> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final options = widget.options!.toList();
+        final options = widget!.options!.toList();
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -97,7 +98,7 @@ class _CapacitytemsWidgetState extends State<CapacitytemsWidget> {
                   ),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +132,7 @@ class _CapacitytemsWidgetState extends State<CapacitytemsWidget> {
                   ),
                 ),
               );
-            }).divide(const SizedBox(width: 12.0)).addToEnd(const SizedBox(width: 20.0)),
+            }).divide(SizedBox(width: 12.0)).addToEnd(SizedBox(width: 20.0)),
           ),
         );
       },

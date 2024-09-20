@@ -10,7 +10,7 @@ class ViewProductInventoryTable extends SupabaseTable<ViewProductInventoryRow> {
 }
 
 class ViewProductInventoryRow extends SupabaseDataRow {
-  ViewProductInventoryRow(super.data);
+  ViewProductInventoryRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ViewProductInventoryTable();

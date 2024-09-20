@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
 
@@ -46,17 +48,17 @@ class GetVehiclesCall {
 
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "serviceId": "$serviceid",
-  "latitude": "$lat",
-  "longitude": "$lng"
+  "language": "${language}",
+  "serviceId": "${serviceid}",
+  "latitude": "${lat}",
+  "longitude": "${lng}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'getVehicles',
       apiUrl: '${baseUrl}onro-get-vehicle-type',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -83,14 +85,14 @@ class GetServiceCall {
 
     final ffApiRequestBody = '''
 {
-"language":"$language"
+"language":"${language}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'getService',
       apiUrl: '${baseUrl}onro-get-service',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -118,15 +120,15 @@ class GetOrderDetailsCall {
 
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "onroOrderId": "$onroOrderId"
+  "language": "${language}",
+  "onroOrderId": "${onroOrderId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'getOrderDetails',
       apiUrl: '${baseUrl}onro-get-order',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -163,15 +165,15 @@ class TrackDriverOfAnOrderCall {
 
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "onroOrderId": "$onroOrderId"
+  "language": "${language}",
+  "onroOrderId": "${onroOrderId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'TrackDriverOfAnOrder',
       apiUrl: '${baseUrl}onro-track-order-driver',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -199,15 +201,15 @@ class CancelOrderCall {
 
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "onroOrderId": "$onroOrderId"
+  "language": "${language}",
+  "onroOrderId": "${onroOrderId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CancelOrder',
       apiUrl: '${baseUrl}onro-cancel-order',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -236,16 +238,16 @@ class GetNearDriversCall {
 
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "latitude": "$lat",
-  "longitude": "$lng"
+  "language": "${language}",
+  "latitude": "${lat}",
+  "longitude": "${lng}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'getNearDrivers',
       apiUrl: '${baseUrl}onro-get-near-drivers',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -269,7 +271,7 @@ class CalculateOndemanOrderCall {
     String? pickupScheduleDateAfter = '',
     String? pickupScheduleDateBefore = '',
     bool? pickupSchedulePickupNow,
-    dynamic dropoffsJson,
+    dynamic? dropoffsJson,
     String? vehicleTypeId = '',
     String? serviceId = '',
     bool? isScheduled,
@@ -282,23 +284,23 @@ class CalculateOndemanOrderCall {
     final dropoffs = _serializeJson(dropoffsJson, true);
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "pickupLongitude":"$pickupLongitude",
-  "pickupLatitude":"$pickupLatitude",
-  "pickupScheduleDateAfter":"$pickupScheduleDateAfter",
-  "pickupScheduleDateBefore":"$pickupScheduleDateBefore",
-  "pickupSchedulePickupNow":$pickupSchedulePickupNow,
-  "dropoffs": $dropoffs,
-  "vehicleTypeId":"$vehicleTypeId",
-  "serviceId" : "$serviceId",
-  "isScheduled" : $isScheduled
+  "language": "${language}",
+  "pickupLongitude":"${pickupLongitude}",
+  "pickupLatitude":"${pickupLatitude}",
+  "pickupScheduleDateAfter":"${pickupScheduleDateAfter}",
+  "pickupScheduleDateBefore":"${pickupScheduleDateBefore}",
+  "pickupSchedulePickupNow":${pickupSchedulePickupNow},
+  "dropoffs": ${dropoffs},
+  "vehicleTypeId":"${vehicleTypeId}",
+  "serviceId" : "${serviceId}",
+  "isScheduled" : ${isScheduled}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CalculateOndemanOrder',
       apiUrl: '${baseUrl}onro-calculate-ondemand-order',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -323,7 +325,7 @@ class AddOndemandOrderCall {
     String? pickupScheduleDateAfter = '',
     String? pickupScheduleDateBefore = '',
     bool? pickupSchedulePickupNow,
-    dynamic dropoffsJson,
+    dynamic? dropoffsJson,
     String? vehicleTypeId = '',
     String? serviceId = '',
     bool? isScheduled,
@@ -339,27 +341,27 @@ class AddOndemandOrderCall {
     final dropoffs = _serializeJson(dropoffsJson, true);
     final ffApiRequestBody = '''
 {
-  "language": "$language",
-  "pickupLongitude": "$pickupLongitude",
-  "pickupLatitude": "$pickupLatitude",
-  "pickupAddressId": $pickupAddressId,
-  "pickupScheduleDateAfter": "$pickupScheduleDateAfter",
-  "pickupScheduleDateBefore": "$pickupScheduleDateBefore",
-  "pickupSchedulePickupNow": $pickupSchedulePickupNow,
-  "dropoffs": $dropoffs,
-  "vehicleTypeId": "$vehicleTypeId",
-  "serviceId": "$serviceId",
-  "isScheduled": $isScheduled,
-  "paymentSide": "$paymentSide",
-  "userCode": "$userCode",
-  "forUserId": "$forUserId"
+  "language": "${language}",
+  "pickupLongitude": "${pickupLongitude}",
+  "pickupLatitude": "${pickupLatitude}",
+  "pickupAddressId": ${pickupAddressId},
+  "pickupScheduleDateAfter": "${pickupScheduleDateAfter}",
+  "pickupScheduleDateBefore": "${pickupScheduleDateBefore}",
+  "pickupSchedulePickupNow": ${pickupSchedulePickupNow},
+  "dropoffs": ${dropoffs},
+  "vehicleTypeId": "${vehicleTypeId}",
+  "serviceId": "${serviceId}",
+  "isScheduled": ${isScheduled},
+  "paymentSide": "${paymentSide}",
+  "userCode": "${userCode}",
+  "forUserId": "${forUserId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'AddOndemandOrder',
       apiUrl: '${baseUrl}onro-add-ondemand-order',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -407,20 +409,20 @@ class StartPaymentCall {
 
     final ffApiRequestBody = '''
 {
-  "paymentType": "$paymentType",
-  "amount": $amount,
-  "currencyUnit": "$currencyUnit",
-  "recordId": $recordId,
-  "addressId": $addressId,
-  "returnUrl": "$returnUrl",
-  "walletId": $walletId
+  "paymentType": "${paymentType}",
+  "amount": ${amount},
+  "currencyUnit": "${currencyUnit}",
+  "recordId": ${recordId},
+  "addressId": ${addressId},
+  "returnUrl": "${returnUrl}",
+  "walletId": ${walletId}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'StartPayment',
       apiUrl: '${baseUrl}amwal-start',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -549,18 +551,18 @@ class PaymentStartCall {
 
     final ffApiRequestBody = '''
 {
-  "paymentType": "$paymentType",
-  "recordId": $recordId,
-  "walletId": $walletId,
-  "amount": $amount,
-  "currencyUnit": "$currencyUnit"
+  "paymentType": "${paymentType}",
+  "recordId": ${recordId},
+  "walletId": ${walletId},
+  "amount": ${amount},
+  "currencyUnit": "${currencyUnit}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'PaymentStart',
       apiUrl: '${baseUrl}pay-start',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -620,15 +622,15 @@ class CancelPaymentCall {
 
     final ffApiRequestBody = '''
 {
-  "paymentType": "$paymentType",
-  "recordId": $recordId
+  "paymentType": "${paymentType}",
+  "recordId": ${recordId}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CancelPayment',
       apiUrl: '${baseUrl}pay-cancel',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -655,15 +657,15 @@ class RefundPaymentCall {
 
     final ffApiRequestBody = '''
 {
-  "paymentType": "$paymentType",
-  "recordId": $recordId
+  "paymentType": "${paymentType}",
+  "recordId": ${recordId}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'RefundPayment',
       apiUrl: '${baseUrl}pay-refund',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -708,18 +710,18 @@ class PayWalletCall {
 
     final ffApiRequestBody = '''
 {
-  "paymentType": "$paymentType",
-  "recordId": $recordId,
-  "walletId": $walletId,
-  "amount": $amount,
-  "currencyUnit": "$currencyUnit"
+  "paymentType": "${paymentType}",
+  "recordId": ${recordId},
+  "walletId": ${walletId},
+  "amount": ${amount},
+  "currencyUnit": "${currencyUnit}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'PayWallet',
       apiUrl: '${baseUrl}pay-wallet',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -763,14 +765,14 @@ class DeliveryMethodsCall {
 
     final ffApiRequestBody = '''
 {
-  "orderId": $orderId
+  "orderId": ${orderId}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'DeliveryMethods',
       apiUrl: '${baseUrl}onro-delivery-methods',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -808,15 +810,15 @@ class CalculateOrderGroupCall {
 
     final ffApiRequestBody = '''
 {
-  "orderGroupId": $orderGroupId,
-  "deliveryAddressId": $deliveryAddressId
+  "orderGroupId": ${orderGroupId},
+  "deliveryAddressId": ${deliveryAddressId}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CalculateOrderGroup',
       apiUrl: '${baseUrl}onro-calculate-order-group',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $jwt',
+        'Authorization': 'Bearer ${jwt}',
         'Content-type': 'application/json',
       },
       params: {},
@@ -866,10 +868,10 @@ class CreateDeepLinkURLCall {
 
     final ffApiRequestBody = '''
 {
-  "branch_key": "$branchKey",
+  "branch_key": "${branchKey}",
   "channel": "app",
   "feature": "share",
-  "alias": "productsStore?marketID=$marketId"
+  "alias": "productsStore?marketID=${marketId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'CreateDeepLinkURL',
@@ -1017,7 +1019,7 @@ class GetCurrentAddressCall {
         response,
         r'''$.results[0].geometry.location.lng''',
       ));
-  dynamic locationLatlongJSON(dynamic response) => getJsonField(
+  dynamic? locationLatlongJSON(dynamic response) => getJsonField(
         response,
         r'''$.results[0].geometry.location''',
       );
@@ -1096,7 +1098,7 @@ class GetCurrentAddressPlaceIdCall {
         response,
         r'''$.results[0].geometry.location.lng''',
       ));
-  dynamic locationLatlongJSON(dynamic response) => getJsonField(
+  dynamic? locationLatlongJSON(dynamic response) => getJsonField(
         response,
         r'''$.results[0].geometry.location''',
       );

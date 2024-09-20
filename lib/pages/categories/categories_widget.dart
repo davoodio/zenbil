@@ -10,9 +10,11 @@ import '/components/loaders/loader_box_column/loader_box_column_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'categories_model.dart';
 export 'categories_model.dart';
@@ -21,7 +23,7 @@ class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({
     super.key,
     bool? showBackButton,
-  }) : showBackButton = showBackButton ?? false;
+  }) : this.showBackButton = showBackButton ?? false;
 
   final bool showBackButton;
 
@@ -61,7 +63,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -69,7 +71,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -80,7 +82,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                           title: FFLocalizations.of(context).getText(
                             'qe6onoo4' /* Categories */,
                           ),
-                          showBackButton: widget.showBackButton,
+                          showBackButton: widget!.showBackButton,
                           showCart: true,
                           goToCartOnClick: true,
                           showSearch: true,
@@ -109,7 +111,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
-                                    return const Padding(
+                                    return Padding(
                                       padding: EdgeInsets.all(20.0),
                                       child: LoaderBoxColumnWidget(
                                         height: 100.0,
@@ -123,7 +125,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                       snapshot.data!;
 
                                   return Container(
-                                    decoration: const BoxDecoration(),
+                                    decoration: BoxDecoration(),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -156,7 +158,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                         (context, snapshot) {
                                                       // Customize what your widget looks like when it's loading.
                                                       if (!snapshot.hasData) {
-                                                        return const SizedBox(
+                                                        return Container(
                                                           width:
                                                               double.infinity,
                                                           height: 0.0,
@@ -178,7 +180,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                           height:
                                                               valueOrDefault<
                                                                   double>(
-                                                            containerAdvertisingRowList.isNotEmpty
+                                                            containerAdvertisingRowList
+                                                                        .length >
+                                                                    0
                                                                 ? 160.0
                                                                 : 0.0,
                                                             160.0,
@@ -192,7 +196,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         20.0,
                                                                         0.0,
@@ -205,7 +209,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                                     containerAdvertisingRowList
                                                                         .toList();
 
-                                                                return SizedBox(
+                                                                return Container(
                                                                   width: double
                                                                       .infinity,
                                                                   height: double
@@ -283,7 +287,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                               );
                                             } else {
                                               return Container(
-                                                decoration: const BoxDecoration(),
+                                                decoration: BoxDecoration(),
                                               );
                                             }
                                           },
@@ -292,7 +296,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                           builder: (context) {
                                             if (false) {
                                               return Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: Builder(
@@ -338,7 +342,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                       physics:
                                                           const NeverScrollableScrollPhysics(),
                                                       gridDelegate:
-                                                          const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                                         crossAxisCount: 3,
                                                       ),
                                                       crossAxisSpacing: 20.0,
@@ -355,7 +359,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                         return Container(
                                                           height: 75.0,
                                                           decoration:
-                                                              const BoxDecoration(),
+                                                              BoxDecoration(),
                                                           child:
                                                               CategoriesItemWidget(
                                                             key: Key(
@@ -402,14 +406,14 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                               );
                                             } else {
                                               return Container(
-                                                decoration: const BoxDecoration(),
+                                                decoration: BoxDecoration(),
                                               );
                                             }
                                           },
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Builder(
                                             builder: (context) {
@@ -496,14 +500,14 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                     ),
                                                   );
                                                 }).divide(
-                                                    const SizedBox(height: 8.0)),
+                                                    SizedBox(height: 8.0)),
                                               );
                                             },
                                           ),
                                         ),
                                       ]
-                                          .addToStart(const SizedBox(height: 20.0))
-                                          .addToEnd(const SizedBox(height: 100.0)),
+                                          .addToStart(SizedBox(height: 20.0))
+                                          .addToEnd(SizedBox(height: 100.0)),
                                     ),
                                   );
                                 },
@@ -516,7 +520,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navBarModel,
                     updateCallback: () => safeSetState(() {}),

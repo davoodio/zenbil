@@ -27,6 +27,12 @@ Future<dynamic> handleDynamicLink(BuildContext context) async {
         print('Navigating to ProductsStore with marketId: $marketID');
         FFAppState().storeID = marketID;
       }
+      if (data.containsKey("marketID") && data.containsKey("productId")) {
+        int marketID = int.parse(data["marketID"]);
+        int productID = int.parse(data["productId"]);
+        FFAppState().storeID = marketID;
+        FFAppState().productID = productID;
+      }
     }
   }, onError: (error) {
     print('listSession error: ${error.toString()}');

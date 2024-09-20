@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'conversation_card_model.dart';
 export 'conversation_card_model.dart';
 
@@ -53,7 +54,7 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
       highlightColor: Colors.transparent,
       onTap: () async {
         logFirebaseEvent('CONVERSATION_CARD_Container_z0byv1xe_ON_');
-        if (widget.conversation?.userUnreadMessageNumber == 1) {
+        if (widget!.conversation?.userUnreadMessageNumber == 1) {
           logFirebaseEvent('Container_backend_call');
           await ConversationsTable().update(
             data: {
@@ -61,7 +62,7 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
             },
             matchingRows: (rows) => rows.eq(
               'id',
-              widget.conversation?.id,
+              widget!.conversation?.id,
             ),
           );
         }
@@ -71,11 +72,11 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
           'Chat',
           queryParameters: {
             'conversationId': serializeParam(
-              widget.conversation?.id,
+              widget!.conversation?.id,
               ParamType.int,
             ),
             'currentUser': serializeParam(
-              widget.currentUser,
+              widget!.currentUser,
               ParamType.SupabaseRow,
             ),
           }.withoutNulls,
@@ -83,9 +84,9 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
       },
       child: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(),
+        decoration: BoxDecoration(),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,11 +99,11 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
                     color: FlutterFlowTheme.of(context).cartBg,
                     shape: BoxShape.circle,
                   ),
-                  child: SizedBox(
+                  child: Container(
                     width: double.infinity,
                     height: double.infinity,
                     child: Stack(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(0.0),
@@ -148,7 +149,7 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
                           valueOrDefault<String>(
                             dateTimeFormat(
                               "relative",
-                              widget.conversation?.lastUpdate,
+                              widget!.conversation?.lastUpdate,
                               locale: FFLocalizations.of(context)
                                       .languageShortCode ??
                                   FFLocalizations.of(context).languageCode,
@@ -168,7 +169,7 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(const SizedBox(width: 8.0)),
+                      ].divide(SizedBox(width: 8.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -177,7 +178,7 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
                         Flexible(
                           child: Text(
                             valueOrDefault<String>(
-                              widget.conversation?.lastMessage,
+                              widget!.conversation?.lastMessage,
                               'No message in the conversation!',
                             ),
                             maxLines: 1,
@@ -194,13 +195,13 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
                                 ),
                           ),
                         ),
-                        if (widget.conversation!.userUnreadMessageNumber! > 0)
+                        if (widget!.conversation!.userUnreadMessageNumber! > 0)
                           Container(
                             width: 7.0,
                             height: 7.0,
                             decoration: BoxDecoration(
                               color: valueOrDefault<Color>(
-                                widget.conversation!.userUnreadMessageNumber! >
+                                widget!.conversation!.userUnreadMessageNumber! >
                                         0
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context).tfBg,
@@ -211,10 +212,10 @@ class _ConversationCardWidgetState extends State<ConversationCardWidget> {
                           ),
                       ],
                     ),
-                  ].divide(const SizedBox(height: 4.0)),
+                  ].divide(SizedBox(height: 4.0)),
                 ),
               ),
-            ].divide(const SizedBox(width: 16.0)),
+            ].divide(SizedBox(width: 16.0)),
           ),
         ),
       ),

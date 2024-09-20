@@ -60,12 +60,12 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: const BoxDecoration(),
-      child: SizedBox(
+      decoration: BoxDecoration(),
+      child: Container(
         width: double.infinity,
         height: double.infinity,
         child: Stack(
-          alignment: const AlignmentDirectional(0.0, 0.0),
+          alignment: AlignmentDirectional(0.0, 0.0),
           children: [
             Column(
               mainAxisSize: MainAxisSize.max,
@@ -74,13 +74,13 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                   flex: 2,
                   child: Container(
                     width: double.infinity,
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(14.0),
+                    padding: EdgeInsets.all(14.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -96,7 +96,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                   .secondaryBackground,
                             ),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 10.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -126,7 +126,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
                                       borderRadius: 30.0,
@@ -154,7 +154,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     2.0, 0.0, 0.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -167,13 +167,13 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                     logFirebaseEvent('Container_action_block');
                                     await action_blocks.paymentExecution(
                                       context,
-                                      transactionType: widget.transactionType,
+                                      transactionType: widget!.transactionType,
                                       currencyCode:
                                           FFAppState().country.currencyCode,
-                                      order: widget.order,
-                                      paymentAmount: widget.paymentAmount,
+                                      order: widget!.order,
+                                      paymentAmount: widget!.paymentAmount,
                                       paymentMethod: PaymentTypes.FIB,
-                                      walletId: widget.walletId,
+                                      walletId: widget!.walletId,
                                     );
                                   },
                                   child: Container(
@@ -182,7 +182,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                           .secondaryBackground,
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -198,7 +198,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                                   BorderRadius.circular(15.0),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.all(14.0),
+                                              padding: EdgeInsets.all(14.0),
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
@@ -307,9 +307,9 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                                       ),
                                                     ),
                                                   ].divide(
-                                                      const SizedBox(width: 16.0)),
+                                                      SizedBox(width: 16.0)),
                                                 ),
-                                              ].divide(const SizedBox(height: 8.0)),
+                                              ].divide(SizedBox(height: 8.0)),
                                             ),
                                           ),
                                           Icon(
@@ -318,7 +318,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                                 .secondaryText,
                                             size: 24.0,
                                           ),
-                                        ].divide(const SizedBox(width: 24.0)),
+                                        ].divide(SizedBox(width: 24.0)),
                                       ),
                                     ),
                                   ),
@@ -335,16 +335,16 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                   logFirebaseEvent('Container_action_block');
                                   await action_blocks.paymentExecution(
                                     context,
-                                    transactionType: widget.transactionType,
+                                    transactionType: widget!.transactionType,
                                     currencyCode:
                                         FFAppState().country.currencyCode,
-                                    order: widget.transactionType ==
+                                    order: widget!.transactionType ==
                                             TransactionType.Order
-                                        ? widget.order
+                                        ? widget!.order
                                         : null,
-                                    paymentAmount: widget.paymentAmount,
+                                    paymentAmount: widget!.paymentAmount,
                                     paymentMethod: PaymentTypes.Amwal,
-                                    walletId: widget.walletId,
+                                    walletId: widget!.walletId,
                                   );
                                   safeSetState(() {});
                                 },
@@ -355,7 +355,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                         .secondaryBackground,
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -370,7 +370,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                                 BorderRadius.circular(15.0),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(14.0),
+                                            padding: EdgeInsets.all(14.0),
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
@@ -449,9 +449,9 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                                               ),
                                                     ),
                                                   ),
-                                                ].divide(const SizedBox(width: 16.0)),
+                                                ].divide(SizedBox(width: 16.0)),
                                               ),
-                                            ].divide(const SizedBox(height: 8.0)),
+                                            ].divide(SizedBox(height: 8.0)),
                                           ),
                                         ),
                                         Icon(
@@ -460,19 +460,19 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                               .secondaryText,
                                           size: 24.0,
                                         ),
-                                      ].divide(const SizedBox(width: 24.0)),
+                                      ].divide(SizedBox(width: 24.0)),
                                     ),
                                   ),
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 14.0))
-                                .addToStart(const SizedBox(height: 14.0))
-                                .addToEnd(const SizedBox(height: 14.0)),
+                                .divide(SizedBox(height: 14.0))
+                                .addToStart(SizedBox(height: 14.0))
+                                .addToEnd(SizedBox(height: 14.0)),
                           ),
                         ]
-                            .addToStart(const SizedBox(height: 14.0))
-                            .addToEnd(const SizedBox(height: 14.0)),
+                            .addToStart(SizedBox(height: 14.0))
+                            .addToEnd(SizedBox(height: 14.0)),
                       ),
                     ),
                   ),
@@ -481,7 +481,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                   flex: 2,
                   child: Container(
                     width: double.infinity,
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                   ),
                 ),
               ],

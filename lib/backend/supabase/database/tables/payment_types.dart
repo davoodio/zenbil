@@ -9,7 +9,7 @@ class PaymentTypesTable extends SupabaseTable<PaymentTypesRow> {
 }
 
 class PaymentTypesRow extends SupabaseDataRow {
-  PaymentTypesRow(super.data);
+  PaymentTypesRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => PaymentTypesTable();

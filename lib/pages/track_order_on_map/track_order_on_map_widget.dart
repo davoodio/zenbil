@@ -2,7 +2,10 @@ import '/components/header/header_widget.dart';
 import '/components/order_time_line/order_time_line_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'track_order_on_map_model.dart';
 export 'track_order_on_map_model.dart';
 
@@ -44,7 +47,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -90,14 +93,14 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.0, 1.0),
                                 child: Container(
                                   width: double.infinity,
                                   height: 400.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    boxShadow: const [
+                                    boxShadow: [
                                       BoxShadow(
                                         blurRadius: 25.0,
                                         color: Color(0x0D000000),
@@ -107,7 +110,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                         ),
                                       )
                                     ],
-                                    borderRadius: const BorderRadius.only(
+                                    borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(0.0),
                                       bottomRight: Radius.circular(0.0),
                                       topLeft: Radius.circular(32.0),
@@ -115,7 +118,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 30.0, 20.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -124,7 +127,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                           model: _model.orderTimeLineModel1,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const OrderTimeLineWidget(
+                                          child: OrderTimeLineWidget(
                                             status: 'Oreder Placed',
                                             description:
                                                 'We have received your order',
@@ -136,7 +139,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                           model: _model.orderTimeLineModel2,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const OrderTimeLineWidget(
+                                          child: OrderTimeLineWidget(
                                             status: 'Confirmed',
                                             description:
                                                 'Your order has been confirmed',
@@ -147,7 +150,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                           model: _model.orderTimeLineModel3,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const OrderTimeLineWidget(
+                                          child: OrderTimeLineWidget(
                                             status: 'Order Shipped',
                                             description:
                                                 'Your Package off for delivery ',
@@ -158,7 +161,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                           model: _model.orderTimeLineModel4,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const OrderTimeLineWidget(
+                                          child: OrderTimeLineWidget(
                                             status: 'Out for Delivery',
                                             description:
                                                 'Estimated for 13 Feb, 2024',
@@ -169,7 +172,7 @@ class _TrackOrderOnMapWidgetState extends State<TrackOrderOnMapWidget> {
                                           model: _model.orderTimeLineModel5,
                                           updateCallback: () =>
                                               safeSetState(() {}),
-                                          child: const OrderTimeLineWidget(
+                                          child: OrderTimeLineWidget(
                                             status: 'Delivered',
                                             description:
                                                 'Estimated for 13 Feb, 2024',

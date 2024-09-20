@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'flutter_flow/request_manager.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
+import 'backend/api_requests/api_manager.dart';
 import 'backend/supabase/supabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -305,7 +307,7 @@ class FFAppState extends ChangeNotifier {
     _dummyVariable = value;
   }
 
-  LatLng? _MapCenterDefault = const LatLng(36.1877383, 44.0106983);
+  LatLng? _MapCenterDefault = LatLng(36.1877383, 44.0106983);
   LatLng? get MapCenterDefault => _MapCenterDefault;
   set MapCenterDefault(LatLng? value) {
     _MapCenterDefault = value;
@@ -315,6 +317,12 @@ class FFAppState extends ChangeNotifier {
   int get storeID => _storeID;
   set storeID(int value) {
     _storeID = value;
+  }
+
+  int _productID = 0;
+  int get productID => _productID;
+  set productID(int value) {
+    _productID = value;
   }
 
   final _countriesAllManager = FutureRequestManager<List<CountriesRow>>();

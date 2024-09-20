@@ -1,6 +1,9 @@
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'image_widget_model.dart';
 export 'image_widget_model.dart';
 
@@ -11,8 +14,8 @@ class ImageWidgetWidget extends StatefulWidget {
     bool? isExpamdable,
     double? radius,
     required this.isAvatar,
-  })  : isExpamdable = isExpamdable ?? false,
-        radius = radius ?? 4.0;
+  })  : this.isExpamdable = isExpamdable ?? false,
+        this.radius = radius ?? 4.0;
 
   final String? image;
   final bool isExpamdable;
@@ -51,7 +54,7 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(valueOrDefault<double>(
-        widget.radius,
+        widget!.radius,
         0.0,
       )),
       child: Container(
@@ -59,23 +62,23 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
         height: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(valueOrDefault<double>(
-            widget.radius,
+            widget!.radius,
             0.0,
           )),
         ),
-        child: SizedBox(
+        child: Container(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
             children: [
-              if (widget.image == null || widget.image == '')
+              if (widget!.image == null || widget!.image == '')
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: CachedNetworkImage(
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    fadeOutDuration: const Duration(milliseconds: 500),
+                    fadeInDuration: Duration(milliseconds: 500),
+                    fadeOutDuration: Duration(milliseconds: 500),
                     imageUrl: valueOrDefault<String>(
-                      widget.isAvatar!
+                      widget!.isAvatar!
                           ? 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/prism-dashboard-saa-s-metrics-u411hg/assets/l7oedzfucwjp/avatar-placeholder.jpeg'
                           : 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/prism-dashboard-saa-s-metrics-u411hg/assets/roe0mpiueyb8/placeholder-image.png',
                       'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/prism-dashboard-saa-s-metrics-u411hg/assets/roe0mpiueyb8/placeholder-image.png',
@@ -85,8 +88,8 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              if (widget.isExpamdable &&
-                  (widget.image != null && widget.image != ''))
+              if (widget!.isExpamdable &&
+                  (widget!.image != null && widget!.image != ''))
                 InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -96,14 +99,14 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
                     logFirebaseEvent('IMAGE_WIDGET_COMP_expanded_ON_TAP');
                   },
                   child: Hero(
-                    tag: widget.image!,
+                    tag: widget!.image!,
                     transitionOnUserGestures: true,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(0.0),
                       child: CachedNetworkImage(
-                        fadeInDuration: const Duration(milliseconds: 500),
-                        fadeOutDuration: const Duration(milliseconds: 500),
-                        imageUrl: widget.image!,
+                        fadeInDuration: Duration(milliseconds: 500),
+                        fadeOutDuration: Duration(milliseconds: 500),
+                        imageUrl: widget!.image!,
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,
@@ -111,14 +114,14 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
                     ),
                   ),
                 ),
-              if (!widget.isExpamdable &&
-                  (widget.image != null && widget.image != ''))
+              if (!widget!.isExpamdable &&
+                  (widget!.image != null && widget!.image != ''))
                 ClipRRect(
                   borderRadius: BorderRadius.circular(0.0),
                   child: CachedNetworkImage(
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    fadeOutDuration: const Duration(milliseconds: 500),
-                    imageUrl: widget.image!,
+                    fadeInDuration: Duration(milliseconds: 500),
+                    fadeOutDuration: Duration(milliseconds: 500),
+                    imageUrl: widget!.image!,
                     width: double.infinity,
                     height: double.infinity,
                     fit: BoxFit.cover,

@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'divider_text_model.dart';
 export 'divider_text_model.dart';
 
@@ -10,8 +11,8 @@ class DividerTextWidget extends StatefulWidget {
     super.key,
     String? title,
     bool? titleInLeftSide,
-  })  : title = title ?? '',
-        titleInLeftSide = titleInLeftSide ?? false;
+  })  : this.title = title ?? '',
+        this.titleInLeftSide = titleInLeftSide ?? false;
 
   final String title;
   final bool titleInLeftSide;
@@ -48,11 +49,11 @@ class _DividerTextWidgetState extends State<DividerTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          if (!widget.titleInLeftSide)
+          if (!widget!.titleInLeftSide)
             Expanded(
               child: Container(
                 height: 1.0,
@@ -64,18 +65,18 @@ class _DividerTextWidgetState extends State<DividerTextWidget> {
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if ((widget.title != '') &&
-                  !widget.titleInLeftSide)
+              if ((widget!.title != null && widget!.title != '') &&
+                  !widget!.titleInLeftSide)
                 Container(
                   width: 16.0,
                   height: 1.0,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                 ),
-              if (widget.title != '')
+              if (widget!.title != null && widget!.title != '')
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: Text(
-                    widget.title,
+                    widget!.title,
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).labelMedium.override(
                           fontFamily:

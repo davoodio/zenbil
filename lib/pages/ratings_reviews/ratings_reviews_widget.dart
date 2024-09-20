@@ -64,7 +64,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -72,7 +72,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -100,7 +100,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -119,25 +119,25 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                   FFLocalizations.of(context)
                                                       .getVariableText(
                                                     enText:
-                                                        widget.product?.name,
-                                                    arText: widget.product
+                                                        widget!.product?.name,
+                                                    arText: widget!.product
                                                                     ?.nameArabic !=
                                                                 null &&
-                                                            widget.product
+                                                            widget!.product
                                                                     ?.nameArabic !=
                                                                 ''
-                                                        ? widget
+                                                        ? widget!
                                                             .product?.nameArabic
-                                                        : widget.product?.name,
-                                                    faText: widget.product
+                                                        : widget!.product?.name,
+                                                    faText: widget!.product
                                                                     ?.nameKurdish !=
                                                                 null &&
-                                                            widget.product
+                                                            widget!.product
                                                                     ?.nameKurdish !=
                                                                 ''
-                                                        ? widget.product
+                                                        ? widget!.product
                                                             ?.nameKurdish
-                                                        : widget.product?.name,
+                                                        : widget!.product?.name,
                                                   ),
                                                   maxLines: 3,
                                                   style: FlutterFlowTheme.of(
@@ -165,10 +165,10 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                   valueOrDefault<double>(
                                                         functions
                                                             .calculateDiscountedPriceWithQuantity(
-                                                                widget.product!
+                                                                widget!.product!
                                                                     .price!,
                                                                 1,
-                                                                widget.product!
+                                                                widget!.product!
                                                                     .discountPercent!),
                                                         0.0,
                                                       ) *
@@ -200,14 +200,14 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                       .titleLargeFamily),
                                                         ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           ),
-                                          if (((widget.product?.reviewRate !=
+                                          if (((widget!.product?.reviewRate !=
                                                       null) &&
-                                                  (widget.product
+                                                  (widget!.product
                                                           ?.reviewRate !=
                                                       0.0)) ||
-                                              (widget.product!
+                                              (widget!.product!
                                                       .discountPercent! >
                                                   0.0))
                                             Row(
@@ -218,10 +218,10 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                               children: [
                                                 Builder(
                                                   builder: (context) {
-                                                    if ((widget.product
+                                                    if ((widget!.product
                                                                 ?.reviewRate !=
                                                             null) &&
-                                                        (widget.product
+                                                        (widget!.product
                                                                 ?.reviewRate !=
                                                             0.0)) {
                                                       return Row(
@@ -244,7 +244,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                             ),
                                                             direction:
                                                                 Axis.horizontal,
-                                                            rating: widget
+                                                            rating: widget!
                                                                 .product!
                                                                 .reviewRate!,
                                                             unratedColor:
@@ -258,7 +258,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                             valueOrDefault<
                                                                 String>(
                                                               formatNumber(
-                                                                widget.product
+                                                                widget!.product
                                                                     ?.reviewRate,
                                                                 formatType:
                                                                     FormatType
@@ -290,7 +290,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                 ),
                                                           ),
                                                           Text(
-                                                            '(${widget.product?.numberOfReviews?.toString()})',
+                                                            '(${widget!.product?.numberOfReviews?.toString()})',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -312,18 +312,18 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                               .bodyMediumFamily),
                                                                 ),
                                                           ),
-                                                        ].divide(const SizedBox(
+                                                        ].divide(SizedBox(
                                                             width: 4.0)),
                                                       );
                                                     } else {
                                                       return Container(
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                       );
                                                     }
                                                   },
                                                 ),
-                                                if (widget.product!
+                                                if (widget!.product!
                                                         .discountPercent! >
                                                     0.0)
                                                   Row(
@@ -331,7 +331,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
-                                                        '${widget.product?.discountPercent?.toString()}% OFF',
+                                                        '${widget!.product?.discountPercent?.toString()}% OFF',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -355,7 +355,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                 ),
                                                       ),
                                                       Text(
-                                                        '${((widget.product!.price!) * FFAppState().country.currencyExchangeRate).toString()} ${FFAppState().country.currencySymbol}',
+                                                        '${((widget!.product!.price!) * FFAppState().country.currencyExchangeRate).toString()} ${FFAppState().country.currencySymbol}',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -382,11 +382,11 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                 ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 8.0)),
+                                                        SizedBox(width: 8.0)),
                                                   ),
                                               ],
                                             ),
-                                        ].divide(const SizedBox(height: 16.0)),
+                                        ].divide(SizedBox(height: 16.0)),
                                       ),
                                     ),
                                     FutureBuilder<List<ViewOrderProductRow>>(
@@ -394,7 +394,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                         queryFn: (q) => q
                                             .eq(
                                               'order_product_product_id',
-                                              widget.product?.id,
+                                              widget!.product?.id,
                                             )
                                             .eq(
                                               'order_user_id',
@@ -404,14 +404,14 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
-                                          return const EmptyComponentWidget();
+                                          return EmptyComponentWidget();
                                         }
                                         List<ViewOrderProductRow>
                                             orderProductsViewOrderProductRowList =
                                             snapshot.data!;
 
                                         return Container(
-                                          decoration: const BoxDecoration(),
+                                          decoration: BoxDecoration(),
                                           child: FutureBuilder<
                                               List<ProductReviewsRow>>(
                                             future:
@@ -419,7 +419,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                               queryFn: (q) => q
                                                   .eq(
                                                     'product_id',
-                                                    widget.product?.id,
+                                                    widget!.product?.id,
                                                   )
                                                   .eq(
                                                     'status',
@@ -429,14 +429,14 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return const EmptyComponentWidget();
+                                                return EmptyComponentWidget();
                                               }
                                               List<ProductReviewsRow>
                                                   productReviewsProductReviewsRowList =
                                                   snapshot.data!;
 
                                               return Container(
-                                                decoration: const BoxDecoration(),
+                                                decoration: BoxDecoration(),
                                                 child: FutureBuilder<
                                                     List<UsersRow>>(
                                                   future:
@@ -453,7 +453,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
                                                     if (!snapshot.hasData) {
-                                                      return const ShimmerReviewsWidget();
+                                                      return ShimmerReviewsWidget();
                                                     }
                                                     List<UsersRow>
                                                         reviewingUsersUsersRowList =
@@ -461,7 +461,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
 
                                                     return Container(
                                                       decoration:
-                                                          const BoxDecoration(),
+                                                          BoxDecoration(),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -472,7 +472,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                     .max,
                                                             children: [
                                                               Padding(
-                                                                padding: const EdgeInsetsDirectional
+                                                                padding: EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         20.0,
                                                                         0.0,
@@ -511,9 +511,11 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                     (context) {
                                                                   if ((orderProductsViewOrderProductRowList
                                                                           .isNotEmpty) &&
-                                                                      (orderProductsViewOrderProductRowList.isNotEmpty)) {
+                                                                      (orderProductsViewOrderProductRowList
+                                                                              .length >
+                                                                          0)) {
                                                                     return Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           20.0,
                                                                           0.0,
                                                                           20.0,
@@ -538,11 +540,11 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                                   'FeedBack',
                                                                                   queryParameters: {
                                                                                     'product': serializeParam(
-                                                                                      widget.product,
+                                                                                      widget!.product,
                                                                                       ParamType.SupabaseRow,
                                                                                     ),
                                                                                     'marketId': serializeParam(
-                                                                                      widget.marketId,
+                                                                                      widget!.marketId,
                                                                                       ParamType.int,
                                                                                     ),
                                                                                   }.withoutNulls,
@@ -551,14 +553,14 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                               text: FFLocalizations.of(context).getText(
                                                                                 '1q1dii4w' /* Leave a Review */,
                                                                               ),
-                                                                              icon: const Icon(
+                                                                              icon: Icon(
                                                                                 FFIcons.kstarFilled,
                                                                                 size: 20.0,
                                                                               ),
                                                                               options: FFButtonOptions(
                                                                                 height: 48.0,
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                                                                                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                                                                                 color: FlutterFlowTheme.of(context).tertiary,
                                                                                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                       fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
@@ -566,7 +568,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                                       useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
                                                                                     ),
                                                                                 elevation: 0.0,
-                                                                                borderSide: const BorderSide(
+                                                                                borderSide: BorderSide(
                                                                                   color: Colors.transparent,
                                                                                   width: 1.0,
                                                                                 ),
@@ -580,7 +582,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                   } else {
                                                                     return Container(
                                                                       decoration:
-                                                                          const BoxDecoration(),
+                                                                          BoxDecoration(),
                                                                     );
                                                                   }
                                                                 },
@@ -593,19 +595,19 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                         () {}),
                                                                 child:
                                                                     ReviewSummarySectionWidget(
-                                                                  product: widget
+                                                                  product: widget!
                                                                       .product!,
                                                                   productReviews:
                                                                       productReviewsProductReviewsRowList,
                                                                 ),
                                                               ),
-                                                            ].divide(const SizedBox(
+                                                            ].divide(SizedBox(
                                                                 height: 16.0)),
                                                           ),
                                                           if (false)
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -647,7 +649,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                       data:
                                                                           ThemeData(
                                                                         checkboxTheme:
-                                                                            const CheckboxThemeData(
+                                                                            CheckboxThemeData(
                                                                           visualDensity:
                                                                               VisualDensity.compact,
                                                                           materialTapTargetSize:
@@ -757,7 +759,7 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                               );
                                                             },
                                                           ),
-                                                        ].divide(const SizedBox(
+                                                        ].divide(SizedBox(
                                                             height: 16.0)),
                                                       ),
                                                     );
@@ -770,9 +772,9 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                       },
                                     ),
                                   ]
-                                      .divide(const SizedBox(height: 24.0))
-                                      .addToStart(const SizedBox(height: 24.0))
-                                      .addToEnd(const SizedBox(height: 24.0)),
+                                      .divide(SizedBox(height: 24.0))
+                                      .addToStart(SizedBox(height: 24.0))
+                                      .addToEnd(SizedBox(height: 24.0)),
                                 ),
                               ),
                             ),

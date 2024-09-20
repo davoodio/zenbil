@@ -1,6 +1,7 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/address_insert_widget.dart';
 import '/components/delivery_method_item_widget.dart';
@@ -56,15 +57,15 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CHECKOUT_PAGE_Checkout_ON_INIT_STATE');
-      if ((widget.order != null) &&
-          (widget.order?.userShippingAddressId != null)) {
+      if ((widget!.order != null) &&
+          (widget!.order?.userShippingAddressId != null)) {
         await Future.wait([
           Future(() async {
             logFirebaseEvent('Checkout_backend_call');
             _model.userAddressOnOrder = await UserAddressesTable().queryRows(
               queryFn: (q) => q.eq(
                 'id',
-                widget.order?.userShippingAddressId,
+                widget!.order?.userShippingAddressId,
               ),
             );
             logFirebaseEvent('Checkout_update_page_state');
@@ -79,7 +80,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
             _model.groupedDeliveryMethodsForOrder =
                 await _model.fetchDeliveryMethodsAvailableForOrderGroups(
               context,
-              order: widget.order,
+              order: widget!.order,
             );
             logFirebaseEvent('Checkout_update_app_state');
             FFAppState().dummyVariable = '';
@@ -95,7 +96,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
               elevation: 0,
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.transparent,
-              alignment: const AlignmentDirectional(0.0, 0.0)
+              alignment: AlignmentDirectional(0.0, 0.0)
                   .resolve(Directionality.of(context)),
               child: GestureDetector(
                 onTap: () => FocusScope.of(dialogContext).unfocus(),
@@ -138,7 +139,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: SafeArea(
             top: true,
-            child: SizedBox(
+            child: Container(
               width: double.infinity,
               height: double.infinity,
               child: Stack(
@@ -146,22 +147,22 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                   Container(
                     width: double.infinity,
                     height: double.infinity,
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
                           width: double.infinity,
                           height: 50.0,
-                          decoration: const BoxDecoration(),
+                          decoration: BoxDecoration(),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
-                                child: SizedBox(
+                                child: Container(
                                   width: 48.0,
                                   child: Stack(
                                     children: [
@@ -197,7 +198,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                   padding:
                                                       MediaQuery.viewInsetsOf(
                                                           context),
-                                                  child: SizedBox(
+                                                  child: Container(
                                                     height: double.infinity,
                                                     child: InfoModalWidget(
                                                       title: FFLocalizations.of(
@@ -240,7 +241,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                             await OrdersTable().delete(
                                               matchingRows: (rows) => rows.eq(
                                                 'id',
-                                                widget.order?.id,
+                                                widget!.order?.id,
                                               ),
                                             );
                                             logFirebaseEvent(
@@ -286,13 +287,13 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                   ],
                                 ),
                               ),
-                              const Row(
+                              Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 10.0, 0.0),
-                                    child: SizedBox(
+                                    child: Container(
                                       width: 48.0,
                                       child: Stack(
                                         children: [],
@@ -311,7 +312,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 20.0, 0.0, 20.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -321,14 +322,14 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    'You’re buying ${widget.orderproducts?.length.toString()} products',
+                                                    'You’re buying ${widget!.orderproducts?.length?.toString()} products',
                                                     maxLines: 1,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -357,7 +358,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                           Builder(
                                             builder: (context) {
                                               final orderGroupItem =
-                                                  widget.orderGroups!.toList();
+                                                  widget!.orderGroups!.toList();
 
                                               return Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -374,10 +375,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       Container(
                                                         width: double.infinity,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Builder(
                                                           builder: (context) {
-                                                            final orderproductItem = widget
+                                                            final orderproductItem = widget!
                                                                 .orderproducts!
                                                                 .where((e) =>
                                                                     e.orderGroupId ==
@@ -388,7 +389,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             return ListView
                                                                 .separated(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .fromLTRB(
                                                                 0,
                                                                 20.0,
@@ -404,7 +405,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                       .length,
                                                               separatorBuilder: (_,
                                                                       __) =>
-                                                                  const SizedBox(
+                                                                  SizedBox(
                                                                       height:
                                                                           10.0),
                                                               itemBuilder: (context,
@@ -418,7 +419,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           20.0,
                                                                           0.0,
                                                                           20.0,
@@ -437,7 +438,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                             false,
                                                                       ),
                                                                     ),
-                                                                  ].divide(const SizedBox(
+                                                                  ].divide(SizedBox(
                                                                       height:
                                                                           16.0)),
                                                                 );
@@ -457,10 +458,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                           e.orderGroupId ==
                                                                           orderGroupItemItem
                                                                               .id)
-                                                                      .toList().isNotEmpty))
+                                                                      .toList()
+                                                                      .length >
+                                                                  0))
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -491,7 +494,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                           .id,
                                                                   letChangeTheMethod:
                                                                       true,
-                                                                  deliveryOrder: _model.deliveryOptions.where((e) => e.orderGroupId == orderGroupItemItem.id).toList().isNotEmpty
+                                                                  deliveryOrder: _model.deliveryOptions.where((e) => e.orderGroupId == orderGroupItemItem.id).toList().length >
+                                                                          0
                                                                       ? _model
                                                                           .deliveryOptions
                                                                           .where((e) =>
@@ -779,11 +783,11 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                     ],
                                                   );
                                                 }).divide(
-                                                    const SizedBox(height: 24.0)),
+                                                    SizedBox(height: 24.0)),
                                               );
                                             },
                                           ),
-                                        ].divide(const SizedBox(height: 16.0)),
+                                        ].divide(SizedBox(height: 16.0)),
                                       ),
                                       Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -792,7 +796,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -871,7 +875,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                       .viewInsetsOf(
                                                                           context),
                                                                   child:
-                                                                      const SizedBox(
+                                                                      Container(
                                                                     height: double
                                                                         .infinity,
                                                                     child:
@@ -912,7 +916,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                   (rows) =>
                                                                       rows.eq(
                                                                 'id',
-                                                                widget
+                                                                widget!
                                                                     .order?.id,
                                                               ),
                                                             );
@@ -924,7 +928,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                               queryFn: (q) =>
                                                                   q.eq(
                                                                 'id',
-                                                                widget
+                                                                widget!
                                                                     .order?.id,
                                                               ),
                                                             );
@@ -954,10 +958,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         },
                                                         child: Container(
                                                           decoration:
-                                                              const BoxDecoration(),
+                                                              BoxDecoration(),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         8.0,
                                                                         8.0,
@@ -1028,7 +1032,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       ),
                                                     ],
                                                   ),
-                                                ].divide(const SizedBox(height: 8.0)),
+                                                ].divide(SizedBox(height: 8.0)),
                                               ),
                                             ),
                                           ),
@@ -1036,7 +1040,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: Row(
@@ -1082,7 +1086,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(20.0, 0.0,
                                                                 20.0, 0.0),
                                                     child: Row(
@@ -1200,11 +1204,11 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                   ),
                                                 ],
                                               ),
-                                            ].divide(const SizedBox(height: 8.0)),
+                                            ].divide(SizedBox(height: 8.0)),
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               width: 100.0,
@@ -1247,7 +1251,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 8.0)),
+                                                        SizedBox(width: 8.0)),
                                                   ),
                                                   Column(
                                                     mainAxisSize:
@@ -1312,7 +1316,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             children: [
                                                               Text(
                                                                 functions.applyCorrectNumberFormatting(
-                                                                    (widget.order!
+                                                                    (widget!.order!
                                                                             .priceSubTotal!) *
                                                                         FFAppState()
                                                                             .country
@@ -1341,10 +1345,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                               FlutterFlowTheme.of(context).labelSmallFamily),
                                                                     ),
                                                               ),
-                                                            ].divide(const SizedBox(
+                                                            ].divide(SizedBox(
                                                                 width: 8.0)),
                                                           ),
-                                                        ].divide(const SizedBox(
+                                                        ].divide(SizedBox(
                                                             width: 8.0)),
                                                       ),
                                                       Row(
@@ -1403,7 +1407,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             children: [
                                                               Stack(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         1.0,
                                                                         0.0),
                                                                 children: [
@@ -1446,7 +1450,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                             () =>
                                                                                 safeSetState(() {}),
                                                                         child:
-                                                                            const ShimmerContainerWidget(
+                                                                            ShimmerContainerWidget(
                                                                           width:
                                                                               50.0,
                                                                           height:
@@ -1456,10 +1460,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                     ),
                                                                 ],
                                                               ),
-                                                            ].divide(const SizedBox(
+                                                            ].divide(SizedBox(
                                                                 width: 8.0)),
                                                           ),
-                                                        ].divide(const SizedBox(
+                                                        ].divide(SizedBox(
                                                             width: 8.0)),
                                                       ),
                                                       Row(
@@ -1518,7 +1522,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             children: [
                                                               Stack(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         1.0,
                                                                         0.0),
                                                                 children: [
@@ -1526,13 +1530,13 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                       .isLoading)
                                                                     Align(
                                                                       alignment:
-                                                                          const AlignmentDirectional(
+                                                                          AlignmentDirectional(
                                                                               1.09,
                                                                               0.0),
                                                                       child:
                                                                           Text(
                                                                         functions.applyCorrectNumberFormatting(
-                                                                            (widget.order!.priceSubTotal!) * FFAppState().country.currencyExchangeRate +
+                                                                            (widget!.order!.priceSubTotal!) * FFAppState().country.currencyExchangeRate +
                                                                                 (_model.deliveryTotalFee != null ? _model.deliveryTotalFee! : 0.0),
                                                                             FFAppState().country.currencyCode,
                                                                             FFAppConstants.useCurrencySymbol,
@@ -1551,7 +1555,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                       .isLoading)
                                                                     Container(
                                                                       decoration:
-                                                                          const BoxDecoration(),
+                                                                          BoxDecoration(),
                                                                       child:
                                                                           wrapWithModel(
                                                                         model: _model
@@ -1560,7 +1564,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                             () =>
                                                                                 safeSetState(() {}),
                                                                         child:
-                                                                            const ShimmerContainerWidget(
+                                                                            ShimmerContainerWidget(
                                                                           width:
                                                                               50.0,
                                                                           height:
@@ -1570,14 +1574,14 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                     ),
                                                                 ],
                                                               ),
-                                                            ].divide(const SizedBox(
+                                                            ].divide(SizedBox(
                                                                 width: 8.0)),
                                                           ),
-                                                        ].divide(const SizedBox(
+                                                        ].divide(SizedBox(
                                                             width: 8.0)),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                                   ),
                                                   if (false)
                                                     Row(
@@ -1590,10 +1594,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         Flexible(
                                                           child: Container(
                                                             decoration:
-                                                                const BoxDecoration(),
+                                                                BoxDecoration(),
                                                             child: Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(8.0),
                                                               child: Text(
                                                                 FFLocalizations.of(
@@ -1625,16 +1629,16 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                           ),
                                                         ),
                                                       ].divide(
-                                                          const SizedBox(width: 8.0)),
+                                                          SizedBox(width: 8.0)),
                                                     ),
                                                 ].divide(
-                                                    const SizedBox(height: 16.0)),
+                                                    SizedBox(height: 16.0)),
                                               ),
                                             ),
                                           ),
-                                        ].divide(const SizedBox(height: 32.0)),
+                                        ].divide(SizedBox(height: 32.0)),
                                       ),
-                                    ].divide(const SizedBox(height: 40.0)),
+                                    ].divide(SizedBox(height: 40.0)),
                                   ),
                                 ),
                               ],
@@ -1642,7 +1646,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               20.0, 0.0, 20.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -1669,13 +1673,13 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                     _model.userAddress?.id,
                                                 'price_delivery':
                                                     _model.deliveryTotalFee,
-                                                'price_total': (widget.order!
+                                                'price_total': (widget!.order!
                                                         .priceSubTotal!) +
                                                     (_model.deliveryTotalFee!),
                                               },
                                               matchingRows: (rows) => rows.eq(
                                                 'id',
-                                                widget.order?.id,
+                                                widget!.order?.id,
                                               ),
                                             );
                                             while (_model
@@ -1690,7 +1694,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                           .orderGroupsLoopCounter]
                                                       .selectedOptionPrice
                                                       .roundToDouble(),
-                                                  'price_total': (widget
+                                                  'price_total': (widget!
                                                           .orderGroups!
                                                           .where((e) =>
                                                               e.id ==
@@ -1742,12 +1746,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       ParamType.Enum,
                                                     ),
                                                     'order': serializeParam(
-                                                      widget.order,
+                                                      widget!.order,
                                                       ParamType.SupabaseRow,
                                                     ),
                                                     'paymentAmount':
                                                         serializeParam(
-                                                      (widget.order!
+                                                      (widget!.order!
                                                                   .priceSubTotal!) *
                                                               FFAppState()
                                                                   .country
@@ -1764,7 +1768,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                 if (FFAppState()
                                                         .Wallet
                                                         .balance >=
-                                                    widget
+                                                    widget!
                                                         .order!.priceTotal!) {
                                                   logFirebaseEvent(
                                                       'Button_backend_call');
@@ -1774,11 +1778,11 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                           .call(
                                                     paymentType: TransactionType
                                                         .Order.name,
-                                                    recordId: widget.order?.id,
+                                                    recordId: widget!.order?.id,
                                                     walletId: FFAppState()
                                                         .Wallet
                                                         .walletId,
-                                                    amount: (widget.order!
+                                                    amount: (widget!.order!
                                                                 .priceSubTotal!) *
                                                             FFAppState()
                                                                 .country
@@ -1810,7 +1814,9 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                 null &&
                                                             (_model.walletQuery)!
                                                                 .isNotEmpty) &&
-                                                        (_model.walletQuery!.isNotEmpty)) {
+                                                        (_model.walletQuery!
+                                                                .length >
+                                                            0)) {
                                                       logFirebaseEvent(
                                                           'Button_update_app_state');
                                                       FFAppState()
@@ -1819,7 +1825,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                           ..balance = _model
                                                               .walletQuery
                                                               ?.first
-                                                              .balance,
+                                                              ?.balance,
                                                       );
                                                     }
                                                     logFirebaseEvent(
@@ -1834,7 +1840,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       matchingRows: (rows) =>
                                                           rows.eq(
                                                         'id',
-                                                        widget.order?.id,
+                                                        widget!.order?.id,
                                                       ),
                                                     );
                                                     logFirebaseEvent(
@@ -1844,7 +1850,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       'OrderConfirmation',
                                                       pathParameters: {
                                                         'order': serializeParam(
-                                                          widget.order,
+                                                          widget!.order,
                                                           ParamType.SupabaseRow,
                                                         ),
                                                       }.withoutNulls,
@@ -1862,7 +1868,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                           backgroundColor:
                                                               Colors
                                                                   .transparent,
-                                                          alignment: const AlignmentDirectional(
+                                                          alignment: AlignmentDirectional(
                                                                   0.0, 0.0)
                                                               .resolve(
                                                                   Directionality.of(
@@ -1903,7 +1909,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         backgroundColor:
                                                             Colors.transparent,
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
@@ -1946,8 +1952,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                   currencyCode: FFAppState()
                                                       .country
                                                       .currencyCode,
-                                                  order: widget.order,
-                                                  paymentAmount: (widget.order!
+                                                  order: widget!.order,
+                                                  paymentAmount: (widget!.order!
                                                               .priceSubTotal!) *
                                                           FFAppState()
                                                               .country
@@ -1972,7 +1978,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                     backgroundColor:
                                                         Colors.transparent,
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                                 0.0, 0.0)
                                                             .resolve(
                                                                 Directionality.of(
@@ -2011,10 +2017,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                     ),
                                     options: FFButtonOptions(
                                       height: 48.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color:
                                           FlutterFlowTheme.of(context).tertiary,
@@ -2031,7 +2037,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 0.0,
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),

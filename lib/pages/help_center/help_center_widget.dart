@@ -1,10 +1,12 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'help_center_model.dart';
 export 'help_center_model.dart';
 
@@ -63,7 +65,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -71,22 +73,22 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
                         width: double.infinity,
                         height: 50.0,
-                        decoration: const BoxDecoration(),
+                        decoration: BoxDecoration(),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
-                              child: SizedBox(
+                              child: Container(
                                 width: 48.0,
                                 child: Stack(
                                   children: [
@@ -144,13 +146,13 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                 ],
                               ),
                             ),
-                            const Row(
+                            Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 10.0, 0.0),
-                                  child: SizedBox(
+                                  child: Container(
                                     width: 44.0,
                                     height: 44.0,
                                     child: Stack(
@@ -167,13 +169,13 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                         child: Column(
                           children: [
                             Align(
-                              alignment: const Alignment(0.0, 0),
+                              alignment: Alignment(0.0, 0),
                               child: TabBar(
                                 labelColor:
                                     FlutterFlowTheme.of(context).primaryText,
                                 unselectedLabelColor:
                                     FlutterFlowTheme.of(context).secondaryText,
-                                labelPadding: const EdgeInsetsDirectional.fromSTEB(
+                                labelPadding: EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 5.0, 0.0),
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
@@ -186,7 +188,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                               FlutterFlowTheme.of(context)
                                                   .titleSmallFamily),
                                     ),
-                                unselectedLabelStyle: const TextStyle(),
+                                unselectedLabelStyle: TextStyle(),
                                 indicatorColor:
                                     FlutterFlowTheme.of(context).primary,
                                 indicatorWeight: 2.0,
@@ -219,7 +221,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                 controller: _model.tabBarController,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
                                     child: SingleChildScrollView(
                                       child: Column(
@@ -227,14 +229,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 25.0,
                                                     color: Color(0x11000000),
@@ -248,7 +250,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   color: Colors.white,
@@ -292,7 +294,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                                 launchURL(url!),
                                                       ),
                                                       theme:
-                                                          const ExpandableThemeData(
+                                                          ExpandableThemeData(
                                                         tapHeaderToExpand: true,
                                                         tapBodyToExpand: false,
                                                         tapBodyToCollapse:
@@ -310,14 +312,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 25.0,
                                                     color: Color(0x11000000),
@@ -331,7 +333,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   color: Colors.white,
@@ -375,7 +377,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                                 launchURL(url!),
                                                       ),
                                                       theme:
-                                                          const ExpandableThemeData(
+                                                          ExpandableThemeData(
                                                         tapHeaderToExpand: true,
                                                         tapBodyToExpand: false,
                                                         tapBodyToCollapse:
@@ -393,14 +395,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 25.0,
                                                     color: Color(0x11000000),
@@ -414,7 +416,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   color: Colors.white,
@@ -458,7 +460,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                                 launchURL(url!),
                                                       ),
                                                       theme:
-                                                          const ExpandableThemeData(
+                                                          ExpandableThemeData(
                                                         tapHeaderToExpand: true,
                                                         tapBodyToExpand: false,
                                                         tapBodyToCollapse:
@@ -476,14 +478,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 25.0,
                                                     color: Color(0x11000000),
@@ -497,7 +499,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   color: Colors.white,
@@ -541,7 +543,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                                 launchURL(url!),
                                                       ),
                                                       theme:
-                                                          const ExpandableThemeData(
+                                                          ExpandableThemeData(
                                                         tapHeaderToExpand: true,
                                                         tapBodyToExpand: false,
                                                         tapBodyToCollapse:
@@ -559,14 +561,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 25.0,
                                                     color: Color(0x11000000),
@@ -580,7 +582,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   color: Colors.white,
@@ -624,7 +626,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                                 launchURL(url!),
                                                       ),
                                                       theme:
-                                                          const ExpandableThemeData(
+                                                          ExpandableThemeData(
                                                         tapHeaderToExpand: true,
                                                         tapBodyToExpand: false,
                                                         tapBodyToCollapse:
@@ -642,14 +644,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 25.0,
                                                     color: Color(0x11000000),
@@ -663,7 +665,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Container(
                                                   width: double.infinity,
                                                   color: Colors.white,
@@ -707,7 +709,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                                 launchURL(url!),
                                                       ),
                                                       theme:
-                                                          const ExpandableThemeData(
+                                                          ExpandableThemeData(
                                                         tapHeaderToExpand: true,
                                                         tapBodyToExpand: false,
                                                         tapBodyToCollapse:
@@ -723,7 +725,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                               ),
                                             ),
                                           ),
-                                        ].divide(const SizedBox(height: 24.0)),
+                                        ].divide(SizedBox(height: 24.0)),
                                       ),
                                     ),
                                   ),
@@ -733,14 +735,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                       children: [
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                              boxShadow: const [
+                                              boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 25.0,
                                                   color: Color(0x11000000),
@@ -754,7 +756,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                   BorderRadius.circular(8.0),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.all(20.0),
+                                              padding: EdgeInsets.all(20.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -768,7 +770,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                   Expanded(
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   16.0,
                                                                   0.0,
@@ -810,14 +812,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                              boxShadow: const [
+                                              boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 25.0,
                                                   color: Color(0x11000000),
@@ -831,7 +833,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                   BorderRadius.circular(8.0),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.all(20.0),
+                                              padding: EdgeInsets.all(20.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -845,7 +847,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                   Expanded(
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   16.0,
                                                                   0.0,
@@ -887,14 +889,14 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                              boxShadow: const [
+                                              boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 25.0,
                                                   color: Color(0x11000000),
@@ -908,7 +910,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                   BorderRadius.circular(8.0),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.all(20.0),
+                                              padding: EdgeInsets.all(20.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -922,7 +924,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                                   Expanded(
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   16.0,
                                                                   0.0,
@@ -963,9 +965,9 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                           ),
                                         ),
                                       ]
-                                          .divide(const SizedBox(height: 24.0))
-                                          .addToStart(const SizedBox(height: 24.0))
-                                          .addToEnd(const SizedBox(height: 24.0)),
+                                          .divide(SizedBox(height: 24.0))
+                                          .addToStart(SizedBox(height: 24.0))
+                                          .addToEnd(SizedBox(height: 24.0)),
                                     ),
                                   ),
                                 ],

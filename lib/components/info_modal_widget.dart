@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'info_modal_model.dart';
 export 'info_modal_model.dart';
 
@@ -17,8 +18,8 @@ class InfoModalWidget extends StatefulWidget {
     this.icon,
     bool? autoDismiss,
     this.approveButtonText,
-  })  : isConfirm = isConfirm ?? false,
-        autoDismiss = autoDismiss ?? false;
+  })  : this.isConfirm = isConfirm ?? false,
+        this.autoDismiss = autoDismiss ?? false;
 
   final String? title;
   final String? body;
@@ -49,7 +50,7 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('INFO_MODAL_COMP_InfoModal_ON_INIT_STATE');
-      if (widget.autoDismiss && !widget.isConfirm) {
+      if (widget!.autoDismiss && !widget!.isConfirm) {
         logFirebaseEvent('InfoModal_wait__delay');
         await Future.delayed(const Duration(milliseconds: 2000));
         logFirebaseEvent('InfoModal_bottom_sheet');
@@ -72,33 +73,33 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: const BoxDecoration(),
-      alignment: const AlignmentDirectional(0.0, 0.0),
+      decoration: BoxDecoration(),
+      alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+        padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
         child: Container(
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).primaryBackground,
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(24.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (widget.icon != null)
+                if (widget!.icon != null)
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        widget.icon!,
+                        widget!.icon!,
                       ],
                     ),
                   ),
-                if (widget.title != null && widget.title != '')
+                if (widget!.title != null && widget!.title != '')
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +107,7 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                       Flexible(
                         child: Text(
                           valueOrDefault<String>(
-                            widget.title,
+                            widget!.title,
                             'title',
                           ),
                           textAlign: TextAlign.center,
@@ -125,9 +126,9 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                       ),
                     ],
                   ),
-                if (widget.body != null && widget.body != '')
+                if (widget!.body != null && widget!.body != '')
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -135,7 +136,7 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                         Flexible(
                           child: Text(
                             valueOrDefault<String>(
-                              widget.body,
+                              widget!.body,
                               'body',
                             ),
                             textAlign: TextAlign.center,
@@ -158,20 +159,20 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                       ],
                     ),
                   ),
-                if (!widget.autoDismiss)
+                if (!widget!.autoDismiss)
                   Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      if (!widget.isConfirm)
+                      if (!widget!.isConfirm)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (widget.approveButtonText != null &&
-                                  widget.approveButtonText != '')
+                              if (widget!.approveButtonText != null &&
+                                  widget!.approveButtonText != '')
                                 Semantics(
                                   label:
                                       'Approve the information modal content',
@@ -182,13 +183,13 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                       logFirebaseEvent('Button_bottom_sheet');
                                       Navigator.pop(context);
                                     },
-                                    text: widget.approveButtonText!,
+                                    text: widget!.approveButtonText!,
                                     options: FFButtonOptions(
                                       height: 48.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color:
                                           FlutterFlowTheme.of(context).tertiary,
@@ -205,7 +206,7 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 0.0,
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -213,12 +214,12 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                     ),
                                   ),
                                 ),
-                            ].divide(const SizedBox(width: 16.0)),
+                            ].divide(SizedBox(width: 16.0)),
                           ),
                         ),
-                      if (widget.isConfirm)
+                      if (widget!.isConfirm)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -237,9 +238,9 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                 options: FFButtonOptions(
                                   width: 100.0,
                                   height: 52.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -274,12 +275,12 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                     logFirebaseEvent('Button_bottom_sheet');
                                     Navigator.pop(context, true);
                                   },
-                                  text: widget.actionButtonText!,
+                                  text: widget!.actionButtonText!,
                                   options: FFButtonOptions(
                                     height: 52.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).tertiary,
@@ -296,7 +297,7 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 0.0,
-                                    borderSide: const BorderSide(
+                                    borderSide: BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -304,12 +305,12 @@ class _InfoModalWidgetState extends State<InfoModalWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(const SizedBox(width: 16.0)),
+                            ].divide(SizedBox(width: 16.0)),
                           ),
                         ),
                     ],
                   ),
-              ].divide(const SizedBox(height: 8.0)),
+              ].divide(SizedBox(height: 8.0)),
             ),
           ),
         ),

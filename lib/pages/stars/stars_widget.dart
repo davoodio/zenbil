@@ -20,7 +20,7 @@ class StarsWidget extends StatefulWidget {
   const StarsWidget({
     super.key,
     bool? showBackButton,
-  }) : showBackButton = showBackButton ?? false;
+  }) : this.showBackButton = showBackButton ?? false;
 
   final bool showBackButton;
 
@@ -60,7 +60,7 @@ class _StarsWidgetState extends State<StarsWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -68,7 +68,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -79,7 +79,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                           title: FFLocalizations.of(context).getText(
                             '1cxeu42f' /* Stars */,
                           ),
-                          showBackButton: widget.showBackButton,
+                          showBackButton: widget!.showBackButton,
                           showCart: true,
                           goToCartOnClick: true,
                           showSearch: true,
@@ -98,7 +98,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 4.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -112,7 +112,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                         borderRadius:
                                             BorderRadius.circular(100.0),
                                       ),
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -156,7 +156,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                         100.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 child: Row(
@@ -205,11 +205,11 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                     ),
                                                     Container(
                                                       constraints:
-                                                          const BoxConstraints(
+                                                          BoxConstraints(
                                                         minWidth: 12.0,
                                                       ),
                                                       decoration:
-                                                          const BoxDecoration(),
+                                                          BoxDecoration(),
                                                       child: Visibility(
                                                         visible: _model
                                                                 .activeCategory ==
@@ -225,7 +225,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                       ),
                                                     ),
                                                   ].divide(
-                                                      const SizedBox(width: 4.0)),
+                                                      SizedBox(width: 4.0)),
                                                 ),
                                               ),
                                             ),
@@ -271,7 +271,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                         100.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 child: Row(
@@ -322,7 +322,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                     Container(
                                                       width: 12.0,
                                                       decoration:
-                                                          const BoxDecoration(),
+                                                          BoxDecoration(),
                                                       child: Visibility(
                                                         visible: _model
                                                                 .activeCategory ==
@@ -338,14 +338,14 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                       ),
                                                     ),
                                                   ].divide(
-                                                      const SizedBox(width: 4.0)),
+                                                      SizedBox(width: 4.0)),
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ]
-                                            .addToStart(const SizedBox(width: 4.0))
-                                            .addToEnd(const SizedBox(width: 4.0)),
+                                            .addToStart(SizedBox(width: 4.0))
+                                            .addToEnd(SizedBox(width: 4.0)),
                                       ),
                                     ),
                                     if (false)
@@ -358,7 +358,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                               BorderRadius.circular(100.0),
                                         ),
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -377,11 +377,11 @@ class _StarsWidgetState extends State<StarsWidget> {
                                               ),
                                               options: FFButtonOptions(
                                                 height: 32.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color: valueOrDefault<Color>(
@@ -427,7 +427,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                 elevation: 0.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 0.0,
                                                 ),
@@ -452,11 +452,11 @@ class _StarsWidgetState extends State<StarsWidget> {
                                               ),
                                               options: FFButtonOptions(
                                                 height: 32.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color: valueOrDefault<Color>(
@@ -502,7 +502,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                 elevation: 0.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 0.0,
                                                 ),
@@ -527,11 +527,11 @@ class _StarsWidgetState extends State<StarsWidget> {
                                               ),
                                               options: FFButtonOptions(
                                                 height: 32.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color: valueOrDefault<Color>(
@@ -578,7 +578,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                 elevation: 0.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 0.0,
                                                 ),
@@ -589,15 +589,15 @@ class _StarsWidgetState extends State<StarsWidget> {
                                               showLoadingIndicator: false,
                                             ),
                                           ]
-                                              .addToStart(const SizedBox(width: 4.0))
-                                              .addToEnd(const SizedBox(width: 4.0)),
+                                              .addToStart(SizedBox(width: 4.0))
+                                              .addToEnd(SizedBox(width: 4.0)),
                                         ),
                                       ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: FutureBuilder<List<MarketsRow>>(
                                   future: MarketsTable().queryRows(
@@ -631,8 +631,8 @@ class _StarsWidgetState extends State<StarsWidget> {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
                                       return Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: SizedBox(
+                                        padding: EdgeInsets.all(20.0),
+                                        child: Container(
                                           width: double.infinity,
                                           child: LoaderBoxGridWidget(
                                             color: FlutterFlowTheme.of(context)
@@ -673,7 +673,7 @@ class _StarsWidgetState extends State<StarsWidget> {
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       gridDelegate:
-                                          const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3,
                                       ),
                                       crossAxisSpacing: 20.0,
@@ -729,8 +729,8 @@ class _StarsWidgetState extends State<StarsWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 16.0))
-                                .addToEnd(const SizedBox(height: 100.0)),
+                                .divide(SizedBox(height: 16.0))
+                                .addToEnd(SizedBox(height: 100.0)),
                           ),
                         ),
                       ),
@@ -738,11 +738,11 @@ class _StarsWidgetState extends State<StarsWidget> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: const NavBarWidget(
+                    child: NavBarWidget(
                       activePage: 'Stars',
                     ),
                   ),

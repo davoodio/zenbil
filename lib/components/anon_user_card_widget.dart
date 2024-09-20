@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'anon_user_card_model.dart';
 export 'anon_user_card_model.dart';
 
@@ -40,7 +41,7 @@ class _AnonUserCardWidgetState extends State<AnonUserCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -54,12 +55,12 @@ class _AnonUserCardWidgetState extends State<AnonUserCardWidget> {
                 shape: BoxShape.circle,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: EdgeInsets.all(3.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100.0),
                   child: CachedNetworkImage(
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    fadeOutDuration: const Duration(milliseconds: 500),
+                    fadeInDuration: Duration(milliseconds: 500),
+                    fadeOutDuration: Duration(milliseconds: 500),
                     imageUrl:
                         'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/muztoi9l6z3w/avatarMen.png',
                     width: double.infinity,
@@ -128,10 +129,10 @@ class _AnonUserCardWidgetState extends State<AnonUserCardWidget> {
                     ),
                   ],
                 ),
-              ].divide(const SizedBox(height: 4.0)),
+              ].divide(SizedBox(height: 4.0)),
             ),
           ),
-        ].divide(const SizedBox(width: 16.0)),
+        ].divide(SizedBox(width: 16.0)),
       ),
     );
   }

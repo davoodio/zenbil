@@ -9,6 +9,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'pin_code_verification_model.dart';
 export 'pin_code_verification_model.dart';
 
@@ -61,14 +62,14 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -168,7 +169,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                           ),
                                         ],
                                       ),
-                                    ].divide(const SizedBox(height: 8.0)),
+                                    ].divide(SizedBox(height: 8.0)),
                                   ),
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -211,7 +212,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                           fieldHeight: 44.0,
                                           fieldWidth: 44.0,
                                           borderWidth: 0.0,
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(4.0),
                                             bottomRight: Radius.circular(4.0),
                                             topLeft: Radius.circular(4.0),
@@ -243,9 +244,9 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                             .pinCodeControllerValidator
                                             .asValidator(context),
                                       ),
-                                    ].divide(const SizedBox(height: 16.0)),
+                                    ].divide(SizedBox(height: 16.0)),
                                   ),
-                                ].divide(const SizedBox(height: 24.0)),
+                                ].divide(SizedBox(height: 24.0)),
                               ),
                             ],
                           ),
@@ -263,7 +264,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                           'VerifyPinCode_custom_action');
                                       _model.pincodeVerify =
                                           await actions.verifyOtp(
-                                        widget.phoneNumber!,
+                                        widget!.phoneNumber!,
                                         _model.pinCodeController!.text,
                                       );
                                       if (ActionJsonResponseMapStruct
@@ -278,7 +279,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                             'VerifyPinCode_backend_call');
                                         await UsersTable().update(
                                           data: {
-                                            'country_id': widget.countryId,
+                                            'country_id': widget!.countryId,
                                             'is_anon': false,
                                           },
                                           matchingRows: (rows) => rows.eq(
@@ -324,7 +325,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                                       ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 3000),
+                                                Duration(milliseconds: 3000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primaryText,
@@ -347,9 +348,9 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 48.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).tertiary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -364,7 +365,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                                   .titleSmallFamily),
                                     ),
                                 elevation: 0.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -394,8 +395,8 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                                   child: Container(
                                     width: 100.0,
                                     height: 48.0,
-                                    decoration: const BoxDecoration(),
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    decoration: BoxDecoration(),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'i0t70n83' /* Try again */,
@@ -421,7 +422,7 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                             ),
                           ],
                         ),
-                      ].divide(const SizedBox(height: 30.0)),
+                      ].divide(SizedBox(height: 30.0)),
                     ),
                   ),
                 ),

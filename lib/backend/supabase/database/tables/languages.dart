@@ -9,7 +9,7 @@ class LanguagesTable extends SupabaseTable<LanguagesRow> {
 }
 
 class LanguagesRow extends SupabaseDataRow {
-  LanguagesRow(super.data);
+  LanguagesRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => LanguagesTable();

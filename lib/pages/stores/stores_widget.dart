@@ -21,8 +21,8 @@ class StoresWidget extends StatefulWidget {
     super.key,
     String? marketType,
     bool? showBackButton,
-  })  : marketType = marketType ?? 'Business',
-        showBackButton = showBackButton ?? false;
+  })  : this.marketType = marketType ?? 'Business',
+        this.showBackButton = showBackButton ?? false;
 
   final String marketType;
   final bool showBackButton;
@@ -46,7 +46,7 @@ class _StoresWidgetState extends State<StoresWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('STORES_PAGE_Stores_ON_INIT_STATE');
       logFirebaseEvent('Stores_update_page_state');
-      _model.marketType = widget.marketType;
+      _model.marketType = widget!.marketType;
       safeSetState(() {});
     });
 
@@ -71,7 +71,7 @@ class _StoresWidgetState extends State<StoresWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -79,7 +79,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -111,7 +111,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                               );
                             }
                           }(),
-                          showBackButton: widget.showBackButton,
+                          showBackButton: widget!.showBackButton,
                           showCart: true,
                           goToCartOnClick: true,
                           showSearch: true,
@@ -167,7 +167,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                   color: FlutterFlowTheme.of(context).tfBg,
                                   borderRadius: BorderRadius.circular(100.0),
                                 ),
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -189,10 +189,10 @@ class _StoresWidgetState extends State<StoresWidget> {
                                       ),
                                       options: FFButtonOptions(
                                         height: 32.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: valueOrDefault<Color>(
                                           _model.marketType ==
@@ -238,7 +238,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 0.0,
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 0.0,
                                         ),
@@ -263,10 +263,10 @@ class _StoresWidgetState extends State<StoresWidget> {
                                       ),
                                       options: FFButtonOptions(
                                         height: 32.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: valueOrDefault<Color>(
                                           _model.marketType ==
@@ -312,7 +312,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 0.0,
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 0.0,
                                         ),
@@ -339,10 +339,10 @@ class _StoresWidgetState extends State<StoresWidget> {
                                         options: FFButtonOptions(
                                           height: 32.0,
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           iconPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: valueOrDefault<Color>(
                                             _model.marketType ==
@@ -383,7 +383,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                                             .titleSmallFamily),
                                               ),
                                           elevation: 0.0,
-                                          borderSide: const BorderSide(
+                                          borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 0.0,
                                           ),
@@ -392,8 +392,8 @@ class _StoresWidgetState extends State<StoresWidget> {
                                         ),
                                       ),
                                   ]
-                                      .addToStart(const SizedBox(width: 4.0))
-                                      .addToEnd(const SizedBox(width: 4.0)),
+                                      .addToStart(SizedBox(width: 4.0))
+                                      .addToEnd(SizedBox(width: 4.0)),
                                 ),
                               ),
                             ],
@@ -410,7 +410,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                   if (_model.marketType ==
                                       MarketType.Brand.name) {
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: FutureBuilder<List<BrandsRow>>(
                                         future: BrandsTable().queryRows(
@@ -423,8 +423,8 @@ class _StoresWidgetState extends State<StoresWidget> {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
                                             return Padding(
-                                              padding: const EdgeInsets.all(20.0),
-                                              child: SizedBox(
+                                              padding: EdgeInsets.all(20.0),
+                                              child: Container(
                                                 width: double.infinity,
                                                 child: LoaderBoxGridWidget(
                                                   color: FlutterFlowTheme.of(
@@ -474,7 +474,7 @@ class _StoresWidgetState extends State<StoresWidget> {
 
                                           return MasonryGridView.builder(
                                             gridDelegate:
-                                                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 3,
                                             ),
                                             crossAxisSpacing: 20.0,
@@ -482,7 +482,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                             itemCount:
                                                 staggeredViewBrandsRowList
                                                     .length,
-                                            padding: const EdgeInsets.fromLTRB(
+                                            padding: EdgeInsets.fromLTRB(
                                               0,
                                               0,
                                               0,
@@ -526,7 +526,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                     );
                                   } else {
                                     return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: FutureBuilder<List<MarketsRow>>(
                                         future: MarketsTable().queryRows(
@@ -551,8 +551,8 @@ class _StoresWidgetState extends State<StoresWidget> {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
                                             return Padding(
-                                              padding: const EdgeInsets.all(20.0),
-                                              child: SizedBox(
+                                              padding: EdgeInsets.all(20.0),
+                                              child: Container(
                                                 width: double.infinity,
                                                 child: LoaderBoxGridWidget(
                                                   color: FlutterFlowTheme.of(
@@ -602,7 +602,7 @@ class _StoresWidgetState extends State<StoresWidget> {
 
                                           return MasonryGridView.builder(
                                             gridDelegate:
-                                                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 3,
                                             ),
                                             crossAxisSpacing: 20.0,
@@ -610,7 +610,7 @@ class _StoresWidgetState extends State<StoresWidget> {
                                             itemCount:
                                                 staggeredViewMarketsRowList
                                                     .length,
-                                            padding: const EdgeInsets.fromLTRB(
+                                            padding: EdgeInsets.fromLTRB(
                                               0,
                                               0,
                                               0,
@@ -671,15 +671,15 @@ class _StoresWidgetState extends State<StoresWidget> {
                               ),
                             ),
                           ]
-                              .divide(const SizedBox(height: 16.0))
-                              .addToStart(const SizedBox(height: 16.0)),
+                              .divide(SizedBox(height: 16.0))
+                              .addToStart(SizedBox(height: 16.0)),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navBarModel,
                     updateCallback: () => safeSetState(() {}),

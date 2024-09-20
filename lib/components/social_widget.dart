@@ -2,6 +2,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'social_model.dart';
 export 'social_model.dart';
 
@@ -10,7 +12,7 @@ class SocialWidget extends StatefulWidget {
     super.key,
     String? type,
     required this.url,
-  }) : type = type ?? 'x';
+  }) : this.type = type ?? 'x';
 
   final String type;
   final String? url;
@@ -53,67 +55,67 @@ class _SocialWidgetState extends State<SocialWidget> {
       onTap: () async {
         logFirebaseEvent('SOCIAL_COMP_Container_boa4wkgu_ON_TAP');
         logFirebaseEvent('Container_launch_u_r_l');
-        await launchURL(widget.url!);
+        await launchURL(widget!.url!);
       },
       child: Container(
-        decoration: const BoxDecoration(),
+        decoration: BoxDecoration(),
         child: Stack(
           children: [
-            if (widget.type == 'X')
+            if (widget!.type == 'X')
               Icon(
                 FFIcons.kx,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'YouTube')
+            if (widget!.type == 'YouTube')
               FaIcon(
                 FontAwesomeIcons.youtube,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'Instagram')
+            if (widget!.type == 'Instagram')
               FaIcon(
                 FontAwesomeIcons.instagram,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'TikTok')
+            if (widget!.type == 'TikTok')
               FaIcon(
                 FontAwesomeIcons.tiktok,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'FaceBook')
+            if (widget!.type == 'FaceBook')
               FaIcon(
                 FontAwesomeIcons.facebookF,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'Linkedin')
+            if (widget!.type == 'Linkedin')
               FaIcon(
                 FontAwesomeIcons.linkedinIn,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'WhatsApp')
+            if (widget!.type == 'WhatsApp')
               FaIcon(
                 FontAwesomeIcons.whatsapp,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'Reddit')
+            if (widget!.type == 'Reddit')
               FaIcon(
                 FontAwesomeIcons.redditAlien,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'Telegram')
+            if (widget!.type == 'Telegram')
               FaIcon(
                 FontAwesomeIcons.telegramPlane,
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 28.0,
               ),
-            if (widget.type == 'Website')
+            if (widget!.type == 'Website')
               Icon(
                 FFIcons.kglobe,
                 color: FlutterFlowTheme.of(context).primaryText,

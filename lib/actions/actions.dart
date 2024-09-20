@@ -1,5 +1,7 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/api_requests/api_manager.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
@@ -13,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Future userControl(BuildContext context) async {
-  dynamic createdAnonUser;
+  dynamic? createdAnonUser;
   UsersRow? currentUserLoaded;
   String? userAuthProvider;
   List<UserRoleRow>? userRole;
@@ -43,13 +45,13 @@ Future userControl(BuildContext context) async {
         context: context,
         builder: (alertDialogContext) {
           return AlertDialog(
-            title: const Text('Error!'),
+            title: Text('Error!'),
             content:
-                const Text('Seems there is issue to on board you! please try again'),
+                Text('Seems there is issue to on board you! please try again'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(alertDialogContext),
-                child: const Text('Ok'),
+                child: Text('Ok'),
               ),
             ],
           );
@@ -72,7 +74,7 @@ Future userControl(BuildContext context) async {
     await actions.printAction(
       'User Set to app state-Finished',
     );
-    if (currentUserLoaded.email == FFAppConstants.AnonUserEmail) {
+    if (currentUserLoaded?.email == FFAppConstants.AnonUserEmail) {
       logFirebaseEvent('UserControl_custom_action');
       await actions.printAction(
         'User is anon > Go to home',
@@ -94,7 +96,7 @@ Future userControl(BuildContext context) async {
       await actions.printAction(
         'Auth provider returned and wroted to user row',
       );
-      if (currentUserLoaded.userType == UserTypes.Delivery.name) {
+      if (currentUserLoaded?.userType == UserTypes.Delivery.name) {
         logFirebaseEvent('UserControl_custom_action');
         await actions.printAction(
           'User type > Delivery',
@@ -110,23 +112,23 @@ Future userControl(BuildContext context) async {
         await actions.printAction(
           'User > Delivery',
         );
-        if (userRole.isNotEmpty) {
+        if (userRole!.length > 0) {
           logFirebaseEvent('UserControl_backend_call');
           roleOfTheUser = await RolesTable().queryRows(
             queryFn: (q) => q.eq(
               'code',
-              userRole?.first.roleCode,
+              userRole?.first?.roleCode,
             ),
           );
           logFirebaseEvent('UserControl_update_app_state');
           FFAppState().Role = RoleStruct(
-            name: roleOfTheUser.first.name,
-            fullAccess: roleOfTheUser.first.fullAccess,
-            accountantAccess: roleOfTheUser.first.accountantAccess,
-            deliveryAccess: roleOfTheUser.first.deliveryAccess,
-            readOnly: roleOfTheUser.first.readOnly,
-            id: roleOfTheUser.first.id,
-            code: roleOfTheUser.first.code,
+            name: roleOfTheUser?.first?.name,
+            fullAccess: roleOfTheUser?.first?.fullAccess,
+            accountantAccess: roleOfTheUser?.first?.accountantAccess,
+            deliveryAccess: roleOfTheUser?.first?.deliveryAccess,
+            readOnly: roleOfTheUser?.first?.readOnly,
+            id: roleOfTheUser?.first?.id,
+            code: roleOfTheUser?.first?.code,
           );
           FFAppState().update(() {});
           logFirebaseEvent('UserControl_custom_action');
@@ -144,8 +146,8 @@ Future userControl(BuildContext context) async {
         await actions.printAction(
           'User auth > Phone',
         );
-        if (!(currentUserLoaded.userName != null &&
-            currentUserLoaded.userName != '')) {
+        if (!(currentUserLoaded?.userName != null &&
+            currentUserLoaded?.userName != '')) {
           logFirebaseEvent('UserControl_navigate_to');
 
           context.goNamed(
@@ -195,7 +197,7 @@ Future phoneAuth(
   required int? countryId,
 }) async {
   CountriesRow? currentCountry;
-  dynamic signinWithPhone;
+  dynamic? signinWithPhone;
 
   logFirebaseEvent('PhoneAuth_custom_action');
   currentCountry = await actions.getCountrySingle(
@@ -217,11 +219,11 @@ Future phoneAuth(
   );
   logFirebaseEvent('PhoneAuth_custom_action');
   await actions.printAction(
-    'Phone: ${currentCountry?.dialCode}$phoneNumber',
+    'Phone: ${currentCountry?.dialCode}${phoneNumber}',
   );
   logFirebaseEvent('PhoneAuth_custom_action');
   signinWithPhone = await actions.signInWithOtp(
-    '${currentCountry?.dialCode}$phoneNumber',
+    '${currentCountry?.dialCode}${phoneNumber}',
   );
   if (ActionJsonResponseMapStruct.maybeFromMap(signinWithPhone!)!.success) {
     logFirebaseEvent('PhoneAuth_navigate_to');
@@ -230,7 +232,7 @@ Future phoneAuth(
       'PinCodeVerification',
       queryParameters: {
         'phoneNumber': serializeParam(
-          '${currentCountry?.dialCode}$phoneNumber',
+          '${currentCountry?.dialCode}${phoneNumber}',
           ParamType.String,
         ),
         'countryId': serializeParam(
@@ -255,7 +257,7 @@ Future phoneAuth(
                     .containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
               ),
         ),
-        duration: const Duration(milliseconds: 2000),
+        duration: Duration(milliseconds: 2000),
         backgroundColor: FlutterFlowTheme.of(context).appleBg,
       ),
     );
@@ -271,17 +273,21 @@ Future setCountry(
   FFAppState().country = CountryStruct(
     name: country?.name,
     code: country?.code,
-    currencyCode: FFAppConstants.defaultCurrencyCode != ''
+    currencyCode: FFAppConstants.defaultCurrencyCode != null &&
+            FFAppConstants.defaultCurrencyCode != ''
         ? FFAppConstants.defaultCurrencyCode
         : country?.currencyCode,
-    currencySymbol: FFAppConstants.defaultCurrencySymbol != ''
+    currencySymbol: FFAppConstants.defaultCurrencySymbol != null &&
+            FFAppConstants.defaultCurrencySymbol != ''
         ? FFAppConstants.defaultCurrencySymbol
         : country?.currencySymbol,
     dialCode: country?.dialCode,
-    currencyExchangeRate: FFAppConstants.defaultCurrencyCode != ''
+    currencyExchangeRate: FFAppConstants.defaultCurrencyCode != null &&
+            FFAppConstants.defaultCurrencyCode != ''
         ? 1.00
         : country?.currencyExchangeRate,
-    id: FFAppConstants.defaultCurrencySymbol != ''
+    id: FFAppConstants.defaultCurrencySymbol != null &&
+            FFAppConstants.defaultCurrencySymbol != ''
         ? 1
         : country?.id,
   );
@@ -300,32 +306,32 @@ Future<UsersRow> setCurrentUserInAppState(BuildContext context) async {
   );
   logFirebaseEvent('SetCurrentUserInAppState_update_app_stat');
   FFAppState().CurrentUser = CurrentUserStruct(
-    createdAt: currentUserLoaded.first.createdAt,
-    mobileNumber: currentUserLoaded.first.mobileNumber,
-    firstName: currentUserLoaded.first.firstName,
-    lastName: currentUserLoaded.first.lastName,
-    displayName: currentUserLoaded.first.displayName,
-    lastLoginDate: currentUserLoaded.first.lastLoginDate,
-    bio: currentUserLoaded.first.bio,
-    address: currentUserLoaded.first.address,
-    cityId: currentUserLoaded.first.cityId,
-    isAnon: currentUserLoaded.first.isAnon,
-    email: currentUserLoaded.first.email,
-    defaultPaymentTypeId: currentUserLoaded.first.defaultPaymentTypeId,
-    defaultAddressId: currentUserLoaded.first.defaultAddressId,
-    countryId: currentUserLoaded.first.countryId,
-    userName: currentUserLoaded.first.userName,
-    gender: currentUserLoaded.first.gender,
-    birthDate: currentUserLoaded.first.birthDate,
-    role: currentUserLoaded.first.role,
-    authProvider: currentUserLoaded.first.authProvider,
-    defaultDeliveryMethod: currentUserLoaded.first.defaultDeliveryMethod,
-    userType: currentUserLoaded.first.userType,
-    location: currentUserLoaded.first.location,
-    avatarUrl: currentUserLoaded.first.avatarUrl,
+    createdAt: currentUserLoaded?.first?.createdAt,
+    mobileNumber: currentUserLoaded?.first?.mobileNumber,
+    firstName: currentUserLoaded?.first?.firstName,
+    lastName: currentUserLoaded?.first?.lastName,
+    displayName: currentUserLoaded?.first?.displayName,
+    lastLoginDate: currentUserLoaded?.first?.lastLoginDate,
+    bio: currentUserLoaded?.first?.bio,
+    address: currentUserLoaded?.first?.address,
+    cityId: currentUserLoaded?.first?.cityId,
+    isAnon: currentUserLoaded?.first?.isAnon,
+    email: currentUserLoaded?.first?.email,
+    defaultPaymentTypeId: currentUserLoaded?.first?.defaultPaymentTypeId,
+    defaultAddressId: currentUserLoaded?.first?.defaultAddressId,
+    countryId: currentUserLoaded?.first?.countryId,
+    userName: currentUserLoaded?.first?.userName,
+    gender: currentUserLoaded?.first?.gender,
+    birthDate: currentUserLoaded?.first?.birthDate,
+    role: currentUserLoaded?.first?.role,
+    authProvider: currentUserLoaded?.first?.authProvider,
+    defaultDeliveryMethod: currentUserLoaded?.first?.defaultDeliveryMethod,
+    userType: currentUserLoaded?.first?.userType,
+    location: currentUserLoaded?.first?.location,
+    avatarUrl: currentUserLoaded?.first?.avatarUrl,
   );
   FFAppState().update(() {});
-  return currentUserLoaded.first;
+  return currentUserLoaded!.first;
 }
 
 Future advertisementOnClick(
@@ -389,7 +395,7 @@ Future advertisementOnClick(
             ParamType.int,
           ),
           'categoryTitle': serializeParam(
-            advertisedCategory.first.name,
+            advertisedCategory?.first?.name,
             ParamType.String,
           ),
         }.withoutNulls,
@@ -474,7 +480,7 @@ Future likeProduct(
         business = await BusinessesTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            product?.first.businessId,
+            product?.first?.businessId,
           ),
         );
         logFirebaseEvent('LikeProduct_backend_call');
@@ -482,7 +488,7 @@ Future likeProduct(
           'product_id': productId,
           'is_product': true,
           'user_id': currentUserUid,
-          'market_id': business.first.defaultMarketId,
+          'market_id': business?.first?.defaultMarketId,
         });
       }
     }
@@ -541,13 +547,13 @@ Future paymentExecution(
       jwt: currentJwtToken,
     );
 
-    if ((amwalPaymentRequest.succeeded ?? true)) {
+    if ((amwalPaymentRequest?.succeeded ?? true)) {
       if (AmwalSupabaseGroup.startPaymentCall.needRedirect(
-        (amwalPaymentRequest.jsonBody ?? ''),
+        (amwalPaymentRequest?.jsonBody ?? ''),
       )!) {
         logFirebaseEvent('PaymentExecution_launch_u_r_l');
         await launchURL(AmwalSupabaseGroup.startPaymentCall.redirectURL(
-          (amwalPaymentRequest.jsonBody ?? ''),
+          (amwalPaymentRequest?.jsonBody ?? ''),
         )!);
       }
     } else {
@@ -559,9 +565,9 @@ Future paymentExecution(
             elevation: 0,
             insetPadding: EdgeInsets.zero,
             backgroundColor: Colors.transparent,
-            alignment: const AlignmentDirectional(0.0, 0.0)
+            alignment: AlignmentDirectional(0.0, 0.0)
                 .resolve(Directionality.of(context)),
-            child: const InfoModalWidget(
+            child: InfoModalWidget(
               title: 'Request failed!',
               body: 'Please try again.',
               isConfirm: false,
@@ -586,7 +592,7 @@ Future addAddress(BuildContext context) async {
     builder: (context) {
       return Padding(
         padding: MediaQuery.viewInsetsOf(context),
-        child: const SizedBox(
+        child: Container(
           height: double.infinity,
           child: AddressReturnPlaceIdWidget(),
         ),

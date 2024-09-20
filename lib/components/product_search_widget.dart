@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'product_search_model.dart';
 export 'product_search_model.dart';
 
@@ -52,7 +53,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (widget.productID != null)
+        if (widget!.productID != null)
           InkWell(
             splashColor: Colors.transparent,
             focusColor: Colors.transparent,
@@ -66,14 +67,14 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                 'ProductDetail',
                 queryParameters: {
                   'productId': serializeParam(
-                    widget.productID,
+                    widget!.productID,
                     ParamType.int,
                   ),
                 }.withoutNulls,
               );
             },
             child: Container(
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -94,7 +95,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                               BoxShadow(
                                 blurRadius: 8.0,
                                 color: FlutterFlowTheme.of(context).boxShadow,
-                                offset: const Offset(
+                                offset: Offset(
                                   0.0,
                                   2.0,
                                 ),
@@ -107,7 +108,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                             model: _model.imageWidgetModel,
                             updateCallback: () => safeSetState(() {}),
                             child: ImageWidgetWidget(
-                              image: widget.productImage,
+                              image: widget!.productImage,
                               isExpamdable: false,
                               isAvatar: false,
                             ),
@@ -127,7 +128,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                 Flexible(
                                   child: Text(
                                     valueOrDefault<String>(
-                                      widget.productName,
+                                      widget!.productName,
                                       '-',
                                     ),
                                     maxLines: 2,
@@ -148,13 +149,13 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                         ),
                                   ),
                                 ),
-                              ].divide(const SizedBox(width: 8.0)),
+                              ].divide(SizedBox(width: 8.0)),
                             ),
                             Builder(
                               builder: (context) {
-                                if ((widget.productDescription != null &&
-                                        widget.productDescription != '') &&
-                                    (widget.productDescription != 'null')) {
+                                if ((widget!.productDescription != null &&
+                                        widget!.productDescription != '') &&
+                                    (widget!.productDescription != 'null')) {
                                   return Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -163,7 +164,7 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                       Flexible(
                                         child: Text(
                                           valueOrDefault<String>(
-                                            widget.productDescription,
+                                            widget!.productDescription,
                                             '-',
                                           ),
                                           maxLines: 2,
@@ -191,15 +192,15 @@ class _ProductSearchWidgetState extends State<ProductSearchWidget> {
                                   );
                                 } else {
                                   return Container(
-                                    decoration: const BoxDecoration(),
+                                    decoration: BoxDecoration(),
                                   );
                                 }
                               },
                             ),
-                          ].divide(const SizedBox(height: 4.0)),
+                          ].divide(SizedBox(height: 4.0)),
                         ),
                       ),
-                    ].divide(const SizedBox(width: 16.0)),
+                    ].divide(SizedBox(width: 16.0)),
                   ),
                 ],
               ),

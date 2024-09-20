@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'order_group_delivery_item_model.dart';
 export 'order_group_delivery_item_model.dart';
 
@@ -48,9 +49,9 @@ class _OrderGroupDeliveryItemWidgetState
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -61,7 +62,7 @@ class _OrderGroupDeliveryItemWidgetState
                   BoxShadow(
                     blurRadius: 8.0,
                     color: FlutterFlowTheme.of(context).boxShadow,
-                    offset: const Offset(
+                    offset: Offset(
                       0.0,
                       2.0,
                     ),
@@ -75,7 +76,7 @@ class _OrderGroupDeliveryItemWidgetState
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -85,7 +86,7 @@ class _OrderGroupDeliveryItemWidgetState
                               Flexible(
                                 child: Text(
                                   valueOrDefault<String>(
-                                    widget.orderGroup?.status,
+                                    widget!.orderGroup?.status,
                                     '-',
                                   ),
                                   maxLines: 1,
@@ -106,7 +107,7 @@ class _OrderGroupDeliveryItemWidgetState
                               ),
                             ],
                           ),
-                          if (widget.orderGroup?.status !=
+                          if (widget!.orderGroup?.status !=
                               OrderStatuses.Draft.name)
                             Column(
                               mainAxisSize: MainAxisSize.max,
@@ -141,14 +142,14 @@ class _OrderGroupDeliveryItemWidgetState
                                       'TrackOrder',
                                       queryParameters: {
                                         'orderGroup': serializeParam(
-                                          widget.orderGroup,
+                                          widget!.orderGroup,
                                           ParamType.SupabaseRow,
                                         ),
                                       }.withoutNulls,
                                     );
                                   },
                                   child: Container(
-                                    decoration: const BoxDecoration(),
+                                    decoration: BoxDecoration(),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -179,20 +180,20 @@ class _OrderGroupDeliveryItemWidgetState
                                                             .bodyMediumFamily),
                                               ),
                                         ),
-                                      ].divide(const SizedBox(width: 8.0)),
+                                      ].divide(SizedBox(width: 8.0)),
                                     ),
                                   ),
                                 ),
-                              ].divide(const SizedBox(height: 16.0)),
+                              ].divide(SizedBox(height: 16.0)),
                             ),
-                        ].divide(const SizedBox(height: 16.0)),
+                        ].divide(SizedBox(height: 16.0)),
                       ),
                     ),
                   ),
-                ].divide(const SizedBox(width: 16.0)),
+                ].divide(SizedBox(width: 16.0)),
               ),
             ),
-          ].divide(const SizedBox(height: 24.0)),
+          ].divide(SizedBox(height: 24.0)),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'advertise_banner_model.dart';
 export 'advertise_banner_model.dart';
 
@@ -54,18 +55,18 @@ class _AdvertiseBannerWidgetState extends State<AdvertiseBannerWidget> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: CachedNetworkImage(
-            fadeInDuration: const Duration(milliseconds: 500),
-            fadeOutDuration: const Duration(milliseconds: 500),
-            imageUrl: widget.advertise!.bannerUrl!,
+            fadeInDuration: Duration(milliseconds: 500),
+            fadeOutDuration: Duration(milliseconds: 500),
+            imageUrl: widget!.advertise!.bannerUrl!,
             width: double.infinity,
             height: double.infinity,
             fit: BoxFit.cover,
           ),
         ),
         Align(
-          alignment: const AlignmentDirectional(1.0, 1.0),
+          alignment: AlignmentDirectional(1.0, 1.0),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 4.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 4.0),
             child: Container(
               width: 36.0,
               height: 22.0,
@@ -74,11 +75,11 @@ class _AdvertiseBannerWidgetState extends State<AdvertiseBannerWidget> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
                   child: Text(
-                    '${((widget.indexInList!) + 1).toString()}/${widget.numberOfItems?.toString()}',
+                    '${((widget!.indexInList!) + 1).toString()}/${widget!.numberOfItems?.toString()}',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,

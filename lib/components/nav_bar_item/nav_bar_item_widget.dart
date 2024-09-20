@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'nav_bar_item_model.dart';
 export 'nav_bar_item_model.dart';
 
@@ -18,10 +19,10 @@ class NavBarItemWidget extends StatefulWidget {
     bool? showImageAsIcon,
     this.imageNormal,
     this.imageSelected,
-  })  : actiePage = actiePage ?? 'Home',
-        currentItemName = currentItemName ?? 'Home',
-        fancyItem = fancyItem ?? false,
-        showImageAsIcon = showImageAsIcon ?? false;
+  })  : this.actiePage = actiePage ?? 'Home',
+        this.currentItemName = currentItemName ?? 'Home',
+        this.fancyItem = fancyItem ?? false,
+        this.showImageAsIcon = showImageAsIcon ?? false;
 
   final String actiePage;
   final String currentItemName;
@@ -64,26 +65,26 @@ class _NavBarItemWidgetState extends State<NavBarItemWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
+          Container(
             width: 48.0,
             height: 48.0,
             child: Stack(
-              alignment: const AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.0, 0.0),
               children: [
-                if (!widget.showImageAsIcon)
-                  SizedBox(
+                if (!widget!.showImageAsIcon)
+                  Container(
                     width: double.infinity,
                     height: double.infinity,
                     child: Stack(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       children: [
-                        if (widget.fancyItem &&
-                            (widget.actiePage == widget.currentItemName))
+                        if (widget!.fancyItem &&
+                            (widget!.actiePage == widget!.currentItemName))
                           Opacity(
                             opacity: 0.7,
                             child: ClipOval(
@@ -95,17 +96,17 @@ class _NavBarItemWidgetState extends State<NavBarItemWidget> {
                                       .primaryBackground,
                                   shape: BoxShape.circle,
                                 ),
-                                child: SizedBox(
+                                child: Container(
                                   width: double.infinity,
                                   height: double.infinity,
                                   child: Stack(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Opacity(
                                         opacity: 0.5,
                                         child: Align(
                                           alignment:
-                                              const AlignmentDirectional(-0.14, 1.45),
+                                              AlignmentDirectional(-0.14, 1.45),
                                           child: Container(
                                             width: double.infinity,
                                             height: 24.0,
@@ -124,44 +125,44 @@ class _NavBarItemWidgetState extends State<NavBarItemWidget> {
                               ),
                             ),
                           ),
-                        if (widget.actiePage != widget.currentItemName)
-                          widget.unselectedIcon!,
-                        if (widget.actiePage == widget.currentItemName)
-                          widget.selectedIcon!,
+                        if (widget!.actiePage != widget!.currentItemName)
+                          widget!.unselectedIcon!,
+                        if (widget!.actiePage == widget!.currentItemName)
+                          widget!.selectedIcon!,
                       ],
                     ),
                   ),
-                if (widget.showImageAsIcon)
+                if (widget!.showImageAsIcon)
                   Container(
                     width: double.infinity,
                     height: double.infinity,
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
+                      padding: EdgeInsets.all(8.0),
+                      child: Container(
                         width: double.infinity,
                         height: double.infinity,
                         child: Stack(
                           children: [
-                            if (widget.actiePage == widget.currentItemName)
+                            if (widget!.actiePage == widget!.currentItemName)
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: CachedNetworkImage(
-                                  fadeInDuration: const Duration(milliseconds: 500),
-                                  fadeOutDuration: const Duration(milliseconds: 500),
-                                  imageUrl: widget.imageSelected!,
+                                  fadeInDuration: Duration(milliseconds: 500),
+                                  fadeOutDuration: Duration(milliseconds: 500),
+                                  imageUrl: widget!.imageSelected!,
                                   width: double.infinity,
                                   height: double.infinity,
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                            if (widget.actiePage != widget.currentItemName)
+                            if (widget!.actiePage != widget!.currentItemName)
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: CachedNetworkImage(
-                                  fadeInDuration: const Duration(milliseconds: 500),
-                                  fadeOutDuration: const Duration(milliseconds: 500),
-                                  imageUrl: widget.imageNormal!,
+                                  fadeInDuration: Duration(milliseconds: 500),
+                                  fadeOutDuration: Duration(milliseconds: 500),
+                                  imageUrl: widget!.imageNormal!,
                                   width: double.infinity,
                                   height: double.infinity,
                                   fit: BoxFit.cover,
@@ -176,12 +177,12 @@ class _NavBarItemWidgetState extends State<NavBarItemWidget> {
             ),
           ),
           AutoSizeText(
-            widget.currentItemName.maybeHandleOverflow(maxChars: 12),
+            widget!.currentItemName.maybeHandleOverflow(maxChars: 12),
             minFontSize: 9.0,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Neometric',
                   color: valueOrDefault<Color>(
-                    widget.actiePage == widget.currentItemName
+                    widget!.actiePage == widget!.currentItemName
                         ? FlutterFlowTheme.of(context).mainBlue
                         : FlutterFlowTheme.of(context).secondaryText,
                     FlutterFlowTheme.of(context).secondaryText,

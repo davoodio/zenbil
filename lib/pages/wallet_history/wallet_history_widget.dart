@@ -6,7 +6,9 @@ import '/components/transaction_card_widget.dart';
 import '/components/wallet_front_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'wallet_history_model.dart';
 export 'wallet_history_model.dart';
@@ -56,7 +58,7 @@ class _WalletHistoryWidgetState extends State<WalletHistoryWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -83,7 +85,7 @@ class _WalletHistoryWidgetState extends State<WalletHistoryWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: wrapWithModel(
                           model: _model.walletFrontCardModel,
@@ -104,21 +106,21 @@ class _WalletHistoryWidgetState extends State<WalletHistoryWidget> {
                                 )
                                 .eq(
                                   'wallet_id',
-                                  widget.wallet,
+                                  widget!.wallet,
                                 )
                                 .order('created_at'),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
-                              return const LoaderQueryInsideWidget();
+                              return LoaderQueryInsideWidget();
                             }
                             List<TransactionsRow>
                                 transactionsTransactionsRowList =
                                 snapshot.data!;
 
                             return ListView.separated(
-                              padding: const EdgeInsets.fromLTRB(
+                              padding: EdgeInsets.fromLTRB(
                                 0,
                                 24.0,
                                 0,
@@ -129,13 +131,13 @@ class _WalletHistoryWidgetState extends State<WalletHistoryWidget> {
                               scrollDirection: Axis.vertical,
                               itemCount: transactionsTransactionsRowList.length,
                               separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 16.0),
+                                  SizedBox(height: 16.0),
                               itemBuilder: (context, transactionsIndex) {
                                 final transactionsTransactionsRow =
                                     transactionsTransactionsRowList[
                                         transactionsIndex];
                                 return Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
                                   child: TransactionCardWidget(
                                     key: Key(

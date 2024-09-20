@@ -1,8 +1,13 @@
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'loader_box_column_model.dart';
 export 'loader_box_column_model.dart';
 
@@ -14,11 +19,11 @@ class LoaderBoxColumnWidget extends StatefulWidget {
     double? borderRadius,
     Color? shimmerColor,
     int? numberOfItems,
-  })  : height = height ?? 100.0,
-        color = color ?? const Color(0xFFE0E0E0),
-        borderRadius = borderRadius ?? 5.0,
-        shimmerColor = shimmerColor ?? const Color(0xFFE1E1E1),
-        numberOfItems = numberOfItems ?? 4;
+  })  : this.height = height ?? 100.0,
+        this.color = color ?? const Color(0xFFE0E0E0),
+        this.borderRadius = borderRadius ?? 5.0,
+        this.shimmerColor = shimmerColor ?? const Color(0xFFE1E1E1),
+        this.numberOfItems = numberOfItems ?? 4;
 
   final double height;
   final Color color;
@@ -56,8 +61,8 @@ class _LoaderBoxColumnWidgetState extends State<LoaderBoxColumnWidget>
             delay: 0.0.ms,
             duration: 600.0.ms,
             color: valueOrDefault<Color>(
-              widget.shimmerColor,
-              const Color(0xFFDEDEDE),
+              widget!.shimmerColor,
+              Color(0xFFDEDEDE),
             ),
             angle: 0.524,
           ),
@@ -78,7 +83,7 @@ class _LoaderBoxColumnWidgetState extends State<LoaderBoxColumnWidget>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -86,7 +91,7 @@ class _LoaderBoxColumnWidgetState extends State<LoaderBoxColumnWidget>
             child: Builder(
               builder: (context) {
                 final items = functions
-                    .generateRandonListOfNumbers(widget.numberOfItems)
+                    .generateRandonListOfNumbers(widget!.numberOfItems)
                     .toList();
 
                 return Column(
@@ -95,18 +100,18 @@ class _LoaderBoxColumnWidgetState extends State<LoaderBoxColumnWidget>
                     final itemsItem = items[itemsIndex];
                     return Container(
                       width: double.infinity,
-                      height: widget.height,
+                      height: widget!.height,
                       decoration: BoxDecoration(
-                        color: widget.color,
+                        color: widget!.color,
                         borderRadius:
                             BorderRadius.circular(valueOrDefault<double>(
-                          widget.borderRadius,
+                          widget!.borderRadius,
                           0.0,
                         )),
                       ),
                     ).animateOnPageLoad(
                         animationsMap['containerOnPageLoadAnimation']!);
-                  }).divide(const SizedBox(height: 16.0)),
+                  }).divide(SizedBox(height: 16.0)),
                 );
               },
             ),

@@ -1,10 +1,13 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'splash_model.dart';
 export 'splash_model.dart';
@@ -42,20 +45,39 @@ class _SplashWidgetState extends State<SplashWidget>
             r'''$.success''',
           ) &&
           (FFAppState().storeID != 0)) {
-        logFirebaseEvent('Splash_navigate_to');
+        if (FFAppState().productID != 0) {
+          logFirebaseEvent('Splash_navigate_to');
 
-        context.goNamed(
-          'StoreFront',
-          queryParameters: {
-            'marketID': serializeParam(
-              FFAppState().storeID,
-              ParamType.int,
-            ),
-          }.withoutNulls,
-        );
+          context.pushNamed(
+            'ProductDetail',
+            queryParameters: {
+              'productId': serializeParam(
+                FFAppState().productID,
+                ParamType.int,
+              ),
+              'marketID': serializeParam(
+                FFAppState().storeID,
+                ParamType.int,
+              ),
+            }.withoutNulls,
+          );
+        } else {
+          logFirebaseEvent('Splash_navigate_to');
+
+          context.goNamed(
+            'StoreFront',
+            queryParameters: {
+              'marketID': serializeParam(
+                FFAppState().storeID,
+                ParamType.int,
+              ),
+            }.withoutNulls,
+          );
+        }
 
         logFirebaseEvent('Splash_update_app_state');
         FFAppState().storeID = 0;
+        FFAppState().productID = 0;
       } else {
         logFirebaseEvent('Splash_navigate_to');
 
@@ -73,8 +95,8 @@ class _SplashWidgetState extends State<SplashWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(1.0, 1.0),
-            end: const Offset(1.1, 1.1),
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.1, 1.1),
           ),
         ],
       ),
@@ -102,21 +124,21 @@ class _SplashWidgetState extends State<SplashWidget>
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(),
-          child: SizedBox(
+          decoration: BoxDecoration(),
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
-              alignment: const AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.0, 0.0),
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
@@ -128,7 +150,7 @@ class _SplashWidgetState extends State<SplashWidget>
                         ).animateOnPageLoad(
                             animationsMap['imageOnPageLoadAnimation']!),
                       ),
-                    ].divide(const SizedBox(height: 34.0)),
+                    ].divide(SizedBox(height: 34.0)),
                   ),
                 ),
               ],

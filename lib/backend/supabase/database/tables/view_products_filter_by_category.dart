@@ -11,7 +11,7 @@ class ViewProductsFilterByCategoryTable
 }
 
 class ViewProductsFilterByCategoryRow extends SupabaseDataRow {
-  ViewProductsFilterByCategoryRow(super.data);
+  ViewProductsFilterByCategoryRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ViewProductsFilterByCategoryTable();

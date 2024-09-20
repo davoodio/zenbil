@@ -2,8 +2,10 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'order_confirmation_model.dart';
 export 'order_confirmation_model.dart';
 
@@ -54,7 +56,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -66,7 +68,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -83,7 +85,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -143,7 +145,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -179,7 +181,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                         ),
                                         TextSpan(
                                           text: valueOrDefault<String>(
-                                            widget.order?.orderNumber,
+                                            widget!.order?.orderNumber,
                                             '0',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -218,11 +220,11 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                 ],
                               ),
                             ),
-                          ].divide(const SizedBox(height: 8.0)),
+                          ].divide(SizedBox(height: 8.0)),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -244,7 +246,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                           'OrderDetails',
                                           queryParameters: {
                                             'orderID': serializeParam(
-                                              widget.order?.id,
+                                              widget!.order?.id,
                                               ParamType.int,
                                             ),
                                           }.withoutNulls,
@@ -255,10 +257,10 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                       ),
                                       options: FFButtonOptions(
                                         height: 48.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -313,10 +315,10 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                       ),
                                       options: FFButtonOptions(
                                         height: 48.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .tertiary,
@@ -335,7 +337,7 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 0.0,
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -347,10 +349,10 @@ class _OrderConfirmationWidgetState extends State<OrderConfirmationWidget> {
                                 ),
                               ],
                             ),
-                          ].divide(const SizedBox(height: 16.0)),
+                          ].divide(SizedBox(height: 16.0)),
                         ),
                       ),
-                    ].divide(const SizedBox(height: 30.0)),
+                    ].divide(SizedBox(height: 30.0)),
                   ),
                 ),
               ],

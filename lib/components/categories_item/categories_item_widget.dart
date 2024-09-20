@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'categories_item_model.dart';
 export 'categories_item_model.dart';
 
@@ -13,9 +14,9 @@ class CategoriesItemWidget extends StatefulWidget {
     String? photo,
     String? title,
     required this.categoryId,
-  })  : photo = photo ??
+  })  : this.photo = photo ??
             'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/shopping-express-wrb1ci/assets/8vh31waah1r6/Woman.png',
-        title = title ?? 'TITLE';
+        this.title = title ?? 'TITLE';
 
   final String photo;
   final String title;
@@ -64,11 +65,11 @@ class _CategoriesItemWidgetState extends State<CategoriesItemWidget> {
           'ProductsCategory',
           queryParameters: {
             'categoryId': serializeParam(
-              widget.categoryId,
+              widget!.categoryId,
               ParamType.int,
             ),
             'categoryTitle': serializeParam(
-              widget.title,
+              widget!.title,
               ParamType.String,
             ),
           }.withoutNulls,
@@ -81,29 +82,29 @@ class _CategoriesItemWidgetState extends State<CategoriesItemWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(4.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Stack(
-                alignment: const AlignmentDirectional(0.0, -1.0),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 children: [
-                  if (widget.photo != '')
+                  if (widget!.photo != null && widget!.photo != '')
                     ClipRRect(
                       borderRadius: BorderRadius.circular(0.0),
                       child: CachedNetworkImage(
-                        fadeInDuration: const Duration(milliseconds: 500),
-                        fadeOutDuration: const Duration(milliseconds: 500),
-                        imageUrl: widget.photo,
+                        fadeInDuration: Duration(milliseconds: 500),
+                        fadeOutDuration: Duration(milliseconds: 500),
+                        imageUrl: widget!.photo,
                         width: 50.0,
                         height: 35.0,
                         fit: BoxFit.contain,
                       ),
                     ),
-                  if (widget.photo == '')
+                  if (widget!.photo == null || widget!.photo == '')
                     Align(
-                      alignment: const AlignmentDirectional(0.0, -1.0),
+                      alignment: AlignmentDirectional(0.0, -1.0),
                       child: Icon(
                         FFIcons.klayoutGrid,
                         color: FlutterFlowTheme.of(context).primaryText,
@@ -114,7 +115,7 @@ class _CategoriesItemWidgetState extends State<CategoriesItemWidget> {
               ),
               Expanded(
                 child: AutoSizeText(
-                  widget.title,
+                  widget!.title,
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   minFontSize: 8.0,
@@ -128,7 +129,7 @@ class _CategoriesItemWidgetState extends State<CategoriesItemWidget> {
                       ),
                 ),
               ),
-            ].divide(const SizedBox(height: 6.0)),
+            ].divide(SizedBox(height: 6.0)),
           ),
         ),
       ),

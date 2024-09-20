@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'cart_two_item_model.dart';
 export 'cart_two_item_model.dart';
 
@@ -57,7 +58,7 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
           BoxShadow(
             blurRadius: 8.0,
             color: FlutterFlowTheme.of(context).boxShadow,
-            offset: const Offset(
+            offset: Offset(
               0.0,
               2.0,
             ),
@@ -67,7 +68,7 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(12.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,12 +81,12 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(12.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(0.0),
                   child: Image.network(
                     valueOrDefault<String>(
-                      widget.photo,
+                      widget!.photo,
                       'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg',
                     ),
                     fit: BoxFit.contain,
@@ -107,7 +108,7 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
                           Flexible(
                             child: Text(
                               valueOrDefault<String>(
-                                widget.cartName,
+                                widget!.cartName,
                                 'CART NAME',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -133,7 +134,7 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
                           Flexible(
                             child: Text(
                               valueOrDefault<String>(
-                                widget.description,
+                                widget!.description,
                                 'DESCRIPTION',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -154,14 +155,14 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
                           ),
                         ],
                       ),
-                    ].divide(const SizedBox(height: 4.0)),
+                    ].divide(SizedBox(height: 4.0)),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${widget.price}',
+                        '\$${widget!.price}',
                         style: FlutterFlowTheme.of(context).titleLarge.override(
                               fontFamily:
                                   FlutterFlowTheme.of(context).titleLargeFamily,
@@ -220,17 +221,17 @@ class _CartTwoItemWidgetState extends State<CartTwoItemWidget> {
                             stepSize: 1,
                             minimum: 1,
                             maximum: 10,
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            contentPadding: EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 4.0, 0.0),
                           ),
                         ),
                       ),
                     ],
                   ),
-                ].divide(const SizedBox(height: 8.0)),
+                ].divide(SizedBox(height: 8.0)),
               ),
             ),
-          ].divide(const SizedBox(width: 16.0)),
+          ].divide(SizedBox(width: 16.0)),
         ),
       ),
     );

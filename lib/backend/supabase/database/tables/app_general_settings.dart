@@ -10,7 +10,7 @@ class AppGeneralSettingsTable extends SupabaseTable<AppGeneralSettingsRow> {
 }
 
 class AppGeneralSettingsRow extends SupabaseDataRow {
-  AppGeneralSettingsRow(super.data);
+  AppGeneralSettingsRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => AppGeneralSettingsTable();
@@ -88,8 +88,8 @@ class AppGeneralSettingsRow extends SupabaseDataRow {
   set maxAmountWalletTopup(double? value) =>
       setField<double>('max_amount_wallet_topup', value);
 
-  dynamic get social => getField<dynamic>('social');
-  set social(dynamic value) => setField<dynamic>('social', value);
+  dynamic? get social => getField<dynamic>('social');
+  set social(dynamic? value) => setField<dynamic>('social', value);
 
   String? get paymentRedirectUrlWeb =>
       getField<String>('payment_redirect_url_web');

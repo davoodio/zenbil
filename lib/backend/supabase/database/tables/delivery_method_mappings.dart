@@ -11,7 +11,7 @@ class DeliveryMethodMappingsTable
 }
 
 class DeliveryMethodMappingsRow extends SupabaseDataRow {
-  DeliveryMethodMappingsRow(super.data);
+  DeliveryMethodMappingsRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => DeliveryMethodMappingsTable();

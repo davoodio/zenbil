@@ -54,7 +54,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -66,16 +66,16 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Stack(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       children: [
-                        if (widget.transaction?.transactionType ==
+                        if (widget!.transaction?.transactionType ==
                             FFAppState().DataTypeEnums.transactionTypes.order)
                           Icon(
                             FFIcons.karrowBigDownLines,
                             color: FlutterFlowTheme.of(context).error,
                             size: 24.0,
                           ),
-                        if (widget.transaction?.transactionType ==
+                        if (widget!.transaction?.transactionType ==
                             FFAppState().DataTypeEnums.transactionTypes.topup)
                           Icon(
                             FFIcons.karrowBigUpLines,
@@ -87,7 +87,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                     Text(
                       functions.applyCorrectNumberFormatting(
                           valueOrDefault<double>(
-                            widget.transaction?.amount,
+                            widget!.transaction?.amount,
                             0.0,
                           ),
                           FFAppState().country.currencyCode,
@@ -102,12 +102,12 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                                 FlutterFlowTheme.of(context).labelLargeFamily),
                           ),
                     ),
-                  ].divide(const SizedBox(width: 8.0)),
+                  ].divide(SizedBox(width: 8.0)),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 0.0, 8.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 0.0, 8.0),
                   child: Container(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -115,7 +115,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                           valueOrDefault<String>(
                             dateTimeFormat(
                               "yMMMd",
-                              widget.transaction?.createdAt,
+                              widget!.transaction?.createdAt,
                               locale: FFLocalizations.of(context).languageCode,
                             ),
                             '-',
@@ -136,7 +136,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                           valueOrDefault<String>(
                             dateTimeFormat(
                               "jm",
-                              widget.transaction?.createdAt,
+                              widget!.transaction?.createdAt,
                               locale: FFLocalizations.of(context).languageCode,
                             ),
                             '-',
@@ -153,7 +153,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                                         .bodyMediumFamily),
                               ),
                         ),
-                      ].divide(const SizedBox(width: 4.0)),
+                      ].divide(SizedBox(width: 4.0)),
                     ),
                   ),
                 ),
@@ -165,7 +165,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                 Flexible(
                   child: Text(
                     valueOrDefault<String>(
-                      widget.transaction?.transactionType,
+                      widget!.transaction?.transactionType,
                       '-',
                     ),
                     style: FlutterFlowTheme.of(context).labelSmall.override(
@@ -181,7 +181,7 @@ class _TransactionCardWidgetState extends State<TransactionCardWidget> {
                 ),
               ],
             ),
-          ].divide(const SizedBox(height: 16.0)),
+          ].divide(SizedBox(height: 16.0)),
         ),
       ),
     );

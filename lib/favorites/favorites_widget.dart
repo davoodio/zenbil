@@ -8,6 +8,7 @@ import '/components/loaders/loader_box_grid/loader_box_grid_widget.dart';
 import '/components/product_card/product_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,7 +55,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -62,7 +63,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -98,14 +99,14 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
-                              return const EmptyComponentWidget();
+                              return EmptyComponentWidget();
                             }
                             List<UserFavoritesRow>
                                 userFavoritesUserFavoritesRowList =
                                 snapshot.data!;
 
                             return Container(
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -113,7 +114,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -151,7 +152,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: FutureBuilder<List<ProductsRow>>(
                                         future: ProductsTable().queryRows(
@@ -198,7 +199,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
                                             gridDelegate:
-                                                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2,
                                             ),
                                             crossAxisSpacing: 10.0,
@@ -254,7 +255,9 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                                                                           .id) &&
                                                                   (e.userId ==
                                                                       currentUserUid))
-                                                              .toList().isNotEmpty
+                                                              .toList()
+                                                              .length >
+                                                          0
                                                       ? userFavoritesUserFavoritesRowList
                                                           .where((e) =>
                                                               (e.productId ==
@@ -280,9 +283,9 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                                       ),
                                     ),
                                   ]
-                                      .divide(const SizedBox(height: 24.0))
-                                      .addToStart(const SizedBox(height: 24.0))
-                                      .addToEnd(const SizedBox(height: 24.0)),
+                                      .divide(SizedBox(height: 24.0))
+                                      .addToStart(SizedBox(height: 24.0))
+                                      .addToEnd(SizedBox(height: 24.0)),
                                 ),
                               ),
                             );

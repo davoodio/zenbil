@@ -2,6 +2,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'social_media_item_model.dart';
 export 'social_media_item_model.dart';
 
@@ -53,7 +55,7 @@ class _SocialMediaItemWidgetState extends State<SocialMediaItemWidget> {
       onTap: () async {
         logFirebaseEvent('SOCIAL_MEDIA_ITEM_Container_69qnp8ia_ON_');
         logFirebaseEvent('Container_launch_u_r_l');
-        await launchURL(widget.url!);
+        await launchURL(widget!.url!);
       },
       child: Container(
         width: 40.0,

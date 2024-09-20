@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'menu_setting_item_model.dart';
 export 'menu_setting_item_model.dart';
 
@@ -12,7 +13,7 @@ class MenuSettingItemWidget extends StatefulWidget {
     required this.text,
     required this.showArrow,
     Color? color,
-  }) : color = color ?? const Color(0x19000000);
+  }) : this.color = color ?? const Color(0x19000000);
 
   final Widget? icon;
   final String? text;
@@ -52,7 +53,7 @@ class _MenuSettingItemWidgetState extends State<MenuSettingItemWidget> {
     return Container(
       width: double.infinity,
       height: 48.0,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,33 +62,33 @@ class _MenuSettingItemWidgetState extends State<MenuSettingItemWidget> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
-                widget.icon!,
+                widget!.icon!,
                 Flexible(
                   child: Text(
                     valueOrDefault<String>(
-                      widget.text,
+                      widget!.text,
                       'Menu Text',
                     ),
                     style: FlutterFlowTheme.of(context).labelLarge.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).labelLargeFamily,
-                          color: widget.color,
+                          color: widget!.color,
                           letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
                               FlutterFlowTheme.of(context).labelLargeFamily),
                         ),
                   ),
                 ),
-              ].divide(const SizedBox(width: 16.0)),
+              ].divide(SizedBox(width: 16.0)),
             ),
           ),
-          if (widget.showArrow ?? true)
+          if (widget!.showArrow ?? true)
             Icon(
               Icons.keyboard_arrow_right,
-              color: widget.color,
+              color: widget!.color,
               size: 22.0,
             ),
-        ].divide(const SizedBox(width: 8.0)),
+        ].divide(SizedBox(width: 8.0)),
       ),
     );
   }

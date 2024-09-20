@@ -9,7 +9,7 @@ class BusinessesTable extends SupabaseTable<BusinessesRow> {
 }
 
 class BusinessesRow extends SupabaseDataRow {
-  BusinessesRow(super.data);
+  BusinessesRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => BusinessesTable();
@@ -55,8 +55,8 @@ class BusinessesRow extends SupabaseDataRow {
   String? get ownerId => getField<String>('owner_id');
   set ownerId(String? value) => setField<String>('owner_id', value);
 
-  dynamic get social => getField<dynamic>('social');
-  set social(dynamic value) => setField<dynamic>('social', value);
+  dynamic? get social => getField<dynamic>('social');
+  set social(dynamic? value) => setField<dynamic>('social', value);
 
   int? get warehouseZipcodeId => getField<int>('warehouse_zipcode_id');
   set warehouseZipcodeId(int? value) =>

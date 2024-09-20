@@ -1,5 +1,6 @@
 export 'is_anon_user_or_null.dart' show isAnonUserOrNull;
 export 'get_authenticated_user.dart' show getAuthenticatedUser;
+export 'generate_product_detail_link.dart' show generateProductDetailLink;
 export 'user_anonymous_login.dart' show userAnonymousLogin;
 export 'get_products_list.dart' show getProductsList;
 export 'sign_in_with_otp.dart' show signInWithOtp;

@@ -10,7 +10,7 @@ class ViewMarketProductTable extends SupabaseTable<ViewMarketProductRow> {
 }
 
 class ViewMarketProductRow extends SupabaseDataRow {
-  ViewMarketProductRow(super.data);
+  ViewMarketProductRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ViewMarketProductTable();
@@ -195,8 +195,8 @@ class ViewMarketProductRow extends SupabaseDataRow {
   set marketOwnerId(String? value) =>
       setField<String>('market_owner_id', value);
 
-  dynamic get marketSocial => getField<dynamic>('market_social');
-  set marketSocial(dynamic value) => setField<dynamic>('market_social', value);
+  dynamic? get marketSocial => getField<dynamic>('market_social');
+  set marketSocial(dynamic? value) => setField<dynamic>('market_social', value);
 
   String? get marketType => getField<String>('market_type');
   set marketType(String? value) => setField<String>('market_type', value);
@@ -208,8 +208,8 @@ class ViewMarketProductRow extends SupabaseDataRow {
   String? get marketGender => getField<String>('market_gender');
   set marketGender(String? value) => setField<String>('market_gender', value);
 
-  dynamic get marketBanner => getField<dynamic>('market_banner');
-  set marketBanner(dynamic value) => setField<dynamic>('market_banner', value);
+  dynamic? get marketBanner => getField<dynamic>('market_banner');
+  set marketBanner(dynamic? value) => setField<dynamic>('market_banner', value);
 
   String? get productNameArabic => getField<String>('product_name_arabic');
   set productNameArabic(String? value) =>
