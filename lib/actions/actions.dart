@@ -163,8 +163,6 @@ Future userControl(BuildContext context) async {
       }
     }
 
-    logFirebaseEvent('UserControl_update_app_state');
-    FFAppState().storeID = 0;
     logFirebaseEvent('UserControl_navigate_to');
 
     context.goNamed('zenbil');
