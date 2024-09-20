@@ -1652,9 +1652,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fa': 'ما را دنبال کنید',
     },
     'jjlx0njo': {
-      'en': 'Logout',
+      'en': 'Delete Accoun',
       'ar': 'تسجيل الخروج',
       'fa': 'خروج از سیستم',
+    },
+    'pkkl1lnu': {
+      'en': 'Warning!',
+      'ar': '',
+      'fa': '',
+    },
+    'hzotb4db': {
+      'en': 'Logout',
+      'ar': '',
+      'fa': '',
     },
     '80oqv6lu': {
       'en': 'Home',

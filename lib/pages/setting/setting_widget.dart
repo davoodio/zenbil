@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/components/anon_user_card_widget.dart';
+import '/components/info_modal_widget.dart';
 import '/components/menu_setting_item_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/social_widget.dart';
@@ -1206,6 +1207,114 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTING_PAGE_logout_ON_TAP');
+                                                    Function() navigate =
+                                                        () {};
+                                                    logFirebaseEvent(
+                                                        'logout_bottom_sheet');
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      barrierColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return GestureDetector(
+                                                          onTap: () =>
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                InfoModalWidget(
+                                                              title: FFLocalizations
+                                                                      .of(context)
+                                                                  .getText(
+                                                                'pkkl1lnu' /* Warning! */,
+                                                              ),
+                                                              body:
+                                                                  'Are you sure you want to delete your account? All your data will be removed from our system.',
+                                                              isConfirm: true,
+                                                              actionButtonText:
+                                                                  'Yes, Delete',
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() => _model
+                                                                .deleteAccountConfirm =
+                                                            value));
+
+                                                    if (_model
+                                                        .deleteAccountConfirm!) {
+                                                      logFirebaseEvent(
+                                                          'logout_auth');
+                                                      GoRouter.of(context)
+                                                          .prepareAuthEvent();
+                                                      await authManager
+                                                          .signOut();
+                                                      GoRouter.of(context)
+                                                          .clearRedirectLocation();
+
+                                                      navigate = () =>
+                                                          context.goNamedAuth(
+                                                              'Splash',
+                                                              context.mounted);
+                                                    }
+
+                                                    navigate();
+
+                                                    safeSetState(() {});
+                                                  },
+                                                  child: wrapWithModel(
+                                                    model: _model.logoutModel1,
+                                                    updateCallback: () =>
+                                                        safeSetState(() {}),
+                                                    child:
+                                                        MenuSettingItemWidget(
+                                                      icon: Icon(
+                                                        FFIcons.kuserX,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 22.0,
+                                                      ),
+                                                      text: FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'jjlx0njo' /* Delete Accoun */,
+                                                      ),
+                                                      showArrow: true,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        20.0, 0.0, 20.0, 0.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'SETTING_PAGE_logout_ON_TAP');
                                                     logFirebaseEvent(
                                                         'logout_auth');
                                                     GoRouter.of(context)
@@ -1219,7 +1328,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                         context.mounted);
                                                   },
                                                   child: wrapWithModel(
-                                                    model: _model.logoutModel,
+                                                    model: _model.logoutModel2,
                                                     updateCallback: () =>
                                                         safeSetState(() {}),
                                                     child:
@@ -1235,7 +1344,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                       text: FFLocalizations.of(
                                                               context)
                                                           .getText(
-                                                        'jjlx0njo' /* Logout */,
+                                                        'hzotb4db' /* Logout */,
                                                       ),
                                                       showArrow: true,
                                                       color:
