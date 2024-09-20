@@ -47,7 +47,11 @@ class SettingModel extends FlutterFlowModel<SettingWidget> {
   // Models for Social dynamic component.
   late FlutterFlowDynamicModels<SocialModel> socialModels;
   // Model for logout.
-  late MenuSettingItemModel logoutModel;
+  late MenuSettingItemModel logoutModel1;
+  // Stores action output result for [Bottom Sheet - InfoModal] action in logout widget.
+  bool? deleteAccountConfirm;
+  // Model for logout.
+  late MenuSettingItemModel logoutModel2;
   // Model for TermsTexts component.
   late TermsTextsModel termsTextsModel;
   // Model for NavBar component.
@@ -72,7 +76,8 @@ class SettingModel extends FlutterFlowModel<SettingWidget> {
     helpModel = createModel(context, () => MenuSettingItemModel());
     shareModel = createModel(context, () => MenuSettingItemModel());
     socialModels = FlutterFlowDynamicModels(() => SocialModel());
-    logoutModel = createModel(context, () => MenuSettingItemModel());
+    logoutModel1 = createModel(context, () => MenuSettingItemModel());
+    logoutModel2 = createModel(context, () => MenuSettingItemModel());
     termsTextsModel = createModel(context, () => TermsTextsModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
@@ -95,7 +100,8 @@ class SettingModel extends FlutterFlowModel<SettingWidget> {
     helpModel.dispose();
     shareModel.dispose();
     socialModels.dispose();
-    logoutModel.dispose();
+    logoutModel1.dispose();
+    logoutModel2.dispose();
     termsTextsModel.dispose();
     navBarModel.dispose();
   }
