@@ -36,7 +36,6 @@ void main() async {
   }
 
   // Start final custom actions code
-  await FlutterBranchSdk.init(enableLogging: false, disableTracking: false);
   await actions.oneSignalInitialize();
   // End final custom actions code
 
