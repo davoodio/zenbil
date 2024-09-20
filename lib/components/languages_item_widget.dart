@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'languages_item_model.dart';
 export 'languages_item_model.dart';
 
@@ -11,7 +10,7 @@ class LanguagesItemWidget extends StatefulWidget {
     super.key,
     required this.text,
     bool? currentLanguage,
-  }) : this.currentLanguage = currentLanguage ?? false;
+  }) : currentLanguage = currentLanguage ?? false;
 
   final String? text;
   final bool currentLanguage;
@@ -54,7 +53,7 @@ class _LanguagesItemWidgetState extends State<LanguagesItemWidget> {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +61,7 @@ class _LanguagesItemWidgetState extends State<LanguagesItemWidget> {
             Expanded(
               child: Text(
                 valueOrDefault<String>(
-                  widget!.text,
+                  widget.text,
                   'TEXT',
                 ),
                 style: FlutterFlowTheme.of(context).titleMedium.override(
@@ -75,7 +74,7 @@ class _LanguagesItemWidgetState extends State<LanguagesItemWidget> {
                     ),
               ),
             ),
-            if (widget!.currentLanguage)
+            if (widget.currentLanguage)
               Icon(
                 Icons.check_box,
                 color: FlutterFlowTheme.of(context).primary,

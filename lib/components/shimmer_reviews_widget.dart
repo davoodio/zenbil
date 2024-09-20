@@ -1,12 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'shimmer_reviews_model.dart';
 export 'shimmer_reviews_model.dart';
 
@@ -14,7 +9,7 @@ class ShimmerReviewsWidget extends StatefulWidget {
   const ShimmerReviewsWidget({
     super.key,
     Color? boxColor,
-  }) : this.boxColor = boxColor ?? const Color(0xFFE4E4E4);
+  }) : boxColor = boxColor ?? const Color(0xFFE4E4E4);
 
   final Color boxColor;
 
@@ -76,7 +71,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -88,7 +83,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 100.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -96,17 +91,17 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 50.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                       ],
                     ),
-                  ].divide(SizedBox(height: 16.0)),
+                  ].divide(const SizedBox(height: 16.0)),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -121,7 +116,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                               width: 50.0,
                               height: 10.0,
                               decoration: BoxDecoration(
-                                color: widget!.boxColor,
+                                color: widget.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -135,7 +130,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                               width: 60.0,
                               height: 10.0,
                               decoration: BoxDecoration(
-                                color: widget!.boxColor,
+                                color: widget.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -149,19 +144,19 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                               width: 80.0,
                               height: 10.0,
                               decoration: BoxDecoration(
-                                color: widget!.boxColor,
+                                color: widget.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
                           ],
                         ),
-                      ].divide(SizedBox(height: 8.0)),
+                      ].divide(const SizedBox(height: 8.0)),
                     ),
-                  ].divide(SizedBox(height: 16.0)),
+                  ].divide(const SizedBox(height: 16.0)),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 24.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -173,7 +168,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 150.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -181,7 +176,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 80.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -195,7 +190,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 88.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -203,7 +198,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 88.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -211,7 +206,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,7 +215,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                             width: 180.0,
                             height: 10.0,
                             decoration: BoxDecoration(
-                              color: widget!.boxColor,
+                              color: widget.boxColor,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
@@ -235,7 +230,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 200.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -249,7 +244,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 200.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -263,7 +258,7 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 200.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -277,13 +272,13 @@ class _ShimmerReviewsWidgetState extends State<ShimmerReviewsWidget>
                           width: 200.0,
                           height: 10.0,
                           decoration: BoxDecoration(
-                            color: widget!.boxColor,
+                            color: widget.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                       ],
                     ),
-                  ].divide(SizedBox(height: 12.0)),
+                  ].divide(const SizedBox(height: 12.0)),
                 ),
               ),
             ],

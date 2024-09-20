@@ -2,10 +2,8 @@ import '/components/header/header_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'search_focus_model.dart';
 export 'search_focus_model.dart';
 
@@ -49,7 +47,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -57,7 +55,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -80,7 +78,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -88,7 +86,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Expanded(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: 250.0,
                                             child: TextFormField(
                                               controller: _model
@@ -141,7 +139,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -151,7 +149,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -187,7 +185,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .white,
                                                 contentPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(16.0, 0.0,
                                                             0.0, 0.0),
                                                 prefixIcon: Icon(
@@ -241,7 +239,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                             print('IconButton pressed ...');
                                           },
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -306,7 +304,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -358,7 +356,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -410,7 +408,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -462,7 +460,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -514,7 +512,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -559,7 +557,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                             ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -624,7 +622,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -676,7 +674,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -728,7 +726,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -780,7 +778,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -832,7 +830,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -877,7 +875,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                             ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -942,7 +940,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -994,7 +992,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -1046,7 +1044,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -1098,7 +1096,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -1150,7 +1148,7 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   4.0,
@@ -1195,9 +1193,9 @@ class _SearchFocusWidgetState extends State<SearchFocusWidget> {
                                             ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
-                                  ].divide(SizedBox(height: 24.0)),
+                                  ].divide(const SizedBox(height: 24.0)),
                                 ),
                               ),
                             ],

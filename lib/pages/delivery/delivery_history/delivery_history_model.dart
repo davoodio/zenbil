@@ -1,11 +1,7 @@
 import '/components/nav_bar_delivery/nav_bar_delivery_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'delivery_history_widget.dart' show DeliveryHistoryWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class DeliveryHistoryModel extends FlutterFlowModel<DeliveryHistoryWidget> {
   ///  State fields for stateful widgets in this page.

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 import 'review_summary_model.dart';
 export 'review_summary_model.dart';
 
@@ -75,7 +74,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 4.0,
             color: Color(0x25A2AAB8),
@@ -87,7 +86,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
         ],
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -96,14 +95,14 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (widget!.parameter2 != 0.0)
+                  if (widget.parameter2 != 0.0)
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Flexible(
                           child: Text(
-                            widget!.parameter1!,
+                            widget.parameter1!,
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -131,7 +130,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                           color: FlutterFlowTheme.of(context).tertiary,
                         ),
                         direction: Axis.horizontal,
-                        rating: widget!.parameter2!,
+                        rating: widget.parameter2!,
                         unratedColor: FlutterFlowTheme.of(context).tfBg,
                         itemCount: 5,
                         itemSize: 16.0,
@@ -144,7 +143,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                     children: [
                       Flexible(
                         child: Text(
-                          '${widget!.parameter3?.toString()} Ratings & ${widget!.parameter4?.toString()} Reviews',
+                          '${widget.parameter3?.toString()} Ratings & ${widget.parameter4?.toString()} Reviews',
                           style: FlutterFlowTheme.of(context)
                               .labelSmall
                               .override(
@@ -160,7 +159,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                       ),
                     ],
                   ),
-                ].divide(SizedBox(height: 8.0)),
+                ].divide(const SizedBox(height: 8.0)),
               ),
             ),
             if (false)
@@ -208,30 +207,30 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!)) ==
+                          percent: ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!)) ==
                                   0
                               ? 0.0
-                              : ((widget!.parameter5!) /
-                                  ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!))),
+                              : ((widget.parameter5!) /
+                                  ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!))),
                           width: 80.0,
                           lineHeight: 6.0,
                           animation: true,
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).timeLine,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
-                          widget!.parameter10!.toString(),
+                          widget.parameter10!.toString(),
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -246,7 +245,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -278,30 +277,30 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!)) ==
+                          percent: ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!)) ==
                                   0
                               ? 0.0
-                              : ((widget!.parameter6!) /
-                                  ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!))),
+                              : ((widget.parameter6!) /
+                                  ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!))),
                           width: 80.0,
                           lineHeight: 6.0,
                           animation: true,
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).timeLine,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
-                          widget!.parameter11!.toString(),
+                          widget.parameter11!.toString(),
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -316,7 +315,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -348,30 +347,30 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!)) ==
+                          percent: ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!)) ==
                                   0
                               ? 0.0
-                              : ((widget!.parameter7!) /
-                                  ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!))),
+                              : ((widget.parameter7!) /
+                                  ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!))),
                           width: 80.0,
                           lineHeight: 6.0,
                           animation: true,
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).primary,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
-                          widget!.parameter12!.toString(),
+                          widget.parameter12!.toString(),
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -386,7 +385,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -418,30 +417,30 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!)) ==
+                          percent: ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!)) ==
                                   0
                               ? 0.0
-                              : ((widget!.parameter8!) /
-                                  ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!))),
+                              : ((widget.parameter8!) /
+                                  ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!))),
                           width: 80.0,
                           lineHeight: 6.0,
                           animation: true,
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).googleBg,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
-                          widget!.parameter13!.toString(),
+                          widget.parameter13!.toString(),
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -456,7 +455,7 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -488,30 +487,30 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!)) ==
+                          percent: ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!)) ==
                                   0
                               ? 0.0
-                              : ((widget!.parameter9!) /
-                                  ((widget!.parameter9!) +
-                                      (widget!.parameter8!) +
-                                      (widget!.parameter7!) +
-                                      (widget!.parameter6!) +
-                                      (widget!.parameter5!))),
+                              : ((widget.parameter9!) /
+                                  ((widget.parameter9!) +
+                                      (widget.parameter8!) +
+                                      (widget.parameter7!) +
+                                      (widget.parameter6!) +
+                                      (widget.parameter5!))),
                           width: 80.0,
                           lineHeight: 6.0,
                           animation: true,
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).googleBg,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
-                          widget!.parameter14!.toString(),
+                          widget.parameter14!.toString(),
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -526,12 +525,12 @@ class _ReviewSummaryWidgetState extends State<ReviewSummaryWidget> {
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
-                  ].divide(SizedBox(height: 8.0)),
+                  ].divide(const SizedBox(height: 8.0)),
                 ),
               ),
-          ].divide(SizedBox(width: 16.0)),
+          ].divide(const SizedBox(width: 16.0)),
         ),
       ),
     );

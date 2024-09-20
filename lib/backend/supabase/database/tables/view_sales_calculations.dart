@@ -11,7 +11,7 @@ class ViewSalesCalculationsTable
 }
 
 class ViewSalesCalculationsRow extends SupabaseDataRow {
-  ViewSalesCalculationsRow(Map<String, dynamic> data) : super(data);
+  ViewSalesCalculationsRow(super.data);
 
   @override
   SupabaseTable get table => ViewSalesCalculationsTable();

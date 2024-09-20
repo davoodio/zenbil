@@ -190,29 +190,29 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
 
-  late Color timeLine = Color(0xFF54B83C);
-  late Color unselectedPageview = Color(0xFFBAD3FB);
-  late Color white = Color(0xFFFFFFFF);
-  late Color faceBookBg = Color(0xFF3C5A9A);
-  late Color googleBg = Color(0xFFEB4335);
-  late Color appleBg = Color(0xFF000A14);
-  late Color lightBlack = Color(0xFFB8BCBF);
-  late Color tfBg = Color(0xFFE4E9EA);
-  late Color cartBg = Color(0xFFE8F1FE);
-  late Color boxShadow = Color(0x265C666D);
-  late Color liked = Color(0xFFF71D6D);
-  late Color secondary25 = Color(0x4039D2C0);
-  late Color secondary50 = Color(0x8039D2C0);
-  late Color primary25 = Color(0x402473F3);
-  late Color primary50 = Color(0x7F2473F3);
-  late Color tertiary25 = Color(0x41FF7642);
-  late Color tertiary50 = Color(0x40FF7642);
-  late Color homeHeaderBG = Color(0xFF040E18);
-  late Color shadowPrimary = Color(0x80051B3D);
-  late Color specialBackground = Color(0xFF3F1937);
-  late Color grayMiddle = Color(0xFF838383);
-  late Color mainBlue = Color(0xFF007CFF);
-  late Color lightGreenBG = Color(0xFFE7FBE6);
+  late Color timeLine = const Color(0xFF54B83C);
+  late Color unselectedPageview = const Color(0xFFBAD3FB);
+  late Color white = const Color(0xFFFFFFFF);
+  late Color faceBookBg = const Color(0xFF3C5A9A);
+  late Color googleBg = const Color(0xFFEB4335);
+  late Color appleBg = const Color(0xFF000A14);
+  late Color lightBlack = const Color(0xFFB8BCBF);
+  late Color tfBg = const Color(0xFFE4E9EA);
+  late Color cartBg = const Color(0xFFE8F1FE);
+  late Color boxShadow = const Color(0x265C666D);
+  late Color liked = const Color(0xFFF71D6D);
+  late Color secondary25 = const Color(0x4039D2C0);
+  late Color secondary50 = const Color(0x8039D2C0);
+  late Color primary25 = const Color(0x402473F3);
+  late Color primary50 = const Color(0x7F2473F3);
+  late Color tertiary25 = const Color(0x41FF7642);
+  late Color tertiary50 = const Color(0x40FF7642);
+  late Color homeHeaderBG = const Color(0xFF040E18);
+  late Color shadowPrimary = const Color(0x80051B3D);
+  late Color specialBackground = const Color(0xFF3F1937);
+  late Color grayMiddle = const Color(0xFF838383);
+  late Color mainBlue = const Color(0xFF007CFF);
+  late Color lightGreenBG = const Color(0xFFE7FBE6);
 }
 
 abstract class Typography {
@@ -607,29 +607,29 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFF000A14);
 
-  late Color timeLine = Color(0xFF54B83C);
-  late Color unselectedPageview = Color(0xFFBAD3FB);
-  late Color white = Color(0xFFFFFFFF);
-  late Color faceBookBg = Color(0xFF3C5A9A);
-  late Color googleBg = Color(0xFFEB4335);
-  late Color appleBg = Color(0xFF000A14);
-  late Color lightBlack = Color(0xFFB8BCBF);
-  late Color tfBg = Color(0xFF0C0E11);
-  late Color cartBg = Color(0xFF262A34);
-  late Color boxShadow = Color(0x27000000);
-  late Color liked = Color(0xFFF71D6D);
-  late Color secondary25 = Color(0x4039D2C0);
-  late Color secondary50 = Color(0x7F39D2C0);
-  late Color primary25 = Color(0x3F2473F3);
-  late Color primary50 = Color(0x7F2473F3);
-  late Color tertiary25 = Color(0x7FFF7642);
-  late Color tertiary50 = Color(0x7FFF7642);
-  late Color homeHeaderBG = Color(0xFF040E18);
-  late Color shadowPrimary = Color(0x7F2473F3);
-  late Color specialBackground = Color(0xFF3F1937);
-  late Color grayMiddle = Color(0xFF838383);
-  late Color mainBlue = Color(0xFF007CFF);
-  late Color lightGreenBG = Color(0xFFE7FBE6);
+  late Color timeLine = const Color(0xFF54B83C);
+  late Color unselectedPageview = const Color(0xFFBAD3FB);
+  late Color white = const Color(0xFFFFFFFF);
+  late Color faceBookBg = const Color(0xFF3C5A9A);
+  late Color googleBg = const Color(0xFFEB4335);
+  late Color appleBg = const Color(0xFF000A14);
+  late Color lightBlack = const Color(0xFFB8BCBF);
+  late Color tfBg = const Color(0xFF0C0E11);
+  late Color cartBg = const Color(0xFF262A34);
+  late Color boxShadow = const Color(0x27000000);
+  late Color liked = const Color(0xFFF71D6D);
+  late Color secondary25 = const Color(0x4039D2C0);
+  late Color secondary50 = const Color(0x7F39D2C0);
+  late Color primary25 = const Color(0x3F2473F3);
+  late Color primary50 = const Color(0x7F2473F3);
+  late Color tertiary25 = const Color(0x7FFF7642);
+  late Color tertiary50 = const Color(0x7FFF7642);
+  late Color homeHeaderBG = const Color(0xFF040E18);
+  late Color shadowPrimary = const Color(0x7F2473F3);
+  late Color specialBackground = const Color(0xFF3F1937);
+  late Color grayMiddle = const Color(0xFF838383);
+  late Color mainBlue = const Color(0xFF007CFF);
+  late Color lightGreenBG = const Color(0xFFE7FBE6);
 }
 
 extension TextStyleHelper on TextStyle {

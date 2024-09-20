@@ -9,7 +9,7 @@ class MarketsTable extends SupabaseTable<MarketsRow> {
 }
 
 class MarketsRow extends SupabaseDataRow {
-  MarketsRow(Map<String, dynamic> data) : super(data);
+  MarketsRow(super.data);
 
   @override
   SupabaseTable get table => MarketsTable();
@@ -51,8 +51,8 @@ class MarketsRow extends SupabaseDataRow {
   String? get ownerId => getField<String>('owner_id');
   set ownerId(String? value) => setField<String>('owner_id', value);
 
-  dynamic? get social => getField<dynamic>('social');
-  set social(dynamic? value) => setField<dynamic>('social', value);
+  dynamic get social => getField<dynamic>('social');
+  set social(dynamic value) => setField<dynamic>('social', value);
 
   String? get type => getField<String>('type');
   set type(String? value) => setField<String>('type', value);
@@ -63,8 +63,8 @@ class MarketsRow extends SupabaseDataRow {
   String? get gender => getField<String>('gender');
   set gender(String? value) => setField<String>('gender', value);
 
-  dynamic? get marketBanner => getField<dynamic>('market_banner');
-  set marketBanner(dynamic? value) => setField<dynamic>('market_banner', value);
+  dynamic get marketBanner => getField<dynamic>('market_banner');
+  set marketBanner(dynamic value) => setField<dynamic>('market_banner', value);
 
   String? get headerUrl => getField<String>('header_url');
   set headerUrl(String? value) => setField<String>('header_url', value);

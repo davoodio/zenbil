@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'discount_promotion_card_model.dart';
 export 'discount_promotion_card_model.dart';
 
@@ -60,7 +59,7 @@ class _DiscountPromotionCardWidgetState
           color: FlutterFlowTheme.of(context).primary,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
@@ -68,16 +67,16 @@ class _DiscountPromotionCardWidgetState
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
-                  fadeInDuration: Duration(milliseconds: 500),
-                  fadeOutDuration: Duration(milliseconds: 500),
-                  imageUrl: widget!.image!,
+                  fadeInDuration: const Duration(milliseconds: 500),
+                  fadeOutDuration: const Duration(milliseconds: 500),
+                  imageUrl: widget.image!,
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +86,7 @@ class _DiscountPromotionCardWidgetState
                       children: [
                         Text(
                           valueOrDefault<String>(
-                            widget!.title,
+                            widget.title,
                             'Discount',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -109,7 +108,7 @@ class _DiscountPromotionCardWidgetState
                       children: [
                         Text(
                           valueOrDefault<String>(
-                            widget!.description,
+                            widget.description,
                             'Category',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -126,7 +125,7 @@ class _DiscountPromotionCardWidgetState
                         ),
                       ],
                     ),
-                  ].divide(SizedBox(height: 8.0)),
+                  ].divide(const SizedBox(height: 8.0)),
                 ),
               ),
             ],

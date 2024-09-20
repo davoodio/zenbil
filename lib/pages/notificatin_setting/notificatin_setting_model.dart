@@ -1,11 +1,7 @@
 import '/components/header/header_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'notificatin_setting_widget.dart' show NotificatinSettingWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class NotificatinSettingModel
     extends FlutterFlowModel<NotificatinSettingWidget> {

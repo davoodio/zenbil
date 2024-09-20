@@ -2,8 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'color_items_model.dart';
 export 'color_items_model.dart';
 
@@ -39,7 +37,7 @@ class _ColorItemsWidgetState extends State<ColorItemsWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('COLOR_ITEMS_ColorItems_ON_INIT_STATE');
       logFirebaseEvent('ColorItems_update_component_state');
-      _model.colorSelected = widget!.initialColor;
+      _model.colorSelected = widget.initialColor;
       _model.updatePage(() {});
     });
 
@@ -57,7 +55,7 @@ class _ColorItemsWidgetState extends State<ColorItemsWidget> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final colors = widget!.colors!.toList();
+        final colors = widget.colors!.toList();
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -67,7 +65,7 @@ class _ColorItemsWidgetState extends State<ColorItemsWidget> {
             children: List.generate(colors.length, (colorsIndex) {
               final colorsItem = colors[colorsIndex];
               return Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -95,9 +93,9 @@ class _ColorItemsWidgetState extends State<ColorItemsWidget> {
                       ),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(2.0),
                         child: Container(
                           width: 24.0,
                           height: 24.0,
@@ -123,7 +121,7 @@ class _ColorItemsWidgetState extends State<ColorItemsWidget> {
                   ),
                 ),
               );
-            }).divide(SizedBox(width: 12.0)).addToEnd(SizedBox(width: 20.0)),
+            }).divide(const SizedBox(width: 12.0)).addToEnd(const SizedBox(width: 20.0)),
           ),
         );
       },

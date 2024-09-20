@@ -8,11 +8,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +44,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
     super.initState();
     _model = createModel(context, () => AddressReturnPlaceIdModel());
 
-    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+    getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
         .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     _model.seachAddressTextFieldTextController ??= TextEditingController();
     _model.seachAddressTextFieldFocusNode ??= FocusNode();
@@ -61,8 +59,8 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.0, 1.0),
-            end: Offset(1.1, 1.1),
+            begin: const Offset(1.0, 1.0),
+            end: const Offset(1.1, 1.1),
           ),
         ],
       ),
@@ -111,17 +109,17 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
     }
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 1.0),
+      alignment: const AlignmentDirectional(0.0, 1.0),
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(),
-        alignment: AlignmentDirectional(0.0, 1.0),
-        child: Container(
+        decoration: const BoxDecoration(),
+        alignment: const AlignmentDirectional(0.0, 1.0),
+        child: SizedBox(
           width: double.infinity,
           height: MediaQuery.sizeOf(context).height * 0.9,
           child: Stack(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: const AlignmentDirectional(0.0, 1.0),
             children: [
               Container(
                 width: double.infinity,
@@ -131,7 +129,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                 ),
                 child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: double.infinity,
                       child: Stack(
@@ -165,9 +163,9 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 20.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -182,9 +180,9 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: const AlignmentDirectional(0.0, 1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 24.0),
                               child: Semantics(
                                 label: 'Go to add new address',
@@ -224,9 +222,9 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                   options: FFButtonOptions(
                                     width: 150.0,
                                     height: 54.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -242,7 +240,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmallFamily),
                                         ),
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(0.0),
                                       bottomRight: Radius.circular(0.0),
                                       topLeft: Radius.circular(0.0),
@@ -263,7 +261,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 54.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -273,7 +271,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 10.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -305,7 +303,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -341,11 +339,11 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 16.0, 16.0, 0.0),
                                     child: Semantics(
                                       label: 'enter a address',
-                                      child: Container(
+                                      child: SizedBox(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller: _model
@@ -355,7 +353,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                           onChanged: (_) =>
                                               EasyDebounce.debounce(
                                             '_model.seachAddressTextFieldTextController',
-                                            Duration(milliseconds: 300),
+                                            const Duration(milliseconds: 300),
                                             () async {
                                               logFirebaseEvent(
                                                   'ADDRESS_RETURN_PLACE_ID_SeachAddressText');
@@ -498,7 +496,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 4.0)),
+                                ].divide(const SizedBox(height: 4.0)),
                               ),
                               if (_model.placesGet != null)
                                 Expanded(
@@ -506,7 +504,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -567,7 +565,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                             }
 
                                             return ListView.separated(
-                                              padding: EdgeInsets.fromLTRB(
+                                              padding: const EdgeInsets.fromLTRB(
                                                 0,
                                                 0,
                                                 0,
@@ -578,7 +576,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                               itemCount:
                                                   predictionAddress.length,
                                               separatorBuilder: (_, __) =>
-                                                  SizedBox(height: 16.0),
+                                                  const SizedBox(height: 16.0),
                                               itemBuilder: (context,
                                                   predictionAddressIndex) {
                                                 final predictionAddressItem =
@@ -650,10 +648,10 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                                     },
                                                     child: Container(
                                                       decoration:
-                                                          BoxDecoration(),
+                                                          const BoxDecoration(),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     16.0,
                                                                     8.0,
@@ -706,7 +704,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     height:
                                                                         4.0)),
                                                               ),
@@ -737,7 +735,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                                                           'iconOnPageLoadAnimation']!),
                                                               ],
                                                             ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               width: 16.0)),
                                                         ),
                                                       ),
@@ -749,12 +747,12 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                                           },
                                         ),
                                       ),
-                                    ].divide(SizedBox(height: 16.0)),
+                                    ].divide(const SizedBox(height: 16.0)),
                                   ),
                                 ),
                             ]
-                                .divide(SizedBox(height: 16.0))
-                                .addToStart(SizedBox(height: 8.0)),
+                                .divide(const SizedBox(height: 16.0))
+                                .addToStart(const SizedBox(height: 8.0)),
                           ),
                         ),
                       ),
@@ -762,9 +760,9 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(-1.0, -1.0),
+                alignment: const AlignmentDirectional(-1.0, -1.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -815,10 +813,10 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                           iconColor:
                               FlutterFlowTheme.of(context).primaryBackground,
                           iconSize: 18.0,
-                          labelPadding: EdgeInsetsDirectional.fromSTEB(
+                          labelPadding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 5.0, 16.0, 5.0),
                           elevation: 0.0,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0.0),
                             bottomRight: Radius.circular(0.0),
                             topLeft: Radius.circular(0.0),
@@ -843,10 +841,10 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                               ),
                           iconColor: FlutterFlowTheme.of(context).primaryText,
                           iconSize: 18.0,
-                          labelPadding: EdgeInsetsDirectional.fromSTEB(
+                          labelPadding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 5.0, 16.0, 5.0),
                           elevation: 0.0,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0.0),
                             bottomRight: Radius.circular(0.0),
                             topLeft: Radius.circular(0.0),
@@ -868,7 +866,7 @@ class _AddressReturnPlaceIdWidgetState extends State<AddressReturnPlaceIdWidget>
                         ),
                         wrapped: false,
                       ),
-                    ].divide(SizedBox(width: 24.0)),
+                    ].divide(const SizedBox(width: 24.0)),
                   ),
                 ),
               ),

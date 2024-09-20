@@ -15,7 +15,6 @@ import '/components/share_badge_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -57,16 +56,16 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('STORE_FRONT_StoreFront_ON_INIT_STATE');
-      if (widget!.marketID != null) {
+      if (widget.marketID != null) {
         // Fetch Markets
         logFirebaseEvent('StoreFront_FetchMarkets');
         _model.currentMarket = await MarketsTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            widget!.marketID,
+            widget.marketID,
           ),
         );
-        if (_model.currentMarket!.length > 0) {
+        if (_model.currentMarket!.isNotEmpty) {
           logFirebaseEvent('StoreFront_update_page_state');
           _model.market = _model.currentMarket?.first;
           safeSetState(() {});
@@ -77,10 +76,10 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
         _model.currentBrand = await BrandsTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            widget!.brandID,
+            widget.brandID,
           ),
         );
-        if (_model.currentBrand!.length > 0) {
+        if (_model.currentBrand!.isNotEmpty) {
           logFirebaseEvent('StoreFront_update_page_state');
           _model.brand = _model.currentBrand?.first;
           safeSetState(() {});
@@ -109,7 +108,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -120,9 +119,9 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                     SafeArea(
                       child: Container(
                         width: double.infinity,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 10.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -201,7 +200,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  if (widget!.marketID != null)
+                                  if (widget.marketID != null)
                                     Builder(
                                       builder: (context) => InkWell(
                                         splashColor: Colors.transparent,
@@ -215,7 +214,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                               'ShareBadge_custom_action');
                                           _model.generatedLink = await actions
                                               .generateProductStoreLink(
-                                            widget!.marketID!,
+                                            widget.marketID!,
                                           );
                                           logFirebaseEvent('ShareBadge_share');
                                           await Share.share(
@@ -237,12 +236,12 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                             iconColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primaryText,
-                                            marketId: widget!.marketID!,
+                                            marketId: widget.marketID!,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  if (widget!.marketID != null)
+                                  if (widget.marketID != null)
                                     wrapWithModel(
                                       model: _model.searchBadgeModel,
                                       updateCallback: () => safeSetState(() {}),
@@ -260,7 +259,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                         searchTitle:
                                             'Products of ${_model.market?.name}',
                                         preDefineSearch:
-                                            'market_product_is_active=${true.toString()},market_product_market_id=${widget!.marketID?.toString()},quantity_in_inventory>0',
+                                            'market_product_is_active=${true.toString()},market_product_market_id=${widget.marketID?.toString()},quantity_in_inventory>0',
                                       ),
                                     ),
                                   wrapWithModel(
@@ -276,7 +275,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(width: 5.0)),
+                            ].divide(const SizedBox(width: 5.0)),
                           ),
                         ),
                       ),
@@ -288,7 +287,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                           children: [
                             Builder(
                               builder: (context) {
-                                if (widget!.marketID != null) {
+                                if (widget.marketID != null) {
                                   return Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
@@ -298,14 +297,14 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                     child: Stack(
                                       children: [
                                         if (_model.market != null)
-                                          Container(
+                                          SizedBox(
                                             width: double.infinity,
                                             child: Stack(
                                               children: [
                                                 Container(
                                                   width: double.infinity,
                                                   height: 230.0,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Builder(
                                                     builder: (context) {
                                                       if (_model.market
@@ -353,9 +352,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                             .maybeFromMap(_model
                                                                 .market!
                                                                 .marketBanner!)!
-                                                        .marketBanner
-                                                        .length >
-                                                    0)
+                                                        .marketBanner.isNotEmpty)
                                                   Container(
                                                     width: double.infinity,
                                                     height: 240.0,
@@ -364,7 +361,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                               .of(context)
                                                           .secondaryBackground,
                                                     ),
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: double.infinity,
                                                       height: double.infinity,
                                                       child: Stack(
@@ -374,7 +371,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                                 double.infinity,
                                                             height: 230.0,
                                                             decoration:
-                                                                BoxDecoration(),
+                                                                const BoxDecoration(),
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
@@ -382,10 +379,10 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                                             .market
                                                                             ?.marketBanner)
                                                                         ?.marketBanner
-                                                                        ?.toList() ??
+                                                                        .toList() ??
                                                                     [];
 
-                                                                return Container(
+                                                                return SizedBox(
                                                                   width: double
                                                                       .infinity,
                                                                   height: double
@@ -433,7 +430,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                                           height:
                                                                               double.infinity,
                                                                           decoration:
-                                                                              BoxDecoration(),
+                                                                              const BoxDecoration(),
                                                                           child:
                                                                               ImageWidgetWidget(
                                                                             key:
@@ -474,10 +471,10 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                                       autoPlay:
                                                                           true,
                                                                       autoPlayAnimationDuration:
-                                                                          Duration(
+                                                                          const Duration(
                                                                               milliseconds: 700),
                                                                       autoPlayInterval:
-                                                                          Duration(
+                                                                          const Duration(
                                                                               milliseconds: (700 + 2000)),
                                                                       autoPlayCurve:
                                                                           Curves
@@ -504,7 +501,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                         if (false)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 20.0, 0.0, 0.0),
                                             child: wrapWithModel(
                                               model:
@@ -520,7 +517,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                     ),
                                   );
                                 } else {
-                                  return Container(
+                                  return SizedBox(
                                     height: 230.0,
                                     child: wrapWithModel(
                                       model: _model.imageWidgetModel4,
@@ -567,7 +564,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
-                                            return Container(
+                                            return const SizedBox(
                                               width: double.infinity,
                                               height: 0.0,
                                               child: EmptyComponentWidget(),
@@ -583,9 +580,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                             child: Container(
                                               width: double.infinity,
                                               height: valueOrDefault<double>(
-                                                containerAdvertisingRowList
-                                                            .length >
-                                                        0
+                                                containerAdvertisingRowList.isNotEmpty
                                                     ? 160.0
                                                     : 0.0,
                                                 160.0,
@@ -595,7 +590,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                     BorderRadius.circular(16.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: Builder(
@@ -604,7 +599,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                         containerAdvertisingRowList
                                                             .toList();
 
-                                                    return Container(
+                                                    return SizedBox(
                                                       width: double.infinity,
                                                       height: double.infinity,
                                                       child: PageView.builder(
@@ -675,23 +670,23 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                   );
                                 } else {
                                   return Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                   );
                                 }
                               },
                             ),
                             Container(
                               width: double.infinity,
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Builder(
                                     builder: (context) {
-                                      if (widget!.marketID != null) {
+                                      if (widget.marketID != null) {
                                         return Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: FutureBuilder<
                                               List<ViewMarketProductRow>>(
@@ -700,7 +695,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                               queryFn: (q) => q
                                                   .eq(
                                                     'market_product_market_id',
-                                                    widget!.marketID,
+                                                    widget.marketID,
                                                   )
                                                   .eq(
                                                     'market_product_is_active',
@@ -745,7 +740,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                 physics:
                                                     const NeverScrollableScrollPhysics(),
                                                 gridDelegate:
-                                                    SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                                   crossAxisCount: 2,
                                                 ),
                                                 crossAxisSpacing: 10.0,
@@ -753,7 +748,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                 itemCount:
                                                     marketProductsViewMarketProductRowList
                                                         .length,
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   0,
                                                   20.0,
                                                   0,
@@ -766,7 +761,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                       marketProductsViewMarketProductRowList[
                                                           marketProductsIndex];
                                                   return Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: ProductCardWidget(
                                                       key: Key(
                                                           'Keyq5h_${marketProductsIndex}_of_${marketProductsViewMarketProductRowList.length}'),
@@ -816,7 +811,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                           marketProductsViewMarketProductRow
                                                               .marketProductProductId!,
                                                       marketID:
-                                                          widget!.marketID,
+                                                          widget.marketID,
                                                       discountedPrice:
                                                           marketProductsViewMarketProductRow
                                                               .productDiscountedPrice,
@@ -830,7 +825,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                       } else {
                                         return Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child:
                                               FutureBuilder<List<ProductsRow>>(
@@ -843,7 +838,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                   )
                                                   .eq(
                                                     'brand_id',
-                                                    widget!.brandID,
+                                                    widget.brandID,
                                                   ),
                                             ),
                                             builder: (context, snapshot) {
@@ -880,7 +875,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                 physics:
                                                     const NeverScrollableScrollPhysics(),
                                                 gridDelegate:
-                                                    SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                                   crossAxisCount: 2,
                                                 ),
                                                 crossAxisSpacing: 10.0,
@@ -888,7 +883,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                 itemCount:
                                                     brandProductsProductsRowList
                                                         .length,
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   0,
                                                   20.0,
                                                   0,
@@ -901,7 +896,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                       brandProductsProductsRowList[
                                                           brandProductsIndex];
                                                   return Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: FutureBuilder<
                                                         List<BusinessesRow>>(
                                                       future: BusinessesTable()
@@ -916,7 +911,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                           (context, snapshot) {
                                                         // Customize what your widget looks like when it's loading.
                                                         if (!snapshot.hasData) {
-                                                          return EmptyComponentWidget();
+                                                          return const EmptyComponentWidget();
                                                         }
                                                         List<BusinessesRow>
                                                             productCardBusinessesRowList =
@@ -1021,12 +1016,12 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
+                      alignment: const AlignmentDirectional(0.0, 1.0),
                       child: wrapWithModel(
                         model: _model.navBarModel,
                         updateCallback: () => safeSetState(() {}),
                         updateOnChange: true,
-                        child: NavBarWidget(
+                        child: const NavBarWidget(
                           activePage: '-',
                         ),
                       ),

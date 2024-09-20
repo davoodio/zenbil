@@ -2,8 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'product_square_model.dart';
 export 'product_square_model.dart';
 
@@ -46,7 +44,7 @@ class _ProductSquareWidgetState extends State<ProductSquareWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
       child: Container(
         width: 72.0,
         height: 72.0,
@@ -56,7 +54,7 @@ class _ProductSquareWidgetState extends State<ProductSquareWidget> {
             BoxShadow(
               blurRadius: 4.0,
               color: FlutterFlowTheme.of(context).boxShadow,
-              offset: Offset(
+              offset: const Offset(
                 0.0,
                 2.0,
               ),
@@ -65,14 +63,14 @@ class _ProductSquareWidgetState extends State<ProductSquareWidget> {
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0.0),
             child: CachedNetworkImage(
-              fadeInDuration: Duration(milliseconds: 500),
-              fadeOutDuration: Duration(milliseconds: 500),
+              fadeInDuration: const Duration(milliseconds: 500),
+              fadeOutDuration: const Duration(milliseconds: 500),
               imageUrl: valueOrDefault<String>(
-                widget!.productImage,
+                widget.productImage,
                 'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/shopping-express-wrb1ci/assets/47turnqldnz6/9k.png',
               ),
               width: 300.0,

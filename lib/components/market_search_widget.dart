@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'market_search_model.dart';
 export 'market_search_model.dart';
 
@@ -51,7 +50,7 @@ class _MarketSearchWidgetState extends State<MarketSearchWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (widget!.marketID != null)
+        if (widget.marketID != null)
           InkWell(
             splashColor: Colors.transparent,
             focusColor: Colors.transparent,
@@ -65,14 +64,14 @@ class _MarketSearchWidgetState extends State<MarketSearchWidget> {
                 'StoreFront',
                 queryParameters: {
                   'marketID': serializeParam(
-                    widget!.marketID,
+                    widget.marketID,
                     ParamType.int,
                   ),
                 }.withoutNulls,
               );
             },
             child: Container(
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -93,7 +92,7 @@ class _MarketSearchWidgetState extends State<MarketSearchWidget> {
                               BoxShadow(
                                 blurRadius: 8.0,
                                 color: FlutterFlowTheme.of(context).boxShadow,
-                                offset: Offset(
+                                offset: const Offset(
                                   0.0,
                                   2.0,
                                 ),
@@ -106,7 +105,7 @@ class _MarketSearchWidgetState extends State<MarketSearchWidget> {
                             model: _model.imageWidgetModel,
                             updateCallback: () => safeSetState(() {}),
                             child: ImageWidgetWidget(
-                              image: widget!.marketmage,
+                              image: widget.marketmage,
                               isExpamdable: false,
                               isAvatar: false,
                             ),
@@ -126,7 +125,7 @@ class _MarketSearchWidgetState extends State<MarketSearchWidget> {
                                 Flexible(
                                   child: Text(
                                     valueOrDefault<String>(
-                                      widget!.marketName,
+                                      widget.marketName,
                                       '-',
                                     ),
                                     maxLines: 2,
@@ -147,12 +146,12 @@ class _MarketSearchWidgetState extends State<MarketSearchWidget> {
                                         ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 8.0)),
+                              ].divide(const SizedBox(width: 8.0)),
                             ),
-                          ].divide(SizedBox(height: 4.0)),
+                          ].divide(const SizedBox(height: 4.0)),
                         ),
                       ),
-                    ].divide(SizedBox(width: 16.0)),
+                    ].divide(const SizedBox(width: 16.0)),
                   ),
                 ],
               ),

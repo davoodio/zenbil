@@ -10,7 +10,7 @@ class UserNotificationsTable extends SupabaseTable<UserNotificationsRow> {
 }
 
 class UserNotificationsRow extends SupabaseDataRow {
-  UserNotificationsRow(Map<String, dynamic> data) : super(data);
+  UserNotificationsRow(super.data);
 
   @override
   SupabaseTable get table => UserNotificationsTable();

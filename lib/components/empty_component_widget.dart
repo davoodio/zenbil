@@ -1,8 +1,5 @@
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'empty_component_model.dart';
 export 'empty_component_model.dart';
 
@@ -39,7 +36,7 @@ class _EmptyComponentWidgetState extends State<EmptyComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisSize: MainAxisSize.max,
       children: [],
     );

@@ -10,7 +10,7 @@ class ConversationMessagesTable extends SupabaseTable<ConversationMessagesRow> {
 }
 
 class ConversationMessagesRow extends SupabaseDataRow {
-  ConversationMessagesRow(Map<String, dynamic> data) : super(data);
+  ConversationMessagesRow(super.data);
 
   @override
   SupabaseTable get table => ConversationMessagesTable();
@@ -34,6 +34,6 @@ class ConversationMessagesRow extends SupabaseDataRow {
   set isSenderSupportAgent(bool value) =>
       setField<bool>('is_sender_support_agent', value);
 
-  dynamic? get media => getField<dynamic>('media');
-  set media(dynamic? value) => setField<dynamic>('media', value);
+  dynamic get media => getField<dynamic>('media');
+  set media(dynamic value) => setField<dynamic>('media', value);
 }

@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'choose_shipping_method_item_model.dart';
 export 'choose_shipping_method_item_model.dart';
 
@@ -12,8 +11,8 @@ class ChooseShippingMethodItemWidget extends StatefulWidget {
     String? title,
     this.icon,
     bool? isDefault,
-  })  : this.title = title ?? 'TITLE',
-        this.isDefault = isDefault ?? false;
+  })  : title = title ?? 'TITLE',
+        isDefault = isDefault ?? false;
 
   final String title;
   final Widget? icon;
@@ -57,7 +56,7 @@ class _ChooseShippingMethodItemWidgetState
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,10 +72,10 @@ class _ChooseShippingMethodItemWidgetState
                       color: FlutterFlowTheme.of(context).primary,
                       shape: BoxShape.circle,
                     ),
-                    child: widget!.icon!,
+                    child: widget.icon!,
                   ),
                   Text(
-                    widget!.title,
+                    widget.title,
                     style: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).titleSmallFamily,
@@ -86,16 +85,16 @@ class _ChooseShippingMethodItemWidgetState
                               FlutterFlowTheme.of(context).titleSmallFamily),
                         ),
                   ),
-                ].divide(SizedBox(width: 20.0)),
+                ].divide(const SizedBox(width: 20.0)),
               ),
             ),
-            if (widget!.isDefault)
+            if (widget.isDefault)
               Icon(
                 FFIcons.kcircleCheckFilled,
                 color: FlutterFlowTheme.of(context).primary,
                 size: 24.0,
               ),
-          ].divide(SizedBox(width: 8.0)),
+          ].divide(const SizedBox(width: 8.0)),
         ),
       ),
     );

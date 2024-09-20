@@ -10,7 +10,7 @@ class ViewOrderProductTable extends SupabaseTable<ViewOrderProductRow> {
 }
 
 class ViewOrderProductRow extends SupabaseDataRow {
-  ViewOrderProductRow(Map<String, dynamic> data) : super(data);
+  ViewOrderProductRow(super.data);
 
   @override
   SupabaseTable get table => ViewOrderProductTable();

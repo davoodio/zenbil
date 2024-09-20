@@ -60,12 +60,12 @@ class _CartItemWidgetState extends State<CartItemWidget> {
     context.watch<FFAppState>();
 
     return Container(
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -79,7 +79,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                         BoxShadow(
                           blurRadius: 4.0,
                           color: FlutterFlowTheme.of(context).boxShadow,
-                          offset: Offset(
+                          offset: const Offset(
                             0.0,
                             2.0,
                           ),
@@ -94,9 +94,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
-                        fadeInDuration: Duration(milliseconds: 500),
-                        fadeOutDuration: Duration(milliseconds: 500),
-                        imageUrl: widget!.productCart!.image,
+                        fadeInDuration: const Duration(milliseconds: 500),
+                        fadeOutDuration: const Duration(milliseconds: 500),
+                        imageUrl: widget.productCart!.image,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -112,7 +112,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           Flexible(
                             child: Text(
                               valueOrDefault<String>(
-                                widget!.productCart?.productName,
+                                widget.productCart?.productName,
                                 'name',
                               ),
                               maxLines: 1,
@@ -139,7 +139,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           Flexible(
                             child: Text(
                               valueOrDefault<String>(
-                                widget!.productCart?.productDescription,
+                                widget.productCart?.productDescription,
                                 'description',
                               ),
                               maxLines: 2,
@@ -170,14 +170,14 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (widget!.productCart?.isDiscounted ?? true)
+                                if (widget.productCart?.isDiscounted ?? true)
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
                                         functions.applyCorrectNumberFormatting(
-                                            widget!.productCart!.price *
-                                                widget!.productCart!.quantity *
+                                            widget.productCart!.price *
+                                                widget.productCart!.quantity *
                                                 FFAppState()
                                                     .country
                                                     .currencyExchangeRate,
@@ -209,7 +209,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       Text(
                                         valueOrDefault<String>(
                                           '-${formatNumber(
-                                            widget!
+                                            widget
                                                 .productCart?.discountPercent,
                                             formatType: FormatType.custom,
                                             format: '###.0',
@@ -237,14 +237,14 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                                           .titleLargeFamily),
                                             ),
                                       ),
-                                    ].divide(SizedBox(width: 4.0)),
+                                    ].divide(const SizedBox(width: 4.0)),
                                   ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
                                       functions.applyCorrectNumberFormatting(
-                                          widget!.productCart!.discountedPrice *
+                                          widget.productCart!.discountedPrice *
                                               _model.counterProductModel
                                                   .counterNumber *
                                               FFAppState()
@@ -280,9 +280,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                 updateCallback: () => safeSetState(() {}),
                                 updateOnChange: true,
                                 child: CounterProductWidget(
-                                  initialNumber: widget!.productCart?.quantity,
+                                  initialNumber: widget.productCart?.quantity,
                                   maxNumber:
-                                      widget!.productCart?.quantityInInventory,
+                                      widget.productCart?.quantityInInventory,
                                   minNumber: 0,
                                   counterStep: 1,
                                   height: 28.0,
@@ -311,7 +311,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                     FFAppState().updateCartStruct(
                                       (e) => e
                                         ..updateProducts(
-                                          (e) => e[widget!.index!]
+                                          (e) => e[widget.index!]
                                             ..incrementQuantity(1),
                                         ),
                                     );
@@ -325,8 +325,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                   removeAction: () async {
                                     logFirebaseEvent(
                                         'CART_ITEM_Container_auer712q_CALLBACK');
-                                    var _shouldSetState = false;
-                                    if (widget!.productCart?.quantity == 1) {
+                                    var shouldSetState = false;
+                                    if (widget.productCart?.quantity == 1) {
                                       logFirebaseEvent(
                                           'CounterProduct_bottom_sheet');
                                       await showModalBottomSheet(
@@ -338,7 +338,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                           return Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: Container(
+                                            child: SizedBox(
                                               height: double.infinity,
                                               child: InfoModalWidget(
                                                 icon: Icon(
@@ -371,7 +371,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       ).then((value) => safeSetState(() =>
                                           _model.removeApproveCopy = value));
 
-                                      _shouldSetState = true;
+                                      shouldSetState = true;
                                       if (_model.removeApproveCopy!) {
                                         logFirebaseEvent(
                                             'CounterProduct_update_app_state');
@@ -385,7 +385,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                         FFAppState().updateCartStruct(
                                           (e) => e
                                             ..updateProducts(
-                                              (e) => e.removeAt(widget!.index!),
+                                              (e) => e.removeAt(widget.index!),
                                             ),
                                         );
                                         FFAppState().update(() {});
@@ -400,8 +400,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                         await actions.printAction(
                                           'Back to 1',
                                         );
-                                        if (_shouldSetState)
+                                        if (shouldSetState) {
                                           safeSetState(() {});
+                                        }
                                         return;
                                       }
                                     } else {
@@ -410,14 +411,14 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       FFAppState().updateCartStruct(
                                         (e) => e
                                           ..updateProducts(
-                                            (e) => e[widget!.index!]
+                                            (e) => e[widget.index!]
                                               ..incrementQuantity(-1),
                                           ),
                                       );
                                       FFAppState().update(() {});
                                     }
 
-                                    if (_shouldSetState) safeSetState(() {});
+                                    if (shouldSetState) safeSetState(() {});
                                   },
                                 ),
                               ),
@@ -425,10 +426,10 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           ),
                         ],
                       ),
-                    ].divide(SizedBox(height: 4.0)),
+                    ].divide(const SizedBox(height: 4.0)),
                   ),
                 ),
-              ].divide(SizedBox(width: 16.0)),
+              ].divide(const SizedBox(width: 16.0)),
             ),
           ),
           Column(
@@ -459,7 +460,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 focusNode: _model.noteSpecialRequestTextFieldFocusNode,
                 onChanged: (_) => EasyDebounce.debounce(
                   '_model.noteSpecialRequestTextFieldTextController',
-                  Duration(milliseconds: 100),
+                  const Duration(milliseconds: 100),
                   () async {
                     logFirebaseEvent(
                         'CART_ITEM_NoteSpecialRequestTextField_ON');
@@ -468,7 +469,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     FFAppState().updateCartStruct(
                       (e) => e
                         ..updateProducts(
-                          (e) => e[widget!.index!]
+                          (e) => e[widget.index!]
                             ..note = _model
                                 .noteSpecialRequestTextFieldTextController.text,
                         ),
@@ -527,7 +528,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                 ),
                 style: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily:
@@ -543,9 +544,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     .noteSpecialRequestTextFieldTextControllerValidator
                     .asValidator(context),
               ),
-            ].divide(SizedBox(height: 8.0)),
+            ].divide(const SizedBox(height: 8.0)),
           ),
-        ].divide(SizedBox(height: 16.0)),
+        ].divide(const SizedBox(height: 16.0)),
       ),
     );
   }

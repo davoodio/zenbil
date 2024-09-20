@@ -10,10 +10,8 @@ import '/components/loaders/loader_box_row/loader_box_row_widget.dart';
 import '/components/product_card/product_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'products_category_model.dart';
 export 'products_category_model.dart';
@@ -65,7 +63,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -73,7 +71,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -82,7 +80,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                         updateCallback: () => safeSetState(() {}),
                         child: HeaderWidget(
                           title: valueOrDefault<String>(
-                            widget!.categoryTitle,
+                            widget.categoryTitle,
                             'Category Title',
                           ),
                           showBackButton: true,
@@ -94,9 +92,9 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                               'product_id, product_name, product_description, product_default_image_url, product_name_arabic, product_name_kurdish, product_description_arabic, product_description_kurdish, category_id, status',
                           fieldsToSearchIn:
                               'product_name, product_description, product_name_arabic, product_name_kurdish, product_description_arabic, product_description_kurdish',
-                          searchTitle: 'Products in ${widget!.categoryTitle}',
+                          searchTitle: 'Products in ${widget.categoryTitle}',
                           preDefineSearch:
-                              'category_id=${widget!.categoryId?.toString()},status=${ProductStatus.Available.name},quantity_in_inventory>0',
+                              'category_id=${widget.categoryId?.toString()},status=${ProductStatus.Available.name},quantity_in_inventory>0',
                         ),
                       ),
                       Expanded(
@@ -130,7 +128,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
                                             if (!snapshot.hasData) {
-                                              return Container(
+                                              return const SizedBox(
                                                 width: double.infinity,
                                                 height: 0.0,
                                                 child: EmptyComponentWidget(),
@@ -146,9 +144,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                               child: Container(
                                                 width: double.infinity,
                                                 height: valueOrDefault<double>(
-                                                  containerAdvertisingRowList
-                                                              .length >
-                                                          0
+                                                  containerAdvertisingRowList.isNotEmpty
                                                       ? 160.0
                                                       : 0.0,
                                                   160.0,
@@ -159,7 +155,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                                           16.0),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           20.0, 0.0, 20.0, 0.0),
                                                   child: Builder(
@@ -168,7 +164,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                                           containerAdvertisingRowList
                                                               .toList();
 
-                                                      return Container(
+                                                      return SizedBox(
                                                         width: double.infinity,
                                                         height: double.infinity,
                                                         child: PageView.builder(
@@ -240,7 +236,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                     );
                                   } else {
                                     return Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                     );
                                   }
                                 },
@@ -254,16 +250,16 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                       )
                                       .eq(
                                         'parent_id',
-                                        widget!.categoryId,
+                                        widget.categoryId,
                                       ),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
                                     return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
-                                      child: Container(
+                                      child: SizedBox(
                                         width: double.infinity,
                                         height: 75.0,
                                         child: LoaderBoxRowWidget(
@@ -282,15 +278,15 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                       snapshot.data!;
 
                                   return Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Visibility(
                                       visible:
                                           subCAatsCategoriesRowList.isNotEmpty,
                                       child: Container(
                                         height: 75.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Builder(
                                           builder: (context) {
                                             final subCaatsVar =
@@ -298,7 +294,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                                     .toList();
 
                                             return ListView.separated(
-                                              padding: EdgeInsets.fromLTRB(
+                                              padding: const EdgeInsets.fromLTRB(
                                                 10.0,
                                                 0,
                                                 10.0,
@@ -307,7 +303,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                               scrollDirection: Axis.horizontal,
                                               itemCount: subCaatsVar.length,
                                               separatorBuilder: (_, __) =>
-                                                  SizedBox(width: 10.0),
+                                                  const SizedBox(width: 10.0),
                                               itemBuilder:
                                                   (context, subCaatsVarIndex) {
                                                 final subCaatsVarItem =
@@ -355,7 +351,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                 },
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: FutureBuilder<
                                     List<ViewProductsCategoriesRow>>(
@@ -364,7 +360,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                     queryFn: (q) => q
                                         .eq(
                                           'category_id',
-                                          widget!.categoryId,
+                                          widget.categoryId,
                                         )
                                         .eq(
                                           'status',
@@ -405,7 +401,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                     return GridView.builder(
                                       padding: EdgeInsets.zero,
                                       gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 12.0,
                                         mainAxisSpacing: 4.0,
@@ -422,7 +418,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                             gridViewViewProductsCategoriesRowList[
                                                 gridViewIndex];
                                         return Container(
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: ProductCardWidget(
                                             key: Key(
                                                 'Keyuhv_${gridViewIndex}_of_${gridViewViewProductsCategoriesRowList.length}'),
@@ -485,8 +481,8 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                 ),
                               ),
                             ]
-                                .divide(SizedBox(height: 20.0))
-                                .addToStart(SizedBox(height: 20.0)),
+                                .divide(const SizedBox(height: 20.0))
+                                .addToStart(const SizedBox(height: 20.0)),
                           ),
                         ),
                       ),

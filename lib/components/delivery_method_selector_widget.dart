@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'delivery_method_selector_model.dart';
 export 'delivery_method_selector_model.dart';
 
@@ -53,7 +52,7 @@ class _DeliveryMethodSelectorWidgetState
       children: [
         Expanded(
           child: Align(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: const AlignmentDirectional(0.0, 1.0),
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
@@ -61,7 +60,7 @@ class _DeliveryMethodSelectorWidgetState
               ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(0.0),
                   bottomRight: Radius.circular(0.0),
                   topLeft: Radius.circular(15.0),
@@ -69,7 +68,7 @@ class _DeliveryMethodSelectorWidgetState
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 20.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,14 +118,14 @@ class _DeliveryMethodSelectorWidgetState
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          final deliveryOptions = widget!.options!.toList();
+                          final deliveryOptions = widget.options!.toList();
 
                           return ListView.separated(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: deliveryOptions.length,
-                            separatorBuilder: (_, __) => SizedBox(height: 16.0),
+                            separatorBuilder: (_, __) => const SizedBox(height: 16.0),
                             itemBuilder: (context, deliveryOptionsIndex) {
                               final deliveryOptionsItem =
                                   deliveryOptions[deliveryOptionsIndex];
@@ -147,7 +146,7 @@ class _DeliveryMethodSelectorWidgetState
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(16.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -191,16 +190,16 @@ class _DeliveryMethodSelectorWidgetState
                                                               ),
                                                     ),
                                                   ),
-                                                ].divide(SizedBox(width: 8.0)),
+                                                ].divide(const SizedBox(width: 8.0)),
                                               ),
                                             ),
                                             if (false)
                                               Container(
-                                                decoration: BoxDecoration(),
+                                                decoration: const BoxDecoration(),
                                               ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 16.0)),
+                                      ].divide(const SizedBox(height: 16.0)),
                                     ),
                                   ),
                                 ),
@@ -210,7 +209,7 @@ class _DeliveryMethodSelectorWidgetState
                         },
                       ),
                     ),
-                  ].divide(SizedBox(height: 24.0)),
+                  ].divide(const SizedBox(height: 24.0)),
                 ),
               ),
             ),

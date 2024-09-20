@@ -1,5 +1,4 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/anon_user_card_widget.dart';
 import '/components/info_modal_widget.dart';
 import '/components/menu_setting_item_widget.dart';
@@ -10,7 +9,6 @@ import '/components/user_info_card_widget.dart';
 import '/components/wallet_front_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +55,7 @@ class _SettingWidgetState extends State<SettingWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -65,13 +63,13 @@ class _SettingWidgetState extends State<SettingWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -89,16 +87,16 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: wrapWithModel(
                                               model: _model.anonUserCardModel,
                                               updateCallback: () =>
                                                   safeSetState(() {}),
-                                              child: AnonUserCardWidget(),
+                                              child: const AnonUserCardWidget(),
                                             ),
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     if (!FFAppState().CurrentUser.isAnon)
                                       Column(
@@ -108,7 +106,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: wrapWithModel(
                                               model: _model.userInfoCardModel,
@@ -125,9 +123,9 @@ class _SettingWidgetState extends State<SettingWidget> {
                                               .enableWalletAsPaymentOption)
                                             Container(
                                               width: double.infinity,
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: wrapWithModel(
@@ -143,7 +141,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                 ),
                                               ),
                                             ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                   ],
                                 ),
@@ -158,7 +156,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: InkWell(
@@ -216,7 +214,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: InkWell(
@@ -278,7 +276,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                           ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -321,7 +319,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         if (!FFAppState().CurrentUser.isAnon)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -374,7 +372,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         if (!FFAppState().CurrentUser.isAnon)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -419,7 +417,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         if (!FFAppState().CurrentUser.isAnon)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -464,7 +462,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         if (false)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: wrapWithModel(
                                               model: _model.paymenmethodModel,
@@ -494,7 +492,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                             false)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -540,7 +538,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         if (false)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -585,7 +583,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                           ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -617,7 +615,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -696,7 +694,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -740,7 +738,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                         Expanded(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         16.0,
                                                                         0.0,
@@ -823,7 +821,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -856,7 +854,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -900,8 +898,8 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                   onChanged: (newValue) async {
                                                     safeSetState(() =>
                                                         _model.switchValue =
-                                                            newValue!);
-                                                    if (newValue!) {
+                                                            newValue);
+                                                    if (newValue) {
                                                       logFirebaseEvent(
                                                           'SETTING_Switch_egidl29y_ON_TOGGLE_ON');
                                                       logFirebaseEvent(
@@ -942,7 +940,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -984,7 +982,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -1027,7 +1025,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         Builder(
                                           builder: (context) => Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -1074,14 +1072,12 @@ class _SettingWidgetState extends State<SettingWidget> {
                                         ),
                                         if (FFAppState()
                                                 .AppSettings
-                                                .social
-                                                .length >
-                                            0)
+                                                .social.isNotEmpty)
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       20.0, 0.0, 20.0, 0.0),
                                               child: Column(
@@ -1175,7 +1171,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                                         .url,
                                                               ),
                                                             );
-                                                          }).divide(SizedBox(
+                                                          }).divide(const SizedBox(
                                                               width: 16.0)),
                                                         ),
                                                       );
@@ -1183,11 +1179,11 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        SizedBox(height: 8.0))
+                                                        const SizedBox(height: 8.0))
                                                     .addToStart(
-                                                        SizedBox(height: 8.0))
+                                                        const SizedBox(height: 8.0))
                                                     .addToEnd(
-                                                        SizedBox(height: 8.0)),
+                                                        const SizedBox(height: 8.0)),
                                               ),
                                             ),
                                           ),
@@ -1196,7 +1192,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: InkWell(
@@ -1211,7 +1207,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTING_PAGE_logout_ON_TAP');
-                                                    Function() _navigate =
+                                                    Function() navigate =
                                                         () {};
                                                     logFirebaseEvent(
                                                         'logout_bottom_sheet');
@@ -1265,13 +1261,13 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                       GoRouter.of(context)
                                                           .clearRedirectLocation();
 
-                                                      _navigate = () =>
+                                                      navigate = () =>
                                                           context.goNamedAuth(
                                                               'Splash',
                                                               context.mounted);
                                                     }
 
-                                                    _navigate();
+                                                    navigate();
 
                                                     safeSetState(() {});
                                                   },
@@ -1304,7 +1300,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: InkWell(
@@ -1361,16 +1357,16 @@ class _SettingWidgetState extends State<SettingWidget> {
                                               ),
                                             ],
                                           ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 24.0, 80.0, 0.0),
                                       child: wrapWithModel(
                                         model: _model.termsTextsModel,
                                         updateCallback: () =>
                                             safeSetState(() {}),
-                                        child: TermsTextsWidget(),
+                                        child: const TermsTextsWidget(),
                                       ),
                                     ),
                                   ],
@@ -1380,7 +1376,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsets.all(20.0),
+                                        padding: const EdgeInsets.all(20.0),
                                         child: Text(
                                           '${FFAppConstants.BrandAppName} ${FFAppConstants.appVersion}',
                                           maxLines: 1,
@@ -1407,9 +1403,9 @@ class _SettingWidgetState extends State<SettingWidget> {
                                   ],
                                 ),
                               ]
-                                  .divide(SizedBox(height: 24.0))
-                                  .addToStart(SizedBox(height: 24.0))
-                                  .addToEnd(SizedBox(height: 98.0)),
+                                  .divide(const SizedBox(height: 24.0))
+                                  .addToStart(const SizedBox(height: 24.0))
+                                  .addToEnd(const SizedBox(height: 98.0)),
                             ),
                           ),
                         ),
@@ -1418,11 +1414,11 @@ class _SettingWidgetState extends State<SettingWidget> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navBarModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: NavBarWidget(
+                    child: const NavBarWidget(
                       activePage: 'Account',
                     ),
                   ),

@@ -16,7 +16,6 @@ import '/components/product_card/product_card_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:sticky_headers/sticky_headers.dart';
@@ -92,7 +91,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
@@ -101,7 +100,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
               children: [
                 if (false)
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
                     child: Text(
                       valueOrDefault<String>(
                         FFAppConstants.BrandAppName,
@@ -121,12 +120,12 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                     ),
                   ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 8.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 8.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
                     child: CachedNetworkImage(
-                      fadeInDuration: Duration(milliseconds: 500),
-                      fadeOutDuration: Duration(milliseconds: 500),
+                      fadeInDuration: const Duration(milliseconds: 500),
+                      fadeOutDuration: const Duration(milliseconds: 500),
                       imageUrl: FFAppConstants.BrandLogo,
                       width: 90.0,
                       fit: BoxFit.cover,
@@ -137,7 +136,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
             ),
             actions: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -202,7 +201,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                         updateCallback: () => safeSetState(() {}),
                         child: NotificationBadgeWidget(
                           goToNotifOnClick: true,
-                          backColor: Color(0x00FFFFFF),
+                          backColor: const Color(0x00FFFFFF),
                           iconColor: FlutterFlowTheme.of(context).secondaryText,
                         ),
                       ),
@@ -210,7 +209,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                       model: _model.cartBadgeModel,
                       updateCallback: () => safeSetState(() {}),
                       child: CartBadgeWidget(
-                        backColor: Color(0x00FFFFFF),
+                        backColor: const Color(0x00FFFFFF),
                         iconColor: FlutterFlowTheme.of(context).secondaryText,
                         goToCartOnTap: true,
                       ),
@@ -225,7 +224,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -233,8 +232,8 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
-                  child: Container(
+                  decoration: const BoxDecoration(),
+                  child: SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Stack(
@@ -251,7 +250,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                             children: [
                               if (false)
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 4.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -266,7 +265,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               BorderRadius.circular(100.0),
                                         ),
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
@@ -318,7 +317,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           100.0),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           10.0, 0.0, 10.0, 0.0),
                                                   child: Row(
@@ -367,7 +366,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                       Container(
                                                         width: 12.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Visibility(
                                                           visible: _model
                                                                   .activeCategory ==
@@ -383,7 +382,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        SizedBox(width: 4.0)),
+                                                        const SizedBox(width: 4.0)),
                                                   ),
                                                 ),
                                               ),
@@ -437,7 +436,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           100.0),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           10.0, 0.0, 10.0, 0.0),
                                                   child: Row(
@@ -486,7 +485,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                       Container(
                                                         width: 12.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Visibility(
                                                           visible: _model
                                                                   .activeCategory ==
@@ -502,14 +501,14 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        SizedBox(width: 4.0)),
+                                                        const SizedBox(width: 4.0)),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ]
-                                              .addToStart(SizedBox(width: 4.0))
-                                              .addToEnd(SizedBox(width: 4.0)),
+                                              .addToStart(const SizedBox(width: 4.0))
+                                              .addToEnd(const SizedBox(width: 4.0)),
                                         ),
                                       ),
                                     ],
@@ -534,8 +533,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               child: Container(
                                                 width: double.infinity,
                                                 height: valueOrDefault<double>(
-                                                  _model.advertisements.length >
-                                                          0
+                                                  _model.advertisements.isNotEmpty
                                                       ? 160.0
                                                       : 0.0,
                                                   160.0,
@@ -546,7 +544,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           16.0),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           20.0, 0.0, 20.0, 0.0),
                                                   child: Builder(
@@ -615,11 +613,11 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                               Axis.horizontal,
                                                           autoPlay: true,
                                                           autoPlayAnimationDuration:
-                                                              Duration(
+                                                              const Duration(
                                                                   milliseconds:
                                                                       800),
                                                           autoPlayInterval:
-                                                              Duration(
+                                                              const Duration(
                                                                   milliseconds:
                                                                       (800 +
                                                                           4000)),
@@ -640,7 +638,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             );
                                           } else {
                                             return Container(
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                             );
                                           }
                                         },
@@ -656,7 +654,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -685,7 +683,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         shadows: [
-                                                          Shadow(
+                                                          const Shadow(
                                                             color: Color(
                                                                 0x2503080C),
                                                             offset: Offset(
@@ -756,7 +754,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
                                                                       .tertiary
-                                                                  : Color(
+                                                                  : const Color(
                                                                       0x00E4E9EA),
                                                               borderRadius:
                                                                   BorderRadius
@@ -765,7 +763,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                             ),
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -807,12 +805,12 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                   ),
                                                                   Container(
                                                                     constraints:
-                                                                        BoxConstraints(
+                                                                        const BoxConstraints(
                                                                       minWidth:
                                                                           12.0,
                                                                     ),
                                                                     decoration:
-                                                                        BoxDecoration(),
+                                                                        const BoxDecoration(),
                                                                     child:
                                                                         Visibility(
                                                                       visible: _model
@@ -820,7 +818,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                           'Men',
                                                                       child:
                                                                           Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             10.0,
@@ -837,7 +835,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     width:
                                                                         4.0)),
                                                               ),
@@ -891,7 +889,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
                                                                       .tertiary
-                                                                  : Color(
+                                                                  : const Color(
                                                                       0x00E4E9EA),
                                                               borderRadius:
                                                                   BorderRadius
@@ -900,7 +898,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                             ),
                                                             child: Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           10.0,
                                                                           0.0,
@@ -942,12 +940,12 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                   ),
                                                                   Container(
                                                                     constraints:
-                                                                        BoxConstraints(
+                                                                        const BoxConstraints(
                                                                       minWidth:
                                                                           12.0,
                                                                     ),
                                                                     decoration:
-                                                                        BoxDecoration(),
+                                                                        const BoxDecoration(),
                                                                     child:
                                                                         Visibility(
                                                                       visible: _model
@@ -955,7 +953,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                           'Women',
                                                                       child:
                                                                           Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             10.0,
@@ -972,7 +970,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     width:
                                                                         4.0)),
                                                               ),
@@ -980,9 +978,9 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           ),
                                                         ),
                                                       ]
-                                                          .addToStart(SizedBox(
+                                                          .addToStart(const SizedBox(
                                                               width: 4.0))
-                                                          .addToEnd(SizedBox(
+                                                          .addToEnd(const SizedBox(
                                                               width: 4.0)),
                                                     ),
                                                     InkWell(
@@ -1013,10 +1011,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                       },
                                                       child: Container(
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       8.0,
                                                                       8.0,
@@ -1052,14 +1050,14 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     ),
                                                   ],
                                                 ),
-                                              ].divide(SizedBox(width: 16.0)),
+                                              ].divide(const SizedBox(width: 16.0)),
                                             ),
                                           ),
                                         ),
                                         content: Container(
                                           width: double.infinity,
                                           height: 160.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child:
                                               FutureBuilder<List<MarketsRow>>(
                                             future: MarketsTable().queryRows(
@@ -1096,10 +1094,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
                                                 return Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(20.0, 16.0,
                                                           20.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     height: 160.0,
                                                     child: LoaderBoxRowWidget(
                                                       borderRadius: 8.0,
@@ -1127,7 +1125,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               }
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -1138,7 +1136,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                 itemCount:
                                                     marketMarketsRowList.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 8.0),
+                                                    const SizedBox(width: 8.0),
                                                 itemBuilder:
                                                     (context, marketIndex) {
                                                   final marketMarketsRow =
@@ -1201,7 +1199,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -1230,7 +1228,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -1274,10 +1272,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     );
                                                   },
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   8.0,
@@ -1318,7 +1316,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         ),
                                         content: Container(
                                           height: 120.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: FutureBuilder<List<BrandsRow>>(
                                             future: BrandsTable().queryRows(
                                               queryFn: (q) => q.eq(
@@ -1331,7 +1329,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
                                                 return Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(20.0, 16.0,
                                                           20.0, 16.0),
                                                   child: LoaderBoxRowWidget(
@@ -1359,7 +1357,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               }
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -1370,7 +1368,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                 itemCount: listViewBrandsRowList
                                                     .length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 10.0),
+                                                    const SizedBox(width: 10.0),
                                                 itemBuilder:
                                                     (context, listViewIndex) {
                                                   final listViewBrandsRow =
@@ -1415,7 +1413,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -1444,7 +1442,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -1462,10 +1460,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(8.0, 8.0,
                                                                 0.0, 8.0),
                                                     child: Text(
@@ -1503,9 +1501,9 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         content: Container(
                                           width: double.infinity,
                                           height: 230.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child:
                                               FutureBuilder<List<ProductsRow>>(
                                             future: ProductsTable().queryRows(
@@ -1525,11 +1523,11 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return Padding(
+                                                return const Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           20.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     height: 220.0,
                                                     child: LoaderBoxRowWidget(
@@ -1545,7 +1543,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   snapshot.data!;
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -1557,7 +1555,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     productPopularsProductsRowList
                                                         .length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 8.0),
+                                                    const SizedBox(width: 8.0),
                                                 itemBuilder: (context,
                                                     productPopularsIndex) {
                                                   final productPopularsProductsRow =
@@ -1642,7 +1640,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -1671,7 +1669,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -1689,10 +1687,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(8.0, 8.0,
                                                                 0.0, 8.0),
                                                     child: Text(
@@ -1730,9 +1728,9 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         content: Container(
                                           width: double.infinity,
                                           height: 230.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child:
                                               FutureBuilder<List<ProductsRow>>(
                                             future: ProductsTable().queryRows(
@@ -1752,14 +1750,14 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return LoaderQueryInsideWidget();
+                                                return const LoaderQueryInsideWidget();
                                               }
                                               List<ProductsRow>
                                                   productPopularsProductsRowList =
                                                   snapshot.data!;
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -1771,7 +1769,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     productPopularsProductsRowList
                                                         .length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 20.0),
+                                                    const SizedBox(width: 20.0),
                                                 itemBuilder: (context,
                                                     productPopularsIndex) {
                                                   final productPopularsProductsRow =
@@ -1853,7 +1851,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -1882,7 +1880,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -1900,10 +1898,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(8.0, 8.0,
                                                                 0.0, 8.0),
                                                     child: Text(
@@ -1941,9 +1939,9 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         content: Container(
                                           width: double.infinity,
                                           height: 230.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child:
                                               FutureBuilder<List<ProductsRow>>(
                                             future: ProductsTable().queryRows(
@@ -1963,14 +1961,14 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return LoaderQueryInsideWidget();
+                                                return const LoaderQueryInsideWidget();
                                               }
                                               List<ProductsRow>
                                                   productPopularsProductsRowList =
                                                   snapshot.data!;
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -1982,7 +1980,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     productPopularsProductsRowList
                                                         .length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 20.0),
+                                                    const SizedBox(width: 20.0),
                                                 itemBuilder: (context,
                                                     productPopularsIndex) {
                                                   final productPopularsProductsRow =
@@ -2067,7 +2065,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2096,7 +2094,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -2140,10 +2138,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     );
                                                   },
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   8.0,
@@ -2184,9 +2182,9 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         ),
                                         content: Container(
                                           height: 75.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Builder(
                                             builder: (context) {
                                               final category = _model
@@ -2194,7 +2192,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   .toList();
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -2204,7 +2202,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     Axis.horizontal,
                                                 itemCount: category.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 10.0),
+                                                    const SizedBox(width: 10.0),
                                                 itemBuilder:
                                                     (context, categoryIndex) {
                                                   final categoryItem =
@@ -2256,7 +2254,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2285,7 +2283,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -2303,10 +2301,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(8.0, 8.0,
                                                                 0.0, 8.0),
                                                     child: Text(
@@ -2344,9 +2342,9 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         content: Container(
                                           width: double.infinity,
                                           height: 230.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child:
                                               FutureBuilder<List<ProductsRow>>(
                                             future: ProductsTable().queryRows(
@@ -2366,14 +2364,14 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return LoaderQueryInsideWidget();
+                                                return const LoaderQueryInsideWidget();
                                               }
                                               List<ProductsRow>
                                                   productPopularsProductsRowList =
                                                   snapshot.data!;
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -2385,7 +2383,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     productPopularsProductsRowList
                                                         .length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 20.0),
+                                                    const SizedBox(width: 20.0),
                                                 itemBuilder: (context,
                                                     productPopularsIndex) {
                                                   final productPopularsProductsRow =
@@ -2470,7 +2468,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2499,7 +2497,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           shadows: [
-                                                            Shadow(
+                                                            const Shadow(
                                                               color: Color(
                                                                   0x2503080C),
                                                               offset: Offset(
@@ -2551,10 +2549,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                     );
                                                   },
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   8.0,
@@ -2596,7 +2594,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         content: Container(
                                           width: double.infinity,
                                           height: 160.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child:
                                               FutureBuilder<List<MarketsRow>>(
                                             future: MarketsTable().queryRows(
@@ -2614,10 +2612,10 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
                                                 return Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(20.0, 16.0,
                                                           20.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     height: 160.0,
                                                     child: LoaderBoxRowWidget(
                                                       borderRadius: 8.0,
@@ -2645,7 +2643,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               }
 
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   20.0,
                                                   0,
                                                   20.0,
@@ -2656,7 +2654,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                 itemCount:
                                                     marketMarketsRowList.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 8.0),
+                                                    const SizedBox(width: 8.0),
                                                 itemBuilder:
                                                     (context, marketIndex) {
                                                   final marketMarketsRow =
@@ -2709,7 +2707,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
                                         child: FutureBuilder<List<ProductsRow>>(
                                           future: ProductsTable().queryRows(
@@ -2764,7 +2762,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                               physics:
                                                   const NeverScrollableScrollPhysics(),
                                               gridDelegate:
-                                                  SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount: 2,
                                               ),
                                               crossAxisSpacing: 10.0,
@@ -2828,8 +2826,8 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                         ),
                                       ),
                                     ]
-                                        .addToStart(SizedBox(height: 16.0))
-                                        .addToEnd(SizedBox(height: 100.0)),
+                                        .addToStart(const SizedBox(height: 16.0))
+                                        .addToEnd(const SizedBox(height: 100.0)),
                                   ),
                                 ),
                               ),
@@ -2837,12 +2835,12 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: wrapWithModel(
                             model: _model.navBarModel,
                             updateCallback: () => safeSetState(() {}),
                             updateOnChange: true,
-                            child: NavBarWidget(
+                            child: const NavBarWidget(
                               activePage: FFAppConstants.BrandAppName,
                             ),
                           ),

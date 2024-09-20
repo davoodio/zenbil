@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'brand_item_model.dart';
 export 'brand_item_model.dart';
 
@@ -13,7 +12,7 @@ class BrandItemWidget extends StatefulWidget {
     this.photo,
     String? title,
     required this.brandId,
-  }) : this.title = title ?? 'TITLE';
+  }) : title = title ?? 'TITLE';
 
   final String? photo;
   final String title;
@@ -62,7 +61,7 @@ class _BrandItemWidgetState extends State<BrandItemWidget> {
           'StoreFront',
           queryParameters: {
             'brandID': serializeParam(
-              widget!.brandId,
+              widget.brandId,
               ParamType.int,
             ),
           }.withoutNulls,
@@ -70,7 +69,7 @@ class _BrandItemWidgetState extends State<BrandItemWidget> {
       },
       child: Container(
         width: 75.0,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -87,10 +86,10 @@ class _BrandItemWidgetState extends State<BrandItemWidget> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: CachedNetworkImage(
-                    fadeInDuration: Duration(milliseconds: 500),
-                    fadeOutDuration: Duration(milliseconds: 500),
+                    fadeInDuration: const Duration(milliseconds: 500),
+                    fadeOutDuration: const Duration(milliseconds: 500),
                     imageUrl: valueOrDefault<String>(
-                      widget!.photo,
+                      widget.photo,
                       'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/9h1d3pusvgam/image_place_02.jpeg',
                     ),
                     width: double.infinity,
@@ -106,7 +105,7 @@ class _BrandItemWidgetState extends State<BrandItemWidget> {
               children: [
                 Flexible(
                   child: Text(
-                    widget!.title,
+                    widget.title,
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -121,7 +120,7 @@ class _BrandItemWidgetState extends State<BrandItemWidget> {
                 ),
               ],
             ),
-          ].divide(SizedBox(height: 8.0)),
+          ].divide(const SizedBox(height: 8.0)),
         ),
       ),
     );

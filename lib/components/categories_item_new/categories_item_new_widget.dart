@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'categories_item_new_model.dart';
 export 'categories_item_new_model.dart';
 
@@ -13,9 +12,9 @@ class CategoriesItemNewWidget extends StatefulWidget {
     String? photo,
     String? title,
     required this.categoryId,
-  })  : this.photo = photo ??
+  })  : photo = photo ??
             'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/shopping-express-wrb1ci/assets/8vh31waah1r6/Woman.png',
-        this.title = title ?? 'TITLE';
+        title = title ?? 'TITLE';
 
   final String photo;
   final String title;
@@ -65,11 +64,11 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
           'ProductsCategory',
           queryParameters: {
             'categoryId': serializeParam(
-              widget!.categoryId,
+              widget.categoryId,
               ParamType.int,
             ),
             'categoryTitle': serializeParam(
-              widget!.title,
+              widget.title,
               ParamType.String,
             ),
           }.withoutNulls,
@@ -85,7 +84,7 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -96,7 +95,7 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
                   children: [
                     Flexible(
                       child: Text(
-                        widget!.title,
+                        widget.title,
                         maxLines: 2,
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
                               fontFamily:
@@ -112,26 +111,26 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 120.0,
                 height: double.infinity,
                 child: Stack(
                   children: [
-                    if (widget!.photo != null && widget!.photo != '')
+                    if (widget.photo != '')
                       ClipRRect(
                         borderRadius: BorderRadius.circular(0.0),
                         child: CachedNetworkImage(
-                          fadeInDuration: Duration(milliseconds: 500),
-                          fadeOutDuration: Duration(milliseconds: 500),
-                          imageUrl: widget!.photo,
+                          fadeInDuration: const Duration(milliseconds: 500),
+                          fadeOutDuration: const Duration(milliseconds: 500),
+                          imageUrl: widget.photo,
                           width: double.infinity,
                           height: double.infinity,
                           fit: BoxFit.cover,
                         ),
                       ),
-                    if (widget!.photo == null || widget!.photo == '')
+                    if (widget.photo == '')
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Icon(
                           FFIcons.klayoutGrid,
                           color: FlutterFlowTheme.of(context).primaryText,
@@ -146,7 +145,7 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
                 color: FlutterFlowTheme.of(context).alternate,
                 size: 40.0,
               ),
-            ].divide(SizedBox(width: 8.0)),
+            ].divide(const SizedBox(width: 8.0)),
           ),
         ),
       ),

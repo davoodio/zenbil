@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'payment_method_item_model.dart';
 export 'payment_method_item_model.dart';
@@ -11,7 +10,7 @@ class PaymentMethodItemWidget extends StatefulWidget {
     super.key,
     String? image,
     required this.methodName,
-  }) : this.image = image ??
+  }) : image = image ??
             'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/shopping-express-wrb1ci/assets/amg2zsplg6at/fedex-express-6.png';
 
   final String image;
@@ -58,7 +57,7 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
       onTap: () async {
         logFirebaseEvent('PAYMENT_METHOD_ITEM_Container_quc2f1ur_O');
         logFirebaseEvent('Container_update_app_state');
-        FFAppState().PaymentMethod = widget!.methodName!;
+        FFAppState().PaymentMethod = widget.methodName!;
         FFAppState().update(() {});
       },
       child: Container(
@@ -69,7 +68,7 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             color: valueOrDefault<Color>(
-              FFAppState().PaymentMethod == widget!.methodName
+              FFAppState().PaymentMethod == widget.methodName
                   ? FlutterFlowTheme.of(context).tertiary
                   : FlutterFlowTheme.of(context).tfBg,
               FlutterFlowTheme.of(context).tfBg,
@@ -78,11 +77,11 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(5.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0.0),
             child: Image.network(
-              widget!.image,
+              widget.image,
               fit: BoxFit.contain,
             ),
           ),

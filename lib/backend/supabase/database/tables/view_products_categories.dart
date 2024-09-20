@@ -11,7 +11,7 @@ class ViewProductsCategoriesTable
 }
 
 class ViewProductsCategoriesRow extends SupabaseDataRow {
-  ViewProductsCategoriesRow(Map<String, dynamic> data) : super(data);
+  ViewProductsCategoriesRow(super.data);
 
   @override
   SupabaseTable get table => ViewProductsCategoriesTable();

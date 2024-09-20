@@ -1,12 +1,8 @@
 import '/components/header/header_widget.dart';
 import '/components/languages_item_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'language_widget.dart' show LanguageWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class LanguageModel extends FlutterFlowModel<LanguageWidget> {
   ///  State fields for stateful widgets in this page.

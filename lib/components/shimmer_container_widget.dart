@@ -1,12 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'shimmer_container_model.dart';
 export 'shimmer_container_model.dart';
 
@@ -16,7 +11,7 @@ class ShimmerContainerWidget extends StatefulWidget {
     Color? boxColor,
     required this.width,
     required this.height,
-  }) : this.boxColor = boxColor ?? const Color(0xFFE4E4E4);
+  }) : boxColor = boxColor ?? const Color(0xFFE4E4E4);
 
   final Color boxColor;
   final double? width;
@@ -86,16 +81,16 @@ class _ShimmerContainerWidgetState extends State<ShimmerContainerWidget>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: widget!.width,
-                      height: widget!.height,
+                      width: widget.width,
+                      height: widget.height,
                       decoration: BoxDecoration(
-                        color: widget!.boxColor,
+                        color: widget.boxColor,
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
                   ],
                 ),
-              ].divide(SizedBox(height: 16.0)),
+              ].divide(const SizedBox(height: 16.0)),
             ),
           ],
         ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),

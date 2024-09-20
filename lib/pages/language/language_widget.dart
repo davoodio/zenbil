@@ -2,10 +2,7 @@ import '/components/header/header_widget.dart';
 import '/components/languages_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'language_model.dart';
 export 'language_model.dart';
 
@@ -46,7 +43,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -54,7 +51,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -76,7 +73,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -159,9 +156,9 @@ class _LanguageWidgetState extends State<LanguageWidget> {
                                       ),
                                     ),
                                   ]
-                                      .divide(SizedBox(height: 16.0))
-                                      .addToStart(SizedBox(height: 24.0))
-                                      .addToEnd(SizedBox(height: 77.0)),
+                                      .divide(const SizedBox(height: 16.0))
+                                      .addToStart(const SizedBox(height: 24.0))
+                                      .addToEnd(const SizedBox(height: 77.0)),
                                 ),
                               ),
                             ],

@@ -47,7 +47,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
       logFirebaseEvent('AddDomesticAddress_backend_call');
       _model.addressFromPlaceID =
           await GoogleMapApisGroup.getCurrentAddressPlaceIdCall.call(
-        placeId: widget!.placeId,
+        placeId: widget.placeId,
       );
 
       if ((_model.addressFromPlaceID?.succeeded ?? true)) {
@@ -107,18 +107,18 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
-              alignment: AlignmentDirectional(1.0, -1.0),
+              alignment: const AlignmentDirectional(1.0, -1.0),
               children: [
                 if (_model.addressFromPlaceID != null)
                   SafeArea(
                     child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(0.0),
                           bottomRight: Radius.circular(0.0),
@@ -132,7 +132,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                           wrapWithModel(
                             model: _model.headerModel,
                             updateCallback: () => safeSetState(() {}),
-                            child: HeaderWidget(
+                            child: const HeaderWidget(
                               title: 'Add New Address',
                               showBackButton: true,
                               showCart: false,
@@ -151,7 +151,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 16.0, 20.0, 16.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -196,11 +196,11 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 0.0, 0.0),
                                             child: Semantics(
                                               label: 'enter street number',
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: 222.0,
                                                 child: TextFormField(
                                                   controller: _model
@@ -210,7 +210,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                   onChanged: (_) =>
                                                       EasyDebounce.debounce(
                                                     '_model.streetTextController',
-                                                    Duration(milliseconds: 500),
+                                                    const Duration(milliseconds: 500),
                                                     () => safeSetState(() {}),
                                                   ),
                                                   autofocus: false,
@@ -349,11 +349,11 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                         Expanded(
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 16.0, 0.0),
                                             child: Semantics(
                                               label: 'enter building name',
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: 333.0,
                                                 child: TextFormField(
                                                   controller: _model
@@ -363,7 +363,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                   onChanged: (_) =>
                                                       EasyDebounce.debounce(
                                                     '_model.buildingTextController',
-                                                    Duration(milliseconds: 500),
+                                                    const Duration(milliseconds: 500),
                                                     () => safeSetState(() {}),
                                                   ),
                                                   autofocus: false,
@@ -498,21 +498,21 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                             ),
                                           ),
                                         ),
-                                      ].divide(SizedBox(width: 16.0)),
+                                      ].divide(const SizedBox(width: 16.0)),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(1.0, 0.0, 0.0, 0.0),
                                               child: Semantics(
                                                 label: 'Enter floor number',
-                                                child: Container(
+                                                child: SizedBox(
                                                   width: 100.0,
                                                   child: TextFormField(
                                                     controller: _model
@@ -522,7 +522,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                     onChanged: (_) =>
                                                         EasyDebounce.debounce(
                                                       '_model.floorTextController',
-                                                      Duration(
+                                                      const Duration(
                                                           milliseconds: 500),
                                                       () => safeSetState(() {}),
                                                     ),
@@ -658,7 +658,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                           Expanded(
                                             child: Semantics(
                                               label: 'Enter unit',
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: 100.0,
                                                 child: TextFormField(
                                                   controller:
@@ -668,7 +668,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                   onChanged: (_) =>
                                                       EasyDebounce.debounce(
                                                     '_model.unitTextController',
-                                                    Duration(milliseconds: 500),
+                                                    const Duration(milliseconds: 500),
                                                     () => safeSetState(() {}),
                                                   ),
                                                   autofocus: false,
@@ -802,11 +802,11 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                               ),
                                             ),
                                           ),
-                                        ].divide(SizedBox(width: 16.0)),
+                                        ].divide(const SizedBox(width: 16.0)),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 24.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -815,7 +815,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: wrapWithModel(
@@ -823,7 +823,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                       _model.dividerTextModel1,
                                                   updateCallback: () =>
                                                       safeSetState(() {}),
-                                                  child: DividerTextWidget(
+                                                  child: const DividerTextWidget(
                                                     title:
                                                         'Address Contact Details',
                                                     titleInLeftSide: true,
@@ -831,7 +831,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: Semantics(
@@ -844,7 +844,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                     onChanged: (_) =>
                                                         EasyDebounce.debounce(
                                                       '_model.phoneTextController',
-                                                      Duration(
+                                                      const Duration(
                                                           milliseconds: 500),
                                                       () => safeSetState(() {}),
                                                     ),
@@ -979,7 +979,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: Semantics(
@@ -992,7 +992,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                     onChanged: (_) =>
                                                         EasyDebounce.debounce(
                                                       '_model.emailTextController',
-                                                      Duration(
+                                                      const Duration(
                                                           milliseconds: 500),
                                                       () => safeSetState(() {}),
                                                     ),
@@ -1128,13 +1128,13 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(SizedBox(height: 8.0)),
+                                            ].divide(const SizedBox(height: 8.0)),
                                           ),
                                           Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: wrapWithModel(
@@ -1142,14 +1142,14 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                       _model.dividerTextModel2,
                                                   updateCallback: () =>
                                                       safeSetState(() {}),
-                                                  child: DividerTextWidget(
+                                                  child: const DividerTextWidget(
                                                     title: 'Label',
                                                     titleInLeftSide: true,
                                                   ),
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: Semantics(
@@ -1162,7 +1162,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                     onChanged: (_) =>
                                                         EasyDebounce.debounce(
                                                       '_model.labelTextController',
-                                                      Duration(
+                                                      const Duration(
                                                           milliseconds: 500),
                                                       () => safeSetState(() {}),
                                                     ),
@@ -1296,13 +1296,13 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(SizedBox(height: 8.0)),
+                                            ].divide(const SizedBox(height: 8.0)),
                                           ),
                                           Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: wrapWithModel(
@@ -1310,14 +1310,14 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                       _model.dividerTextModel3,
                                                   updateCallback: () =>
                                                       safeSetState(() {}),
-                                                  child: DividerTextWidget(
+                                                  child: const DividerTextWidget(
                                                     title: 'Note',
                                                     titleInLeftSide: true,
                                                   ),
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: Semantics(
@@ -1330,7 +1330,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                     onChanged: (_) =>
                                                         EasyDebounce.debounce(
                                                       '_model.noteTextController',
-                                                      Duration(
+                                                      const Duration(
                                                           milliseconds: 500),
                                                       () => safeSetState(() {}),
                                                     ),
@@ -1466,22 +1466,18 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(SizedBox(height: 8.0)),
+                                            ].divide(const SizedBox(height: 8.0)),
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Semantics(
                                         label: 'Save address',
                                         child: FFButtonWidget(
-                                          onPressed: (_model
-                                                          .streetTextController
-                                                          .text ==
-                                                      null ||
-                                                  _model.streetTextController
+                                          onPressed: (_model.streetTextController
                                                           .text ==
                                                       '')
                                               ? null
@@ -1520,7 +1516,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
                                                                     context),
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               height: double
                                                                   .infinity,
                                                               child:
@@ -1660,7 +1656,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
                                                                     context),
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               height: double
                                                                   .infinity,
                                                               child:
@@ -1702,10 +1698,10 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                             width: double.infinity,
                                             height: 48.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
@@ -1729,7 +1725,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                                   .titleLargeFamily),
                                                     ),
                                             elevation: 0.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -1742,7 +1738,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                         ),
                                       ),
                                     ),
-                                  ].divide(SizedBox(height: 14.0)),
+                                  ].divide(const SizedBox(height: 14.0)),
                                 ),
                               ),
                             ),

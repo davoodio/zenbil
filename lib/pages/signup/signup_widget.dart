@@ -22,7 +22,7 @@ class SignupWidget extends StatefulWidget {
   const SignupWidget({
     super.key,
     bool? showBackButton,
-  }) : this.showBackButton = showBackButton ?? false;
+  }) : showBackButton = showBackButton ?? false;
 
   final bool showBackButton;
 
@@ -71,8 +71,8 @@ class _SignupWidgetState extends State<SignupWidget> {
         if (!snapshot.hasData) {
           return Scaffold(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-            body: Center(
-              child: Container(
+            body: const Center(
+              child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: LoaderQueryWidget(),
@@ -92,16 +92,16 @@ class _SignupWidgetState extends State<SignupWidget> {
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        if (widget!.showBackButton)
+                        if (widget.showBackButton)
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: FlutterFlowIconButton(
                               borderRadius: 20.0,
@@ -130,7 +130,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 20.0, 0.0, 20.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -158,7 +158,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -229,13 +229,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
-                                    child: Container(
+                                    child: SizedBox(
                                       width: double.infinity,
                                       child: Form(
                                         key: _model.formKey,
@@ -322,7 +322,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                       borderWidth: 0.0,
                                                       borderRadius: 8.0,
                                                       margin:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   0.0,
@@ -354,7 +354,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                   ),
                                                   Expanded(
                                                     flex: 3,
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 250.0,
                                                       child: TextFormField(
                                                         controller: _model
@@ -365,7 +365,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                             EasyDebounce
                                                                 .debounce(
                                                           '_model.phoneTextController',
-                                                          Duration(
+                                                          const Duration(
                                                               milliseconds:
                                                                   200),
                                                           () => safeSetState(
@@ -420,7 +420,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                           enabledBorder:
                                                               OutlineInputBorder(
                                                             borderSide:
-                                                                BorderSide(
+                                                                const BorderSide(
                                                               color: Color(
                                                                   0x00000000),
                                                               width: 0.0,
@@ -433,7 +433,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                           focusedBorder:
                                                               OutlineInputBorder(
                                                             borderSide:
-                                                                BorderSide(
+                                                                const BorderSide(
                                                               color: Color(
                                                                   0x00000000),
                                                               width: 0.0,
@@ -477,7 +477,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                                       context)
                                                                   .tfBg,
                                                           contentPadding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -531,9 +531,6 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                     onPressed:
                                                         (_model.phoneTextController
                                                                         .text ==
-                                                                    null ||
-                                                                _model.phoneTextController
-                                                                        .text ==
                                                                     '')
                                                             ? null
                                                             : () async {
@@ -560,14 +557,14 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                     options: FFButtonOptions(
                                                       height: 48.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -594,7 +591,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                                             .titleSmallFamily),
                                                               ),
                                                       elevation: 0.0,
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -615,12 +612,12 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                 ),
                                               ],
                                             ),
-                                          ].divide(SizedBox(height: 16.0)),
+                                          ].divide(const SizedBox(height: 16.0)),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 24.0)),
+                                ].divide(const SizedBox(height: 24.0)),
                               ),
                             ),
                           ),
@@ -630,12 +627,12 @@ class _SignupWidgetState extends State<SignupWidget> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: wrapWithModel(
                                       model: _model.termsTextsModel,
                                       updateCallback: () => safeSetState(() {}),
-                                      child: TermsTextsWidget(),
+                                      child: const TermsTextsWidget(),
                                     ),
                                   ),
                                 ),
