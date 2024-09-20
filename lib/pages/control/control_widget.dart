@@ -79,6 +79,10 @@ class _ControlWidgetState extends State<ControlWidget>
             }.withoutNulls,
           );
         }
+
+        logFirebaseEvent('Control_update_app_state');
+        FFAppState().storeID = 0;
+        FFAppState().productID = 0;
       } else {
         await Future.wait([
           Future(() async {
