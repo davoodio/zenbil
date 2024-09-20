@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>branch_key</key>
+        <string>key_live_ezoJ4eedleh3C5NQrbHitkdawthQO3IU</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:https://link.zenbil.io</string>
+ 		<string>applinks:https://bq5sr-alternate.app.link</string>
+	</array>
+	<key>branch_universal_link_domains</key>
+    	<array>
+        	<string>https://link.zenbil.io</string>
+			<string>https://bq5sr.app.link</string>
+        	<string>https://bq5sr-alternate.app.link</string>
+    	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -48,7 +61,20 @@
         <array>
         <string>https</string>
         </array>
+    	<key>CFBundleURLTypes</key>
+    	<array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.gettico.zenbil</string>
+            </array>
+            <key>CFBundleURLName</key>
+            <string>com.gettico.zenbil</string>
         </dict>
+    </array>
+    </dict>
     </array>
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
@@ -91,5 +117,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
