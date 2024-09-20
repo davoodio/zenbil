@@ -34,10 +34,14 @@ class _SplashWidgetState extends State<SplashWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('SPLASH_PAGE_Splash_ON_INIT_STATE');
       logFirebaseEvent('Splash_custom_action');
-      await actions.handleDynamicLink(
+      _model.actionFinished = await actions.handleDynamicLink(
         context,
       );
-      if (FFAppState().storeID != 0) {
+      if (getJsonField(
+            _model.actionFinished,
+            r'''$.success''',
+          ) &&
+          (FFAppState().storeID != 0)) {
         logFirebaseEvent('Splash_navigate_to');
 
         context.goNamed(

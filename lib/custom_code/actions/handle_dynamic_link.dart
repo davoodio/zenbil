@@ -15,7 +15,7 @@ import 'dart:async';
 
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
-Future<void> handleDynamicLink(BuildContext context) async {
+Future<dynamic> handleDynamicLink(BuildContext context) async {
   await FlutterBranchSdk.init();
   StreamSubscription<Map> streamSubscription =
       FlutterBranchSdk.listSession().listen((data) {
@@ -30,4 +30,5 @@ Future<void> handleDynamicLink(BuildContext context) async {
   }, onError: (error) {
     print('listSession error: ${error.toString()}');
   });
+  return {'success': true};
 }
