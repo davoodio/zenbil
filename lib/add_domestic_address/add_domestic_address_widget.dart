@@ -1672,12 +1672,12 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                                 title: FFLocalizations.of(
                                                                         context)
                                                                     .getText(
-                                                                  'qie9hinr' /* Invalid address! */,
+                                                                  'rhayxtn2' /* Invalid address! */,
                                                                 ),
                                                                 body: FFLocalizations.of(
                                                                         context)
                                                                     .getText(
-                                                                  'fvtnoua0' /* Delivery is only possible to t... */,
+                                                                  'gy2vfnh1' /* Delivery is only possible to t... */,
                                                                 ),
                                                                 autoDismiss:
                                                                     true,

@@ -2468,12 +2468,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'البريد الإلكتروني الذي أدخلته غير صالح.',
       'fa': 'ایمیلی که وارد کردید معتبر نیست.',
     },
-    'qie9hinr': {
+    'rhayxtn2': {
       'en': 'Invalid address!',
       'ar': 'عنوان غير صالح!',
       'fa': 'آدرس نامعتبر است!',
     },
-    'fvtnoua0': {
+    'gy2vfnh1': {
       'en': 'Delivery is only possible to the addresses within Iraq.',
       'ar': 'التسليم ممكن فقط إلى العناوين داخل العراق.',
       'fa': 'تحویل فقط به آدرس های داخل عراق امکان پذیر است.',
