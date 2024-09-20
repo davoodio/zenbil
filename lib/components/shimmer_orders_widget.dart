@@ -1,8 +1,13 @@
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'shimmer_orders_model.dart';
 export 'shimmer_orders_model.dart';
 
@@ -11,8 +16,8 @@ class ShimmerOrdersWidget extends StatefulWidget {
     super.key,
     Color? boxColor,
     int? amountListItems,
-  })  : boxColor = boxColor ?? const Color(0xFFE4E4E4),
-        amountListItems = amountListItems ?? 4;
+  })  : this.boxColor = boxColor ?? const Color(0xFFE4E4E4),
+        this.amountListItems = amountListItems ?? 4;
 
   final Color boxColor;
   final int amountListItems;
@@ -70,7 +75,7 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
     return Builder(
       builder: (context) {
         final shimmerOrder = functions
-            .generateRandonListOfNumbers(widget.amountListItems)
+            .generateRandonListOfNumbers(widget!.amountListItems)
             .toList();
 
         return ListView.builder(
@@ -89,7 +94,7 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 24.0, 20.0, 24.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -102,7 +107,7 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                                   width: 40.0,
                                   height: 40.0,
                                   decoration: BoxDecoration(
-                                    color: widget.boxColor,
+                                    color: widget!.boxColor,
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
@@ -117,7 +122,7 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                                           width: 80.0,
                                           height: 10.0,
                                           decoration: BoxDecoration(
-                                            color: widget.boxColor,
+                                            color: widget!.boxColor,
                                             borderRadius:
                                                 BorderRadius.circular(5.0),
                                           ),
@@ -126,29 +131,29 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                                           width: 80.0,
                                           height: 10.0,
                                           decoration: BoxDecoration(
-                                            color: widget.boxColor,
+                                            color: widget!.boxColor,
                                             borderRadius:
                                                 BorderRadius.circular(5.0),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 16.0)),
+                                      ].divide(SizedBox(height: 16.0)),
                                     ),
                                     Container(
                                       width: 50.0,
                                       height: 10.0,
                                       decoration: BoxDecoration(
-                                        color: widget.boxColor,
+                                        color: widget!.boxColor,
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 8.0)),
+                                  ].divide(SizedBox(width: 8.0)),
                                 ),
                                 Container(
                                   width: 10.0,
                                   height: 10.0,
                                   decoration: BoxDecoration(
-                                    color: widget.boxColor,
+                                    color: widget!.boxColor,
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                 ),
@@ -163,7 +168,7 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                                   width: 40.0,
                                   height: 20.0,
                                   decoration: BoxDecoration(
-                                    color: widget.boxColor,
+                                    color: widget!.boxColor,
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                 ),
@@ -171,13 +176,13 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                                   width: 60.0,
                                   height: 20.0,
                                   decoration: BoxDecoration(
-                                    color: widget.boxColor,
+                                    color: widget!.boxColor,
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                 ),
                               ],
                             ),
-                          ].divide(const SizedBox(height: 16.0)),
+                          ].divide(SizedBox(height: 16.0)),
                         ),
                       ),
                     ],

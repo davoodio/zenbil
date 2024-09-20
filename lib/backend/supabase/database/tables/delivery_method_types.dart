@@ -10,7 +10,7 @@ class DeliveryMethodTypesTable extends SupabaseTable<DeliveryMethodTypesRow> {
 }
 
 class DeliveryMethodTypesRow extends SupabaseDataRow {
-  DeliveryMethodTypesRow(super.data);
+  DeliveryMethodTypesRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => DeliveryMethodTypesTable();

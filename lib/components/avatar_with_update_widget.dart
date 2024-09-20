@@ -8,6 +8,8 @@ import '/flutter_flow/upload_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'avatar_with_update_model.dart';
 export 'avatar_with_update_model.dart';
@@ -17,7 +19,7 @@ class AvatarWithUpdateWidget extends StatefulWidget {
     super.key,
     this.avatar,
     bool? uploadEnable,
-  }) : uploadEnable = uploadEnable ?? false;
+  }) : this.uploadEnable = uploadEnable ?? false;
 
   final String? avatar;
   final bool uploadEnable;
@@ -43,9 +45,9 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('AVATAR_WITH_UPDATE_AvatarWithUpdate_ON_I');
-      if (widget.avatar != null && widget.avatar != '') {
+      if (widget!.avatar != null && widget!.avatar != '') {
         logFirebaseEvent('AvatarWithUpdate_update_component_state');
-        _model.avatarURL = widget.avatar;
+        _model.avatarURL = widget!.avatar;
         _model.updatePage(() {});
       }
     });
@@ -64,11 +66,11 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return SizedBox(
+    return Container(
       width: 100.0,
       height: 100.0,
       child: Stack(
-        alignment: const AlignmentDirectional(0.0, 0.0),
+        alignment: AlignmentDirectional(0.0, 0.0),
         children: [
           ClipOval(
             child: Container(
@@ -76,7 +78,7 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
               height: double.infinity,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
                     blurRadius: 22.0,
                     color: Color(0x0C000000),
@@ -88,7 +90,7 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                 ],
                 shape: BoxShape.circle,
               ),
-              child: SizedBox(
+              child: Container(
                 width: double.infinity,
                 height: double.infinity,
                 child: Stack(
@@ -96,8 +98,8 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(111.0),
                       child: CachedNetworkImage(
-                        fadeInDuration: const Duration(milliseconds: 500),
-                        fadeOutDuration: const Duration(milliseconds: 500),
+                        fadeInDuration: Duration(milliseconds: 500),
+                        fadeOutDuration: Duration(milliseconds: 500),
                         imageUrl:
                             'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/netron-e-com-mobile-6rhojr/assets/l260dcr57pr2/user-default.png',
                         width: double.infinity,
@@ -105,7 +107,7 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    if ((widget.avatar != null && widget.avatar != '') &&
+                    if ((widget!.avatar != null && widget!.avatar != '') &&
                         (_model.avatarURL == null || _model.avatarURL == ''))
                       InkWell(
                         splashColor: Colors.transparent,
@@ -122,27 +124,27 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                               type: PageTransitionType.fade,
                               child: FlutterFlowExpandedImageView(
                                 image: CachedNetworkImage(
-                                  fadeInDuration: const Duration(milliseconds: 500),
-                                  fadeOutDuration: const Duration(milliseconds: 500),
-                                  imageUrl: widget.avatar!,
+                                  fadeInDuration: Duration(milliseconds: 500),
+                                  fadeOutDuration: Duration(milliseconds: 500),
+                                  imageUrl: widget!.avatar!,
                                   fit: BoxFit.contain,
                                 ),
                                 allowRotation: false,
-                                tag: widget.avatar!,
+                                tag: widget!.avatar!,
                                 useHeroAnimation: true,
                               ),
                             ),
                           );
                         },
                         child: Hero(
-                          tag: widget.avatar!,
+                          tag: widget!.avatar!,
                           transitionOnUserGestures: true,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(111.0),
                             child: CachedNetworkImage(
-                              fadeInDuration: const Duration(milliseconds: 500),
-                              fadeOutDuration: const Duration(milliseconds: 500),
-                              imageUrl: widget.avatar!,
+                              fadeInDuration: Duration(milliseconds: 500),
+                              fadeOutDuration: Duration(milliseconds: 500),
+                              imageUrl: widget!.avatar!,
                               width: double.infinity,
                               height: double.infinity,
                               fit: BoxFit.cover,
@@ -177,8 +179,8 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                               type: PageTransitionType.fade,
                               child: FlutterFlowExpandedImageView(
                                 image: CachedNetworkImage(
-                                  fadeInDuration: const Duration(milliseconds: 500),
-                                  fadeOutDuration: const Duration(milliseconds: 500),
+                                  fadeInDuration: Duration(milliseconds: 500),
+                                  fadeOutDuration: Duration(milliseconds: 500),
                                   imageUrl: _model.avatarURL!,
                                   fit: BoxFit.contain,
                                 ),
@@ -195,8 +197,8 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(111.0),
                             child: CachedNetworkImage(
-                              fadeInDuration: const Duration(milliseconds: 500),
-                              fadeOutDuration: const Duration(milliseconds: 500),
+                              fadeInDuration: Duration(milliseconds: 500),
+                              fadeOutDuration: Duration(milliseconds: 500),
                               imageUrl: _model.avatarURL!,
                               width: double.infinity,
                               height: double.infinity,
@@ -210,15 +212,15 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
               ),
             ),
           ),
-          if (widget.uploadEnable)
+          if (widget!.uploadEnable)
             Align(
-              alignment: const AlignmentDirectional(1.05, 0.88),
+              alignment: AlignmentDirectional(1.05, 0.88),
               child: Container(
                 width: 38.0,
                 height: 38.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
                       blurRadius: 12.0,
                       color: Color(0x1A000000),
@@ -230,7 +232,7 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                   ],
                   shape: BoxShape.circle,
                 ),
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 100.0,
@@ -249,7 +251,7 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                         await selectMediaWithSourceBottomSheet(
                       context: context,
                       storageFolderPath: valueOrDefault<String>(
-                        'users/uploads/$currentUserUid',
+                        'users/uploads/${currentUserUid}',
                         'users/uploads',
                       ),
                       maxWidth: 800.00,
@@ -296,7 +298,8 @@ class _AvatarWithUpdateWidgetState extends State<AvatarWithUpdateWidget> {
                       }
                     }
 
-                    if (_model.uploadedFileUrl != '') {
+                    if (_model.uploadedFileUrl != null &&
+                        _model.uploadedFileUrl != '') {
                       logFirebaseEvent('update_update_component_state');
                       _model.avatarURL = _model.uploadedFileUrl;
                       _model.blureHash = _model.uploadedLocalFile.blurHash;

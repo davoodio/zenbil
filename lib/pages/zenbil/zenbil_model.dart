@@ -1,16 +1,33 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/advertise_banner_widget.dart';
 import '/components/brand_item/brand_item_widget.dart';
 import '/components/cart_badge_widget.dart';
+import '/components/categories_item/categories_item_widget.dart';
+import '/components/empty_state_widget.dart';
+import '/components/loaders/loader_box_grid/loader_box_grid_widget.dart';
+import '/components/loaders/loader_box_row/loader_box_row_widget.dart';
+import '/components/loaders/loader_query_inside/loader_query_inside_widget.dart';
+import '/components/market_cover_card_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/notification_badge_widget.dart';
 import '/components/product_card/product_card_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:sticky_headers/sticky_headers.dart';
 import 'zenbil_widget.dart' show ZenbilWidget;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ZenbilModel extends FlutterFlowModel<ZenbilWidget> {
   ///  Local state fields for this page.
@@ -192,7 +209,7 @@ class ZenbilModel extends FlutterFlowModel<ZenbilWidget> {
               ),
         );
         if ((advertisingQuery != null && (advertisingQuery)!.isNotEmpty) &&
-            (advertisingQuery!.isNotEmpty)) {
+            (advertisingQuery!.length > 0)) {
           logFirebaseEvent('LoadHomePageData_update_page_state');
           advertisements = advertisingQuery!.toList().cast<AdvertisingRow>();
         }

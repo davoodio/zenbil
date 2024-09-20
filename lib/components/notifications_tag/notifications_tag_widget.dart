@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'notifications_tag_model.dart';
 export 'notifications_tag_model.dart';
 
@@ -12,9 +13,9 @@ class NotificationsTagWidget extends StatefulWidget {
     required this.icon,
     Color? bgColor,
     String? activeTagInPage,
-  })  : tagName = tagName ?? 'TagName',
-        bgColor = bgColor ?? const Color(0xD9FFFFFF),
-        activeTagInPage = activeTagInPage ?? 'ActiveTag';
+  })  : this.tagName = tagName ?? 'TagName',
+        this.bgColor = bgColor ?? const Color(0xD9FFFFFF),
+        this.activeTagInPage = activeTagInPage ?? 'ActiveTag';
 
   final String tagName;
   final Widget? icon;
@@ -54,15 +55,15 @@ class _NotificationsTagWidgetState extends State<NotificationsTagWidget> {
     return Container(
       decoration: BoxDecoration(
         color: valueOrDefault<Color>(
-          widget.tagName == widget.activeTagInPage
-              ? widget.bgColor
+          widget!.tagName == widget!.activeTagInPage
+              ? widget!.bgColor
               : Colors.transparent,
           Colors.transparent,
         ),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -70,10 +71,10 @@ class _NotificationsTagWidgetState extends State<NotificationsTagWidget> {
               width: 48.0,
               height: 48.0,
               decoration: BoxDecoration(
-                color: widget.bgColor,
+                color: widget!.bgColor,
                 shape: BoxShape.circle,
               ),
-              child: widget.icon!,
+              child: widget!.icon!,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -81,7 +82,7 @@ class _NotificationsTagWidgetState extends State<NotificationsTagWidget> {
               children: [
                 Text(
                   valueOrDefault<String>(
-                    widget.tagName,
+                    widget!.tagName,
                     'TAG',
                   ),
                   maxLines: 1,
@@ -89,7 +90,7 @@ class _NotificationsTagWidgetState extends State<NotificationsTagWidget> {
                         fontFamily:
                             FlutterFlowTheme.of(context).labelSmallFamily,
                         color: valueOrDefault<Color>(
-                          widget.tagName == widget.activeTagInPage
+                          widget!.tagName == widget!.activeTagInPage
                               ? FlutterFlowTheme.of(context).white
                               : FlutterFlowTheme.of(context).primaryText,
                           FlutterFlowTheme.of(context).primaryText,
@@ -102,7 +103,7 @@ class _NotificationsTagWidgetState extends State<NotificationsTagWidget> {
                 ),
               ],
             ),
-          ].divide(const SizedBox(height: 6.0)),
+          ].divide(SizedBox(height: 6.0)),
         ),
       ),
     );

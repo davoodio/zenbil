@@ -11,7 +11,7 @@ class OrderGroupDeliveryTimelineTable
 }
 
 class OrderGroupDeliveryTimelineRow extends SupabaseDataRow {
-  OrderGroupDeliveryTimelineRow(super.data);
+  OrderGroupDeliveryTimelineRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => OrderGroupDeliveryTimelineTable();

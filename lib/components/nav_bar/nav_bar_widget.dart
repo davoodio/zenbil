@@ -2,6 +2,8 @@ import '/components/nav_bar_item/nav_bar_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
@@ -9,7 +11,7 @@ class NavBarWidget extends StatefulWidget {
   const NavBarWidget({
     super.key,
     String? activePage,
-  }) : activePage = activePage ?? 'Home';
+  }) : this.activePage = activePage ?? 'Home';
 
   final String activePage;
 
@@ -54,13 +56,13 @@ class _NavBarWidgetState extends State<NavBarWidget> {
         // Wallet
         // Profile
         Align(
-          alignment: const AlignmentDirectional(0.0, 1.0),
+          alignment: AlignmentDirectional(0.0, 1.0),
           child: Container(
             width: double.infinity,
             height: 65.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                   blurRadius: 12.0,
                   color: Color(0x07000000),
@@ -91,7 +93,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: NavBarItemWidget(
-                        actiePage: widget.activePage,
+                        actiePage: widget!.activePage,
                         currentItemName: FFAppConstants.BrandAppName,
                         unselectedIcon: Icon(
                           FFIcons.kletterZ,
@@ -130,7 +132,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: NavBarItemWidget(
-                        actiePage: widget.activePage,
+                        actiePage: widget!.activePage,
                         currentItemName: FFLocalizations.of(context).getText(
                           'x0waiw5y' /* Stores */,
                         ),
@@ -167,7 +169,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: NavBarItemWidget(
-                        actiePage: widget.activePage,
+                        actiePage: widget!.activePage,
                         currentItemName: FFLocalizations.of(context).getText(
                           'g85460uu' /* Stars */,
                         ),
@@ -208,7 +210,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: NavBarItemWidget(
-                        actiePage: widget.activePage,
+                        actiePage: widget!.activePage,
                         currentItemName: FFLocalizations.of(context).getText(
                           'i81l6pdr' /* Categories */,
                         ),
@@ -245,7 +247,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: NavBarItemWidget(
-                        actiePage: widget.activePage,
+                        actiePage: widget!.activePage,
                         currentItemName: FFLocalizations.of(context).getText(
                           's4f8om5t' /* Account */,
                         ),

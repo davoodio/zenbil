@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'market_cover_card_model.dart';
 export 'market_cover_card_model.dart';
 
@@ -16,10 +17,10 @@ class MarketCoverCardWidget extends StatefulWidget {
     double? widthImage,
     double? heightImage,
     this.brandId,
-  })  : image = image ??
+  })  : this.image = image ??
             'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg',
-        widthImage = widthImage ?? 100.0,
-        heightImage = heightImage ?? 120.0;
+        this.widthImage = widthImage ?? 100.0,
+        this.heightImage = heightImage ?? 120.0;
 
   final String image;
   final String? name;
@@ -59,8 +60,8 @@ class _MarketCoverCardWidgetState extends State<MarketCoverCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.widthImage,
-      decoration: const BoxDecoration(),
+      width: widget!.widthImage,
+      decoration: BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -77,11 +78,11 @@ class _MarketCoverCardWidgetState extends State<MarketCoverCardWidget> {
                 'StoreFront',
                 queryParameters: {
                   'marketID': serializeParam(
-                    widget.marketId,
+                    widget!.marketId,
                     ParamType.int,
                   ),
                   'brandID': serializeParam(
-                    widget.brandId,
+                    widget!.brandId,
                     ParamType.int,
                   ),
                 }.withoutNulls,
@@ -90,15 +91,15 @@ class _MarketCoverCardWidgetState extends State<MarketCoverCardWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16.0),
               child: Container(
-                width: widget.widthImage,
-                height: widget.heightImage,
+                width: widget!.widthImage,
+                height: widget!.heightImage,
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? FlutterFlowTheme.of(context).white
-                      : const Color(0x00000000),
+                      : Color(0x00000000),
                   borderRadius: BorderRadius.circular(16.0),
                 ),
-                child: SizedBox(
+                child: Container(
                   width: double.infinity,
                   height: double.infinity,
                   child: Stack(
@@ -106,10 +107,10 @@ class _MarketCoverCardWidgetState extends State<MarketCoverCardWidget> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 500),
-                          fadeOutDuration: const Duration(milliseconds: 500),
+                          fadeInDuration: Duration(milliseconds: 500),
+                          fadeOutDuration: Duration(milliseconds: 500),
                           imageUrl: valueOrDefault<String>(
-                            widget.image,
+                            widget!.image,
                             'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/9h1d3pusvgam/image_place_02.jpeg',
                           ),
                           width: double.infinity,
@@ -125,17 +126,17 @@ class _MarketCoverCardWidgetState extends State<MarketCoverCardWidget> {
           ),
           Container(
             height: 30.0,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
                     child: AutoSizeText(
                       valueOrDefault<String>(
-                        widget.name,
+                        widget!.name,
                         'Market Name',
                       ),
                       textAlign: TextAlign.center,

@@ -9,7 +9,7 @@ class WalletsTable extends SupabaseTable<WalletsRow> {
 }
 
 class WalletsRow extends SupabaseDataRow {
-  WalletsRow(super.data);
+  WalletsRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => WalletsTable();

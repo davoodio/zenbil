@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'notification_badge_model.dart';
 export 'notification_badge_model.dart';
 
@@ -12,9 +13,9 @@ class NotificationBadgeWidget extends StatefulWidget {
     bool? goToNotifOnClick,
     Color? backColor,
     Color? iconColor,
-  })  : goToNotifOnClick = goToNotifOnClick ?? true,
-        backColor = backColor ?? Colors.transparent,
-        iconColor = iconColor ?? Colors.black;
+  })  : this.goToNotifOnClick = goToNotifOnClick ?? true,
+        this.backColor = backColor ?? Colors.transparent,
+        this.iconColor = iconColor ?? Colors.black;
 
   final bool goToNotifOnClick;
   final Color backColor;
@@ -58,7 +59,7 @@ class _NotificationBadgeWidgetState extends State<NotificationBadgeWidget> {
       highlightColor: Colors.transparent,
       onTap: () async {
         logFirebaseEvent('NOTIFICATION_BADGE_Container_ttow9ij6_ON');
-        if (widget.goToNotifOnClick) {
+        if (widget!.goToNotifOnClick) {
           logFirebaseEvent('Container_navigate_to');
 
           context.pushNamed('Notification');
@@ -68,24 +69,24 @@ class _NotificationBadgeWidgetState extends State<NotificationBadgeWidget> {
         width: 44.0,
         height: 44.0,
         decoration: BoxDecoration(
-          color: widget.backColor,
+          color: widget!.backColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: SizedBox(
+        child: Container(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
-            alignment: const AlignmentDirectional(0.0, 0.0),
+            alignment: AlignmentDirectional(0.0, 0.0),
             children: [
               Icon(
                 FFIcons.kbell,
-                color: widget.iconColor,
+                color: widget!.iconColor,
                 size: 25.0,
               ),
               Align(
-                alignment: const AlignmentDirectional(1.0, -1.0),
+                alignment: AlignmentDirectional(1.0, -1.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 2.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 2.0, 0.0),
                   child: Container(
                     width: 20.0,
                     height: 20.0,
@@ -94,9 +95,9 @@ class _NotificationBadgeWidgetState extends State<NotificationBadgeWidget> {
                       shape: BoxShape.circle,
                     ),
                     child: Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: EdgeInsets.all(2.0),
                         child: AutoSizeText(
                           FFLocalizations.of(context).getText(
                             'lzcyhmv3' /* 23 */,

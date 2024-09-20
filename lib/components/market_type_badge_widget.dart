@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'market_type_badge_model.dart';
 export 'market_type_badge_model.dart';
 
@@ -49,10 +50,10 @@ class _MarketTypeBadgeWidgetState extends State<MarketTypeBadgeWidget> {
         borderRadius: BorderRadius.circular(100.0),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 3.0, 8.0, 3.0),
+        padding: EdgeInsetsDirectional.fromSTEB(8.0, 3.0, 8.0, 3.0),
         child: Text(
           valueOrDefault<String>(
-            widget.type,
+            widget!.type,
             '-',
           ),
           style: FlutterFlowTheme.of(context).bodyMedium.override(

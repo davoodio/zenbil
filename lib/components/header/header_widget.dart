@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'header_model.dart';
 export 'header_model.dart';
 
@@ -22,10 +23,10 @@ class HeaderWidget extends StatefulWidget {
     this.fieldsToSearchIn,
     this.searchTitle,
     this.preDefineSearch,
-  })  : showBackButton = showBackButton ?? false,
-        showCart = showCart ?? false,
-        goToCartOnClick = goToCartOnClick ?? false,
-        showSearch = showSearch ?? false;
+  })  : this.showBackButton = showBackButton ?? false,
+        this.showCart = showCart ?? false,
+        this.goToCartOnClick = goToCartOnClick ?? false,
+        this.showSearch = showSearch ?? false;
 
   final String? title;
   final bool showBackButton;
@@ -71,18 +72,18 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     return Container(
       width: double.infinity,
       height: 50.0,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-            child: SizedBox(
+            padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+            child: Container(
               width: 48.0,
               child: Stack(
                 children: [
-                  if (widget.showBackButton)
+                  if (widget!.showBackButton)
                     FlutterFlowIconButton(
                       borderRadius: 8.0,
                       borderWidth: 0.0,
@@ -102,22 +103,22 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               ),
             ),
           ),
-          if (widget.showCart && widget.showSearch)
+          if (widget!.showCart && widget!.showSearch)
             Container(
               width: 48.0,
               height: 48.0,
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
             ),
           Flexible(
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (widget.title != null && widget.title != '')
+                if (widget!.title != null && widget!.title != '')
                   Flexible(
                     child: Text(
                       valueOrDefault<String>(
-                        widget.title,
+                        widget!.title,
                         'TITLE',
                       ),
                       textAlign: TextAlign.center,
@@ -141,13 +142,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                child: SizedBox(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                child: Container(
                   width: 44.0,
                   height: 44.0,
                   child: Stack(
                     children: [
-                      if (widget.showSearch)
+                      if (widget!.showSearch)
                         wrapWithModel(
                           model: _model.searchBadgeModel,
                           updateCallback: () => safeSetState(() {}),
@@ -156,12 +157,12 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 .secondaryBackground,
                             iconColor: FlutterFlowTheme.of(context).primaryText,
                             goToSearchOnTap: true,
-                            tableName: widget.searchTableName!,
+                            tableName: widget!.searchTableName!,
                             fieldsToReturnFromTable:
-                                widget.fieldsToReturnFromSearchTable!,
-                            fieldsToSearchIn: widget.fieldsToSearchIn!,
-                            searchTitle: widget.searchTitle!,
-                            preDefineSearch: widget.preDefineSearch!,
+                                widget!.fieldsToReturnFromSearchTable!,
+                            fieldsToSearchIn: widget!.fieldsToSearchIn!,
+                            searchTitle: widget!.searchTitle!,
+                            preDefineSearch: widget!.preDefineSearch!,
                           ),
                         ),
                     ],
@@ -169,13 +170,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                child: SizedBox(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                child: Container(
                   width: 44.0,
                   height: 44.0,
                   child: Stack(
                     children: [
-                      if (widget.showCart)
+                      if (widget!.showCart)
                         wrapWithModel(
                           model: _model.cartBadgeModel,
                           updateCallback: () => safeSetState(() {}),
@@ -183,7 +184,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             backColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             iconColor: FlutterFlowTheme.of(context).primaryText,
-                            goToCartOnTap: widget.goToCartOnClick,
+                            goToCartOnTap: widget!.goToCartOnClick,
                           ),
                         ),
                     ],

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'successful_payment_model.dart';
 export 'successful_payment_model.dart';
 
@@ -53,7 +54,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -61,7 +62,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -82,13 +83,13 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                       ),
                       Expanded(
                         child: Container(
-                          decoration: const BoxDecoration(),
+                          decoration: BoxDecoration(),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                const Padding(
+                                Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
                                   child: Row(
@@ -97,7 +98,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 24.0),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -106,7 +107,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(24.0),
+                                      padding: EdgeInsets.all(24.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment:
@@ -114,7 +115,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 8.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -166,7 +167,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 8.0, 0.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -211,7 +212,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 12.0, 0.0, 0.0),
                                                 child: Row(
@@ -234,14 +235,14 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                                         width: 120.0,
                                                         height: 52.0,
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -294,14 +295,14 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                                       options: FFButtonOptions(
                                                         height: 52.0,
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -328,7 +329,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                                                               .titleSmallFamily),
                                                                 ),
                                                         elevation: 0.0,
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 1.0,
@@ -339,12 +340,12 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                                       ),
                                                     ),
                                                   ].divide(
-                                                      const SizedBox(width: 16.0)),
+                                                      SizedBox(width: 16.0)),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ].divide(const SizedBox(height: 8.0)),
+                                        ].divide(SizedBox(height: 8.0)),
                                       ),
                                     ),
                                   ),
@@ -353,7 +354,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                   future: OrderProductsTable().querySingleRow(
                                     queryFn: (q) => q.eq(
                                       'id',
-                                      widget.orderId,
+                                      widget!.orderId,
                                     ),
                                   ),
                                   builder: (context, snapshot) {
@@ -387,7 +388,7 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: wrapWithModel(
                                             model: _model.orderHistoryItemModel,
@@ -405,14 +406,14 @@ class _SuccessfulPaymentWidgetState extends State<SuccessfulPaymentWidget> {
                                             ),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 16.0)),
+                                      ].divide(SizedBox(height: 16.0)),
                                     );
                                   },
                                 ),
                               ]
-                                  .divide(const SizedBox(height: 24.0))
-                                  .addToStart(const SizedBox(height: 24.0))
-                                  .addToEnd(const SizedBox(height: 24.0)),
+                                  .divide(SizedBox(height: 24.0))
+                                  .addToStart(SizedBox(height: 24.0))
+                                  .addToEnd(SizedBox(height: 24.0)),
                             ),
                           ),
                         ),

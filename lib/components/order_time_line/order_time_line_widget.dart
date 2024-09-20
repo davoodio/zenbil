@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'order_time_line_model.dart';
 export 'order_time_line_model.dart';
 
@@ -14,10 +15,10 @@ class OrderTimeLineWidget extends StatefulWidget {
     bool? endOfIndex,
     this.createdDate,
     this.createdTime,
-  })  : status = status ?? 'STATUSES',
-        description = description ?? 'DESCRIPTIONS',
-        position = position ?? false,
-        endOfIndex = endOfIndex ?? false;
+  })  : this.status = status ?? 'STATUSES',
+        this.description = description ?? 'DESCRIPTIONS',
+        this.position = position ?? false,
+        this.endOfIndex = endOfIndex ?? false;
 
   final String status;
   final String description;
@@ -59,7 +60,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
     return Container(
       width: double.infinity,
       height: 70.0,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +75,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                 height: 24.0,
                 decoration: BoxDecoration(
                   color: valueOrDefault<Color>(
-                    widget.position
+                    widget!.position
                         ? FlutterFlowTheme.of(context).timeLine
                         : FlutterFlowTheme.of(context).white,
                     FlutterFlowTheme.of(context).timeLine,
@@ -82,7 +83,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      widget.position
+                      widget!.position
                           ? FlutterFlowTheme.of(context).timeLine
                           : FlutterFlowTheme.of(context).timeLine,
                       FlutterFlowTheme.of(context).timeLine,
@@ -91,7 +92,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                   ),
                 ),
               ),
-              if (!widget.endOfIndex)
+              if (!widget!.endOfIndex)
                 Container(
                   width: 2.0,
                   height: 46.0,
@@ -113,7 +114,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.status,
+                          widget!.status,
                           maxLines: 1,
                           style: FlutterFlowTheme.of(context)
                               .titleSmall
@@ -130,7 +131,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                       ),
                       Text(
                         valueOrDefault<String>(
-                          widget.createdDate,
+                          widget!.createdDate,
                           '-',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -143,7 +144,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                                       .bodyMediumFamily),
                             ),
                       ),
-                    ].divide(const SizedBox(width: 8.0)),
+                    ].divide(SizedBox(width: 8.0)),
                   ),
                 ),
                 Row(
@@ -152,7 +153,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.description,
+                        widget!.description,
                         maxLines: 2,
                         style: FlutterFlowTheme.of(context).labelSmall.override(
                               fontFamily:
@@ -166,7 +167,7 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                     ),
                     Text(
                       valueOrDefault<String>(
-                        widget.createdTime,
+                        widget!.createdTime,
                         '-',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -178,12 +179,12 @@ class _OrderTimeLineWidgetState extends State<OrderTimeLineWidget> {
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
                           ),
                     ),
-                  ].divide(const SizedBox(width: 8.0)),
+                  ].divide(SizedBox(width: 8.0)),
                 ),
-              ].divide(const SizedBox(height: 4.0)),
+              ].divide(SizedBox(height: 4.0)),
             ),
           ),
-        ].divide(const SizedBox(width: 24.0)),
+        ].divide(SizedBox(width: 24.0)),
       ),
     );
   }

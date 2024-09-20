@@ -10,7 +10,7 @@ class UserFavoritesTable extends SupabaseTable<UserFavoritesRow> {
 }
 
 class UserFavoritesRow extends SupabaseDataRow {
-  UserFavoritesRow(super.data);
+  UserFavoritesRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => UserFavoritesTable();

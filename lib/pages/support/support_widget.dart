@@ -7,8 +7,10 @@ import '/components/loaders/loader_query_inside/loader_query_inside_widget.dart'
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'support_model.dart';
 export 'support_model.dart';
@@ -83,8 +85,8 @@ class _SupportWidgetState extends State<SupportWidget> {
               return Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(),
-                child: SizedBox(
+                decoration: BoxDecoration(),
+                child: Container(
                   width: double.infinity,
                   height: double.infinity,
                   child: Stack(
@@ -92,7 +94,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                       Container(
                         width: double.infinity,
                         height: double.infinity,
-                        decoration: const BoxDecoration(),
+                        decoration: BoxDecoration(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -122,7 +124,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
-                                    return const LoaderQueryInsideWidget();
+                                    return LoaderQueryInsideWidget();
                                   }
                                   List<ConversationsRow>
                                       conversationListConversationsRowList =
@@ -131,7 +133,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                                   if (conversationListConversationsRowList
                                       .isEmpty) {
                                     return Center(
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         height: double.infinity,
                                         child: EmptyStateWidget(
@@ -139,7 +141,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                                               .getText(
                                             'gu6cr867' /* There is no active conversatio... */,
                                           ),
-                                          icon: const Icon(
+                                          icon: Icon(
                                             FFIcons.kmessageChatbot,
                                           ),
                                           title: 'No Conversation',
@@ -150,7 +152,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                                   }
 
                                   return ListView.builder(
-                                    padding: const EdgeInsets.fromLTRB(
+                                    padding: EdgeInsets.fromLTRB(
                                       0,
                                       0,
                                       0,
@@ -166,7 +168,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                                           conversationListConversationsRowList[
                                               conversationListIndex];
                                       return Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
                                         child: ConversationCardWidget(
                                           key: Key(
@@ -186,9 +188,9 @@ class _SupportWidgetState extends State<SupportWidget> {
                       ),
                       if (!FFAppState().CurrentUser.isAnon)
                         Align(
-                          alignment: const AlignmentDirectional(1.0, 1.0),
+                          alignment: AlignmentDirectional(1.0, 1.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 20.0, 20.0),
                             child: Container(
                               width: 54.0,
@@ -200,7 +202,7 @@ class _SupportWidgetState extends State<SupportWidget> {
                                     blurRadius: 24.0,
                                     color: FlutterFlowTheme.of(context)
                                         .shadowPrimary,
-                                    offset: const Offset(
+                                    offset: Offset(
                                       0.0,
                                       6.0,
                                     ),
@@ -208,11 +210,11 @@ class _SupportWidgetState extends State<SupportWidget> {
                                 ],
                                 shape: BoxShape.circle,
                               ),
-                              child: SizedBox(
+                              child: Container(
                                 width: double.infinity,
                                 height: double.infinity,
                                 child: Stack(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   children: [
                                     FlutterFlowIconButton(
                                       borderRadius: 100.0,

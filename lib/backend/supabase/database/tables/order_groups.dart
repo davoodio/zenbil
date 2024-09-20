@@ -9,7 +9,7 @@ class OrderGroupsTable extends SupabaseTable<OrderGroupsRow> {
 }
 
 class OrderGroupsRow extends SupabaseDataRow {
-  OrderGroupsRow(super.data);
+  OrderGroupsRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => OrderGroupsTable();
@@ -102,8 +102,8 @@ class OrderGroupsRow extends SupabaseDataRow {
   bool? get onroIsDelayed => getField<bool>('onro_is_delayed');
   set onroIsDelayed(bool? value) => setField<bool>('onro_is_delayed', value);
 
-  dynamic get onroDriver => getField<dynamic>('onro_driver');
-  set onroDriver(dynamic value) => setField<dynamic>('onro_driver', value);
+  dynamic? get onroDriver => getField<dynamic>('onro_driver');
+  set onroDriver(dynamic? value) => setField<dynamic>('onro_driver', value);
 
   String? get onroTrackOrder => getField<String>('onro_track_order');
   set onroTrackOrder(String? value) =>

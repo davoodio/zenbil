@@ -10,7 +10,7 @@ class ViewAdvertisingNamesTable extends SupabaseTable<ViewAdvertisingNamesRow> {
 }
 
 class ViewAdvertisingNamesRow extends SupabaseDataRow {
-  ViewAdvertisingNamesRow(super.data);
+  ViewAdvertisingNamesRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ViewAdvertisingNamesTable();

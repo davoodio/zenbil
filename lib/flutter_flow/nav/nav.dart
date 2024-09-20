@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
@@ -10,8 +12,12 @@ import '/backend/supabase/supabase.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/lat_lng.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -76,18 +82,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const ControlWidget() : const SplashWidget(),
+          appStateNotifier.loggedIn ? ControlWidget() : SplashWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const ControlWidget() : const SplashWidget(),
+              appStateNotifier.loggedIn ? ControlWidget() : SplashWidget(),
         ),
         FFRoute(
           name: 'Splash',
           path: '/splash',
-          builder: (context, params) => const SplashWidget(),
+          builder: (context, params) => SplashWidget(),
         ),
         FFRoute(
           name: 'Signup',
@@ -117,7 +123,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PasswordResetConfirmation',
           path: '/passwordResetConfirmation',
           requireAuth: true,
-          builder: (context, params) => const PasswordResetConfirmationWidget(),
+          builder: (context, params) => PasswordResetConfirmationWidget(),
         ),
         FFRoute(
           name: 'TrackOrder',
@@ -134,13 +140,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'TrackOrderOnMap',
           path: '/trackOrderOnMap',
           requireAuth: true,
-          builder: (context, params) => const TrackOrderOnMapWidget(),
+          builder: (context, params) => TrackOrderOnMapWidget(),
         ),
         FFRoute(
           name: 'Cart',
           path: '/cart',
           requireAuth: true,
-          builder: (context, params) => const CartWidget(),
+          builder: (context, params) => CartWidget(),
         ),
         FFRoute(
           name: 'Checkout',
@@ -178,19 +184,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'zenbil',
           path: '/zenbil',
           requireAuth: true,
-          builder: (context, params) => const ZenbilWidget(),
+          builder: (context, params) => ZenbilWidget(),
         ),
         FFRoute(
           name: 'Notification',
           path: '/notification',
           requireAuth: true,
-          builder: (context, params) => const NotificationWidget(),
+          builder: (context, params) => NotificationWidget(),
         ),
         FFRoute(
           name: 'Support',
           path: '/support',
           requireAuth: true,
-          builder: (context, params) => const SupportWidget(),
+          builder: (context, params) => SupportWidget(),
         ),
         FFRoute(
           name: 'Chat',
@@ -211,7 +217,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SearchFocus',
           path: '/searchFocus',
           requireAuth: true,
-          builder: (context, params) => const SearchFocusWidget(),
+          builder: (context, params) => SearchFocusWidget(),
         ),
         FFRoute(
           name: 'Search',
@@ -300,42 +306,42 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'HelpCenter',
           path: '/helpCenter',
           requireAuth: true,
-          builder: (context, params) => const HelpCenterWidget(),
+          builder: (context, params) => HelpCenterWidget(),
         ),
         FFRoute(
           name: 'ShippingMethod',
           path: '/shippingMethod',
           requireAuth: true,
-          builder: (context, params) => const ShippingMethodWidget(),
+          builder: (context, params) => ShippingMethodWidget(),
         ),
         FFRoute(
           name: 'Orders',
           path: '/orders',
           requireAuth: true,
-          builder: (context, params) => const OrdersWidget(),
+          builder: (context, params) => OrdersWidget(),
         ),
         FFRoute(
           name: 'Privacy',
           path: '/privacy',
-          builder: (context, params) => const PrivacyWidget(),
+          builder: (context, params) => PrivacyWidget(),
         ),
         FFRoute(
           name: 'Language',
           path: '/language',
           requireAuth: true,
-          builder: (context, params) => const LanguageWidget(),
+          builder: (context, params) => LanguageWidget(),
         ),
         FFRoute(
           name: 'NotificatinSetting',
           path: '/notificatinSetting',
           requireAuth: true,
-          builder: (context, params) => const NotificatinSettingWidget(),
+          builder: (context, params) => NotificatinSettingWidget(),
         ),
         FFRoute(
           name: 'Setting',
           path: '/setting',
           requireAuth: true,
-          builder: (context, params) => const SettingWidget(),
+          builder: (context, params) => SettingWidget(),
         ),
         FFRoute(
           name: 'OrderDetails',
@@ -352,12 +358,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Addresses',
           path: '/addresses',
           requireAuth: true,
-          builder: (context, params) => const AddressesWidget(),
+          builder: (context, params) => AddressesWidget(),
         ),
         FFRoute(
           name: 'Control',
           path: '/control',
-          builder: (context, params) => const ControlWidget(),
+          builder: (context, params) => ControlWidget(),
         ),
         FFRoute(
           name: 'Stores',
@@ -389,12 +395,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Brands',
           path: '/brands',
           requireAuth: true,
-          builder: (context, params) => const BrandsWidget(),
+          builder: (context, params) => BrandsWidget(),
         ),
         FFRoute(
           name: 'Terms',
           path: '/terms',
-          builder: (context, params) => const TermsWidget(),
+          builder: (context, params) => TermsWidget(),
         ),
         FFRoute(
           name: 'ProductsCategory',
@@ -450,36 +456,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'DeliveryLogin',
           path: '/deliveryLogin',
-          builder: (context, params) => const DeliveryLoginWidget(),
+          builder: (context, params) => DeliveryLoginWidget(),
         ),
         FFRoute(
           name: 'DeliverySignup',
           path: '/deliverySignup',
-          builder: (context, params) => const DeliverySignupWidget(),
+          builder: (context, params) => DeliverySignupWidget(),
         ),
         FFRoute(
           name: 'DeliveryHome',
           path: '/deliveryHome',
           requireAuth: true,
-          builder: (context, params) => const DeliveryHomeWidget(),
+          builder: (context, params) => DeliveryHomeWidget(),
         ),
         FFRoute(
           name: 'DeliveryHistory',
           path: '/deliveryHistory',
           requireAuth: true,
-          builder: (context, params) => const DeliveryHistoryWidget(),
+          builder: (context, params) => DeliveryHistoryWidget(),
         ),
         FFRoute(
           name: 'DeliveryAccount',
           path: '/deliveryAccount',
           requireAuth: true,
-          builder: (context, params) => const DeliveryAccountWidget(),
+          builder: (context, params) => DeliveryAccountWidget(),
         ),
         FFRoute(
           name: 'Favorites',
           path: '/favorites',
           requireAuth: true,
-          builder: (context, params) => const FavoritesWidget(),
+          builder: (context, params) => FavoritesWidget(),
         ),
         FFRoute(
           name: 'ReviewConfirmation',
@@ -538,7 +544,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PaymentConfirmation',
           path: '/paymentConfirmation',
           requireAuth: true,
-          builder: (context, params) => const PaymentConfirmationWidget(),
+          builder: (context, params) => PaymentConfirmationWidget(),
         ),
         FFRoute(
           name: 'AddDomesticAddress',
@@ -788,7 +794,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(
+  static TransitionInfo appDefault() => TransitionInfo(
         hasTransition: true,
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 250),

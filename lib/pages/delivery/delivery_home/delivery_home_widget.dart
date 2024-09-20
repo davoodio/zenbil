@@ -1,12 +1,16 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/nav_bar_delivery/nav_bar_delivery_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -43,7 +47,7 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('DELIVERY_HOME_DeliveryHome_ON_INIT_STATE');
       currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0));
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       await Future.wait([
         Future(() async {
           if (loggedIn && !FFAppState().CurrentUser.isAnon) {
@@ -59,10 +63,10 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
         Future(() async {
           logFirebaseEvent('DeliveryHome_start_periodic_action');
           _model.LocationUpdater = InstantTimer.periodic(
-            duration: const Duration(milliseconds: 5000),
+            duration: Duration(milliseconds: 5000),
             callback: (timer) async {
               currentUserLocationValue = await getCurrentUserLocation(
-                  defaultLocation: const LatLng(0.0, 0.0));
+                  defaultLocation: LatLng(0.0, 0.0));
               if (FFAppState().LiveLocation.liveLocationIsOn) {
                 logFirebaseEvent('DeliveryHome_update_app_state');
                 FFAppState().updateLiveLocationStruct(
@@ -100,8 +104,8 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(1.0, 1.0),
-            end: const Offset(1.1, 1.1),
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.1, 1.1),
           ),
         ],
       ),
@@ -138,9 +142,9 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
                     Container(
                       width: double.infinity,
                       height: 75.0,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             10.0, 0.0, 10.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -181,7 +185,7 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
                                                       .labelLargeFamily),
                                         ),
                                   ),
-                                ].divide(const SizedBox(width: 8.0)),
+                                ].divide(SizedBox(width: 8.0)),
                               ),
                             ),
                             InkWell(
@@ -205,22 +209,22 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
                                 decoration: BoxDecoration(
                                   color:
                                       FFAppState().LiveLocation.liveLocationIsOn
-                                          ? const Color(0x2D048178)
-                                          : const Color(0x00000000),
+                                          ? Color(0x2D048178)
+                                          : Color(0x00000000),
                                   borderRadius: BorderRadius.circular(5.0),
                                   border: Border.all(
                                     color: FFAppState()
                                             .LiveLocation
                                             .liveLocationIsOn
                                         ? FlutterFlowTheme.of(context).success
-                                        : const Color(0x00000000),
+                                        : Color(0x00000000),
                                   ),
                                 ),
-                                child: SizedBox(
+                                child: Container(
                                   width: double.infinity,
                                   height: double.infinity,
                                   child: Stack(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       if (!FFAppState()
                                           .LiveLocation
@@ -252,9 +256,9 @@ class _DeliveryHomeWidgetState extends State<DeliveryHomeWidget>
                     ),
                     Container(
                       width: double.infinity,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,

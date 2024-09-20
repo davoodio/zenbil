@@ -1,6 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'share_badge_model.dart';
 export 'share_badge_model.dart';
 
@@ -10,7 +12,7 @@ class ShareBadgeWidget extends StatefulWidget {
     this.backColor,
     Color? iconColor,
     required this.marketId,
-  }) : iconColor = iconColor ?? Colors.white;
+  }) : this.iconColor = iconColor ?? Colors.white;
 
   final Color? backColor;
   final Color iconColor;
@@ -51,22 +53,22 @@ class _ShareBadgeWidgetState extends State<ShareBadgeWidget> {
       height: 44.0,
       decoration: BoxDecoration(
         color: valueOrDefault<Color>(
-          widget.backColor,
+          widget!.backColor,
           FlutterFlowTheme.of(context).primaryBackground,
         ),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Semantics(
         label: 'Add or remove favorite ',
-        child: SizedBox(
+        child: Container(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
-            alignment: const AlignmentDirectional(0.0, 0.0),
+            alignment: AlignmentDirectional(0.0, 0.0),
             children: [
               Icon(
                 FFIcons.kshareAndroid,
-                color: widget.iconColor,
+                color: widget!.iconColor,
                 size: 25.0,
               ),
             ],

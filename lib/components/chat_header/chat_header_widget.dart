@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'chat_header_model.dart';
 export 'chat_header_model.dart';
 
@@ -52,13 +53,13 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
             child: FlutterFlowIconButton(
               borderRadius: 8.0,
               buttonSize: 40.0,
@@ -81,7 +82,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -89,19 +90,19 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                         width: 28.0,
                         height: 28.0,
                         clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 500),
-                          fadeOutDuration: const Duration(milliseconds: 500),
+                          fadeInDuration: Duration(milliseconds: 500),
+                          fadeOutDuration: Duration(milliseconds: 500),
                           imageUrl: FFAppConstants.BrandSupportAvatarURL,
                           fit: BoxFit.cover,
                         ),
                       ),
                       Text(
                         valueOrDefault<String>(
-                          widget.title,
+                          widget!.title,
                           'TITLE',
                         ),
                         style: FlutterFlowTheme.of(context).titleLarge.override(
@@ -115,7 +116,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                                       .titleLargeFamily),
                             ),
                       ),
-                    ].divide(const SizedBox(width: 8.0)),
+                    ].divide(SizedBox(width: 8.0)),
                   ),
                 ),
               ],
@@ -124,9 +125,9 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if ((widget.conversation?.status ==
+              if ((widget!.conversation?.status ==
                       ConversationStatus.Active.name) ||
-                  (widget.conversation?.status ==
+                  (widget!.conversation?.status ==
                       ConversationStatus.Draft.name))
                 Builder(
                   builder: (context) => FlutterFlowIconButton(
@@ -140,7 +141,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                     ),
                     onPressed: () async {
                       logFirebaseEvent('CHAT_HEADER_deleteDefault_ICN_ON_TAP');
-                      if (widget.conversation?.status ==
+                      if (widget!.conversation?.status ==
                           ConversationStatus.Active.name) {
                         logFirebaseEvent('IconButton_bottom_sheet');
                         await showModalBottomSheet(
@@ -151,7 +152,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                           builder: (context) {
                             return Padding(
                               padding: MediaQuery.viewInsetsOf(context),
-                              child: SizedBox(
+                              child: Container(
                                 height: double.infinity,
                                 child: InfoModalWidget(
                                   icon: Icon(
@@ -186,7 +187,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                             },
                             matchingRows: (rows) => rows.eq(
                               'id',
-                              widget.conversation?.id,
+                              widget!.conversation?.id,
                             ),
                           );
                           logFirebaseEvent('IconButton_alert_dialog');
@@ -197,12 +198,12 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                                 elevation: 0,
                                 insetPadding: EdgeInsets.zero,
                                 backgroundColor: Colors.transparent,
-                                alignment: const AlignmentDirectional(0.0, 0.0)
+                                alignment: AlignmentDirectional(0.0, 0.0)
                                     .resolve(Directionality.of(context)),
                                 child: InfoModalWidget(
                                   isConfirm: false,
                                   autoDismiss: true,
-                                  icon: const Icon(
+                                  icon: Icon(
                                     FFIcons.kcheckCircle,
                                   ),
                                   body: FFLocalizations.of(context).getText(
@@ -223,7 +224,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                           builder: (context) {
                             return Padding(
                               padding: MediaQuery.viewInsetsOf(context),
-                              child: SizedBox(
+                              child: Container(
                                 height: double.infinity,
                                 child: InfoModalWidget(
                                   icon: Icon(
@@ -255,7 +256,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                           await ConversationsTable().delete(
                             matchingRows: (rows) => rows.eq(
                               'id',
-                              widget.conversation?.id,
+                              widget!.conversation?.id,
                             ),
                           );
                           logFirebaseEvent('IconButton_navigate_to');
@@ -268,7 +269,7 @@ class _ChatHeaderWidgetState extends State<ChatHeaderWidget> {
                     },
                   ),
                 ),
-            ].divide(const SizedBox(width: 8.0)),
+            ].divide(SizedBox(width: 8.0)),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'empty_state_model.dart';
 export 'empty_state_model.dart';
 
@@ -18,10 +19,10 @@ class EmptyStateWidget extends StatefulWidget {
     this.actionButton,
     String? actionButtonText,
     bool? isRow,
-  })  : message = message ?? 'No Item!',
-        hasActionButton = hasActionButton ?? false,
-        actionButtonText = actionButtonText ?? 'More',
-        isRow = isRow ?? false;
+  })  : this.message = message ?? 'No Item!',
+        this.hasActionButton = hasActionButton ?? false,
+        this.actionButtonText = actionButtonText ?? 'More',
+        this.isRow = isRow ?? false;
 
   final String? title;
   final String message;
@@ -64,24 +65,24 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        if (!widget.isRow)
+        if (!widget!.isRow)
           Container(
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (widget.icon != null)
+                  if (widget!.icon != null)
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        widget.icon!,
+                        widget!.icon!,
                       ],
                     ),
-                  if (widget.image != null && widget.image != '')
+                  if (widget!.image != null && widget!.image != '')
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -89,9 +90,9 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: CachedNetworkImage(
-                            fadeInDuration: const Duration(milliseconds: 500),
-                            fadeOutDuration: const Duration(milliseconds: 500),
-                            imageUrl: widget.image!,
+                            fadeInDuration: Duration(milliseconds: 500),
+                            fadeOutDuration: Duration(milliseconds: 500),
+                            imageUrl: widget!.image!,
                             width: 200.0,
                             height: 150.0,
                             fit: BoxFit.cover,
@@ -99,7 +100,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                         ),
                       ],
                     ),
-                  if (widget.title != null && widget.title != '')
+                  if (widget!.title != null && widget!.title != '')
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +108,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                         Flexible(
                           child: Text(
                             valueOrDefault<String>(
-                              widget.title,
+                              widget!.title,
                               'Title Texts',
                             ),
                             textAlign: TextAlign.center,
@@ -133,7 +134,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                     children: [
                       Flexible(
                         child: Text(
-                          widget.message,
+                          widget!.message,
                           textAlign: TextAlign.center,
                           maxLines: 4,
                           style: FlutterFlowTheme.of(context)
@@ -151,7 +152,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                       ),
                     ],
                   ),
-                  if (widget.hasActionButton)
+                  if (widget!.hasActionButton)
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -163,12 +164,12 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                             logFirebaseEvent('Button_execute_callback');
                             await widget.actionButton?.call();
                           },
-                          text: widget.actionButtonText,
+                          text: widget!.actionButtonText,
                           options: FFButtonOptions(
                             height: 38.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).tertiary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -183,7 +184,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 0.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -193,31 +194,31 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                       ],
                     ),
                 ]
-                    .divide(const SizedBox(height: 16.0))
-                    .addToStart(const SizedBox(height: 24.0))
-                    .addToEnd(const SizedBox(height: 24.0)),
+                    .divide(SizedBox(height: 16.0))
+                    .addToStart(SizedBox(height: 24.0))
+                    .addToEnd(SizedBox(height: 24.0)),
               ),
             ),
           ),
-        if (widget.isRow)
+        if (widget!.isRow)
           Container(
             width: double.infinity,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (widget.icon != null)
+                  if (widget!.icon != null)
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        widget.icon!,
+                        widget!.icon!,
                       ],
                     ),
-                  if (widget.image != null && widget.image != '')
+                  if (widget!.image != null && widget!.image != '')
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -225,9 +226,9 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: CachedNetworkImage(
-                            fadeInDuration: const Duration(milliseconds: 500),
-                            fadeOutDuration: const Duration(milliseconds: 500),
-                            imageUrl: widget.image!,
+                            fadeInDuration: Duration(milliseconds: 500),
+                            fadeOutDuration: Duration(milliseconds: 500),
+                            imageUrl: widget!.image!,
                             width: 75.0,
                             height: 75.0,
                             fit: BoxFit.cover,
@@ -241,7 +242,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (widget.title != null && widget.title != '')
+                        if (widget!.title != null && widget!.title != '')
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -249,7 +250,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                               Flexible(
                                 child: Text(
                                   valueOrDefault<String>(
-                                    widget.title,
+                                    widget!.title,
                                     'Title Texts',
                                   ),
                                   textAlign: TextAlign.start,
@@ -276,7 +277,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                           children: [
                             Flexible(
                               child: Text(
-                                widget.message,
+                                widget!.message,
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 style: FlutterFlowTheme.of(context)
@@ -295,10 +296,10 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                             ),
                           ],
                         ),
-                      ].divide(const SizedBox(height: 8.0)),
+                      ].divide(SizedBox(height: 8.0)),
                     ),
                   ),
-                  if (widget.hasActionButton)
+                  if (widget!.hasActionButton)
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -310,12 +311,12 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                             logFirebaseEvent('Button_execute_callback');
                             await widget.actionButton?.call();
                           },
-                          text: widget.actionButtonText,
+                          text: widget!.actionButtonText,
                           options: FFButtonOptions(
                             height: 38.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).tertiary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -330,7 +331,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 0.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -340,9 +341,9 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                       ],
                     ),
                 ]
-                    .divide(const SizedBox(width: 8.0))
-                    .addToStart(const SizedBox(width: 24.0))
-                    .addToEnd(const SizedBox(width: 24.0)),
+                    .divide(SizedBox(width: 8.0))
+                    .addToStart(SizedBox(width: 24.0))
+                    .addToEnd(SizedBox(width: 24.0)),
               ),
             ),
           ),

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'delivery_method_item_model.dart';
 export 'delivery_method_item_model.dart';
 
@@ -57,7 +58,7 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +100,7 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(const SizedBox(width: 8.0)),
+                      ].divide(SizedBox(width: 8.0)),
                     ),
                     Expanded(
                       child: InkWell(
@@ -110,7 +111,7 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                         onTap: () async {
                           logFirebaseEvent(
                               'DELIVERY_METHOD_ITEM_Container_o0ghuvku_');
-                          if (widget.letChangeTheMethod!) {
+                          if (widget!.letChangeTheMethod!) {
                             logFirebaseEvent('Container_bottom_sheet');
                             await showModalBottomSheet(
                               isScrollControlled: true,
@@ -121,10 +122,10 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                               builder: (context) {
                                 return Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: SizedBox(
+                                  child: Container(
                                     height: double.infinity,
                                     child: DeliveryMethodSelectorWidget(
-                                      options: widget.deliveryOrder!
+                                      options: widget!.deliveryOrder!
                                           .deliveryOptionsAvailable,
                                     ),
                                   ),
@@ -150,7 +151,7 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -159,10 +160,10 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                                 Flexible(
                                   child: Text(
                                     valueOrDefault<String>(
-                                      widget
+                                      widget!
                                           .deliveryOrder
                                           ?.selectedDeliveryMethodForOrderGroup
-                                          .methodTypeName,
+                                          ?.methodTypeName,
                                       'Fast',
                                     ),
                                     maxLines: 1,
@@ -183,14 +184,14 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                                         ),
                                   ),
                                 ),
-                                if (widget.letChangeTheMethod ?? true)
+                                if (widget!.letChangeTheMethod ?? true)
                                   Icon(
                                     FFIcons.krefresh,
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
                                     size: 20.0,
                                   ),
-                              ].divide(const SizedBox(width: 8.0)),
+                              ].divide(SizedBox(width: 8.0)),
                             ),
                           ),
                         ),
@@ -203,8 +204,8 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                   children: [
                     Text(
                       functions.applyCorrectNumberFormatting(
-                          widget.deliveryOrder!.selectedOptionPrice,
-                          widget.deliveryOrder!.selectedOptionCurrencyCode,
+                          widget!.deliveryOrder!.selectedOptionPrice,
+                          widget!.deliveryOrder!.selectedOptionCurrencyCode,
                           FFAppConstants.useCurrencySymbol,
                           true),
                       style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -232,12 +233,12 @@ class _DeliveryMethodItemWidgetState extends State<DeliveryMethodItemWidget> {
                                       .bodyMediumFamily),
                             ),
                       ),
-                  ].divide(const SizedBox(width: 8.0)),
+                  ].divide(SizedBox(width: 8.0)),
                 ),
-              ].divide(const SizedBox(height: 4.0)),
+              ].divide(SizedBox(height: 4.0)),
             ),
           ),
-        ].divide(const SizedBox(width: 8.0)),
+        ].divide(SizedBox(width: 8.0)),
       ),
     );
   }

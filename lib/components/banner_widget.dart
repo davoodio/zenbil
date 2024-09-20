@@ -1,7 +1,9 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'banner_model.dart';
 export 'banner_model.dart';
 
@@ -41,7 +43,7 @@ class _BannerWidgetState extends State<BannerWidget> {
     return Container(
       width: double.infinity,
       height: 160.0,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Stack(
         children: [
           Row(
@@ -68,7 +70,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        alignment: AlignmentDirectional(-1.0, 0.0),
                         child: Container(
                           width: 100.0,
                           height: 60.0,
@@ -117,16 +119,16 @@ class _BannerWidgetState extends State<BannerWidget> {
                                 decoration: BoxDecoration(
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
-                                  borderRadius: const BorderRadius.only(
+                                  borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(4.0),
                                     bottomRight: Radius.circular(4.0),
                                     topLeft: Radius.circular(0.0),
                                     topRight: Radius.circular(0.0),
                                   ),
                                 ),
-                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.0, 1.0),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -182,7 +184,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                     children: [
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               8.0, 0.0, 8.0, 0.0),
                           child: RichText(
                             textScaler: MediaQuery.of(context).textScaler,

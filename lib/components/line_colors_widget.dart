@@ -1,6 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'line_colors_model.dart';
 export 'line_colors_model.dart';
 
@@ -39,7 +41,7 @@ class _LineColorsWidgetState extends State<LineColorsWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: 3.0,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -47,7 +49,7 @@ class _LineColorsWidgetState extends State<LineColorsWidget> {
             child: Container(
               width: 100.0,
               height: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xFFEF00FF),
               ),
             ),
@@ -65,7 +67,7 @@ class _LineColorsWidgetState extends State<LineColorsWidget> {
             child: Container(
               width: 100.0,
               height: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xFF0400E1),
               ),
             ),
@@ -74,7 +76,7 @@ class _LineColorsWidgetState extends State<LineColorsWidget> {
             child: Container(
               width: 100.0,
               height: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xFFFF9C00),
               ),
             ),
@@ -83,7 +85,7 @@ class _LineColorsWidgetState extends State<LineColorsWidget> {
             child: Container(
               width: 100.0,
               height: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xFF008EFF),
               ),
             ),
@@ -92,7 +94,7 @@ class _LineColorsWidgetState extends State<LineColorsWidget> {
             child: Container(
               width: 100.0,
               height: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xFFFF3500),
               ),
             ),

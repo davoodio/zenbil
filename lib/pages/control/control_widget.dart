@@ -5,6 +5,8 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -50,20 +52,35 @@ class _ControlWidgetState extends State<ControlWidget>
             r'''$.success''',
           ) &&
           (FFAppState().storeID != 0)) {
-        logFirebaseEvent('Control_navigate_to');
+        if (FFAppState().productID != 0) {
+          logFirebaseEvent('Control_navigate_to');
 
-        context.goNamed(
-          'StoreFront',
-          queryParameters: {
-            'marketID': serializeParam(
-              FFAppState().storeID,
-              ParamType.int,
-            ),
-          }.withoutNulls,
-        );
+          context.pushNamed(
+            'ProductDetail',
+            queryParameters: {
+              'productId': serializeParam(
+                FFAppState().productID,
+                ParamType.int,
+              ),
+              'marketID': serializeParam(
+                FFAppState().storeID,
+                ParamType.int,
+              ),
+            }.withoutNulls,
+          );
+        } else {
+          logFirebaseEvent('Control_navigate_to');
 
-        logFirebaseEvent('Control_update_app_state');
-        FFAppState().storeID = 0;
+          context.goNamed(
+            'StoreFront',
+            queryParameters: {
+              'marketID': serializeParam(
+                FFAppState().storeID,
+                ParamType.int,
+              ),
+            }.withoutNulls,
+          );
+        }
       } else {
         await Future.wait([
           Future(() async {
@@ -72,25 +89,25 @@ class _ControlWidgetState extends State<ControlWidget>
             _model.userWallet = await WalletsTable().queryRows(
               queryFn: (q) => q.eq(
                 'user_id',
-                (currentUserUid != '') &&
+                (currentUserUid != null && currentUserUid != '') &&
                         (currentUserUid != '')
                     ? currentUserUid
                     : '00000000-0000-0000-0000-000000000000',
               ),
             );
-            if (_model.userWallet!.isNotEmpty) {
+            if (_model.userWallet!.length > 0) {
               logFirebaseEvent('Control_update_app_state');
               FFAppState().Wallet = WalletStruct(
-                walletId: _model.userWallet?.first.id,
-                createdAt: _model.userWallet?.first.createdAt,
-                userId: _model.userWallet?.first.userId,
-                currencyCode: _model.userWallet?.first.currencyCode,
-                transactionSymbol: _model.userWallet?.first.transactionSymbol,
-                balance: _model.userWallet?.first.balance,
+                walletId: _model.userWallet?.first?.id,
+                createdAt: _model.userWallet?.first?.createdAt,
+                userId: _model.userWallet?.first?.userId,
+                currencyCode: _model.userWallet?.first?.currencyCode,
+                transactionSymbol: _model.userWallet?.first?.transactionSymbol,
+                balance: _model.userWallet?.first?.balance,
               );
               safeSetState(() {});
             } else {
-              if ((currentUserUid != '') &&
+              if ((currentUserUid != null && currentUserUid != '') &&
                   (currentUserUid != '')) {
                 logFirebaseEvent('Control_backend_call');
                 _model.walletCreatedForUser = await WalletsTable().insert({
@@ -114,7 +131,8 @@ class _ControlWidgetState extends State<ControlWidget>
             }
           }),
           Future(() async {
-            if (FFAppState().country.currencySymbol != '') {
+            if (FFAppState().country.currencySymbol != null &&
+                FFAppState().country.currencySymbol != '') {
               // FetchCurrencyExchangeRate
               logFirebaseEvent('Control_FetchCurrencyExchangeRate');
               _model.country = await CountriesTable().queryRows(
@@ -123,13 +141,14 @@ class _ControlWidgetState extends State<ControlWidget>
                   FFAppState().country.currencySymbol,
                 ),
               );
-              if ((FFAppConstants.defaultCurrencySymbol == '') &&
-                  (_model.country!.isNotEmpty)) {
+              if ((FFAppConstants.defaultCurrencySymbol == null ||
+                      FFAppConstants.defaultCurrencySymbol == '') &&
+                  (_model.country!.length > 0)) {
                 logFirebaseEvent('Control_update_app_state');
                 FFAppState().updateCountryStruct(
                   (e) => e
                     ..currencyExchangeRate =
-                        _model.country?.first.currencyExchangeRate,
+                        _model.country?.first?.currencyExchangeRate,
                 );
               } else {
                 logFirebaseEvent('Control_update_app_state');
@@ -151,7 +170,7 @@ class _ControlWidgetState extends State<ControlWidget>
               );
               if ((_model.defaultCountry != null &&
                       (_model.defaultCountry)!.isNotEmpty) &&
-                  (_model.defaultCountry!.isNotEmpty)) {
+                  (_model.defaultCountry!.length > 0)) {
                 logFirebaseEvent('Control_action_block');
                 await action_blocks.setCountry(
                   context,
@@ -175,25 +194,52 @@ class _ControlWidgetState extends State<ControlWidget>
               logFirebaseEvent('Control_update_app_state');
               FFAppState().updateAppSettingsStruct(
                 (e) => e
-                  ..enableWalletAsPaymentOption = _model.appSettings?.first.enableWalletAsPaymentOption ?? FFAppState().AppSettings.enableWalletAsPaymentOption
+                  ..enableWalletAsPaymentOption = _model.appSettings?.first
+                              ?.enableWalletAsPaymentOption !=
+                          null
+                      ? _model.appSettings?.first?.enableWalletAsPaymentOption
+                      : FFAppState().AppSettings.enableWalletAsPaymentOption
                   ..enableWalletTopup =
-                      _model.appSettings?.first.enableWalletTopup ?? FFAppState().AppSettings.enableWalletTopup
+                      _model.appSettings?.first?.enableWalletTopup != null
+                          ? _model.appSettings?.first?.enableWalletTopup
+                          : FFAppState().AppSettings.enableWalletTopup
                   ..enableAdvertisement =
-                      _model.appSettings?.first.enableAdvertisement ?? FFAppState().AppSettings.enableAdvertisement
+                      _model.appSettings?.first?.enableAdvertisement != null
+                          ? _model.appSettings?.first?.enableAdvertisement
+                          : FFAppState().AppSettings.enableAdvertisement
                   ..enableAdvertisementOnHome =
-                      _model.appSettings?.first.enableAdvertisementOnHome ?? FFAppState().AppSettings.enableAdvertisementOnHome
-                  ..enableAdvertisementOnCategories = _model
-                          .appSettings?.first.enableAdvertisementOnCategories ?? FFAppState().AppSettings.enableAdvertisementOnCategories
-                  ..enableAdvertisementOnSubCategories = _model.appSettings?.first
-                          .enableAdvertisementOnSubCategories ?? FFAppState()
+                      _model.appSettings?.first?.enableAdvertisementOnHome !=
+                              null
+                          ? _model.appSettings?.first?.enableAdvertisementOnHome
+                          : FFAppState().AppSettings.enableAdvertisementOnHome
+                  ..enableAdvertisementOnCategories = _model.appSettings?.first
+                              ?.enableAdvertisementOnCategories !=
+                          null
+                      ? _model
+                          .appSettings?.first?.enableAdvertisementOnCategories
+                      : FFAppState().AppSettings.enableAdvertisementOnCategories
+                  ..enableAdvertisementOnSubCategories = _model.appSettings
+                              ?.first?.enableAdvertisementOnSubCategories !=
+                          null
+                      ? _model.appSettings?.first
+                          ?.enableAdvertisementOnSubCategories
+                      : FFAppState()
                           .AppSettings
                           .enableAdvertisementOnSubCategories
-                  ..enableAdvertisementOnMarkets = _model.appSettings?.first.enableAdvertisementOnMarkets ?? FFAppState().AppSettings.enableAdvertisementOnMarkets
+                  ..enableAdvertisementOnMarkets = _model.appSettings?.first
+                              ?.enableAdvertisementOnMarkets !=
+                          null
+                      ? _model.appSettings?.first?.enableAdvertisementOnMarkets
+                      : FFAppState().AppSettings.enableAdvertisementOnMarkets
                   ..minAmountWalletTopup =
-                      _model.appSettings?.first.minAmountWalletTopup ?? FFAppState().AppSettings.minAmountWalletTopup
+                      _model.appSettings?.first?.minAmountWalletTopup != null
+                          ? _model.appSettings?.first?.minAmountWalletTopup
+                          : FFAppState().AppSettings.minAmountWalletTopup
                   ..maxAmountWalletTopup =
-                      _model.appSettings?.first.maxAmountWalletTopup ?? FFAppState().AppSettings.maxAmountWalletTopup
-                  ..social = _model.appSettings?.first.social != null
+                      _model.appSettings?.first?.maxAmountWalletTopup != null
+                          ? _model.appSettings?.first?.maxAmountWalletTopup
+                          : FFAppState().AppSettings.maxAmountWalletTopup
+                  ..social = _model.appSettings?.first?.social != null
                       ? (getJsonField(
                           functions.getItemAtIndexOfADynamicList(
                               _model.appSettings!
@@ -210,8 +256,12 @@ class _ControlWidgetState extends State<ControlWidget>
                               .toList() as Iterable<SocialStruct?>)
                           .withoutNulls
                       : FFAppState().AppSettings.social.toList()
-                  ..enableAdvertisementOnProductDetail = _model.appSettings?.first
-                          .enableAdvertisementOnProductDetail ?? FFAppState()
+                  ..enableAdvertisementOnProductDetail = _model.appSettings
+                              ?.first?.enableAdvertisementOnProductDetail !=
+                          null
+                      ? _model.appSettings?.first
+                          ?.enableAdvertisementOnProductDetail
+                      : FFAppState()
                           .AppSettings
                           .enableAdvertisementOnProductDetail,
               );
@@ -229,7 +279,7 @@ class _ControlWidgetState extends State<ControlWidget>
               );
               if ((_model.userFavorites != null &&
                       (_model.userFavorites)!.isNotEmpty) &&
-                  (_model.userFavorites!.isNotEmpty)) {
+                  (_model.userFavorites!.length > 0)) {
                 logFirebaseEvent('Control_update_app_state');
                 FFAppState().UserFavorites = _model.userFavorites!
                     .map((e) => e.productId)
@@ -243,7 +293,7 @@ class _ControlWidgetState extends State<ControlWidget>
           Future(() async {
             if (!FFAppState().CurrentUser.isAnon) {
               if ((FFAppState().Cart != null) &&
-                  (FFAppState().Cart.products.isNotEmpty)) {
+                  (FFAppState().Cart.products.length > 0)) {
                 // FetchUserCartProducts
                 logFirebaseEvent('Control_FetchUserCartProducts');
                 _model.userCartProducts = await ProductsTable().queryRows(
@@ -270,8 +320,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                       .products[_model.cartProductsCounter]
                                       .productId)
                               .toList()
-                              .first
-                              .status !=
+                              ?.first
+                              ?.status !=
                           ProductStatus.Available.name)) {
                     // IfDeletedAlsoRemoveFromCart
                     logFirebaseEvent('Control_IfDeletedAlsoRemoveFromCart');
@@ -296,8 +346,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .price
+                                ?.first
+                                ?.price
                             ..productName = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -306,8 +356,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .name
+                                ?.first
+                                ?.name
                             ..productDescription = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -316,8 +366,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .description
+                                ?.first
+                                ?.description
                             ..discountPercent = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -326,8 +376,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .discountPercent
+                                ?.first
+                                ?.discountPercent
                             ..image = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -336,8 +386,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .defaultImageUrl
+                                ?.first
+                                ?.defaultImageUrl
                             ..deliveryMethodId = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -346,8 +396,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .deliveryMethodId
+                                ?.first
+                                ?.deliveryMethodId
                             ..weight = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -356,8 +406,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .weight
+                                ?.first
+                                ?.weight
                             ..size = _model.userCartProducts
                                 ?.where((e) =>
                                     e.id ==
@@ -366,8 +416,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .size
+                                ?.first
+                                ?.size
                             ..deliveryMethodsAvailable = _model
                                 .userCartProducts!
                                 .where((e) =>
@@ -388,8 +438,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .discountedPrice
+                                ?.first
+                                ?.discountedPrice
                             ..quantity = _model.userCartProducts!
                                         .where((e) =>
                                             e.id ==
@@ -414,8 +464,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                                 _model.cartProductsCounter]
                                             .productId)
                                     .toList()
-                                    .first
-                                    .quantityInInventory
+                                    ?.first
+                                    ?.quantityInInventory
                                 : FFAppState()
                                     .Cart
                                     .products[_model.cartProductsCounter]
@@ -428,8 +478,8 @@ class _ControlWidgetState extends State<ControlWidget>
                                         .products[_model.cartProductsCounter]
                                         .productId)
                                 .toList()
-                                .first
-                                .quantityInInventory,
+                                ?.first
+                                ?.quantityInInventory,
                         ),
                     );
                   }
@@ -455,8 +505,8 @@ class _ControlWidgetState extends State<ControlWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(1.0, 1.0),
-            end: const Offset(1.1, 1.1),
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.1, 1.1),
           ),
         ],
       ),
@@ -481,24 +531,24 @@ class _ControlWidgetState extends State<ControlWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        body: SizedBox(
+        body: Container(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
             children: [
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 500),
-                          fadeOutDuration: const Duration(milliseconds: 500),
+                          fadeInDuration: Duration(milliseconds: 500),
+                          fadeOutDuration: Duration(milliseconds: 500),
                           imageUrl: FFAppConstants.BrandLauncherIcon,
                           width: 120.0,
                           height: 120.0,
@@ -507,13 +557,13 @@ class _ControlWidgetState extends State<ControlWidget>
                       ).animateOnPageLoad(
                           animationsMap['imageOnPageLoadAnimation']!),
                     ),
-                  ].divide(const SizedBox(height: 34.0)),
+                  ].divide(SizedBox(height: 34.0)),
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 180.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 180.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,

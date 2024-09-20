@@ -15,9 +15,9 @@ class OrderHistoryItemWidget extends StatefulWidget {
     String? productName,
     double? price,
     bool? showReview,
-  })  : productName = productName ?? 'CART NAME',
-        price = price ?? 0.0,
-        showReview = showReview ?? false;
+  })  : this.productName = productName ?? 'CART NAME',
+        this.price = price ?? 0.0,
+        this.showReview = showReview ?? false;
 
   final String? photo;
   final String productName;
@@ -57,12 +57,12 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
     context.watch<FFAppState>();
 
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -75,7 +75,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                       BoxShadow(
                         blurRadius: 4.0,
                         color: FlutterFlowTheme.of(context).boxShadow,
-                        offset: const Offset(
+                        offset: Offset(
                           0.0,
                           2.0,
                         ),
@@ -88,7 +88,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                     borderRadius: BorderRadius.circular(0.0),
                     child: Image.network(
                       valueOrDefault<String>(
-                        widget.photo,
+                        widget!.photo,
                         'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg',
                       ),
                       fit: BoxFit.cover,
@@ -104,7 +104,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                         children: [
                           Flexible(
                             child: Text(
-                              widget.productName,
+                              widget!.productName,
                               maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -131,7 +131,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                             child: Text(
                               functions.applyCorrectNumberFormatting(
                                   valueOrDefault<double>(
-                                        widget.price,
+                                        widget!.price,
                                         0.0,
                                       ) *
                                       FFAppState().country.currencyExchangeRate,
@@ -154,7 +154,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                                   ),
                             ),
                           ),
-                          if (widget.showReview)
+                          if (widget!.showReview)
                             FFButtonWidget(
                               onPressed: () {
                                 print('Button pressed ...');
@@ -162,15 +162,15 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                               text: FFLocalizations.of(context).getText(
                                 'bp1tzbls' /* Review */,
                               ),
-                              icon: const Icon(
+                              icon: Icon(
                                 FFIcons.kstarFilled,
                                 size: 14.0,
                               ),
                               options: FFButtonOptions(
                                 height: 28.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     8.0, 0.0, 8.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).tertiary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -186,7 +186,7 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                                                   .titleSmallFamily),
                                     ),
                                 elevation: 0.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -195,13 +195,13 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
                             ),
                         ],
                       ),
-                    ].divide(const SizedBox(height: 8.0)),
+                    ].divide(SizedBox(height: 8.0)),
                   ),
                 ),
-              ].divide(const SizedBox(width: 16.0)),
+              ].divide(SizedBox(width: 16.0)),
             ),
           ),
-        ].divide(const SizedBox(height: 24.0)),
+        ].divide(SizedBox(height: 24.0)),
       ),
     );
   }

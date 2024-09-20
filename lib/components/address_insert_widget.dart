@@ -1,4 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/address_card_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -8,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'address_insert_model.dart';
 export 'address_insert_model.dart';
 
@@ -50,7 +52,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
       children: [
         Expanded(
           child: Align(
-            alignment: const AlignmentDirectional(0.0, 1.0),
+            alignment: AlignmentDirectional(0.0, 1.0),
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
@@ -58,7 +60,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
               ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(0.0),
                   bottomRight: Radius.circular(0.0),
                   topLeft: Radius.circular(15.0),
@@ -66,7 +68,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 32.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 32.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +146,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: listViewUserAddressesRowList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 16.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 16.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewUserAddressesRow =
                                   listViewUserAddressesRowList[listViewIndex];
@@ -183,7 +185,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -203,9 +205,9 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   height: 48.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).tertiary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -220,7 +222,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                                                     .titleSmallFamily),
                                       ),
                                   elevation: 0.0,
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),
@@ -232,7 +234,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                         ],
                       ),
                     ),
-                  ].divide(const SizedBox(height: 24.0)),
+                  ].divide(SizedBox(height: 24.0)),
                 ),
               ),
             ),

@@ -1,7 +1,12 @@
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'shimmer_page_detail_model.dart';
 export 'shimmer_page_detail_model.dart';
 
@@ -10,8 +15,8 @@ class ShimmerPageDetailWidget extends StatefulWidget {
     super.key,
     Color? boxColor,
     bool? showUpperSection,
-  })  : boxColor = boxColor ?? const Color(0xFFE4E4E4),
-        showUpperSection = showUpperSection ?? true;
+  })  : this.boxColor = boxColor ?? const Color(0xFFE4E4E4),
+        this.showUpperSection = showUpperSection ?? true;
 
   final Color boxColor;
   final bool showUpperSection;
@@ -74,12 +79,12 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
           Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (widget.showUpperSection)
+              if (widget!.showUpperSection)
                 Container(
                   width: double.infinity,
                   height: 600.0,
                   decoration: BoxDecoration(
-                    color: widget.boxColor,
+                    color: widget!.boxColor,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -87,7 +92,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +100,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             Container(
                               width: 9.0,
                               height: 9.0,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Color(0xFFDFDFDF),
                                 shape: BoxShape.circle,
                               ),
@@ -103,7 +108,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             Container(
                               width: 9.0,
                               height: 9.0,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Color(0xFFDFDFDF),
                                 shape: BoxShape.circle,
                               ),
@@ -111,7 +116,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             Container(
                               width: 9.0,
                               height: 9.0,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Color(0xFFDFDFDF),
                                 shape: BoxShape.circle,
                               ),
@@ -119,19 +124,19 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             Container(
                               width: 9.0,
                               height: 9.0,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Color(0xFFDFDFDF),
                                 shape: BoxShape.circle,
                               ),
                             ),
-                          ].divide(const SizedBox(width: 12.0)),
+                          ].divide(SizedBox(width: 12.0)),
                         ),
                       ),
                     ],
                   ),
                 ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -143,7 +148,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 143.0,
                           height: 24.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -151,7 +156,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 88.0,
                           height: 24.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -165,17 +170,17 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 188.0,
                           height: 16.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                       ],
                     ),
-                  ].divide(const SizedBox(height: 16.0)),
+                  ].divide(SizedBox(height: 16.0)),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -187,7 +192,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 99.0,
                           height: 24.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -198,7 +203,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 24.0,
                               height: 24.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -206,7 +211,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 24.0,
                               height: 24.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -214,7 +219,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 24.0,
                               height: 24.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -222,11 +227,11 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 24.0,
                               height: 24.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
-                          ].divide(const SizedBox(width: 8.0)),
+                          ].divide(SizedBox(width: 8.0)),
                         ),
                       ],
                     ),
@@ -241,7 +246,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 188.0,
                               height: 10.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -255,7 +260,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 224.0,
                               height: 10.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
@@ -269,15 +274,15 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                               width: 142.0,
                               height: 10.0,
                               decoration: BoxDecoration(
-                                color: widget.boxColor,
+                                color: widget!.boxColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
                           ],
                         ),
-                      ].divide(const SizedBox(height: 8.0)),
+                      ].divide(SizedBox(height: 8.0)),
                     ),
-                  ].divide(const SizedBox(height: 16.0)),
+                  ].divide(SizedBox(height: 16.0)),
                 ),
               ),
               SingleChildScrollView(
@@ -287,7 +292,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 24.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 24.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -295,7 +300,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             width: 125.0,
                             height: 125.0,
                             decoration: BoxDecoration(
-                              color: widget.boxColor,
+                              color: widget!.boxColor,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
@@ -303,7 +308,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             width: 125.0,
                             height: 125.0,
                             decoration: BoxDecoration(
-                              color: widget.boxColor,
+                              color: widget!.boxColor,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
@@ -311,21 +316,21 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                             width: 125.0,
                             height: 125.0,
                             decoration: BoxDecoration(
-                              color: widget.boxColor,
+                              color: widget!.boxColor,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
                         ]
-                            .divide(const SizedBox(width: 16.0))
-                            .addToStart(const SizedBox(width: 20.0))
-                            .addToEnd(const SizedBox(width: 20.0)),
+                            .divide(SizedBox(width: 16.0))
+                            .addToStart(SizedBox(width: 20.0))
+                            .addToEnd(SizedBox(width: 20.0)),
                       ),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -337,7 +342,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 143.0,
                           height: 16.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -345,7 +350,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 24.0,
                           height: 24.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -359,7 +364,7 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 188.0,
                           height: 77.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
@@ -373,13 +378,13 @@ class _ShimmerPageDetailWidgetState extends State<ShimmerPageDetailWidget>
                           width: 88.0,
                           height: 16.0,
                           decoration: BoxDecoration(
-                            color: widget.boxColor,
+                            color: widget!.boxColor,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                       ],
                     ),
-                  ].divide(const SizedBox(height: 12.0)),
+                  ].divide(SizedBox(height: 12.0)),
                 ),
               ),
             ],

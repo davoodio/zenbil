@@ -9,9 +9,11 @@ import '/components/shimmer_orders_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'orders_model.dart';
 export 'orders_model.dart';
 
@@ -52,7 +54,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -60,7 +62,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -189,8 +191,8 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                       wrapped: true,
                                     ),
                                   ]
-                                      .addToStart(const SizedBox(width: 20.0))
-                                      .addToEnd(const SizedBox(width: 20.0)),
+                                      .addToStart(SizedBox(width: 20.0))
+                                      .addToEnd(SizedBox(width: 20.0)),
                                 ),
                               ),
                             ),
@@ -205,7 +207,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
-                                    return const ShimmerOrdersWidget(
+                                    return ShimmerOrdersWidget(
                                       amountListItems: 4,
                                     );
                                   }
@@ -213,7 +215,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                       snapshot.data!;
 
                                   return Container(
-                                    decoration: const BoxDecoration(),
+                                    decoration: BoxDecoration(),
                                     child: Builder(
                                       builder: (context) {
                                         final order = (_model
@@ -252,7 +254,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                         }
 
                                         return ListView.separated(
-                                          padding: const EdgeInsets.fromLTRB(
+                                          padding: EdgeInsets.fromLTRB(
                                             0,
                                             24.0,
                                             0,
@@ -261,7 +263,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                           scrollDirection: Axis.vertical,
                                           itemCount: order.length,
                                           separatorBuilder: (_, __) =>
-                                              const SizedBox(height: 36.0),
+                                              SizedBox(height: 36.0),
                                           itemBuilder: (context, orderIndex) {
                                             final orderItem = order[orderIndex];
                                             return FutureBuilder<
@@ -276,17 +278,17 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
                                                 if (!snapshot.hasData) {
-                                                  return const EmptyComponentWidget();
+                                                  return EmptyComponentWidget();
                                                 }
                                                 List<OrderProductsRow>
                                                     orderProductsOrderProductsRowList =
                                                     snapshot.data!;
 
                                                 return Container(
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(20.0, 0.0,
                                                                 20.0, 0.0),
                                                     child: wrapWithModel(

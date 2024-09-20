@@ -66,14 +66,14 @@ class _OrderCardOrderHistoryWidgetState
           'OrderDetails',
           queryParameters: {
             'orderID': serializeParam(
-              widget.order?.id,
+              widget!.order?.id,
               ParamType.int,
             ),
           }.withoutNulls,
         );
       },
       child: Container(
-        decoration: const BoxDecoration(),
+        decoration: BoxDecoration(),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -82,8 +82,8 @@ class _OrderCardOrderHistoryWidgetState
               mainAxisSize: MainAxisSize.min,
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: SizedBox(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Container(
                     width: 74.0,
                     height: 54.0,
                     child: Stack(
@@ -99,17 +99,17 @@ class _OrderCardOrderHistoryWidgetState
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(0.0),
                             child: CachedNetworkImage(
-                              fadeInDuration: const Duration(milliseconds: 500),
-                              fadeOutDuration: const Duration(milliseconds: 500),
+                              fadeInDuration: Duration(milliseconds: 500),
+                              fadeOutDuration: Duration(milliseconds: 500),
                               imageUrl:
-                                  widget.orderProducts!.first.productImage!,
+                                  widget!.orderProducts!.first.productImage!,
                               fit: BoxFit.contain,
                             ),
                           ),
                         ),
-                        if (widget.orderProducts!.length > 1)
+                        if (widget!.orderProducts!.length > 1)
                           Align(
-                            alignment: const AlignmentDirectional(1.0, 0.0),
+                            alignment: AlignmentDirectional(1.0, 0.0),
                             child: Container(
                               width: 40.0,
                               height: 40.0,
@@ -123,7 +123,7 @@ class _OrderCardOrderHistoryWidgetState
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '+${(widget.orderProducts!.length - 1).toString()}',
+                                    '+${(widget!.orderProducts!.length - 1).toString()}',
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .override(
@@ -162,7 +162,7 @@ class _OrderCardOrderHistoryWidgetState
                                   valueOrDefault<String>(
                                     dateTimeFormat(
                                       "yMMMd",
-                                      widget.order?.createdAt,
+                                      widget!.order?.createdAt,
                                       locale: FFLocalizations.of(context)
                                           .languageCode,
                                     ),
@@ -190,7 +190,7 @@ class _OrderCardOrderHistoryWidgetState
                                     valueOrDefault<String>(
                                       dateTimeFormat(
                                         "jm",
-                                        widget.order?.createdAt,
+                                        widget!.order?.createdAt,
                                         locale: FFLocalizations.of(context)
                                             .languageCode,
                                       ),
@@ -215,7 +215,7 @@ class _OrderCardOrderHistoryWidgetState
                                         ),
                                   ),
                                 ),
-                              ].divide(const SizedBox(width: 8.0)),
+                              ].divide(SizedBox(width: 8.0)),
                             ),
                           ),
                           Icon(
@@ -232,7 +232,7 @@ class _OrderCardOrderHistoryWidgetState
                           Flexible(
                             child: Text(
                               functions.applyCorrectNumberFormatting(
-                                  (widget.order!.priceTotal!) *
+                                  (widget!.order!.priceTotal!) *
                                       FFAppState().country.currencyExchangeRate,
                                   FFAppState().country.currencyCode,
                                   FFAppConstants.useCurrencySymbol,
@@ -255,10 +255,10 @@ class _OrderCardOrderHistoryWidgetState
                           ),
                         ],
                       ),
-                    ].divide(const SizedBox(height: 8.0)),
+                    ].divide(SizedBox(height: 8.0)),
                   ),
                 ),
-              ].divide(const SizedBox(width: 16.0)),
+              ].divide(SizedBox(width: 16.0)),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -271,13 +271,13 @@ class _OrderCardOrderHistoryWidgetState
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
                           valueOrDefault<String>(
-                            widget.order?.orderStatus,
+                            widget!.order?.orderStatus,
                             '-',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -298,7 +298,7 @@ class _OrderCardOrderHistoryWidgetState
                 ),
               ],
             ),
-          ].divide(const SizedBox(height: 12.0)),
+          ].divide(SizedBox(height: 12.0)),
         ),
       ),
     );

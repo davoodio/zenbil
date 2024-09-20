@@ -1,6 +1,7 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/divider_text/divider_text_widget.dart';
 import '/components/header/header_widget.dart';
@@ -64,19 +65,19 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
             (_model.fIBPaymentStarted?.jsonBody ?? ''),
           )}',
         );
-        if (widget.transactionType == TransactionType.Order) {
+        if (widget!.transactionType == TransactionType.Order) {
           logFirebaseEvent('FIBPayment_start_periodic_action');
           _model.instantTimerOrder = InstantTimer.periodic(
-            duration: const Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: 1000),
             callback: (timer) async {
               logFirebaseEvent('FIBPayment_backend_call');
               _model.orderQuery = await OrdersTable().queryRows(
                 queryFn: (q) => q.eq(
                   'id',
-                  widget.order?.id,
+                  widget!.order?.id,
                 ),
               );
-              if (_model.orderQuery?.first.paymentStatus ==
+              if (_model.orderQuery?.first?.paymentStatus ==
                   OrderPaymentStatus.Paid.name) {
                 logFirebaseEvent('FIBPayment_stop_periodic_action');
                 _model.instantTimerOrder?.cancel();
@@ -87,7 +88,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                   },
                   matchingRows: (rows) => rows.eq(
                     'id',
-                    widget.order?.id,
+                    widget!.order?.id,
                   ),
                 );
                 logFirebaseEvent('FIBPayment_navigate_to');
@@ -96,7 +97,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                   'OrderConfirmation',
                   pathParameters: {
                     'order': serializeParam(
-                      widget.order,
+                      widget!.order,
                       ParamType.SupabaseRow,
                     ),
                   }.withoutNulls,
@@ -105,10 +106,10 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
             },
             startImmediately: true,
           );
-        } else if (widget.transactionType == TransactionType.Topup) {
+        } else if (widget!.transactionType == TransactionType.Topup) {
           logFirebaseEvent('FIBPayment_start_periodic_action');
           _model.instantTimerTopup = InstantTimer.periodic(
-            duration: const Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: 1000),
             callback: (timer) async {
               logFirebaseEvent('FIBPayment_backend_call');
               _model.transactionQuery = await TransactionsTable().queryRows(
@@ -119,7 +120,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                   ),
                 ),
               );
-              if (_model.transactionQuery?.first.paymentStatus ==
+              if (_model.transactionQuery?.first?.paymentStatus ==
                   OrderPaymentStatus.Paid.name) {
                 logFirebaseEvent('FIBPayment_stop_periodic_action');
                 _model.instantTimerTopup?.cancel();
@@ -127,12 +128,12 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                 _model.walletQuery = await WalletsTable().queryRows(
                   queryFn: (q) => q.eq(
                     'id',
-                    widget.walletId,
+                    widget!.walletId,
                   ),
                 );
                 logFirebaseEvent('FIBPayment_update_app_state');
                 FFAppState().updateWalletStruct(
-                  (e) => e..balance = _model.walletQuery?.first.balance,
+                  (e) => e..balance = _model.walletQuery?.first?.balance,
                 );
                 logFirebaseEvent('FIBPayment_navigate_to');
 
@@ -166,16 +167,16 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
-              alignment: const AlignmentDirectional(1.0, -1.0),
+              alignment: AlignmentDirectional(1.0, -1.0),
               children: [
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(0.0),
                       bottomRight: Radius.circular(0.0),
@@ -190,7 +191,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                         model: _model.headerModel,
                         updateCallback: () => safeSetState(() {}),
                         updateOnChange: true,
-                        child: const HeaderWidget(
+                        child: HeaderWidget(
                           title: 'Payment',
                           showBackButton: true,
                           showCart: false,
@@ -209,7 +210,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -250,10 +251,10 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 0.0),
                                   child: Container(
-                                    decoration: const BoxDecoration(),
+                                    decoration: BoxDecoration(),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -302,7 +303,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                     child: Text(
                                                       functions
                                                           .applyCorrectNumberFormatting(
-                                                              widget
+                                                              widget!
                                                                   .paymentAmount!,
                                                               FFAppState()
                                                                   .country
@@ -332,7 +333,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                   ),
                                                 ],
                                               ),
-                                            ].divide(const SizedBox(height: 8.0)),
+                                            ].divide(SizedBox(height: 8.0)),
                                           ),
                                         ),
                                       ],
@@ -344,7 +345,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                   children: [
                                     if (_model.paymentCreated)
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 14.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -357,9 +358,9 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                       BorderRadius.circular(
                                                           8.0),
                                                   child: CachedNetworkImage(
-                                                    fadeInDuration: const Duration(
+                                                    fadeInDuration: Duration(
                                                         milliseconds: 500),
-                                                    fadeOutDuration: const Duration(
+                                                    fadeOutDuration: Duration(
                                                         milliseconds: 500),
                                                     imageUrl:
                                                         'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/ehg5opy37g1h/loading-circle.gif',
@@ -373,13 +374,13 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                       _model.dividerTextModel1,
                                                   updateCallback: () =>
                                                       safeSetState(() {}),
-                                                  child: const DividerTextWidget(
+                                                  child: DividerTextWidget(
                                                     title:
                                                         'Pay With QR Code In Your FIB App',
                                                     titleInLeftSide: false,
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                Container(
                                                   width: 200.0,
                                                   height: 200.0,
                                                   child: custom_widgets
@@ -396,7 +397,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                     )!,
                                                   ),
                                                 ),
-                                              ].divide(const SizedBox(height: 16.0)),
+                                              ].divide(SizedBox(height: 16.0)),
                                             ),
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -407,14 +408,14 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                   updateCallback: () =>
                                                       safeSetState(() {}),
                                                   updateOnChange: true,
-                                                  child: const DividerTextWidget(
+                                                  child: DividerTextWidget(
                                                     title:
                                                         'Or Select Your FIB Account Type',
                                                     titleInLeftSide: false,
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           20.0, 0.0, 20.0, 0.0),
                                                   child: Row(
@@ -452,14 +453,14 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                   .infinity,
                                                               height: 48.0,
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
                                                                           0.0,
                                                                           24.0,
                                                                           0.0),
                                                               iconPadding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -482,7 +483,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                       ),
                                                               elevation: 0.0,
                                                               borderSide:
-                                                                  const BorderSide(
+                                                                  BorderSide(
                                                                 color: Colors
                                                                     .transparent,
                                                                 width: 1.0,
@@ -526,14 +527,14 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                   .infinity,
                                                               height: 48.0,
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
                                                                           0.0,
                                                                           24.0,
                                                                           0.0),
                                                               iconPadding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -556,7 +557,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                       ),
                                                               elevation: 0.0,
                                                               borderSide:
-                                                                  const BorderSide(
+                                                                  BorderSide(
                                                                 color: Colors
                                                                     .transparent,
                                                                 width: 1.0,
@@ -600,14 +601,14 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                   .infinity,
                                                               height: 48.0,
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           24.0,
                                                                           0.0,
                                                                           24.0,
                                                                           0.0),
                                                               iconPadding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -630,7 +631,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                       ),
                                                               elevation: 0.0,
                                                               borderSide:
-                                                                  const BorderSide(
+                                                                  BorderSide(
                                                                 color: Colors
                                                                     .transparent,
                                                                 width: 1.0,
@@ -644,17 +645,17 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 8.0)),
+                                                        SizedBox(width: 8.0)),
                                                   ),
                                                 ),
-                                              ].divide(const SizedBox(height: 24.0)),
+                                              ].divide(SizedBox(height: 24.0)),
                                             ),
-                                          ].divide(const SizedBox(height: 16.0)),
+                                          ].divide(SizedBox(height: 16.0)),
                                         ),
                                       ),
                                     if (!_model.paymentCreated)
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -667,12 +668,12 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                     .paymentStartCall
                                                     .call(
                                               paymentType:
-                                                  widget.transactionType?.name,
+                                                  widget!.transactionType?.name,
                                               recordId: () {
-                                                if (widget.transactionType ==
+                                                if (widget!.transactionType ==
                                                     TransactionType.Order) {
-                                                  return widget.order?.id;
-                                                } else if (widget
+                                                  return widget!.order?.id;
+                                                } else if (widget!
                                                         .transactionType ==
                                                     TransactionType.Topup) {
                                                   return null;
@@ -680,19 +681,19 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                   return null;
                                                 }
                                               }(),
-                                              amount: widget.paymentAmount,
+                                              amount: widget!.paymentAmount,
                                               currencyUnit: FFAppState()
                                                   .country
                                                   .currencyCode,
                                               jwt: currentJwtToken,
                                               walletId: () {
-                                                if (widget.transactionType ==
+                                                if (widget!.transactionType ==
                                                     TransactionType.Order) {
                                                   return null;
-                                                } else if (widget
+                                                } else if (widget!
                                                         .transactionType ==
                                                     TransactionType.Topup) {
-                                                  return widget.walletId;
+                                                  return widget!.walletId;
                                                 } else {
                                                   return null;
                                                 }
@@ -702,7 +703,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                             logFirebaseEvent(
                                                 'PayWithFibButton_custom_action');
                                             await actions.printAction(
-                                              'Order Id: ${widget.order?.id.toString()}Amount: ${widget.paymentAmount?.toString()}Type: ${widget.transactionType?.name}',
+                                              'Order Id: ${widget!.order?.id?.toString()}Amount: ${widget!.paymentAmount?.toString()}Type: ${widget!.transactionType?.name}',
                                             );
                                             if ((_model.fIBPaymentStarted
                                                     ?.succeeded ??
@@ -731,10 +732,10 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                             width: double.infinity,
                                             height: 48.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .tertiary,
@@ -755,7 +756,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 0.0,
-                                            borderSide: const BorderSide(
+                                            borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -769,7 +770,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Semantics(
                                             label: 'Cancel Payment Process',
@@ -789,11 +790,11 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 48.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         24.0, 0.0, 24.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -816,7 +817,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                 elevation: 0.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -830,7 +831,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                     ),
                                     if (false)
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
                                         child: Semantics(
                                           label: 'Pay Later',
@@ -846,10 +847,10 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                             options: FFButtonOptions(
                                               width: double.infinity,
                                               height: 48.0,
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
+                                              iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -871,7 +872,7 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                                                     .titleSmallFamily),
                                                       ),
                                               elevation: 0.0,
-                                              borderSide: const BorderSide(
+                                              borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -881,12 +882,12 @@ class _FIBPaymentWidgetState extends State<FIBPaymentWidget> {
                                           ),
                                         ),
                                       ),
-                                  ].divide(const SizedBox(height: 8.0)),
+                                  ].divide(SizedBox(height: 8.0)),
                                 ),
                               ]
-                                  .divide(const SizedBox(height: 16.0))
-                                  .addToStart(const SizedBox(height: 20.0))
-                                  .addToEnd(const SizedBox(height: 20.0)),
+                                  .divide(SizedBox(height: 16.0))
+                                  .addToStart(SizedBox(height: 20.0))
+                                  .addToEnd(SizedBox(height: 20.0)),
                             ),
                           ),
                         ),

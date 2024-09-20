@@ -1,13 +1,21 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/anon_user_card_widget.dart';
+import '/components/info_modal_widget.dart';
 import '/components/menu_setting_item_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/social_widget.dart';
 import '/components/terms_texts_widget.dart';
 import '/components/user_info_card_widget.dart';
 import '/components/wallet_front_card_widget.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'setting_widget.dart' show SettingWidget;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingModel extends FlutterFlowModel<SettingWidget> {
   ///  State fields for stateful widgets in this page.

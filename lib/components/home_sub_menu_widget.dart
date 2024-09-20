@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'home_sub_menu_model.dart';
 export 'home_sub_menu_model.dart';
 
@@ -46,16 +47,16 @@ class _HomeSubMenuWidgetState extends State<HomeSubMenuWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
       child: Container(
-        constraints: const BoxConstraints(
+        constraints: BoxConstraints(
           minWidth: 140.0,
           maxWidth: 240.0,
           maxHeight: 300.0,
         ),
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               blurRadius: 15.0,
               color: Color(0x11000000),
@@ -68,10 +69,10 @@ class _HomeSubMenuWidgetState extends State<HomeSubMenuWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0),
           child: Builder(
             builder: (context) {
-              final category = widget.categories!.toList();
+              final category = widget!.categories!.toList();
 
               return SingleChildScrollView(
                 child: Column(
