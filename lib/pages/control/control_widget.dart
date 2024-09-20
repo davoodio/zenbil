@@ -53,7 +53,7 @@ class _ControlWidgetState extends State<ControlWidget>
         if (FFAppState().productID != 0) {
           logFirebaseEvent('Control_navigate_to');
 
-          context.pushNamed(
+          context.goNamed(
             'ProductDetail',
             queryParameters: {
               'productId': serializeParam(
