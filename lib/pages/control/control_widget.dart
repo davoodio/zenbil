@@ -42,10 +42,14 @@ class _ControlWidgetState extends State<ControlWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CONTROL_PAGE_Control_ON_INIT_STATE');
       logFirebaseEvent('Control_custom_action');
-      await actions.handleDynamicLink(
+      _model.actionFinished = await actions.handleDynamicLink(
         context,
       );
-      if (FFAppState().storeID != 0) {
+      if (getJsonField(
+            _model.actionFinished,
+            r'''$.success''',
+          ) &&
+          (FFAppState().storeID != 0)) {
         logFirebaseEvent('Control_navigate_to');
 
         context.goNamed(

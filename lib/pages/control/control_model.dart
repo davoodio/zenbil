@@ -10,6 +10,8 @@ class ControlModel extends FlutterFlowModel<ControlWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - handleDynamicLink] action in Control widget.
+  dynamic actionFinished;
   // Stores action output result for [Backend Call - Query Rows] action in Control widget.
   List<WalletsRow>? userWallet;
   // Stores action output result for [Backend Call - Insert Row] action in Control widget.
