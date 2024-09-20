@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 import 'review_summary_section_model.dart';
 export 'review_summary_section_model.dart';
 
@@ -54,7 +53,7 @@ class _ReviewSummarySectionWidgetState
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 4.0,
             color: Color(0x25A2AAB8),
@@ -66,7 +65,7 @@ class _ReviewSummarySectionWidgetState
         ],
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +74,7 @@ class _ReviewSummarySectionWidgetState
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (widget!.product?.numberOfReviews != 0)
+                  if (widget.product?.numberOfReviews != 0)
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +83,7 @@ class _ReviewSummarySectionWidgetState
                           child: Text(
                             valueOrDefault<String>(
                               formatNumber(
-                                widget!.product?.reviewRate,
+                                widget.product?.reviewRate,
                                 formatType: FormatType.custom,
                                 format: '#.#',
                                 locale: '',
@@ -118,7 +117,7 @@ class _ReviewSummarySectionWidgetState
                           color: FlutterFlowTheme.of(context).tertiary,
                         ),
                         direction: Axis.horizontal,
-                        rating: widget!.product!.reviewRate!,
+                        rating: widget.product!.reviewRate!,
                         unratedColor: FlutterFlowTheme.of(context).tfBg,
                         itemCount: 5,
                         itemSize: 16.0,
@@ -131,7 +130,7 @@ class _ReviewSummarySectionWidgetState
                     children: [
                       Flexible(
                         child: Text(
-                          '${widget!.productReviews?.length?.toString()} Ratings & ${widget!.productReviews?.where((e) => e.comment != null && e.comment != '').toList()?.length?.toString()} Reviews',
+                          '${widget.productReviews?.length.toString()} Ratings & ${widget.productReviews?.where((e) => e.comment != null && e.comment != '').toList().length.toString()} Reviews',
                           style: FlutterFlowTheme.of(context)
                               .labelSmall
                               .override(
@@ -147,7 +146,7 @@ class _ReviewSummarySectionWidgetState
                       ),
                     ],
                   ),
-                ].divide(SizedBox(height: 8.0)),
+                ].divide(const SizedBox(height: 8.0)),
               ),
             ),
             if (false)
@@ -195,49 +194,49 @@ class _ReviewSummarySectionWidgetState
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: (widget!.productReviews!
+                          percent: (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length) ==
                                   0
                               ? 0.0
-                              : (widget!.productReviews!
+                              : (widget.productReviews!
                                       .where((e) => e.rate == 5)
                                       .toList()
                                       .length /
-                                  (widget!.productReviews!
+                                  (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length)),
@@ -247,16 +246,16 @@ class _ReviewSummarySectionWidgetState
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).timeLine,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
                           valueOrDefault<String>(
-                            widget!.productReviews
+                            widget.productReviews
                                 ?.where((e) => e.rate == 5)
                                 .toList()
-                                ?.length
-                                ?.toString(),
+                                .length
+                                .toString(),
                             '0',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -273,7 +272,7 @@ class _ReviewSummarySectionWidgetState
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -305,49 +304,49 @@ class _ReviewSummarySectionWidgetState
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: (widget!.productReviews!
+                          percent: (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length) ==
                                   0
                               ? 0.0
-                              : (widget!.productReviews!
+                              : (widget.productReviews!
                                       .where((e) => e.rate == 4)
                                       .toList()
                                       .length /
-                                  (widget!.productReviews!
+                                  (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length)),
@@ -357,16 +356,16 @@ class _ReviewSummarySectionWidgetState
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).timeLine,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
                           valueOrDefault<String>(
-                            widget!.productReviews
+                            widget.productReviews
                                 ?.where((e) => e.rate == 4)
                                 .toList()
-                                ?.length
-                                ?.toString(),
+                                .length
+                                .toString(),
                             '0',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -383,7 +382,7 @@ class _ReviewSummarySectionWidgetState
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -415,49 +414,49 @@ class _ReviewSummarySectionWidgetState
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: (widget!.productReviews!
+                          percent: (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length) ==
                                   0
                               ? 0.0
-                              : (widget!.productReviews!
+                              : (widget.productReviews!
                                       .where((e) => e.rate == 3)
                                       .toList()
                                       .length /
-                                  (widget!.productReviews!
+                                  (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length)),
@@ -467,16 +466,16 @@ class _ReviewSummarySectionWidgetState
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).primary,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
                           valueOrDefault<String>(
-                            widget!.productReviews
+                            widget.productReviews
                                 ?.where((e) => e.rate == 3)
                                 .toList()
-                                ?.length
-                                ?.toString(),
+                                .length
+                                .toString(),
                             '0',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -493,7 +492,7 @@ class _ReviewSummarySectionWidgetState
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -525,49 +524,49 @@ class _ReviewSummarySectionWidgetState
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: (widget!.productReviews!
+                          percent: (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length) ==
                                   0
                               ? 0.0
-                              : (widget!.productReviews!
+                              : (widget.productReviews!
                                       .where((e) => e.rate == 2)
                                       .toList()
                                       .length /
-                                  (widget!.productReviews!
+                                  (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length)),
@@ -577,16 +576,16 @@ class _ReviewSummarySectionWidgetState
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).googleBg,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
                           valueOrDefault<String>(
-                            widget!.productReviews
+                            widget.productReviews
                                 ?.where((e) => e.rate == 2)
                                 .toList()
-                                ?.length
-                                ?.toString(),
+                                .length
+                                .toString(),
                             '0',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -603,7 +602,7 @@ class _ReviewSummarySectionWidgetState
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -635,49 +634,49 @@ class _ReviewSummarySectionWidgetState
                           size: 12.0,
                         ),
                         LinearPercentIndicator(
-                          percent: (widget!.productReviews!
+                          percent: (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length) ==
                                   0
                               ? 0.0
-                              : (widget!.productReviews!
+                              : (widget.productReviews!
                                       .where((e) => e.rate == 1)
                                       .toList()
                                       .length /
-                                  (widget!.productReviews!
+                                  (widget.productReviews!
                                           .where((e) => e.rate == 1)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 2)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 3)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 4)
                                           .toList()
                                           .length +
-                                      widget!.productReviews!
+                                      widget.productReviews!
                                           .where((e) => e.rate == 5)
                                           .toList()
                                           .length)),
@@ -687,16 +686,16 @@ class _ReviewSummarySectionWidgetState
                           animateFromLastPercent: true,
                           progressColor: FlutterFlowTheme.of(context).googleBg,
                           backgroundColor: FlutterFlowTheme.of(context).tfBg,
-                          barRadius: Radius.circular(40.0),
+                          barRadius: const Radius.circular(40.0),
                           padding: EdgeInsets.zero,
                         ),
                         Text(
                           valueOrDefault<String>(
-                            widget!.productReviews
+                            widget.productReviews
                                 ?.where((e) => e.rate == 1)
                                 .toList()
-                                ?.length
-                                ?.toString(),
+                                .length
+                                .toString(),
                             '0',
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -713,12 +712,12 @@ class _ReviewSummarySectionWidgetState
                                         .labelMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
-                  ].divide(SizedBox(height: 8.0)),
+                  ].divide(const SizedBox(height: 8.0)),
                 ),
               ),
-          ].divide(SizedBox(width: 16.0)),
+          ].divide(const SizedBox(width: 16.0)),
         ),
       ),
     );

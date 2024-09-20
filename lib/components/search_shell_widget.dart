@@ -6,7 +6,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'search_shell_model.dart';
 export 'search_shell_model.dart';
 
@@ -19,7 +18,7 @@ class SearchShellWidget extends StatefulWidget {
     this.preDefineSearch,
     int? maxNumberOfResults,
     this.autoCompleteOptions,
-  }) : this.maxNumberOfResults = maxNumberOfResults ?? 10;
+  }) : maxNumberOfResults = maxNumberOfResults ?? 10;
 
   final String? tableName;
   final String? fieldsToReturnFromTable;
@@ -66,14 +65,14 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Autocomplete<String>(
-          initialValue: TextEditingValue(),
+          initialValue: const TextEditingValue(),
           optionsBuilder: (textEditingValue) {
             if (textEditingValue.text == '') {
               return const Iterable<String>.empty();
             }
             return () {
-              if (widget!.tableName == 'view_market_product') {
-                return widget!.autoCompleteOptions!
+              if (widget.tableName == 'view_market_product') {
+                return widget.autoCompleteOptions!
                     .map((e) => getJsonField(
                           e,
                           r'''$.product_name''',
@@ -81,8 +80,8 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
                     .toList()
                     .map((e) => e.toString())
                     .toList();
-              } else if (widget!.tableName == 'view_products_categories') {
-                return widget!.autoCompleteOptions!
+              } else if (widget.tableName == 'view_products_categories') {
+                return widget.autoCompleteOptions!
                     .map((e) => getJsonField(
                           e,
                           r'''$.product_name''',
@@ -91,7 +90,7 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
                     .map((e) => e.toString())
                     .toList();
               } else {
-                return widget!.autoCompleteOptions!
+                return widget.autoCompleteOptions!
                     .map((e) => getJsonField(
                           e,
                           r'''$.name''',
@@ -130,8 +129,8 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
                         FlutterFlowTheme.of(context).labelSmallFamily),
                   ),
               elevation: 4.0,
-              optionBackgroundColor: Color(0x00000000),
-              optionHighlightColor: Color(0x00000000),
+              optionBackgroundColor: const Color(0x00000000),
+              optionHighlightColor: const Color(0x00000000),
               maxHeight: 200.0,
             );
           },
@@ -151,24 +150,23 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
               _model.searchFieldFocusNode!.addListener(
                 () async {
                   logFirebaseEvent('SEARCH_SHELL_SearchField_ON_FOCUS_CHANGE');
-                  if (_model.searchFieldTextController.text != null &&
-                      _model.searchFieldTextController.text != '') {
+                  if (_model.searchFieldTextController.text != '') {
                     logFirebaseEvent('SearchField_custom_action');
                     _model.searchResultFocusChange =
                         await actions.supabaseSearch(
-                      widget!.tableName!,
+                      widget.tableName!,
                       functions
                           .textSeparatorToList(
-                              widget!.fieldsToReturnFromTable!, ',')
+                              widget.fieldsToReturnFromTable!, ',')
                           .toList(),
                       functions
-                          .textSeparatorToList(widget!.fieldsToSearchIn!, ',')
+                          .textSeparatorToList(widget.fieldsToSearchIn!, ',')
                           .toList(),
                       _model.searchFieldTextController.text,
                       0,
-                      widget!.maxNumberOfResults,
+                      widget.maxNumberOfResults,
                       false,
-                      widget!.preDefineSearch!,
+                      widget.preDefineSearch!,
                     );
                     if (getJsonField(
                       _model.searchResultFocusChange,
@@ -237,26 +235,25 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
               onEditingComplete: onEditingComplete,
               onChanged: (_) => EasyDebounce.debounce(
                 '_model.searchFieldTextController',
-                Duration(milliseconds: 100),
+                const Duration(milliseconds: 100),
                 () async {
                   logFirebaseEvent('SEARCH_SHELL_SearchField_ON_TEXTFIELD_CH');
-                  if (_model.searchFieldTextController.text != null &&
-                      _model.searchFieldTextController.text != '') {
+                  if (_model.searchFieldTextController.text != '') {
                     logFirebaseEvent('SearchField_custom_action');
                     _model.searchResult = await actions.supabaseSearch(
-                      widget!.tableName!,
+                      widget.tableName!,
                       functions
                           .textSeparatorToList(
-                              widget!.fieldsToReturnFromTable!, ',')
+                              widget.fieldsToReturnFromTable!, ',')
                           .toList(),
                       functions
-                          .textSeparatorToList(widget!.fieldsToSearchIn!, ',')
+                          .textSeparatorToList(widget.fieldsToSearchIn!, ',')
                           .toList(),
                       _model.searchFieldTextController.text,
                       0,
-                      widget!.maxNumberOfResults,
+                      widget.maxNumberOfResults,
                       true,
-                      widget!.preDefineSearch!,
+                      widget.preDefineSearch!,
                     );
                     if (getJsonField(
                       _model.searchResult,
@@ -369,7 +366,7 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 contentPadding:
-                    EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 prefixIcon: Icon(
                   FFIcons.ksearch,
                   color: FlutterFlowTheme.of(context).secondaryText,
@@ -381,24 +378,23 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
                           _model.searchFieldTextController?.clear();
                           logFirebaseEvent(
                               'SEARCH_SHELL_SearchField_ON_TEXTFIELD_CH');
-                          if (_model.searchFieldTextController.text != null &&
-                              _model.searchFieldTextController.text != '') {
+                          if (_model.searchFieldTextController.text != '') {
                             logFirebaseEvent('SearchField_custom_action');
                             _model.searchResult = await actions.supabaseSearch(
-                              widget!.tableName!,
+                              widget.tableName!,
                               functions
                                   .textSeparatorToList(
-                                      widget!.fieldsToReturnFromTable!, ',')
+                                      widget.fieldsToReturnFromTable!, ',')
                                   .toList(),
                               functions
                                   .textSeparatorToList(
-                                      widget!.fieldsToSearchIn!, ',')
+                                      widget.fieldsToSearchIn!, ',')
                                   .toList(),
                               _model.searchFieldTextController.text,
                               0,
-                              widget!.maxNumberOfResults,
+                              widget.maxNumberOfResults,
                               true,
-                              widget!.preDefineSearch!,
+                              widget.preDefineSearch!,
                             );
                             if (getJsonField(
                               _model.searchResult,
@@ -491,7 +487,7 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
             children: [
               if (_model.searchResultBody != null)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -518,7 +514,7 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
                 ),
               if (_model.searchError != null && _model.searchError != '')
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [

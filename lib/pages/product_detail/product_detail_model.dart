@@ -1,5 +1,3 @@
-import '/auth/supabase_auth/auth_util.dart';
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/advertise_banner_widget.dart';
@@ -7,9 +5,7 @@ import '/components/capacitytems_widget.dart';
 import '/components/cart_badge_widget.dart';
 import '/components/color_items_widget.dart';
 import '/components/counter_product_widget.dart';
-import '/components/empty_component_widget.dart';
 import '/components/favorite_badge_widget.dart';
-import '/components/info_modal_widget.dart';
 import '/components/market_type_badge_widget.dart';
 import '/components/product_card/product_card_widget.dart';
 import '/components/product_fav_toggle_widget.dart';
@@ -17,26 +13,10 @@ import '/components/review_box_widget.dart';
 import '/components/review_summary_section_widget.dart';
 import '/components/share_badge_widget.dart';
 import '/components/shimmer_page_detail_widget.dart';
-import '/components/shimmer_reviews_widget.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
 import 'product_detail_widget.dart' show ProductDetailWidget;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ProductDetailModel extends FlutterFlowModel<ProductDetailWidget> {
   ///  Local state fields for this page.

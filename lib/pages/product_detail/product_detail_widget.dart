@@ -33,7 +33,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'product_detail_model.dart';
@@ -74,15 +73,15 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
       logFirebaseEvent('ProductDetail_update_page_state');
       _model.cartProducts =
           FFAppState().Cart.products.toList().cast<CartProductStruct>();
-      if ((widget!.marketID != null) && (widget!.marketID != 0)) {
+      if ((widget.marketID != null) && (widget.marketID != 0)) {
         logFirebaseEvent('ProductDetail_backend_call');
         _model.marketLoaded = await MarketsTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            widget!.marketID,
+            widget.marketID,
           ),
         );
-        if (_model.marketLoaded!.length > 0) {
+        if (_model.marketLoaded!.isNotEmpty) {
           logFirebaseEvent('ProductDetail_update_page_state');
           _model.marketData = _model.marketLoaded?.first;
           _model.defaultBusinessMarket = false;
@@ -92,21 +91,21 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
         _model.productLoadedAction = await ProductsTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            widget!.productId,
+            widget.productId,
           ),
         );
         logFirebaseEvent('ProductDetail_backend_call');
         _model.businessLoadedFromProduct = await BusinessesTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            _model.productLoadedAction?.first?.businessId,
+            _model.productLoadedAction?.first.businessId,
           ),
         );
         logFirebaseEvent('ProductDetail_backend_call');
         _model.defaultMarketOfBusiness = await MarketsTable().queryRows(
           queryFn: (q) => q.eq(
             'id',
-            _model.businessLoadedFromProduct?.first?.defaultMarketId,
+            _model.businessLoadedFromProduct?.first.defaultMarketId,
           ),
         );
         logFirebaseEvent('ProductDetail_update_page_state');
@@ -137,7 +136,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
       future: ProductsTable().querySingleRow(
         queryFn: (q) => q.eq(
           'id',
-          widget!.productId,
+          widget.productId,
         ),
       ),
       builder: (context, snapshot) {
@@ -145,7 +144,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
         if (!snapshot.hasData) {
           return Scaffold(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-            body: ShimmerPageDetailWidget(),
+            body: const ShimmerPageDetailWidget(),
           );
         }
         List<ProductsRow> productDetailProductsRowList = snapshot.data!;
@@ -174,7 +173,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Semantics(
                             label: 'back button',
@@ -218,8 +217,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                 logFirebaseEvent('ShareBadge_custom_action');
                                 _model.generatedLink =
                                     await actions.generateProductDetailLink(
-                                  widget!.productId!,
-                                  widget!.marketID!,
+                                  widget.productId!,
+                                  widget.marketID!,
                                 );
                                 logFirebaseEvent('ShareBadge_share');
                                 await Share.share(
@@ -271,7 +270,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                   iconColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   productId: valueOrDefault<int>(
-                                    widget!.productId,
+                                    widget.productId,
                                     0,
                                   ),
                                   marketId: valueOrDefault<int>(
@@ -283,7 +282,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 10.0, 0.0),
                             child: Semantics(
                               label: 'Cart Badge',
@@ -300,28 +299,28 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(width: 8.0)),
+                        ].divide(const SizedBox(width: 8.0)),
                       ),
                     ],
                     flexibleSpace: FlexibleSpaceBar(
                       background: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 64.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 64.0, 0.0, 0.0),
                         child: SafeArea(
                           child: Container(
                             width: double.infinity,
                             height: double.infinity,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Builder(
                               builder: (context) {
                                 final imageVar = productDetailProductsRow
                                         ?.imagesUrl
-                                        ?.toList() ??
+                                        .toList() ??
                                     [];
 
                                 return Semantics(
                                   label: 'Product images',
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     height: 550.0,
                                     child: Stack(
@@ -362,11 +361,11 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                         FlutterFlowExpandedImageView(
                                                       image: CachedNetworkImage(
                                                         fadeInDuration:
-                                                            Duration(
+                                                            const Duration(
                                                                 milliseconds:
                                                                     500),
                                                         fadeOutDuration:
-                                                            Duration(
+                                                            const Duration(
                                                                 milliseconds:
                                                                     500),
                                                         imageUrl:
@@ -381,8 +380,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                       tag: valueOrDefault<
                                                           String>(
                                                         imageVarItem,
-                                                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg' +
-                                                            '$imageVarIndex',
+                                                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg' '$imageVarIndex',
                                                       ),
                                                       useHeroAnimation: true,
                                                     ),
@@ -392,8 +390,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                               child: Hero(
                                                 tag: valueOrDefault<String>(
                                                   imageVarItem,
-                                                  'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg' +
-                                                      '$imageVarIndex',
+                                                  'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg' '$imageVarIndex',
                                                 ),
                                                 transitionOnUserGestures: true,
                                                 child: ClipRRect(
@@ -401,9 +398,9 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                       BorderRadius.circular(
                                                           0.0),
                                                   child: CachedNetworkImage(
-                                                    fadeInDuration: Duration(
+                                                    fadeInDuration: const Duration(
                                                         milliseconds: 500),
-                                                    fadeOutDuration: Duration(
+                                                    fadeOutDuration: const Duration(
                                                         milliseconds: 500),
                                                     imageUrl:
                                                         valueOrDefault<String>(
@@ -421,10 +418,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 1.0),
+                                              const AlignmentDirectional(0.0, 1.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: smooth_page_indicator
                                                 .SmoothPageIndicator(
@@ -444,7 +441,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                     .pageViewController1!
                                                     .animateToPage(
                                                   i,
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 500),
                                                   curve: Curves.ease,
                                                 );
@@ -485,7 +482,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                   return Builder(
                     builder: (context) {
                       if (!_model.isPageLoading) {
-                        return Container(
+                        return SizedBox(
                           width: double.infinity,
                           height: double.infinity,
                           child: Stack(
@@ -493,7 +490,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                               Container(
                                 width: double.infinity,
                                 height: double.infinity,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -503,7 +500,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             if (false)
-                                              Container(
+                                              SizedBox(
                                                 height: 360.0,
                                                 child: Stack(
                                                   children: [
@@ -512,10 +509,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                         final imageVar =
                                                             productDetailProductsRow
                                                                     ?.imagesUrl
-                                                                    ?.toList() ??
+                                                                    .toList() ??
                                                                 [];
 
-                                                        return Container(
+                                                        return SizedBox(
                                                           width:
                                                               double.infinity,
                                                           height: 360.0,
@@ -547,10 +544,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                     child:
                                                                         CachedNetworkImage(
                                                                       fadeInDuration:
-                                                                          Duration(
+                                                                          const Duration(
                                                                               milliseconds: 500),
                                                                       fadeOutDuration:
-                                                                          Duration(
+                                                                          const Duration(
                                                                               milliseconds: 500),
                                                                       imageUrl:
                                                                           valueOrDefault<
@@ -570,11 +567,11 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    AlignmentDirectional(
+                                                                    const AlignmentDirectional(
                                                                         0.0,
                                                                         1.0),
                                                                 child: Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           16.0,
                                                                           0.0,
@@ -598,7 +595,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                           .animateToPage(
                                                                         i,
                                                                         duration:
-                                                                            Duration(milliseconds: 500),
+                                                                            const Duration(milliseconds: 500),
                                                                         curve: Curves
                                                                             .ease,
                                                                       );
@@ -635,11 +632,11 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, 1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -653,7 +650,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                   () {}),
                                                           child:
                                                               ProductFavToggleWidget(
-                                                            productId: widget!
+                                                            productId: widget
                                                                 .productId!,
                                                           ),
                                                         ),
@@ -666,7 +663,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           20.0, 0.0, 20.0, 0.0),
                                                   child: Column(
@@ -731,7 +728,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                   ),
                                                             ),
                                                           ),
-                                                        ].divide(SizedBox(
+                                                        ].divide(const SizedBox(
                                                             width: 5.0)),
                                                       ),
                                                       Row(
@@ -778,7 +775,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               .titleLargeFamily),
                                                                 ),
                                                           ),
-                                                          if (productDetailProductsRow!
+                                                          if (productDetailProductsRow
                                                                   .discountPercent! >
                                                               0.0)
                                                             Row(
@@ -793,7 +790,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                   '${valueOrDefault<String>(
                                                                     formatNumber(
                                                                       productDetailProductsRow
-                                                                          ?.discountPercent,
+                                                                          .discountPercent,
                                                                       formatType:
                                                                           FormatType
                                                                               .custom,
@@ -822,7 +819,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                 ),
                                                                 Text(
                                                                   functions.applyCorrectNumberFormatting(
-                                                                      (productDetailProductsRow!
+                                                                      (productDetailProductsRow
                                                                               .price!) *
                                                                           FFAppState()
                                                                               .country
@@ -851,17 +848,17 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                             GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                                 ),
-                                                              ].divide(SizedBox(
+                                                              ].divide(const SizedBox(
                                                                   width: 8.0)),
                                                             ),
-                                                        ].divide(SizedBox(
+                                                        ].divide(const SizedBox(
                                                             width: 8.0)),
                                                       ),
                                                       if ((productDetailProductsRow
-                                                                  ?.reviewRate !=
+                                                                  .reviewRate !=
                                                               null) &&
                                                           (productDetailProductsRow
-                                                                  ?.reviewRate !=
+                                                                  .reviewRate !=
                                                               0.0))
                                                         Row(
                                                           mainAxisSize:
@@ -891,7 +888,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                   ),
                                                                   direction: Axis
                                                                       .horizontal,
-                                                                  rating: productDetailProductsRow!
+                                                                  rating: productDetailProductsRow
                                                                       .reviewRate!,
                                                                   unratedColor:
                                                                       FlutterFlowTheme.of(
@@ -906,7 +903,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       String>(
                                                                     formatNumber(
                                                                       productDetailProductsRow
-                                                                          ?.reviewRate,
+                                                                          .reviewRate,
                                                                       formatType:
                                                                           FormatType
                                                                               .custom,
@@ -937,7 +934,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                   '(${valueOrDefault<String>(
                                                                     formatNumber(
                                                                       productDetailProductsRow
-                                                                          ?.numberOfReviews,
+                                                                          .numberOfReviews,
                                                                       formatType:
                                                                           FormatType
                                                                               .compact,
@@ -960,27 +957,27 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                             GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                                 ),
-                                                              ].divide(SizedBox(
+                                                              ].divide(const SizedBox(
                                                                   width: 4.0)),
                                                             ),
                                                           ],
                                                         ),
                                                     ].divide(
-                                                        SizedBox(height: 16.0)),
+                                                        const SizedBox(height: 16.0)),
                                                   ),
                                                 ),
                                                 if (false)
                                                   Container(
                                                     width: double.infinity,
                                                     height: 54.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Visibility(
                                                       visible:
                                                           _model.marketData !=
                                                               null,
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     20.0,
                                                                     0.0,
@@ -1052,7 +1049,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                 ),
                                                               ),
                                                             ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               width: 8.0)),
                                                         ),
                                                       ),
@@ -1061,14 +1058,14 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                 Builder(
                                                   builder: (context) {
                                                     if (productDetailProductsRow
-                                                                ?.barcode !=
+                                                                .barcode !=
                                                             null &&
                                                         productDetailProductsRow
-                                                                ?.barcode !=
+                                                                .barcode !=
                                                             '') {
                                                       return Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     20.0,
                                                                     0.0,
@@ -1079,7 +1076,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              'Barcode: ${productDetailProductsRow?.barcode}',
+                                                              'Barcode: ${productDetailProductsRow.barcode}',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1095,19 +1092,19 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                             FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               width: 8.0)),
                                                         ),
                                                       );
                                                     } else {
                                                       return Container(
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                       );
                                                     }
                                                   },
                                                 ),
-                                              ].divide(SizedBox(height: 16.0)),
+                                              ].divide(const SizedBox(height: 16.0)),
                                             ),
                                             if (false)
                                               Column(
@@ -1115,7 +1112,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(20.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Row(
@@ -1168,12 +1165,12 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                           ),
                                                         ),
                                                       ].divide(
-                                                          SizedBox(width: 8.0)),
+                                                          const SizedBox(width: 8.0)),
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(20.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Row(
@@ -1228,12 +1225,12 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                           ),
                                                         ),
                                                       ].divide(
-                                                          SizedBox(width: 8.0)),
+                                                          const SizedBox(width: 8.0)),
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(20.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Row(
@@ -1288,14 +1285,14 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                           ),
                                                         ),
                                                       ].divide(
-                                                          SizedBox(width: 8.0)),
+                                                          const SizedBox(width: 8.0)),
                                                     ),
                                                   ),
                                                 ].divide(
-                                                    SizedBox(height: 16.0)),
+                                                    const SizedBox(height: 16.0)),
                                               ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 15.0, 0.0, 0.0),
                                               child: Column(
@@ -1307,10 +1304,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                   Container(
                                                     width: double.infinity,
                                                     height: 54.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   20.0,
                                                                   0.0,
@@ -1395,7 +1392,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     height:
                                                                         8.0)),
                                                               ),
@@ -1472,13 +1469,13 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     height:
                                                                         8.0)),
                                                               ),
                                                             ),
                                                           ),
-                                                        ].divide(SizedBox(
+                                                        ].divide(const SizedBox(
                                                             width: 24.0)),
                                                       ),
                                                     ),
@@ -1489,7 +1486,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                           'Description') {
                                                         return Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       20.0,
                                                                       0.0,
@@ -1521,43 +1518,33 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               valueOrDefault<String>(
                                                                                 FFLocalizations.of(context).getVariableText(
                                                                                   enText: valueOrDefault<String>(
-                                                                                    productDetailProductsRow?.description,
+                                                                                    productDetailProductsRow.description,
                                                                                     '-',
                                                                                   ),
                                                                                   arText: valueOrDefault<String>(
-                                                                                                productDetailProductsRow?.descriptionArabic,
-                                                                                                '-',
-                                                                                              ) !=
-                                                                                              null &&
-                                                                                          valueOrDefault<String>(
-                                                                                                productDetailProductsRow?.descriptionArabic,
+                                                                                                productDetailProductsRow.descriptionArabic,
                                                                                                 '-',
                                                                                               ) !=
                                                                                               ''
                                                                                       ? valueOrDefault<String>(
-                                                                                          productDetailProductsRow?.descriptionArabic,
+                                                                                          productDetailProductsRow.descriptionArabic,
                                                                                           '-',
                                                                                         )
                                                                                       : valueOrDefault<String>(
-                                                                                          productDetailProductsRow?.description,
+                                                                                          productDetailProductsRow.description,
                                                                                           '-',
                                                                                         ),
                                                                                   faText: valueOrDefault<String>(
-                                                                                                productDetailProductsRow?.descriptionKurdish,
-                                                                                                '-',
-                                                                                              ) !=
-                                                                                              null &&
-                                                                                          valueOrDefault<String>(
-                                                                                                productDetailProductsRow?.descriptionKurdish,
+                                                                                                productDetailProductsRow.descriptionKurdish,
                                                                                                 '-',
                                                                                               ) !=
                                                                                               ''
                                                                                       ? valueOrDefault<String>(
-                                                                                          productDetailProductsRow?.descriptionKurdish,
+                                                                                          productDetailProductsRow.descriptionKurdish,
                                                                                           '-',
                                                                                         )
                                                                                       : valueOrDefault<String>(
-                                                                                          productDetailProductsRow?.description,
+                                                                                          productDetailProductsRow.description,
                                                                                           '-',
                                                                                         ),
                                                                                 ),
@@ -1605,7 +1592,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               Flexible(
                                                                                 child: Text(
                                                                                   valueOrDefault<String>(
-                                                                                    productDetailProductsRow?.returnPolicy,
+                                                                                    productDetailProductsRow.returnPolicy,
                                                                                     '-',
                                                                                   ),
                                                                                   style: FlutterFlowTheme.of(context).labelSmall.override(
@@ -1618,7 +1605,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ].divide(SizedBox(height: 4.0)),
+                                                                        ].divide(const SizedBox(height: 4.0)),
                                                                       ),
                                                                       Column(
                                                                         mainAxisSize:
@@ -1652,7 +1639,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               Flexible(
                                                                                 child: Text(
                                                                                   valueOrDefault<String>(
-                                                                                    productDetailProductsRow?.warranty,
+                                                                                    productDetailProductsRow.warranty,
                                                                                     '-',
                                                                                   ),
                                                                                   style: FlutterFlowTheme.of(context).labelSmall.override(
@@ -1665,9 +1652,9 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ].divide(SizedBox(height: 4.0)),
+                                                                        ].divide(const SizedBox(height: 4.0)),
                                                                       ),
-                                                                    ].divide(SizedBox(
+                                                                    ].divide(const SizedBox(
                                                                         height:
                                                                             8.0)),
                                                                   ),
@@ -1685,7 +1672,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -1730,7 +1717,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       .stretch,
                                                               children: [
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -1817,7 +1804,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
                                                                           Expanded(
@@ -1870,10 +1857,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 16.0)),
+                                                                        ].divide(const SizedBox(width: 16.0)),
                                                                       ),
                                                                       Row(
                                                                         mainAxisSize:
@@ -1930,7 +1917,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
                                                                           Expanded(
@@ -1983,10 +1970,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 16.0)),
+                                                                        ].divide(const SizedBox(width: 16.0)),
                                                                       ),
                                                                       Row(
                                                                         mainAxisSize:
@@ -2043,7 +2030,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
                                                                           Expanded(
@@ -2096,10 +2083,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 16.0)),
+                                                                        ].divide(const SizedBox(width: 16.0)),
                                                                       ),
                                                                       Row(
                                                                         mainAxisSize:
@@ -2156,7 +2143,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
                                                                           Expanded(
@@ -2209,10 +2196,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 16.0)),
+                                                                        ].divide(const SizedBox(width: 16.0)),
                                                                       ),
                                                                       Row(
                                                                         mainAxisSize:
@@ -2269,7 +2256,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
                                                                           Expanded(
@@ -2322,10 +2309,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 16.0)),
+                                                                        ].divide(const SizedBox(width: 16.0)),
                                                                       ),
                                                                       Row(
                                                                         mainAxisSize:
@@ -2384,7 +2371,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
                                                                           Expanded(
@@ -2437,21 +2424,21 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   thickness: 1.0,
                                                                                   color: FlutterFlowTheme.of(context).tfBg,
                                                                                 ),
-                                                                              ].divide(SizedBox(height: 2.0)),
+                                                                              ].divide(const SizedBox(height: 2.0)),
                                                                             ),
                                                                           ),
-                                                                        ].divide(SizedBox(width: 16.0)),
+                                                                        ].divide(const SizedBox(width: 16.0)),
                                                                       ),
-                                                                    ].divide(SizedBox(
+                                                                    ].divide(const SizedBox(
                                                                         height:
                                                                             12.0)),
                                                                   ),
                                                                 ),
-                                                              ].divide(SizedBox(
+                                                              ].divide(const SizedBox(
                                                                   height:
                                                                       12.0)),
                                                             ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               height: 24.0)),
                                                         );
                                                       } else if (_model
@@ -2466,7 +2453,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                             queryFn: (q) => q
                                                                 .eq(
                                                                   'order_product_product_id',
-                                                                  widget!
+                                                                  widget
                                                                       .productId,
                                                                 )
                                                                 .eq(
@@ -2479,7 +2466,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                             // Customize what your widget looks like when it's loading.
                                                             if (!snapshot
                                                                 .hasData) {
-                                                              return EmptyComponentWidget();
+                                                              return const EmptyComponentWidget();
                                                             }
                                                             List<ViewOrderProductRow>
                                                                 orderProductsViewOrderProductRowList =
@@ -2487,7 +2474,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
 
                                                             return Container(
                                                               decoration:
-                                                                  BoxDecoration(),
+                                                                  const BoxDecoration(),
                                                               child: FutureBuilder<
                                                                   List<
                                                                       ProductReviewsRow>>(
@@ -2498,7 +2485,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       (q) => q
                                                                           .eq(
                                                                             'product_id',
-                                                                            widget!.productId,
+                                                                            widget.productId,
                                                                           )
                                                                           .eq(
                                                                             'status',
@@ -2510,7 +2497,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                   // Customize what your widget looks like when it's loading.
                                                                   if (!snapshot
                                                                       .hasData) {
-                                                                    return EmptyComponentWidget();
+                                                                    return const EmptyComponentWidget();
                                                                   }
                                                                   List<ProductReviewsRow>
                                                                       productReviewsProductReviewsRowList =
@@ -2519,7 +2506,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
 
                                                                   return Container(
                                                                     decoration:
-                                                                        BoxDecoration(),
+                                                                        const BoxDecoration(),
                                                                     child: FutureBuilder<
                                                                         List<
                                                                             UsersRow>>(
@@ -2541,7 +2528,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                         // Customize what your widget looks like when it's loading.
                                                                         if (!snapshot
                                                                             .hasData) {
-                                                                          return ShimmerReviewsWidget();
+                                                                          return const ShimmerReviewsWidget();
                                                                         }
                                                                         List<UsersRow>
                                                                             reviewingUsersUsersRowList =
@@ -2549,7 +2536,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
 
                                                                         return Container(
                                                                           decoration:
-                                                                              BoxDecoration(),
+                                                                              const BoxDecoration(),
                                                                           child:
                                                                               Column(
                                                                             mainAxisSize:
@@ -2560,7 +2547,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                 mainAxisSize: MainAxisSize.max,
                                                                                 children: [
                                                                                   Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                                                                                     child: Row(
                                                                                       mainAxisSize: MainAxisSize.max,
                                                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2596,16 +2583,16 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                                     ParamType.SupabaseRow,
                                                                                                   ),
                                                                                                   'marketId': serializeParam(
-                                                                                                    widget!.marketID,
+                                                                                                    widget.marketID,
                                                                                                     ParamType.int,
                                                                                                   ),
                                                                                                 }.withoutNulls,
                                                                                               );
                                                                                             },
                                                                                             child: Container(
-                                                                                              decoration: BoxDecoration(),
+                                                                                              decoration: const BoxDecoration(),
                                                                                               child: Padding(
-                                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 0.0, 8.0),
+                                                                                                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 0.0, 8.0),
                                                                                                 child: Text(
                                                                                                   FFLocalizations.of(context).getText(
                                                                                                     'j71dc4xr' /* View All */,
@@ -2625,9 +2612,9 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   ),
                                                                                   Builder(
                                                                                     builder: (context) {
-                                                                                      if ((orderProductsViewOrderProductRowList.isNotEmpty) && (orderProductsViewOrderProductRowList.length > 0)) {
+                                                                                      if ((orderProductsViewOrderProductRowList.isNotEmpty) && (orderProductsViewOrderProductRowList.isNotEmpty)) {
                                                                                         return Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                                                                                          padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                                                                                           child: Row(
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2656,14 +2643,14 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                                   text: FFLocalizations.of(context).getText(
                                                                                                     'c3mufbxj' /* Leave a Review */,
                                                                                                   ),
-                                                                                                  icon: Icon(
+                                                                                                  icon: const Icon(
                                                                                                     FFIcons.kstarFilled,
                                                                                                     size: 20.0,
                                                                                                   ),
                                                                                                   options: FFButtonOptions(
                                                                                                     height: 48.0,
-                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                                                                                                    padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                                                                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                                                                                                     color: FlutterFlowTheme.of(context).tertiary,
                                                                                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                                           fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
@@ -2671,7 +2658,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                                           useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
                                                                                                         ),
                                                                                                     elevation: 0.0,
-                                                                                                    borderSide: BorderSide(
+                                                                                                    borderSide: const BorderSide(
                                                                                                       color: Colors.transparent,
                                                                                                       width: 1.0,
                                                                                                     ),
@@ -2684,7 +2671,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                         );
                                                                                       } else {
                                                                                         return Container(
-                                                                                          decoration: BoxDecoration(),
+                                                                                          decoration: const BoxDecoration(),
                                                                                         );
                                                                                       }
                                                                                     },
@@ -2693,15 +2680,15 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                     model: _model.reviewSummarySectionModel,
                                                                                     updateCallback: () => safeSetState(() {}),
                                                                                     child: ReviewSummarySectionWidget(
-                                                                                      product: productDetailProductsRow!,
+                                                                                      product: productDetailProductsRow,
                                                                                       productReviews: productReviewsProductReviewsRowList,
                                                                                     ),
                                                                                   ),
-                                                                                ].divide(SizedBox(height: 16.0)),
+                                                                                ].divide(const SizedBox(height: 16.0)),
                                                                               ),
                                                                               if (false)
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                                                                                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                                                                                   child: Row(
                                                                                     mainAxisSize: MainAxisSize.max,
                                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2722,7 +2709,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                       Expanded(
                                                                                         child: Theme(
                                                                                           data: ThemeData(
-                                                                                            checkboxTheme: CheckboxThemeData(
+                                                                                            checkboxTheme: const CheckboxThemeData(
                                                                                               visualDensity: VisualDensity.compact,
                                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                                                                             ),
@@ -2788,7 +2775,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   );
                                                                                 },
                                                                               ),
-                                                                            ].divide(SizedBox(height: 16.0)),
+                                                                            ].divide(const SizedBox(height: 16.0)),
                                                                           ),
                                                                         );
                                                                       },
@@ -2800,7 +2787,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                           },
                                                         );
                                                       } else {
-                                                        return Row(
+                                                        return const Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           mainAxisAlignment:
@@ -2812,7 +2799,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                     },
                                                   ),
                                                   if (productDetailProductsRow
-                                                          ?.subCategoryId !=
+                                                          .subCategoryId !=
                                                       null)
                                                     FutureBuilder<
                                                         List<ProductsRow>>(
@@ -2822,12 +2809,12 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                             .eq(
                                                               'sub_category_id',
                                                               productDetailProductsRow
-                                                                  ?.subCategoryId,
+                                                                  .subCategoryId,
                                                             )
                                                             .neq(
                                                               'id',
                                                               productDetailProductsRow
-                                                                  ?.id,
+                                                                  .id,
                                                             ),
                                                         limit: 5,
                                                       ),
@@ -2858,12 +2845,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
 
                                                         return Container(
                                                           decoration:
-                                                              BoxDecoration(),
+                                                              const BoxDecoration(),
                                                           child: Builder(
                                                             builder: (context) {
-                                                              if (relatedProductsAllProductsRowList
-                                                                      .length >
-                                                                  0) {
+                                                              if (relatedProductsAllProductsRowList.isNotEmpty) {
                                                                 return Column(
                                                                   mainAxisSize:
                                                                       MainAxisSize
@@ -2879,7 +2864,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       children:
                                                                           [
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               20.0,
                                                                               0.0,
                                                                               20.0,
@@ -2908,7 +2893,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                           ),
                                                                         ),
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               20.0,
                                                                               0.0,
                                                                               20.0,
@@ -2922,8 +2907,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                 child: Container(
                                                                                   width: double.infinity,
                                                                                   height: 270.0,
-                                                                                  decoration: BoxDecoration(),
-                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  decoration: const BoxDecoration(),
+                                                                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                                                                   child: Builder(
                                                                                     builder: (context) {
                                                                                       final relatedProduct = relatedProductsAllProductsRowList.toList();
@@ -2933,7 +2918,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                         shrinkWrap: true,
                                                                                         scrollDirection: Axis.horizontal,
                                                                                         itemCount: relatedProduct.length,
-                                                                                        separatorBuilder: (_, __) => SizedBox(width: 8.0),
+                                                                                        separatorBuilder: (_, __) => const SizedBox(width: 8.0),
                                                                                         itemBuilder: (context, relatedProductIndex) {
                                                                                           final relatedProductItem = relatedProduct[relatedProductIndex];
                                                                                           return Column(
@@ -2960,7 +2945,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                                   reviewRate: relatedProductItem.reviewRate,
                                                                                                   numberOfReviews: relatedProductItem.numberOfReviews,
                                                                                                   productId: relatedProductItem.id,
-                                                                                                  marketID: widget!.marketID,
+                                                                                                  marketID: widget.marketID,
                                                                                                   discountedPrice: relatedProductItem.discountedPrice,
                                                                                                 ),
                                                                                               ),
@@ -2975,17 +2960,17 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                      ].divide(SizedBox(
+                                                                      ].divide(const SizedBox(
                                                                               height: 16.0)),
                                                                     ),
-                                                                  ].divide(SizedBox(
+                                                                  ].divide(const SizedBox(
                                                                       height:
                                                                           16.0)),
                                                                 );
                                                               } else {
                                                                 return Container(
                                                                   decoration:
-                                                                      BoxDecoration(),
+                                                                      const BoxDecoration(),
                                                                 );
                                                               }
                                                             },
@@ -3034,7 +3019,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
 
                                                       return Container(
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Builder(
                                                           builder: (context) {
                                                             if (FFAppState().AppSettings.enableAdvertisement &&
@@ -3043,9 +3028,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                     .enableAdvertisementOnProductDetail &&
                                                                 ((advertisingQueryAdvertisingRowList
                                                                         .isNotEmpty) &&
-                                                                    (advertisingQueryAdvertisingRowList
-                                                                            .length >
-                                                                        0))) {
+                                                                    (advertisingQueryAdvertisingRowList.isNotEmpty))) {
                                                               return Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -3055,7 +3038,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                         .start,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             20.0,
                                                                             0.0,
@@ -3096,8 +3079,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                           .infinity,
                                                                       height: valueOrDefault<
                                                                           double>(
-                                                                        advertisingQueryAdvertisingRowList.length >
-                                                                                0
+                                                                        advertisingQueryAdvertisingRowList.isNotEmpty
                                                                             ? 160.0
                                                                             : 0.0,
                                                                         160.0,
@@ -3109,7 +3091,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       ),
                                                                       child:
                                                                           Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             20.0,
                                                                             0.0,
                                                                             20.0,
@@ -3151,8 +3133,8 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                 enableInfiniteScroll: false,
                                                                                 scrollDirection: Axis.horizontal,
                                                                                 autoPlay: true,
-                                                                                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                                                                                autoPlayInterval: Duration(milliseconds: (800 + 4000)),
+                                                                                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                                                                                autoPlayInterval: const Duration(milliseconds: (800 + 4000)),
                                                                                 autoPlayCurve: Curves.linear,
                                                                                 pauseAutoPlayInFiniteScroll: false,
                                                                                 onPageChanged: (index, _) => _model.carouselCurrentIndex = index,
@@ -3163,14 +3145,14 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     height:
                                                                         16.0)),
                                                               );
                                                             } else {
                                                               return Container(
                                                                 decoration:
-                                                                    BoxDecoration(),
+                                                                    const BoxDecoration(),
                                                               );
                                                             }
                                                           },
@@ -3179,20 +3161,20 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                     },
                                                   ),
                                                 ].divide(
-                                                    SizedBox(height: 24.0)),
+                                                    const SizedBox(height: 24.0)),
                                               ),
                                             ),
                                           ]
-                                              .divide(SizedBox(height: 24.0))
+                                              .divide(const SizedBox(height: 24.0))
                                               .addToStart(
-                                                  SizedBox(height: 16.0))
-                                              .addToEnd(SizedBox(height: 24.0)),
+                                                  const SizedBox(height: 16.0))
+                                              .addToEnd(const SizedBox(height: 24.0)),
                                         ),
                                       ),
                                     ),
                                     Stack(
                                       children: [
-                                        if (productDetailProductsRow!
+                                        if (productDetailProductsRow
                                                 .quantityInInventory! >
                                             0)
                                           Container(
@@ -3202,7 +3184,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
                                                   blurRadius: 25.0,
                                                   color: Color(0x14000000),
@@ -3212,7 +3194,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                   ),
                                                 )
                                               ],
-                                              borderRadius: BorderRadius.only(
+                                              borderRadius: const BorderRadius.only(
                                                 bottomLeft:
                                                     Radius.circular(0.0),
                                                 bottomRight:
@@ -3222,7 +3204,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       20.0, 0.0, 0.0, 0.0),
                                               child: Row(
@@ -3258,7 +3240,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                         .counterNumber
                                                                         .toString(),
                                                                     '0',
-                                                                  )} / ${functions.applyCorrectNumberFormatting((productDetailProductsRow!.discountedPrice!) * FFAppState().country.currencyExchangeRate, FFAppState().country.currencyCode, FFAppConstants.useCurrencySymbol, false)}${FFAppConstants.defaultCurrencyCode}',
+                                                                  )} / ${functions.applyCorrectNumberFormatting((productDetailProductsRow.discountedPrice!) * FFAppState().country.currencyExchangeRate, FFAppState().country.currencyCode, FFAppConstants.useCurrencySymbol, false)}${FFAppConstants.defaultCurrencyCode}',
                                                                   maxLines: 1,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -3287,7 +3269,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                 children: [
                                                                   Text(
                                                                     functions.applyCorrectNumberFormatting(
-                                                                        (productDetailProductsRow!.discountedPrice!) *
+                                                                        (productDetailProductsRow.discountedPrice!) *
                                                                             FFAppState()
                                                                                 .country
                                                                                 .currencyExchangeRate *
@@ -3339,11 +3321,11 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
                                                                         ),
                                                                   ),
-                                                                ].divide(SizedBox(
+                                                                ].divide(const SizedBox(
                                                                     width:
                                                                         2.0)),
                                                               ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               width: 4.0)),
                                                         ),
                                                         wrapWithModel(
@@ -3359,7 +3341,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                 .numberOfItemsAdded,
                                                             maxNumber:
                                                                 productDetailProductsRow
-                                                                    ?.quantityInInventory,
+                                                                    .quantityInInventory,
                                                             minNumber: 1,
                                                             counterStep: 1,
                                                             height: 34.0,
@@ -3418,17 +3400,16 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                           .counterProductModel
                                                                           .counterNumber ==
                                                                       0) ||
-                                                                  ((FFAppState().Cart.products.where((e) => e.productId == widget!.productId).toList().length >
-                                                                              0
+                                                                  ((FFAppState().Cart.products.where((e) => e.productId == widget.productId).toList().isNotEmpty
                                                                           ? FFAppState()
                                                                               .Cart
                                                                               .products
-                                                                              .where((e) => e.productId == widget!.productId)
+                                                                              .where((e) => e.productId == widget.productId)
                                                                               .toList()
                                                                               .first
                                                                               .quantity
                                                                           : 0) >=
-                                                                      productDetailProductsRow!.quantityInInventory!))
+                                                                      productDetailProductsRow.quantityInInventory!))
                                                               ? null
                                                               : () async {
                                                                   logFirebaseEvent(
@@ -3446,9 +3427,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                           null) &&
                                                                       (FFAppState()
                                                                               .Cart
-                                                                              .products
-                                                                              .length >
-                                                                          0)) {
+                                                                              .products.isNotEmpty)) {
                                                                     while (_model
                                                                             .cartProductCounter <
                                                                         FFAppState()
@@ -3456,7 +3435,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                             .products
                                                                             .length) {
                                                                       if ((FFAppState().Cart.products[_model.cartProductCounter].productId ==
-                                                                              widget!
+                                                                              widget
                                                                                   .productId) &&
                                                                           (FFAppState().Cart.products[_model.cartProductCounter].marketId ==
                                                                               _model.marketData?.id)) {
@@ -3494,47 +3473,47 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       _model.addToCartProducts(
                                                                           CartProductStruct(
                                                                         productName:
-                                                                            productDetailProductsRow?.name,
+                                                                            productDetailProductsRow.name,
                                                                         productDescription:
-                                                                            productDetailProductsRow?.description,
+                                                                            productDetailProductsRow.description,
                                                                         price: productDetailProductsRow
-                                                                            ?.price,
+                                                                            .price,
                                                                         isDiscounted:
                                                                             valueOrDefault<bool>(
-                                                                          productDetailProductsRow!.discountPercent! > 0.0
+                                                                          productDetailProductsRow.discountPercent! > 0.0
                                                                               ? true
                                                                               : false,
                                                                           false,
                                                                         ),
                                                                         discountPercent:
-                                                                            productDetailProductsRow?.discountPercent,
+                                                                            productDetailProductsRow.discountPercent,
                                                                         quantity: _model
                                                                             .counterProductModel
                                                                             .counterNumber,
                                                                         image: productDetailProductsRow
-                                                                            ?.defaultImageUrl,
+                                                                            .defaultImageUrl,
                                                                         productId:
-                                                                            widget!.productId,
+                                                                            widget.productId,
                                                                         businessId:
-                                                                            productDetailProductsRow?.businessId,
+                                                                            productDetailProductsRow.businessId,
                                                                         deliveryMethodId:
-                                                                            productDetailProductsRow?.deliveryMethodId,
+                                                                            productDetailProductsRow.deliveryMethodId,
                                                                         marketId: _model
                                                                             .marketData
                                                                             ?.id,
                                                                         tax:
                                                                             0.0,
                                                                         weight:
-                                                                            productDetailProductsRow?.weight,
+                                                                            productDetailProductsRow.weight,
                                                                         size: productDetailProductsRow
-                                                                            ?.size,
+                                                                            .size,
                                                                         priceSubTotal:
-                                                                            (productDetailProductsRow!.discountedPrice!) *
+                                                                            (productDetailProductsRow.discountedPrice!) *
                                                                                 _model.counterProductModel.counterNumber,
                                                                         deliveryMethodsAvailable:
-                                                                            productDetailProductsRow?.deliveryMethodsAvailableList,
+                                                                            productDetailProductsRow.deliveryMethodsAvailableList,
                                                                         discountedPrice:
-                                                                            productDetailProductsRow?.discountedPrice,
+                                                                            productDetailProductsRow.discountedPrice,
                                                                       ));
                                                                     }
                                                                   } else {
@@ -3544,16 +3523,16 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                         CartProductStruct(
                                                                       productName:
                                                                           productDetailProductsRow
-                                                                              ?.name,
+                                                                              .name,
                                                                       productDescription:
                                                                           productDetailProductsRow
-                                                                              ?.description,
+                                                                              .description,
                                                                       price: productDetailProductsRow
-                                                                          ?.price,
+                                                                          .price,
                                                                       isDiscounted:
                                                                           valueOrDefault<
                                                                               bool>(
-                                                                        productDetailProductsRow!.discountPercent! >
+                                                                        productDetailProductsRow.discountPercent! >
                                                                                 0.0
                                                                             ? true
                                                                             : false,
@@ -3561,43 +3540,43 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       ),
                                                                       discountPercent:
                                                                           productDetailProductsRow
-                                                                              ?.discountPercent,
+                                                                              .discountPercent,
                                                                       quantity: _model
                                                                           .counterProductModel
                                                                           .counterNumber,
                                                                       image: productDetailProductsRow
-                                                                          ?.defaultImageUrl,
+                                                                          .defaultImageUrl,
                                                                       productId:
-                                                                          widget!
+                                                                          widget
                                                                               .productId,
                                                                       businessId:
                                                                           productDetailProductsRow
-                                                                              ?.businessId,
+                                                                              .businessId,
                                                                       deliveryMethodId:
                                                                           productDetailProductsRow
-                                                                              ?.deliveryMethodId,
+                                                                              .deliveryMethodId,
                                                                       marketId: _model
                                                                           .marketData
                                                                           ?.id,
                                                                       tax: 0.0,
                                                                       weight: productDetailProductsRow
-                                                                          ?.weight,
+                                                                          .weight,
                                                                       size: productDetailProductsRow
-                                                                          ?.size,
-                                                                      priceSubTotal: (productDetailProductsRow!
+                                                                          .size,
+                                                                      priceSubTotal: (productDetailProductsRow
                                                                               .discountedPrice!) *
                                                                           _model
                                                                               .counterProductModel
                                                                               .counterNumber,
                                                                       deliveryMethodsAvailable:
                                                                           productDetailProductsRow
-                                                                              ?.deliveryMethodsAvailableList,
+                                                                              .deliveryMethodsAvailableList,
                                                                       discountedPrice:
                                                                           productDetailProductsRow
-                                                                              ?.discountedPrice,
+                                                                              .discountedPrice,
                                                                       quantityInInventory:
                                                                           productDetailProductsRow
-                                                                              ?.quantityInInventory,
+                                                                              .quantityInInventory,
                                                                     ));
                                                                   }
 
@@ -3632,7 +3611,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                           padding:
                                                                               MediaQuery.viewInsetsOf(context),
                                                                           child:
-                                                                              Container(
+                                                                              SizedBox(
                                                                             height:
                                                                                 double.infinity,
                                                                             child:
@@ -3680,14 +3659,14 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                             width: 160.0,
                                                             height: 75.0,
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         24.0,
                                                                         0.0,
                                                                         24.0,
                                                                         0.0),
                                                             iconPadding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -3713,13 +3692,13 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                     ),
                                                             elevation: 0.0,
                                                             borderSide:
-                                                                BorderSide(
+                                                                const BorderSide(
                                                               color: Colors
                                                                   .transparent,
                                                               width: 1.0,
                                                             ),
                                                             borderRadius:
-                                                                BorderRadius
+                                                                const BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
                                                                   .circular(
@@ -3736,18 +3715,18 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       8.0),
                                                             ),
                                                             disabledColor:
-                                                                Color(
+                                                                const Color(
                                                                     0x7F191717),
                                                           ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                ].divide(SizedBox(width: 8.0)),
+                                                ].divide(const SizedBox(width: 8.0)),
                                               ),
                                             ),
                                           ),
-                                        if (productDetailProductsRow!
+                                        if (productDetailProductsRow
                                                 .quantityInInventory! <=
                                             0)
                                           Container(
@@ -3757,7 +3736,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
                                                   blurRadius: 25.0,
                                                   color: Color(0x14000000),
@@ -3767,7 +3746,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                   ),
                                                 )
                                               ],
-                                              borderRadius: BorderRadius.only(
+                                              borderRadius: const BorderRadius.only(
                                                 bottomLeft:
                                                     Radius.circular(0.0),
                                                 bottomRight:
@@ -3777,7 +3756,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       20.0, 0.0, 0.0, 0.0),
                                               child: Row(
@@ -3808,7 +3787,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       .titleLargeFamily),
                                                         ),
                                                   ),
-                                                ].divide(SizedBox(width: 8.0)),
+                                                ].divide(const SizedBox(width: 8.0)),
                                               ),
                                             ),
                                           ),
@@ -3824,7 +3803,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                         return wrapWithModel(
                           model: _model.shimmerPageDetailModel,
                           updateCallback: () => safeSetState(() {}),
-                          child: ShimmerPageDetailWidget(
+                          child: const ShimmerPageDetailWidget(
                             showUpperSection: true,
                           ),
                         );

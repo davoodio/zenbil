@@ -1,30 +1,17 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/address_insert_widget.dart';
 import '/components/delivery_method_item_widget.dart';
 import '/components/info_modal_widget.dart';
-import '/components/order_history_item/order_history_item_widget.dart';
 import '/components/shimmer_container_widget.dart';
-import '/components/shimmer_orders_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'checkout_widget.dart' show CheckoutWidget;
-import 'package:styled_divider/styled_divider.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   ///  Local state fields for this page.
@@ -81,7 +68,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   late FlutterFlowDynamicModels<DeliveryMethodItemModel>
       deliveryMethodItemModels;
   // Stores action output result for [Action Block - calculateDeliveryPricesForOrder] action in DeliveryMethodItem widget.
-  dynamic? updatedCalculation;
+  dynamic updatedCalculation;
   // Stores action output result for [Bottom Sheet - addressInsert] action in ChanageAddress widget.
   UserAddressesRow? addressReturned;
   // Stores action output result for [Backend Call - Query Rows] action in ChanageAddress widget.
@@ -120,7 +107,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
     required OrdersRow? order,
   }) async {
     ApiCallResponse? deliveryMethodsForOrder;
-    dynamic? orderGroupCalculation;
+    dynamic orderGroupCalculation;
 
     logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
     isLoading = true;
@@ -133,12 +120,12 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
     );
 
     if (OnroDeliveryAndMethodsGroup.deliveryMethodsCall.success(
-      (deliveryMethodsForOrder?.jsonBody ?? ''),
+      (deliveryMethodsForOrder.jsonBody ?? ''),
     )!) {
       while (orderGroupsLoopCounter <
           OnroDeliveryAndMethodsGroup.deliveryMethodsCall
               .orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )!
               .length) {
         logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
@@ -146,19 +133,19 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
           data: {
             'delivery_method_id': getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_id''',
             ),
             'delivery_method_mapping_id': getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_mapping_id''',
             ),
             'onro_delivery_method_id': getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_id''',
             ),
@@ -178,7 +165,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
           context,
           orderGroupId: getJsonField(
             OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-              (deliveryMethodsForOrder?.jsonBody ?? ''),
+              (deliveryMethodsForOrder.jsonBody ?? ''),
             )?[orderGroupsLoopCounter],
             r'''$.id''',
           ),
@@ -195,13 +182,13 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
         addToDeliveryOptions(DeliveryOrdersStruct(
           orderGroupId: getJsonField(
             OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-              (deliveryMethodsForOrder?.jsonBody ?? ''),
+              (deliveryMethodsForOrder.jsonBody ?? ''),
             )?[orderGroupsLoopCounter],
             r'''$.id''',
           ),
           deliveryOptionsAvailable: (getJsonField(
             OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-              (deliveryMethodsForOrder?.jsonBody ?? ''),
+              (deliveryMethodsForOrder.jsonBody ?? ''),
             )?[orderGroupsLoopCounter],
             r'''$.grouped[:].method_type_name''',
             true,
@@ -211,37 +198,37 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
           selectedDeliveryMethodForOrderGroup: OrderGroupDeliveryMethodsStruct(
             methodId: getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_id''',
             ),
             methodTypeId: getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_id''',
             ),
             methodTypeName: getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_name''',
             ).toString().toString(),
             methodMappingId: getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_mapping_id''',
             ),
             methodTypeNameArabic: getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_name_arabic''',
             ).toString().toString(),
             methodTypeNameKurdish: getJsonField(
               OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder?.jsonBody ?? ''),
+                (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_name_kurdish''',
             ).toString().toString(),
@@ -273,7 +260,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
             onTap: () => FocusScope.of(context).unfocus(),
             child: Padding(
               padding: MediaQuery.viewInsetsOf(context),
-              child: Container(
+              child: SizedBox(
                 height: double.infinity,
                 child: InfoModalWidget(
                   icon: Icon(
@@ -299,7 +286,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
       logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
       isApiCallUnsuccessful = true;
       return getJsonField(
-        (deliveryMethodsForOrder?.jsonBody ?? ''),
+        (deliveryMethodsForOrder.jsonBody ?? ''),
         r'''$.error''',
         true,
       );
@@ -308,7 +295,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
     logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
     isLoading = false;
     return OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
-      (deliveryMethodsForOrder?.jsonBody ?? ''),
+      (deliveryMethodsForOrder.jsonBody ?? ''),
     );
   }
 
@@ -328,11 +315,11 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
     );
 
     if (OnroDeliveryAndMethodsGroup.calculateOrderGroupCall.success(
-      (deliveryPricesForOrder?.jsonBody ?? ''),
+      (deliveryPricesForOrder.jsonBody ?? ''),
     )!) {
       return OnroDeliveryAndMethodsGroup.calculateOrderGroupCall
           .orderGroups(
-            (deliveryPricesForOrder?.jsonBody ?? ''),
+            (deliveryPricesForOrder.jsonBody ?? ''),
           )!
           .first;
     }
@@ -348,7 +335,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Padding(
             padding: MediaQuery.viewInsetsOf(context),
-            child: Container(
+            child: SizedBox(
               height: double.infinity,
               child: InfoModalWidget(
                 icon: Icon(
@@ -374,7 +361,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
     logFirebaseEvent('calculateDeliveryPricesForOrder_update_p');
     isApiCallUnsuccessful = true;
     return getJsonField(
-      (deliveryPricesForOrder?.jsonBody ?? ''),
+      (deliveryPricesForOrder.jsonBody ?? ''),
       r'''$.error''',
     );
   }

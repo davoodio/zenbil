@@ -114,7 +114,7 @@ class _SizeItemsWidgetState extends State<SizeItemsWidget> {
                   ),
                 ),
               );
-            }).divide(SizedBox(width: 12.0)),
+            }).divide(const SizedBox(width: 12.0)),
           ),
         );
       },

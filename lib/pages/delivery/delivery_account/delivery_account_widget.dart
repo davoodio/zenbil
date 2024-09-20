@@ -4,7 +4,6 @@ import '/components/nav_bar_delivery/nav_bar_delivery_widget.dart';
 import '/components/user_info_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +51,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -60,13 +59,13 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -83,7 +82,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: wrapWithModel(
                                             model: _model.userInfoCardModel,
@@ -95,7 +94,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                             ),
                                           ),
                                         ),
-                                      ].divide(SizedBox(height: 16.0)),
+                                      ].divide(const SizedBox(height: 16.0)),
                                     ),
                                   ],
                                 ),
@@ -107,7 +106,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -150,7 +149,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         if (!FFAppState().CurrentUser.isAnon)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -203,7 +202,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         if (false)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: wrapWithModel(
                                               model: _model.paymenmethodModel,
@@ -232,7 +231,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         if (false)
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -277,7 +276,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                           ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -309,7 +308,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -388,7 +387,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -432,7 +431,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                                         Expanded(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         16.0,
                                                                         0.0,
@@ -515,7 +514,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -548,7 +547,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       16.0,
                                                                       0.0,
@@ -592,8 +591,8 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                                   onChanged: (newValue) async {
                                                     safeSetState(() =>
                                                         _model.switchValue =
-                                                            newValue!);
-                                                    if (newValue!) {
+                                                            newValue);
+                                                    if (newValue) {
                                                       logFirebaseEvent(
                                                           'DELIVERY_ACCOUNT_Switch_xnus0rnc_ON_TOGG');
                                                       logFirebaseEvent(
@@ -634,7 +633,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -676,7 +675,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -719,7 +718,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         Builder(
                                           builder: (context) => Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -766,7 +765,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20.0, 0.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -792,7 +791,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                                     BorderRadius.circular(6.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: wrapWithModel(
@@ -828,7 +827,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         20.0, 0.0, 20.0, 0.0),
                                                 child: InkWell(
@@ -885,7 +884,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                               ),
                                             ],
                                           ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -894,7 +893,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                   children: [
                                     Flexible(
                                       child: Padding(
-                                        padding: EdgeInsets.all(20.0),
+                                        padding: const EdgeInsets.all(20.0),
                                         child: Text(
                                           '${FFAppConstants.BrandAppName} ${FFAppConstants.appVersion}',
                                           maxLines: 1,
@@ -921,9 +920,9 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                                   ],
                                 ),
                               ]
-                                  .divide(SizedBox(height: 24.0))
-                                  .addToStart(SizedBox(height: 24.0))
-                                  .addToEnd(SizedBox(height: 98.0)),
+                                  .divide(const SizedBox(height: 24.0))
+                                  .addToStart(const SizedBox(height: 24.0))
+                                  .addToEnd(const SizedBox(height: 98.0)),
                             ),
                           ),
                         ),
@@ -932,7 +931,7 @@ class _DeliveryAccountWidgetState extends State<DeliveryAccountWidget> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.navBarDeliveryModel,
                     updateCallback: () => safeSetState(() {}),

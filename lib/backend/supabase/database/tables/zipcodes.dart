@@ -9,7 +9,7 @@ class ZipcodesTable extends SupabaseTable<ZipcodesRow> {
 }
 
 class ZipcodesRow extends SupabaseDataRow {
-  ZipcodesRow(Map<String, dynamic> data) : super(data);
+  ZipcodesRow(super.data);
 
   @override
   SupabaseTable get table => ZipcodesTable();

@@ -9,7 +9,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'feed_back_model.dart';
 export 'feed_back_model.dart';
 
@@ -63,7 +62,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -71,7 +70,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -99,7 +98,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 24.0, 0.0, 24.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -111,10 +110,10 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                 BorderRadius.circular(0.0),
                                             child: CachedNetworkImage(
                                               fadeInDuration:
-                                                  Duration(milliseconds: 500),
+                                                  const Duration(milliseconds: 500),
                                               fadeOutDuration:
-                                                  Duration(milliseconds: 500),
-                                              imageUrl: widget!
+                                                  const Duration(milliseconds: 500),
+                                              imageUrl: widget
                                                   .product!.defaultImageUrl!,
                                               width: 300.0,
                                               height: 240.0,
@@ -125,7 +124,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -197,23 +196,23 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                               .titleSmallFamily),
                                                 ),
                                           ),
-                                        ].divide(SizedBox(width: 8.0)),
+                                        ].divide(const SizedBox(width: 8.0)),
                                       ),
                                     ),
                                     if (false)
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[]
-                                              .divide(SizedBox(width: 8.0)),
+                                              .divide(const SizedBox(width: 8.0)),
                                         ),
                                       ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -225,7 +224,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                 child: Semantics(
                                                   label:
                                                       'Add title to feedback',
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: 250.0,
                                                     child: TextFormField(
                                                       controller: _model
@@ -280,7 +279,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 0.0,
@@ -293,7 +292,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                         focusedBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 0.0,
@@ -337,7 +336,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                                     context)
                                                                 .tfBg,
                                                         contentPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     16.0,
                                                                     0.0,
@@ -379,7 +378,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                 child: Semantics(
                                                   label:
                                                       'create a comment as feedback',
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -434,7 +433,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 0.0,
@@ -447,7 +446,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                         focusedBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 0.0,
@@ -491,7 +490,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                                     context)
                                                                 .tfBg,
                                                         contentPadding:
-                                                            EdgeInsets.all(
+                                                            const EdgeInsets.all(
                                                                 16.0),
                                                       ),
                                                       style:
@@ -524,15 +523,15 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                               ),
                                             ],
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     ),
-                                  ].divide(SizedBox(height: 16.0)),
+                                  ].divide(const SizedBox(height: 16.0)),
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 20.0, 20.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -563,7 +562,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                   'rate': _model.ratingBarValue
                                                       ?.round(),
                                                   'product_id':
-                                                      widget!.product?.id,
+                                                      widget.product?.id,
                                                 });
                                                 logFirebaseEvent(
                                                     'Button_navigate_to');
@@ -572,11 +571,11 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                   'ReviewConfirmation',
                                                   queryParameters: {
                                                     'productId': serializeParam(
-                                                      widget!.product?.id,
+                                                      widget.product?.id,
                                                       ParamType.int,
                                                     ),
                                                     'marketId': serializeParam(
-                                                      widget!.marketId,
+                                                      widget.marketId,
                                                       ParamType.int,
                                                     ),
                                                   }.withoutNulls,
@@ -589,10 +588,10 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                         options: FFButtonOptions(
                                           height: 48.0,
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .tertiary,
@@ -612,7 +611,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                                             .titleSmallFamily),
                                               ),
                                           elevation: 0.0,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1.0,
                                           ),
@@ -625,7 +624,7 @@ class _FeedBackWidgetState extends State<FeedBackWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 20.0)),
+                                ].divide(const SizedBox(width: 20.0)),
                               ),
                             ),
                           ],

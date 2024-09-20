@@ -1,15 +1,9 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/components/menu_setting_item_widget.dart';
 import '/components/nav_bar_delivery/nav_bar_delivery_widget.dart';
 import '/components/user_info_card_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'delivery_account_widget.dart' show DeliveryAccountWidget;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class DeliveryAccountModel extends FlutterFlowModel<DeliveryAccountWidget> {
   ///  State fields for stateful widgets in this page.

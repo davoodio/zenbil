@@ -15,7 +15,7 @@ class WalletFrontCardWidget extends StatefulWidget {
     super.key,
     bool? showHistory,
     required this.wallet,
-  }) : this.showHistory = showHistory ?? false;
+  }) : showHistory = showHistory ?? false;
 
   final bool showHistory;
   final WalletStruct? wallet;
@@ -59,14 +59,14 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
       highlightColor: Colors.transparent,
       onTap: () async {
         logFirebaseEvent('WALLET_FRONT_CARD_Container_riclw2ie_ON_');
-        if (widget!.showHistory) {
+        if (widget.showHistory) {
           logFirebaseEvent('Container_navigate_to');
 
           context.pushNamed(
             'WalletHistory',
             queryParameters: {
               'wallet': serializeParam(
-                widget!.wallet?.walletId,
+                widget.wallet?.walletId,
                 ParamType.int,
               ),
             }.withoutNulls,
@@ -81,7 +81,7 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +111,7 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                                       .titleSmallFamily),
                             ),
                       ),
-                    ].divide(SizedBox(width: 10.0)),
+                    ].divide(const SizedBox(width: 10.0)),
                   ),
                   Expanded(
                     child: Row(
@@ -121,10 +121,10 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                         Text(
                           functions.applyCorrectNumberFormatting(
                               valueOrDefault<double>(
-                                widget!.wallet?.balance,
+                                widget.wallet?.balance,
                                 0.0,
                               ),
-                              widget!.wallet!.currencyCode,
+                              widget.wallet!.currencyCode,
                               FFAppConstants.useCurrencySymbol,
                               true),
                           textAlign: TextAlign.end,
@@ -144,29 +144,29 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                                         .headlineMediumFamily),
                               ),
                         ),
-                      ].divide(SizedBox(width: 4.0)),
+                      ].divide(const SizedBox(width: 4.0)),
                     ),
                   ),
-                ].divide(SizedBox(width: 16.0)),
+                ].divide(const SizedBox(width: 16.0)),
               ),
               wrapWithModel(
                 model: _model.lineColorsModel,
                 updateCallback: () => safeSetState(() {}),
-                child: LineColorsWidget(),
+                child: const LineColorsWidget(),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Visibility(
-                      visible: widget!.showHistory,
+                      visible: widget.showHistory,
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 5.0, 5.0, 5.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -188,7 +188,7 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(SizedBox(width: 5.0)),
+                        ].divide(const SizedBox(width: 5.0)),
                       ),
                     ),
                   ),
@@ -211,10 +211,10 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                           builder: (context) {
                             return Padding(
                               padding: MediaQuery.viewInsetsOf(context),
-                              child: Container(
+                              child: SizedBox(
                                 height: double.infinity,
                                 child: TopupModalWidget(
-                                  walletId: widget!.wallet!.walletId,
+                                  walletId: widget.wallet!.walletId,
                                 ),
                               ),
                             );
@@ -227,7 +227,7 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -254,14 +254,14 @@ class _WalletFrontCardWidgetState extends State<WalletFrontCardWidget> {
                                                   .labelMediumFamily),
                                     ),
                               ),
-                            ].divide(SizedBox(width: 5.0)),
+                            ].divide(const SizedBox(width: 5.0)),
                           ),
                         ),
                       ),
                     ),
                 ],
               ),
-            ].divide(SizedBox(height: 10.0)),
+            ].divide(const SizedBox(height: 10.0)),
           ),
         ),
       ),

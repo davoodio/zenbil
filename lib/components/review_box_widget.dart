@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'review_box_model.dart';
 export 'review_box_model.dart';
 
@@ -54,7 +53,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +67,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                     width: 40.0,
                     height: 40.0,
                     clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: Image.network(
@@ -78,7 +77,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                   ),
                 Expanded(
                   child: Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -88,25 +87,25 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              '${(String firstName, String lastName) {
+                              (String firstName, String lastName) {
                                 return firstName[0] +
                                     '****' +
                                     " " +
                                     lastName[0] +
                                     '****';
                               }(valueOrDefault<String>(
-                                    widget!.user?.firstName != null &&
-                                            widget!.user?.firstName != ''
-                                        ? widget!.user?.firstName
+                                    widget.user?.firstName != null &&
+                                            widget.user?.firstName != ''
+                                        ? widget.user?.firstName
                                         : '*',
                                     '*',
                                   ), valueOrDefault<String>(
-                                    widget!.user?.lastName != null &&
-                                            widget!.user?.lastName != ''
-                                        ? widget!.user?.lastName
+                                    widget.user?.lastName != null &&
+                                            widget.user?.lastName != ''
+                                        ? widget.user?.lastName
                                         : '*',
                                     '*',
-                                  ))}',
+                                  )),
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(
@@ -134,14 +133,14 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                                 color: FlutterFlowTheme.of(context).tertiary,
                               ),
                               direction: Axis.horizontal,
-                              rating: widget!.review!.rate!.toDouble(),
+                              rating: widget.review!.rate!.toDouble(),
                               unratedColor: FlutterFlowTheme.of(context).tfBg,
                               itemCount: 5,
                               itemSize: 16.0,
                             ),
                           ],
                         ),
-                      ].divide(SizedBox(height: 2.0)),
+                      ].divide(const SizedBox(height: 2.0)),
                     ),
                   ),
                 ),
@@ -156,7 +155,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                         Text(
                           dateTimeFormat(
                             "yMMMd",
-                            widget!.review!.createdAt,
+                            widget.review!.createdAt,
                             locale: FFLocalizations.of(context).languageCode,
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -182,7 +181,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                         Text(
                           dateTimeFormat(
                             "relative",
-                            widget!.review!.createdAt,
+                            widget.review!.createdAt,
                             locale: FFLocalizations.of(context).languageCode,
                           ),
                           style: FlutterFlowTheme.of(context)
@@ -201,9 +200,9 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                         ),
                       ],
                     ),
-                  ].divide(SizedBox(height: 2.0)),
+                  ].divide(const SizedBox(height: 2.0)),
                 ),
-              ].divide(SizedBox(width: 16.0)),
+              ].divide(const SizedBox(width: 16.0)),
             ),
             Column(
               mainAxisSize: MainAxisSize.max,
@@ -215,7 +214,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                     Flexible(
                       child: Text(
                         valueOrDefault<String>(
-                          widget!.review?.title,
+                          widget.review?.title,
                           '-',
                         ),
                         style: FlutterFlowTheme.of(context).titleSmall.override(
@@ -239,7 +238,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                     Flexible(
                       child: Text(
                         valueOrDefault<String>(
-                          widget!.review?.comment,
+                          widget.review?.comment,
                           '-',
                         ),
                         style: FlutterFlowTheme.of(context).labelSmall.override(
@@ -255,7 +254,7 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                     ),
                   ],
                 ),
-              ].divide(SizedBox(height: 8.0)),
+              ].divide(const SizedBox(height: 8.0)),
             ),
             if (false)
               Row(
@@ -279,13 +278,13 @@ class _ReviewBoxWidgetState extends State<ReviewBoxWidget> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                ].divide(SizedBox(width: 8.0)),
+                ].divide(const SizedBox(width: 8.0)),
               ),
             Divider(
               thickness: 1.0,
               color: FlutterFlowTheme.of(context).tfBg,
             ),
-          ].divide(SizedBox(height: 20.0)),
+          ].divide(const SizedBox(height: 20.0)),
         ),
       ),
     );

@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'address_card_model.dart';
 export 'address_card_model.dart';
 
@@ -14,7 +13,7 @@ class AddressCardWidget extends StatefulWidget {
     super.key,
     required this.userAddresss,
     bool? showSetDefaultButton,
-  }) : this.showSetDefaultButton = showSetDefaultButton ?? true;
+  }) : showSetDefaultButton = showSetDefaultButton ?? true;
 
   final UserAddressesRow? userAddresss;
   final bool showSetDefaultButton;
@@ -55,7 +54,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -73,7 +72,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     ),
                     AutoSizeText(
                       valueOrDefault<String>(
-                        widget!.userAddresss?.addressName,
+                        widget.userAddresss?.addressName,
                         '-',
                       ),
                       maxLines: 1,
@@ -87,13 +86,13 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                 FlutterFlowTheme.of(context).labelLargeFamily),
                           ),
                     ),
-                  ].divide(SizedBox(width: 8.0)),
+                  ].divide(const SizedBox(width: 8.0)),
                 ),
                 Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Builder(
                     builder: (context) {
-                      if (widget!.userAddresss?.isDefualt ?? false) {
+                      if (widget.userAddresss?.isDefualt ?? false) {
                         return Text(
                           FFLocalizations.of(context).getText(
                             'j27ac60i' /* Default Address */,
@@ -114,7 +113,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         );
                       } else {
                         return Visibility(
-                          visible: widget!.showSetDefaultButton,
+                          visible: widget.showSetDefaultButton,
                           child: FFButtonWidget(
                             onPressed: () async {
                               logFirebaseEvent(
@@ -126,7 +125,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                 },
                                 matchingRows: (rows) => rows.eq(
                                   'id',
-                                  widget!.userAddresss?.id,
+                                  widget.userAddresss?.id,
                                 ),
                               );
                               logFirebaseEvent('Button_update_app_state');
@@ -138,8 +137,8 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                             ),
                             options: FFButtonOptions(
                               height: 40.0,
-                              padding: EdgeInsets.all(12.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsets.all(12.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -155,7 +154,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                                 .titleSmallFamily),
                                   ),
                               elevation: 0.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -167,7 +166,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     },
                   ),
                 ),
-              ].divide(SizedBox(width: 4.0)),
+              ].divide(const SizedBox(width: 4.0)),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -175,7 +174,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                 Flexible(
                   child: AutoSizeText(
                     valueOrDefault<String>(
-                      widget!.userAddresss?.address,
+                      widget.userAddresss?.address,
                       '-',
                     ),
                     maxLines: 3,
@@ -193,7 +192,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                 ),
               ],
             ),
-          ].divide(SizedBox(height: 16.0)),
+          ].divide(const SizedBox(height: 16.0)),
         ),
       ),
     );

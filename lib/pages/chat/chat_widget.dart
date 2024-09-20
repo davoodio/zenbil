@@ -13,16 +13,13 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'chat_model.dart';
 export 'chat_model.dart';
@@ -62,7 +59,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
       logFirebaseEvent('Chat_scroll_to');
       await _model.messages?.animateTo(
         _model.messages!.position.maxScrollExtent,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.ease,
       );
       logFirebaseEvent('Chat_wait__delay');
@@ -70,7 +67,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
       logFirebaseEvent('Chat_scroll_to');
       await _model.messages?.animateTo(
         _model.messages!.position.maxScrollExtent,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.ease,
       );
     });
@@ -93,8 +90,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 50.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 50.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -113,8 +110,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 100.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 100.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -138,7 +135,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
       future: ConversationsTable().querySingleRow(
         queryFn: (q) => q.eq(
           'id',
-          widget!.conversationId,
+          widget.conversationId,
         ),
       ),
       builder: (context, snapshot) {
@@ -146,7 +143,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
         if (!snapshot.hasData) {
           return Scaffold(
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-            body: LoaderQueryWidget(),
+            body: const LoaderQueryWidget(),
           );
         }
         List<ConversationsRow> chatConversationsRowList = snapshot.data!;
@@ -162,7 +159,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             body: SafeArea(
               top: true,
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: Stack(
@@ -170,7 +167,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -188,13 +185,13 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                               future: ConversationMessagesTable().queryRows(
                                 queryFn: (q) => q.eq(
                                   'conversation_id',
-                                  widget!.conversationId,
+                                  widget.conversationId,
                                 ),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
-                                  return LoaderQueryInsideWidget();
+                                  return const LoaderQueryInsideWidget();
                                 }
                                 List<ConversationMessagesRow>
                                     messagesConversationMessagesRowList =
@@ -215,7 +212,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 }
 
                                 return ListView.separated(
-                                  padding: EdgeInsets.fromLTRB(
+                                  padding: const EdgeInsets.fromLTRB(
                                     0,
                                     20.0,
                                     0,
@@ -226,13 +223,13 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                   itemCount: messagesConversationMessagesRowList
                                       .length,
                                   separatorBuilder: (_, __) =>
-                                      SizedBox(height: 8.0),
+                                      const SizedBox(height: 8.0),
                                   itemBuilder: (context, messagesIndex) {
                                     final messagesConversationMessagesRow =
                                         messagesConversationMessagesRowList[
                                             messagesIndex];
                                     return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -248,7 +245,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 8.0, 0.0),
                                                   child: ClipRRect(
@@ -256,9 +253,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                         BorderRadius.circular(
                                                             54.0),
                                                     child: CachedNetworkImage(
-                                                      fadeInDuration: Duration(
+                                                      fadeInDuration: const Duration(
                                                           milliseconds: 500),
-                                                      fadeOutDuration: Duration(
+                                                      fadeOutDuration: const Duration(
                                                           milliseconds: 500),
                                                       imageUrl: FFAppConstants
                                                           .BrandSupportAvatarURL,
@@ -277,7 +274,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                   context)
                                                               .tfBg,
                                                       borderRadius:
-                                                          BorderRadius.only(
+                                                          const BorderRadius.only(
                                                         bottomLeft:
                                                             Radius.circular(
                                                                 16.0),
@@ -294,7 +291,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(12.0),
+                                                          const EdgeInsets.all(12.0),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -314,7 +311,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                   '')
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -327,7 +324,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                 children: [
                                                                   ClipRRect(
                                                                     borderRadius:
-                                                                        BorderRadius
+                                                                        const BorderRadius
                                                                             .only(
                                                                       bottomLeft:
                                                                           Radius.circular(
@@ -347,14 +344,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                       width: double
                                                                           .infinity,
                                                                       constraints:
-                                                                          BoxConstraints(
+                                                                          const BoxConstraints(
                                                                         minHeight:
                                                                             80.0,
                                                                         maxHeight:
                                                                             180.0,
                                                                       ),
                                                                       decoration:
-                                                                          BoxDecoration(
+                                                                          const BoxDecoration(
                                                                         borderRadius:
                                                                             BorderRadius.only(
                                                                           bottomLeft:
@@ -368,7 +365,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         ),
                                                                       ),
                                                                       child:
-                                                                          Container(
+                                                                          SizedBox(
                                                                         width: double
                                                                             .infinity,
                                                                         child:
@@ -400,7 +397,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                               Container(
                                                                                 width: double.infinity,
                                                                                 height: 80.0,
-                                                                                decoration: BoxDecoration(),
+                                                                                decoration: const BoxDecoration(),
                                                                                 child: FlutterFlowAudioPlayer(
                                                                                   audio: Audio.network(
                                                                                     functions.stringToAudioPath(MediaStruct.maybeFromMap(messagesConversationMessagesRow.media!)!.url),
@@ -444,8 +441,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                       type: PageTransitionType.fade,
                                                                                       child: FlutterFlowExpandedImageView(
                                                                                         image: CachedNetworkImage(
-                                                                                          fadeInDuration: Duration(milliseconds: 500),
-                                                                                          fadeOutDuration: Duration(milliseconds: 500),
+                                                                                          fadeInDuration: const Duration(milliseconds: 500),
+                                                                                          fadeOutDuration: const Duration(milliseconds: 500),
                                                                                           imageUrl: functions.stringToImagePath(MediaStruct.maybeFromMap(messagesConversationMessagesRow.media!)!.url),
                                                                                           fit: BoxFit.contain,
                                                                                         ),
@@ -462,8 +459,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                   child: ClipRRect(
                                                                                     borderRadius: BorderRadius.circular(8.0),
                                                                                     child: CachedNetworkImage(
-                                                                                      fadeInDuration: Duration(milliseconds: 500),
-                                                                                      fadeOutDuration: Duration(milliseconds: 500),
+                                                                                      fadeInDuration: const Duration(milliseconds: 500),
+                                                                                      fadeOutDuration: const Duration(milliseconds: 500),
                                                                                       imageUrl: functions.stringToImagePath(MediaStruct.maybeFromMap(messagesConversationMessagesRow.media!)!.url),
                                                                                       width: 300.0,
                                                                                       height: 200.0,
@@ -561,10 +558,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                               FlutterFlowTheme.of(context).bodySmallFamily),
                                                                     ),
                                                               ),
-                                                            ].divide(SizedBox(
+                                                            ].divide(const SizedBox(
                                                                 width: 8.0)),
                                                           ),
-                                                        ].divide(SizedBox(
+                                                        ].divide(const SizedBox(
                                                             height: 8.0)),
                                                       ),
                                                     ),
@@ -573,7 +570,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                   ),
                                                 ),
                                               ],
@@ -589,7 +586,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                   ),
                                                 ),
                                                 Expanded(
@@ -601,7 +598,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                   context)
                                                               .primaryText,
                                                       borderRadius:
-                                                          BorderRadius.only(
+                                                          const BorderRadius.only(
                                                         bottomLeft:
                                                             Radius.circular(
                                                                 16.0),
@@ -618,7 +615,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(12.0),
+                                                          const EdgeInsets.all(12.0),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -638,7 +635,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                   '')
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -651,7 +648,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                 children: [
                                                                   ClipRRect(
                                                                     borderRadius:
-                                                                        BorderRadius
+                                                                        const BorderRadius
                                                                             .only(
                                                                       bottomLeft:
                                                                           Radius.circular(
@@ -671,14 +668,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                       width: double
                                                                           .infinity,
                                                                       constraints:
-                                                                          BoxConstraints(
+                                                                          const BoxConstraints(
                                                                         minHeight:
                                                                             80.0,
                                                                         maxHeight:
                                                                             180.0,
                                                                       ),
                                                                       decoration:
-                                                                          BoxDecoration(
+                                                                          const BoxDecoration(
                                                                         borderRadius:
                                                                             BorderRadius.only(
                                                                           bottomLeft:
@@ -692,7 +689,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         ),
                                                                       ),
                                                                       child:
-                                                                          Container(
+                                                                          SizedBox(
                                                                         width: double
                                                                             .infinity,
                                                                         child:
@@ -724,7 +721,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                               Container(
                                                                                 width: double.infinity,
                                                                                 height: 80.0,
-                                                                                decoration: BoxDecoration(),
+                                                                                decoration: const BoxDecoration(),
                                                                                 child: FlutterFlowAudioPlayer(
                                                                                   audio: Audio.network(
                                                                                     functions.stringToAudioPath(MediaStruct.maybeFromMap(messagesConversationMessagesRow.media!)!.url),
@@ -768,8 +765,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                       type: PageTransitionType.fade,
                                                                                       child: FlutterFlowExpandedImageView(
                                                                                         image: CachedNetworkImage(
-                                                                                          fadeInDuration: Duration(milliseconds: 500),
-                                                                                          fadeOutDuration: Duration(milliseconds: 500),
+                                                                                          fadeInDuration: const Duration(milliseconds: 500),
+                                                                                          fadeOutDuration: const Duration(milliseconds: 500),
                                                                                           imageUrl: functions.stringToImagePath(MediaStruct.maybeFromMap(messagesConversationMessagesRow.media!)!.url),
                                                                                           fit: BoxFit.contain,
                                                                                         ),
@@ -786,8 +783,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                   child: ClipRRect(
                                                                                     borderRadius: BorderRadius.circular(8.0),
                                                                                     child: CachedNetworkImage(
-                                                                                      fadeInDuration: Duration(milliseconds: 500),
-                                                                                      fadeOutDuration: Duration(milliseconds: 500),
+                                                                                      fadeInDuration: const Duration(milliseconds: 500),
+                                                                                      fadeOutDuration: const Duration(milliseconds: 500),
                                                                                       imageUrl: functions.stringToImagePath(MediaStruct.maybeFromMap(messagesConversationMessagesRow.media!)!.url),
                                                                                       width: 300.0,
                                                                                       height: 200.0,
@@ -885,17 +882,17 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                               FlutterFlowTheme.of(context).bodySmallFamily),
                                                                     ),
                                                               ),
-                                                            ].divide(SizedBox(
+                                                            ].divide(const SizedBox(
                                                                 width: 8.0)),
                                                           ),
-                                                        ].divide(SizedBox(
+                                                        ].divide(const SizedBox(
                                                             height: 8.0)),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 0.0, 0.0, 0.0),
                                                   child: ClipRRect(
@@ -903,20 +900,20 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                         BorderRadius.circular(
                                                             54.0),
                                                     child: CachedNetworkImage(
-                                                      fadeInDuration: Duration(
+                                                      fadeInDuration: const Duration(
                                                           milliseconds: 500),
-                                                      fadeOutDuration: Duration(
+                                                      fadeOutDuration: const Duration(
                                                           milliseconds: 500),
-                                                      imageUrl: widget!
+                                                      imageUrl: widget
                                                                       .currentUser
                                                                       ?.avatarUrl !=
                                                                   null &&
-                                                              widget!.currentUser
+                                                              widget.currentUser
                                                                       ?.avatarUrl !=
                                                                   ''
                                                           ? valueOrDefault<
                                                               String>(
-                                                              widget!
+                                                              widget
                                                                   .currentUser
                                                                   ?.avatarUrl,
                                                               'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/muztoi9l6z3w/avatarMen.png',
@@ -931,7 +928,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                 ),
                                               ],
                                             ),
-                                        ].divide(SizedBox(height: 8.0)),
+                                        ].divide(const SizedBox(height: 8.0)),
                                       ),
                                     );
                                   },
@@ -941,7 +938,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 16.0),
                             child: Builder(
                               builder: (context) {
@@ -985,7 +982,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                   );
                                 } else {
                                   return Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                   );
                                 }
                               },
@@ -999,7 +996,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                         (chatConversationsRow?.status ==
                             ConversationStatus.Draft.name))
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -1008,7 +1005,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(0.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 20.0, 0.0, 20.0, 0.0),
                             child: Container(
                               width: 100.0,
@@ -1021,7 +1018,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Container(
+                                    child: SizedBox(
                                       width: 250.0,
                                       child: TextFormField(
                                         controller:
@@ -1039,7 +1036,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                             'message': _model
                                                 .messageTextController.text,
                                             'conversation_id':
-                                                widget!.conversationId,
+                                                widget.conversationId,
                                             'is_sender_support_agent': false,
                                             'media': _model.mediaObject?.url !=
                                                         null &&
@@ -1096,7 +1093,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                             },
                                             matchingRows: (rows) => rows.eq(
                                               'id',
-                                              widget!.conversationId,
+                                              widget.conversationId,
                                             ),
                                           );
                                           logFirebaseEvent('message_scroll_to');
@@ -1104,7 +1101,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                             _model.messages!.position
                                                 .maxScrollExtent,
                                             duration:
-                                                Duration(milliseconds: 100),
+                                                const Duration(milliseconds: 100),
                                             curve: Curves.ease,
                                           );
 
@@ -1158,7 +1155,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           errorBorder: InputBorder.none,
                                           focusedErrorBorder: InputBorder.none,
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 0.0, 0.0, 0.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -1218,9 +1215,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                     if (_model.mediaObject?.url != null &&
                         _model.mediaObject?.url != '')
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 0.0, 20.0, 54.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12.0),
@@ -1232,7 +1229,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 height: double.infinity,
                                 child: Stack(
@@ -1271,7 +1268,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       Container(
                                         width: double.infinity,
                                         height: double.infinity,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: FlutterFlowAudioPlayer(
                                           audio: Audio.network(
                                             functions.stringToAudioPath(
@@ -1338,9 +1335,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                             BorderRadius.circular(8.0),
                                         child: CachedNetworkImage(
                                           fadeInDuration:
-                                              Duration(milliseconds: 500),
+                                              const Duration(milliseconds: 500),
                                           fadeOutDuration:
-                                              Duration(milliseconds: 500),
+                                              const Duration(milliseconds: 500),
                                           imageUrl: functions.stringToImagePath(
                                               _model.mediaObject!.url),
                                           width: double.infinity,
@@ -1349,7 +1346,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                         ),
                                       ),
                                     Align(
-                                      alignment: AlignmentDirectional(1.0, 1.0),
+                                      alignment: const AlignmentDirectional(1.0, 1.0),
                                       child: FlutterFlowIconButton(
                                         borderRadius: 20.0,
                                         borderWidth: 1.0,
@@ -1379,13 +1376,13 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                       ),
                     if (_model.mediaAttachMenu)
                       Align(
-                        alignment: AlignmentDirectional(1.0, 1.0),
+                        alignment: const AlignmentDirectional(1.0, 1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 20.0, 60.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 12.0,
                                   color: Color(0x11000000),
@@ -1433,7 +1430,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           context: context,
                                           storageFolderPath:
                                               valueOrDefault<String>(
-                                            'users/uploads/${currentUserUid}',
+                                            'users/uploads/$currentUserUid',
                                             'users/uploads',
                                           ),
                                           allowPhoto: false,
@@ -1491,8 +1488,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           }
                                         }
 
-                                        if (_model.uploadedFileUrl1 != null &&
-                                            _model.uploadedFileUrl1 != '') {
+                                        if (_model.uploadedFileUrl1 != '') {
                                           logFirebaseEvent(
                                               'attach_update_page_state');
                                           _model.mediaObject = MediaStruct(
@@ -1544,7 +1540,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                         final selectedFiles = await selectFiles(
                                           storageFolderPath:
                                               valueOrDefault<String>(
-                                            'users/uploads/${currentUserUid}',
+                                            'users/uploads/$currentUserUid',
                                             'users/uploads',
                                           ),
                                           allowedExtensions: ['mp3'],
@@ -1594,8 +1590,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           }
                                         }
 
-                                        if (_model.uploadedFileUrl2 != null &&
-                                            _model.uploadedFileUrl2 != '') {
+                                        if (_model.uploadedFileUrl2 != '') {
                                           logFirebaseEvent(
                                               'attach_update_page_state');
                                           _model.mediaObject = MediaStruct(
@@ -1649,7 +1644,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           context: context,
                                           storageFolderPath:
                                               valueOrDefault<String>(
-                                            'users/uploads/${currentUserUid}',
+                                            'users/uploads/$currentUserUid',
                                             'users/uploads',
                                           ),
                                           maxWidth: 1200.00,
@@ -1708,8 +1703,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           }
                                         }
 
-                                        if (_model.uploadedFileUrl3 != null &&
-                                            _model.uploadedFileUrl3 != '') {
+                                        if (_model.uploadedFileUrl3 != '') {
                                           logFirebaseEvent(
                                               'attach_update_page_state');
                                           _model.mediaObject = MediaStruct(
@@ -1739,8 +1733,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       },
                                     ),
                                   ]
-                                      .addToStart(SizedBox(height: 4.0))
-                                      .addToEnd(SizedBox(height: 4.0)),
+                                      .addToStart(const SizedBox(height: 4.0))
+                                      .addToEnd(const SizedBox(height: 4.0)),
                                 ),
                               ),
                             ),
@@ -1750,14 +1744,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                       ),
                     if (_model.uploading)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Container(
                           width: 180.0,
                           height: 75.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 15.0,
                                 color: Color(0x11000000),
@@ -1776,7 +1770,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                               wrapWithModel(
                                 model: _model.loaderQueryInsideModel,
                                 updateCallback: () => safeSetState(() {}),
-                                child: LoaderQueryInsideWidget(),
+                                child: const LoaderQueryInsideWidget(),
                               ),
                               Text(
                                 FFLocalizations.of(context).getText(
@@ -1797,7 +1791,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                   .bodyMediumFamily),
                                     ),
                               ),
-                            ].divide(SizedBox(height: 12.0)),
+                            ].divide(const SizedBox(height: 12.0)),
                           ),
                         ).animateOnPageLoad(
                             animationsMap['containerOnPageLoadAnimation2']!),

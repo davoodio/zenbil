@@ -1,10 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'birthday_update_model.dart';
 export 'birthday_update_model.dart';
 
@@ -37,9 +35,9 @@ class _BirthdayUpdateWidgetState extends State<BirthdayUpdateWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('BIRTHDAY_UPDATE_BirthdayUpdate_ON_INIT_S');
-      if (widget!.birthDay != null) {
+      if (widget.birthDay != null) {
         logFirebaseEvent('BirthdayUpdate_update_component_state');
-        _model.birthdayDate = widget!.birthDay;
+        _model.birthdayDate = widget.birthDay;
         safeSetState(() {});
       } else {
         logFirebaseEvent('BirthdayUpdate_update_component_state');
@@ -68,25 +66,25 @@ class _BirthdayUpdateWidgetState extends State<BirthdayUpdateWidget> {
       onTap: () async {
         logFirebaseEvent('BIRTHDAY_UPDATE_Container_pdy8mups_ON_TA');
         logFirebaseEvent('Container_date_time_picker');
-        final _datePickedDate = await showDatePicker(
+        final datePickedDate = await showDatePicker(
           context: context,
           initialDate: getCurrentTimestamp,
           firstDate: DateTime(1900),
           lastDate: getCurrentTimestamp,
         );
 
-        if (_datePickedDate != null) {
+        if (datePickedDate != null) {
           safeSetState(() {
             _model.datePicked = DateTime(
-              _datePickedDate.year,
-              _datePickedDate.month,
-              _datePickedDate.day,
+              datePickedDate.year,
+              datePickedDate.month,
+              datePickedDate.day,
             );
           });
         }
         if (_model.datePicked != null) {
           logFirebaseEvent('Container_update_component_state');
-          _model.birthdayDate = widget!.birthDay;
+          _model.birthdayDate = widget.birthDay;
           _model.updatePage(() {});
         }
       },
@@ -127,7 +125,7 @@ class _BirthdayUpdateWidgetState extends State<BirthdayUpdateWidget> {
               color: FlutterFlowTheme.of(context).lightBlack,
               size: 24.0,
             ),
-          ].addToStart(SizedBox(width: 10.0)).addToEnd(SizedBox(width: 10.0)),
+          ].addToStart(const SizedBox(width: 10.0)).addToEnd(const SizedBox(width: 10.0)),
         ),
       ),
     );

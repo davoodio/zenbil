@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'counter_product_model.dart';
 export 'counter_product_model.dart';
 
@@ -21,12 +20,12 @@ class CounterProductWidget extends StatefulWidget {
     required this.removeIcon,
     required this.plusIcon,
     double? borderRadius,
-  })  : this.initialNumber = initialNumber ?? 0,
-        this.maxNumber = maxNumber ?? 10,
-        this.minNumber = minNumber ?? 0,
-        this.counterStep = counterStep ?? 1,
-        this.height = height ?? 40.0,
-        this.borderRadius = borderRadius ?? 4.0;
+  })  : initialNumber = initialNumber ?? 0,
+        maxNumber = maxNumber ?? 10,
+        minNumber = minNumber ?? 0,
+        counterStep = counterStep ?? 1,
+        height = height ?? 40.0,
+        borderRadius = borderRadius ?? 4.0;
 
   final int initialNumber;
   final int maxNumber;
@@ -61,7 +60,7 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('COUNTER_PRODUCT_CounterProduct_ON_INIT_S');
       logFirebaseEvent('CounterProduct_update_component_state');
-      _model.counterNumber = widget!.initialNumber;
+      _model.counterNumber = widget.initialNumber;
       safeSetState(() {});
     });
 
@@ -78,11 +77,11 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget!.height + 4,
+      height: widget.height + 4,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(valueOrDefault<double>(
-          widget!.borderRadius,
+          widget.borderRadius,
           0.0,
         )),
       ),
@@ -91,13 +90,13 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
         children: [
           FlutterFlowIconButton(
             borderColor: FlutterFlowTheme.of(context).primaryBackground,
-            borderRadius: widget!.borderRadius,
+            borderRadius: widget.borderRadius,
             borderWidth: 1.0,
-            buttonSize: widget!.height,
+            buttonSize: widget.height,
             fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-            disabledIconColor: Color(0x80FF5963),
-            icon: widget!.removeIcon!,
-            onPressed: (_model.counterNumber == widget!.minNumber)
+            disabledIconColor: const Color(0x80FF5963),
+            icon: widget.removeIcon!,
+            onPressed: (_model.counterNumber == widget.minNumber)
                 ? null
                 : () async {
                     logFirebaseEvent('COUNTER_PRODUCT_COMP_reduce_ON_TAP');
@@ -106,15 +105,15 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
                     logFirebaseEvent('reduce_wait__delay');
                     await Future.delayed(const Duration(milliseconds: 100));
                     logFirebaseEvent('reduce_update_component_state');
-                    _model.counterNumber = widget!.initialNumber;
+                    _model.counterNumber = widget.initialNumber;
                     _model.updatePage(() {});
                   },
           ),
           Container(
-            height: widget!.height,
-            decoration: BoxDecoration(),
+            height: widget.height,
+            decoration: const BoxDecoration(),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -128,7 +127,7 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
                               FlutterFlowTheme.of(context).titleMediumFamily,
                           color: FlutterFlowTheme.of(context).primaryText,
                           fontSize: valueOrDefault<double>(
-                            widget!.height >= 40.0 ? 20.0 : 16.0,
+                            widget.height >= 40.0 ? 20.0 : 16.0,
                             14.0,
                           ),
                           letterSpacing: 0.0,
@@ -143,13 +142,13 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
           ),
           FlutterFlowIconButton(
             borderColor: Colors.transparent,
-            borderRadius: widget!.borderRadius,
+            borderRadius: widget.borderRadius,
             borderWidth: 1.0,
-            buttonSize: widget!.height,
+            buttonSize: widget.height,
             fillColor: FlutterFlowTheme.of(context).primaryText,
-            disabledIconColor: Color(0x80FFFFFF),
-            icon: widget!.plusIcon!,
-            onPressed: (_model.counterNumber == widget!.maxNumber)
+            disabledIconColor: const Color(0x80FFFFFF),
+            icon: widget.plusIcon!,
+            onPressed: (_model.counterNumber == widget.maxNumber)
                 ? null
                 : () async {
                     logFirebaseEvent('COUNTER_PRODUCT_COMP_add_ON_TAP');
@@ -158,7 +157,7 @@ class _CounterProductWidgetState extends State<CounterProductWidget> {
                     logFirebaseEvent('add_wait__delay');
                     await Future.delayed(const Duration(milliseconds: 100));
                     logFirebaseEvent('add_update_component_state');
-                    _model.counterNumber = widget!.initialNumber;
+                    _model.counterNumber = widget.initialNumber;
                     _model.updatePage(() {});
                   },
           ),

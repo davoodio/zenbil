@@ -1,5 +1,4 @@
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/info_modal_widget.dart';
 import '/components/payment_method_select_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -63,12 +62,12 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
       children: [
         Expanded(
           child: Align(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: const AlignmentDirectional(0.0, 1.0),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(0.0),
                   bottomRight: Radius.circular(0.0),
                   topLeft: Radius.circular(15.0),
@@ -80,7 +79,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                 autovalidateMode: AutovalidateMode.always,
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 20.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 20.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +175,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                         .labelLargeFamily),
                                           ),
                                     ),
-                                  ].divide(SizedBox(width: 5.0)),
+                                  ].divide(const SizedBox(width: 5.0)),
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -200,9 +199,9 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                         .labelLargeFamily),
                                           ),
                                     ),
-                                  ].divide(SizedBox(width: 5.0)),
+                                  ].divide(const SizedBox(width: 5.0)),
                                 ),
-                              ].divide(SizedBox(height: 8.0)),
+                              ].divide(const SizedBox(height: 8.0)),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -214,7 +213,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                     focusNode: _model.amountFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.amountTextController',
-                                      Duration(milliseconds: 200),
+                                      const Duration(milliseconds: 200),
                                       () => safeSetState(() {}),
                                     ),
                                     autofocus: false,
@@ -251,7 +250,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                         .labelLargeFamily),
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 0.0,
                                         ),
@@ -259,7 +258,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                             BorderRadius.circular(4.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 0.0,
                                         ),
@@ -288,7 +287,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                       fillColor:
                                           FlutterFlowTheme.of(context).tfBg,
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               16.0, 0.0, 0.0, 0.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
@@ -313,9 +312,9 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                         .asValidator(context),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 16.0)),
+                              ].divide(const SizedBox(width: 16.0)),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                       Row(
@@ -327,9 +326,6 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                 label: 'TopUp the wallet',
                                 child: FFButtonWidget(
                                   onPressed: (_model.amountTextController
-                                                      .text !=
-                                                  null &&
-                                              _model.amountTextController
                                                       .text !=
                                                   ''
                                           ? ((functions.stringToDouble(_model
@@ -350,9 +346,6 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                           logFirebaseEvent(
                                               'TOPUP_MODAL_COMP_APPLY_BTN_ON_TAP');
                                           if (!(_model.amountTextController
-                                                          .text !=
-                                                      null &&
-                                                  _model.amountTextController
                                                           .text !=
                                                       ''
                                               ? ((functions.stringToDouble(_model
@@ -387,7 +380,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                         _model
                                                             .amountTextController
                                                             .text),
-                                                    walletId: widget!.walletId,
+                                                    walletId: widget.walletId,
                                                     transactionType:
                                                         TransactionType.Topup,
                                                   ),
@@ -407,7 +400,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -423,7 +416,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                         .getText(
                                                       '1jpxuuac' /* The value is not in the min-ma... */,
                                                     ),
-                                                    icon: Icon(
+                                                    icon: const Icon(
                                                       FFIcons.kinfoCircle,
                                                     ),
                                                     autoDismiss: true,
@@ -438,9 +431,9 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                   ),
                                   options: FFButtonOptions(
                                     height: 48.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).tertiary,
@@ -457,7 +450,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 0.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -471,7 +464,7 @@ class _TopupModalWidgetState extends State<TopupModalWidget> {
                           ),
                         ],
                       ),
-                    ].divide(SizedBox(height: 24.0)),
+                    ].divide(const SizedBox(height: 24.0)),
                   ),
                 ),
               ),

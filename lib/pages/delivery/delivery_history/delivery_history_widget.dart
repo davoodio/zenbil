@@ -1,10 +1,7 @@
 import '/components/nav_bar_delivery/nav_bar_delivery_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'delivery_history_model.dart';
 export 'delivery_history_model.dart';
 
@@ -49,7 +46,7 @@ class _DeliveryHistoryWidgetState extends State<DeliveryHistoryWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Expanded(
+              const Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [],

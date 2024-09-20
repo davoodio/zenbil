@@ -6,12 +6,9 @@ import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/place.dart';
-import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'add_address_popup_model.dart';
 export 'add_address_popup_model.dart';
 
@@ -52,12 +49,12 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 1.0),
+      alignment: const AlignmentDirectional(0.0, 1.0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(15.0),
@@ -65,7 +62,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 24.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -77,7 +74,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                   Container(
                     width: 40.0,
                     height: 40.0,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                   ),
                   Expanded(
                     child: Text(
@@ -148,14 +145,14 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
                           child: Semantics(
                             label: 'Add address name',
-                            child: Container(
+                            child: SizedBox(
                               width: 250.0,
                               child: TextFormField(
                                 controller: _model.addressNameTextController,
@@ -191,14 +188,14 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                                                     .labelLargeFamily),
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 0.0,
                                     ),
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 0.0,
                                     ),
@@ -221,7 +218,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                                   filled: true,
                                   fillColor: FlutterFlowTheme.of(context).tfBg,
                                   contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 0.0, 0.0),
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -250,7 +247,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -281,7 +278,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -328,7 +325,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                                                     .titleSmallFamily),
                                       ),
                                   elevation: 0.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                   ),
                                   borderRadius: BorderRadius.circular(4.0),
@@ -435,7 +432,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 24.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 24.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -444,9 +441,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                       child: Semantics(
                         label: 'Add new address',
                         child: FFButtonWidget(
-                          onPressed: ((_model.placePickerValue.address ==
-                                          null ||
-                                      _model.placePickerValue.address == '') ||
+                          onPressed: ((_model.placePickerValue.address == '') ||
                                   (_model.placePickerValue.country !=
                                       FFAppConstants.DefaultCountryCode))
                               ? null
@@ -502,7 +497,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                                         return Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
-                                          child: Container(
+                                          child: SizedBox(
                                             height: double.infinity,
                                             child: InfoModalWidget(
                                               icon: Icon(
@@ -536,9 +531,9 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                           options: FFButtonOptions(
                             width: 300.0,
                             height: 48.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).tertiary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -552,7 +547,7 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 0.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),

@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'product_fav_toggle_model.dart';
 export 'product_fav_toggle_model.dart';
@@ -61,23 +60,23 @@ class _ProductFavToggleWidgetState extends State<ProductFavToggleWidget> {
           logFirebaseEvent('Stack_action_block');
           await action_blocks.likeProduct(
             context,
-            productId: widget!.productId,
-            marketId: widget!.marketId,
+            productId: widget.productId,
+            marketId: widget.marketId,
           );
         },
-        child: Container(
+        child: SizedBox(
           width: 34.0,
           height: 34.0,
           child: Stack(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             children: [
-              if (!FFAppState().UserFavorites.contains(widget!.productId))
+              if (!FFAppState().UserFavorites.contains(widget.productId))
                 Icon(
                   FFIcons.kreceiptHeart,
                   color: FlutterFlowTheme.of(context).grayMiddle,
                   size: 20.0,
                 ),
-              if (FFAppState().UserFavorites.contains(widget!.productId))
+              if (FFAppState().UserFavorites.contains(widget.productId))
                 Icon(
                   FFIcons.kreceiptHeart,
                   color: FlutterFlowTheme.of(context).primaryText,

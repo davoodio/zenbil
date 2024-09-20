@@ -13,7 +13,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:styled_divider/styled_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'track_order_model.dart';
 export 'track_order_model.dart';
 
@@ -59,7 +58,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -67,7 +66,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -91,21 +90,21 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                             queryFn: (q) => q
                                 .eq(
                                   'order_group_id',
-                                  widget!.orderGroup?.id,
+                                  widget.orderGroup?.id,
                                 )
                                 .order('created_at'),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
-                              return ShimmerOrdersWidget();
+                              return const ShimmerOrdersWidget();
                             }
                             List<OrderGroupDeliveryTimelineRow>
                                 deliveryTimelineRowsOrderGroupDeliveryTimelineRowList =
                                 snapshot.data!;
 
                             return Container(
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -113,14 +112,14 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
@@ -305,7 +304,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -328,14 +327,14 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                 endOfIndex: false,
                                                 createdDate: dateTimeFormat(
                                                   "yMMMd",
-                                                  widget!.orderGroup?.createdAt,
+                                                  widget.orderGroup?.createdAt,
                                                   locale: FFLocalizations.of(
                                                           context)
                                                       .languageCode,
                                                 ),
                                                 createdTime: dateTimeFormat(
                                                   "Hm",
-                                                  widget!.orderGroup?.createdAt,
+                                                  widget.orderGroup?.createdAt,
                                                   locale: FFLocalizations.of(
                                                           context)
                                                       .languageCode,
@@ -365,9 +364,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                                     OrderStatuses
                                                                         .Preparing
                                                                         .name)
-                                                                .toList()
-                                                                .length >
-                                                            0
+                                                                .toList().isNotEmpty
                                                         ? valueOrDefault<
                                                             String>(
                                                             dateTimeFormat(
@@ -395,9 +392,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                                     OrderStatuses
                                                                         .Preparing
                                                                         .name)
-                                                                .toList()
-                                                                .length >
-                                                            0
+                                                                .toList().isNotEmpty
                                                         ? valueOrDefault<
                                                             String>(
                                                             dateTimeFormat(
@@ -443,9 +438,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                                     OrderStatuses
                                                                         .HasBeenShipped
                                                                         .name)
-                                                                .toList()
-                                                                .length >
-                                                            0
+                                                                .toList().isNotEmpty
                                                         ? valueOrDefault<
                                                             String>(
                                                             dateTimeFormat(
@@ -473,9 +466,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                                     OrderStatuses
                                                                         .HasBeenShipped
                                                                         .name)
-                                                                .toList()
-                                                                .length >
-                                                            0
+                                                                .toList().isNotEmpty
                                                         ? valueOrDefault<
                                                             String>(
                                                             dateTimeFormat(
@@ -521,9 +512,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                                     OrderStatuses
                                                                         .Completed
                                                                         .name)
-                                                                .toList()
-                                                                .length >
-                                                            0
+                                                                .toList().isNotEmpty
                                                         ? valueOrDefault<
                                                             String>(
                                                             dateTimeFormat(
@@ -551,9 +540,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                                     OrderStatuses
                                                                         .Completed
                                                                         .name)
-                                                                .toList()
-                                                                .length >
-                                                            0
+                                                                .toList().isNotEmpty
                                                         ? valueOrDefault<
                                                             String>(
                                                             dateTimeFormat(
@@ -580,9 +567,9 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                       ),
                                     ),
                                   ]
-                                      .divide(SizedBox(height: 36.0))
-                                      .addToStart(SizedBox(height: 24.0))
-                                      .addToEnd(SizedBox(height: 24.0)),
+                                      .divide(const SizedBox(height: 36.0))
+                                      .addToStart(const SizedBox(height: 24.0))
+                                      .addToEnd(const SizedBox(height: 24.0)),
                                 ),
                               ),
                             );
@@ -590,13 +577,13 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            if ((widget!.orderGroup?.status ==
+                            if ((widget.orderGroup?.status ==
                                     OrderStatuses.HasBeenShipped.name) ||
-                                (widget!.orderGroup?.status ==
+                                (widget.orderGroup?.status ==
                                     OrderStatuses.Completed.name))
                               Expanded(
                                 child: Builder(
@@ -611,7 +598,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                               .call(
                                         language: FFLocalizations.of(context)
                                             .languageCode,
-                                        onroOrderId: widget!.orderGroup?.onroId,
+                                        onroOrderId: widget.orderGroup?.onroId,
                                         jwt: currentJwtToken,
                                       );
 
@@ -640,7 +627,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                               backgroundColor:
                                                   Colors.transparent,
                                               alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
+                                                  const AlignmentDirectional(0.0, 0.0)
                                                       .resolve(
                                                           Directionality.of(
                                                               context)),
@@ -675,10 +662,10 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                     ),
                                     options: FFButtonOptions(
                                       height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color:
                                           FlutterFlowTheme.of(context).tertiary,
@@ -695,7 +682,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 0.0,
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),

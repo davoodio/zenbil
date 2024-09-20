@@ -5,10 +5,8 @@ import '/components/header/header_widget.dart';
 import '/components/loaders/loader_box_grid/loader_box_grid_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'brands_model.dart';
 export 'brands_model.dart';
@@ -52,7 +50,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -60,7 +58,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -81,7 +79,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: FutureBuilder<List<MarketsRow>>(
                                   future: MarketsTable().queryRows(
@@ -105,7 +103,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
                                       return Padding(
-                                        padding: EdgeInsets.all(20.0),
+                                        padding: const EdgeInsets.all(20.0),
                                         child: LoaderBoxGridWidget(
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
@@ -145,7 +143,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
 
                                     return MasonryGridView.builder(
                                       gridDelegate:
-                                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                          const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3,
                                       ),
                                       crossAxisSpacing: 20.0,
@@ -160,7 +158,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
                                                 staggeredViewIndex];
                                         return Container(
                                           height: 140.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Semantics(
                                             label: 'Brand details',
                                             child: BrandItemWidget(
@@ -181,8 +179,8 @@ class _BrandsWidgetState extends State<BrandsWidget> {
                                 ),
                               ),
                             ]
-                                .addToStart(SizedBox(height: 20.0))
-                                .addToEnd(SizedBox(height: 20.0)),
+                                .addToStart(const SizedBox(height: 20.0))
+                                .addToEnd(const SizedBox(height: 20.0)),
                           ),
                         ),
                       ),

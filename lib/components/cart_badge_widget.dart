@@ -12,8 +12,8 @@ class CartBadgeWidget extends StatefulWidget {
     this.backColor,
     Color? iconColor,
     bool? goToCartOnTap,
-  })  : this.iconColor = iconColor ?? Colors.white,
-        this.goToCartOnTap = goToCartOnTap ?? true;
+  })  : iconColor = iconColor ?? Colors.white,
+        goToCartOnTap = goToCartOnTap ?? true;
 
   final Color? backColor;
   final Color iconColor;
@@ -60,7 +60,7 @@ class _CartBadgeWidgetState extends State<CartBadgeWidget> {
         highlightColor: Colors.transparent,
         onTap: () async {
           logFirebaseEvent('CART_BADGE_Container_qjtggfb5_ON_TAP');
-          if (widget!.goToCartOnTap) {
+          if (widget.goToCartOnTap) {
             logFirebaseEvent('Container_navigate_to');
 
             context.pushNamed('Cart');
@@ -71,35 +71,35 @@ class _CartBadgeWidgetState extends State<CartBadgeWidget> {
           height: 44.0,
           decoration: BoxDecoration(
             color: valueOrDefault<Color>(
-              widget!.backColor,
+              widget.backColor,
               FlutterFlowTheme.of(context).primaryBackground,
             ),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               children: [
-                if (FFAppState().Cart.products.length == 0)
+                if (FFAppState().Cart.products.isEmpty)
                   Icon(
                     FFIcons.kshoppingBag,
-                    color: widget!.iconColor,
+                    color: widget.iconColor,
                     size: 25.0,
                   ),
-                if (FFAppState().Cart.products.length > 0)
+                if (FFAppState().Cart.products.isNotEmpty)
                   Icon(
                     FFIcons.kshoppingBag,
-                    color: widget!.iconColor,
+                    color: widget.iconColor,
                     size: 25.0,
                   ),
-                if (FFAppState().Cart.products.length > 0)
+                if (FFAppState().Cart.products.isNotEmpty)
                   Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
+                    alignment: const AlignmentDirectional(1.0, -1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 2.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 2.0, 0.0),
                       child: ClipOval(
                         child: Container(
                           width: 16.0,
@@ -109,7 +109,7 @@ class _CartBadgeWidgetState extends State<CartBadgeWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
                                 FFAppState().Cart.products.length.toString(),

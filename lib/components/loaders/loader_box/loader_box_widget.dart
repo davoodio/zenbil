@@ -1,12 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'loader_box_model.dart';
 export 'loader_box_model.dart';
 
@@ -20,13 +15,13 @@ class LoaderBoxWidget extends StatefulWidget {
     Color? shimmerColor,
     double? paddingLeftRight,
     double? padingTopBottom,
-  })  : this.width = width ?? 100.0,
-        this.height = height ?? 100.0,
-        this.color = color ?? const Color(0xFFE0E0E0),
-        this.borderRadius = borderRadius ?? 5.0,
-        this.shimmerColor = shimmerColor ?? const Color(0xFFE1E1E1),
-        this.paddingLeftRight = paddingLeftRight ?? 0.0,
-        this.padingTopBottom = padingTopBottom ?? 0.0;
+  })  : width = width ?? 100.0,
+        height = height ?? 100.0,
+        color = color ?? const Color(0xFFE0E0E0),
+        borderRadius = borderRadius ?? 5.0,
+        shimmerColor = shimmerColor ?? const Color(0xFFE1E1E1),
+        paddingLeftRight = paddingLeftRight ?? 0.0,
+        padingTopBottom = padingTopBottom ?? 0.0;
 
   final double width;
   final double height;
@@ -66,8 +61,8 @@ class _LoaderBoxWidgetState extends State<LoaderBoxWidget>
             delay: 0.0.ms,
             duration: 600.0.ms,
             color: valueOrDefault<Color>(
-              widget!.shimmerColor,
-              Color(0xFFDEDEDE),
+              widget.shimmerColor,
+              const Color(0xFFDEDEDE),
             ),
             angle: 0.524,
           ),
@@ -90,28 +85,28 @@ class _LoaderBoxWidgetState extends State<LoaderBoxWidget>
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
           valueOrDefault<double>(
-            widget!.paddingLeftRight,
+            widget.paddingLeftRight,
             0.0,
           ),
           valueOrDefault<double>(
-            widget!.padingTopBottom,
+            widget.padingTopBottom,
             0.0,
           ),
           valueOrDefault<double>(
-            widget!.paddingLeftRight,
+            widget.paddingLeftRight,
             0.0,
           ),
           valueOrDefault<double>(
-            widget!.padingTopBottom,
+            widget.padingTopBottom,
             0.0,
           )),
       child: Container(
-        width: widget!.width,
-        height: widget!.height,
+        width: widget.width,
+        height: widget.height,
         decoration: BoxDecoration(
-          color: widget!.color,
+          color: widget.color,
           borderRadius: BorderRadius.circular(valueOrDefault<double>(
-            widget!.borderRadius,
+            widget.borderRadius,
             0.0,
           )),
         ),

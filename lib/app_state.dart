@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'flutter_flow/request_manager.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
-import 'backend/api_requests/api_manager.dart';
 import 'backend/supabase/supabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -307,7 +305,7 @@ class FFAppState extends ChangeNotifier {
     _dummyVariable = value;
   }
 
-  LatLng? _MapCenterDefault = LatLng(36.1877383, 44.0106983);
+  LatLng? _MapCenterDefault = const LatLng(36.1877383, 44.0106983);
   LatLng? get MapCenterDefault => _MapCenterDefault;
   set MapCenterDefault(LatLng? value) {
     _MapCenterDefault = value;

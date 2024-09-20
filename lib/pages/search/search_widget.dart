@@ -6,11 +6,8 @@ import '/components/product_search_widget.dart';
 import '/components/search_shell_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'search_model.dart';
 export 'search_model.dart';
 
@@ -64,7 +61,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -72,7 +69,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -99,26 +96,22 @@ class _SearchWidgetState extends State<SearchWidget> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: wrapWithModel(
                                       model: _model.searchShellModel,
                                       updateCallback: () => safeSetState(() {}),
                                       updateOnChange: true,
                                       child: SearchShellWidget(
-                                        tableName: widget!.tableName!,
+                                        tableName: widget.tableName!,
                                         fieldsToReturnFromTable:
-                                            widget!.fieldsToReturnFromTable!,
+                                            widget.fieldsToReturnFromTable!,
                                         fieldsToSearchIn:
-                                            widget!.fieldsToSearchIn!,
+                                            widget.fieldsToSearchIn!,
                                         preDefineSearch:
-                                            widget!.preDefineSearch,
+                                            widget.preDefineSearch,
                                         maxNumberOfResults: 100,
-                                        autoCompleteOptions: _model
-                                                    .searchShellModel.result !=
-                                                null
-                                            ? _model.searchShellModel.result
-                                            : functions.returnEmptyJSONList(),
+                                        autoCompleteOptions: _model.searchShellModel.result ?? functions.returnEmptyJSONList(),
                                       ),
                                     ),
                                   ),
@@ -127,7 +120,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                             ),
                             Expanded(
                               child: Container(
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -148,7 +141,7 @@ class _SearchWidgetState extends State<SearchWidget> {
 
                                                   return ListView.separated(
                                                     padding:
-                                                        EdgeInsets.fromLTRB(
+                                                        const EdgeInsets.fromLTRB(
                                                       0,
                                                       20.0,
                                                       0,
@@ -160,7 +153,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                     itemCount:
                                                         searchResult.length,
                                                     separatorBuilder: (_, __) =>
-                                                        SizedBox(height: 16.0),
+                                                        const SizedBox(height: 16.0),
                                                     itemBuilder: (context,
                                                         searchResultIndex) {
                                                       final searchResultItem =
@@ -168,12 +161,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                               searchResultIndex];
                                                       return Builder(
                                                         builder: (context) {
-                                                          if (widget!
+                                                          if (widget
                                                                   .tableName ==
                                                               'products') {
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -265,12 +258,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                 ),
                                                               ),
                                                             );
-                                                          } else if (widget!
+                                                          } else if (widget
                                                                   .tableName ==
                                                               'markets') {
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -316,12 +309,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                 ),
                                                               ),
                                                             );
-                                                          } else if (widget!
+                                                          } else if (widget
                                                                   .tableName ==
                                                               'view_market_product') {
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -423,12 +416,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                 ),
                                                               ),
                                                             );
-                                                          } else if (widget!
+                                                          } else if (widget
                                                                   .tableName ==
                                                               'view_products_categories') {
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -523,12 +516,12 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                 ),
                                                               ),
                                                             );
-                                                          } else if (widget!
+                                                          } else if (widget
                                                                   .tableName ==
                                                               'brands') {
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -577,7 +570,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                           } else {
                                                             return Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           20.0,
                                                                           0.0,
@@ -679,9 +672,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                     safeSetState(() {}),
                                                 child: EmptyStateWidget(
                                                   title:
-                                                      '${widget!.searchTitle}.',
+                                                      '${widget.searchTitle}.',
                                                   message:
-                                                      'Start search for ${widget!.searchTitle}',
+                                                      'Start search for ${widget.searchTitle}',
                                                   icon: Icon(
                                                     FFIcons.ksearch,
                                                     color: FlutterFlowTheme.of(

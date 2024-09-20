@@ -19,7 +19,7 @@ class EditProfileWidget extends StatefulWidget {
   const EditProfileWidget({
     super.key,
     bool? isOnBoarding,
-  }) : this.isOnBoarding = isOnBoarding ?? false;
+  }) : isOnBoarding = isOnBoarding ?? false;
 
   final bool isOnBoarding;
 
@@ -101,7 +101,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             body: SafeArea(
               top: true,
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: Stack(
@@ -109,7 +109,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -135,7 +135,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     key: _model.formKey,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -144,7 +144,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 24.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -166,7 +166,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                               ],
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: 250.0,
                                             child: TextFormField(
                                               controller: _model
@@ -222,7 +222,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -232,7 +232,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -268,7 +268,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .tfBg,
                                                 contentPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(16.0, 0.0,
                                                             0.0, 0.0),
                                               ),
@@ -297,7 +297,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                   .asValidator(context),
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: 250.0,
                                             child: TextFormField(
                                               controller: _model
@@ -353,7 +353,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -363,7 +363,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -399,7 +399,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .tfBg,
                                                 contentPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(16.0, 0.0,
                                                             0.0, 0.0),
                                               ),
@@ -455,7 +455,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                               ),
                                             ],
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: 250.0,
                                             child: TextFormField(
                                               controller: _model
@@ -524,7 +524,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -534,7 +534,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -570,7 +570,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .tfBg,
                                                 contentPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(16.0, 0.0,
                                                             0.0, 0.0),
                                                 suffixIcon: Icon(
@@ -606,7 +606,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                   .asValidator(context),
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: 250.0,
                                             child: TextFormField(
                                               controller: _model
@@ -662,7 +662,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -672,7 +672,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -708,7 +708,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .tfBg,
                                                 contentPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(16.0, 0.0,
                                                             0.0, 0.0),
                                                 suffixIcon: Icon(
@@ -756,7 +756,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                   ?.birthDate,
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: 250.0,
                                             child: TextFormField(
                                               controller: _model
@@ -816,7 +816,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -826,7 +826,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 0.0,
                                                   ),
@@ -862,7 +862,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .tfBg,
                                                 contentPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(16.0, 0.0,
                                                             0.0, 0.0),
                                               ),
@@ -959,7 +959,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             borderWidth: 2.0,
                                             borderRadius: 4.0,
                                             margin:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 4.0, 16.0, 4.0),
                                             hidesUnderline: true,
                                             isOverButton: true,
@@ -967,17 +967,17 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             isMultiSelect: false,
                                           ),
                                         ]
-                                            .divide(SizedBox(height: 16.0))
-                                            .addToStart(SizedBox(height: 24.0)),
+                                            .divide(const SizedBox(height: 16.0))
+                                            .addToStart(const SizedBox(height: 24.0)),
                                       ),
                                     ),
                                   ),
-                                ].addToEnd(SizedBox(height: 24.0)),
+                                ].addToEnd(const SizedBox(height: 24.0)),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -1029,7 +1029,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             currentUserUid,
                                           ),
                                         );
-                                        if (widget!.isOnBoarding) {
+                                        if (widget.isOnBoarding) {
                                           logFirebaseEvent(
                                               'updateUser_navigate_to');
 
@@ -1045,10 +1045,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       ),
                                       options: FFButtonOptions(
                                         height: 48.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .tertiary,
@@ -1067,7 +1067,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 0.0,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),

@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'addresses_model.dart';
 export 'addresses_model.dart';
 
@@ -50,7 +49,7 @@ class _AddressesWidgetState extends State<AddressesWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -58,7 +57,7 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -84,7 +83,7 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         20.0, 0.0, 20.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -172,14 +171,14 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                               listViewUserAddressesRowList
                                                   .length,
                                           separatorBuilder: (_, __) =>
-                                              SizedBox(height: 16.0),
+                                              const SizedBox(height: 16.0),
                                           itemBuilder:
                                               (context, listViewIndex) {
                                             final listViewUserAddressesRow =
                                                 listViewUserAddressesRowList[
                                                     listViewIndex];
                                             return Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       20.0, 0.0, 20.0, 0.0),
                                               child: wrapWithModel(
@@ -207,17 +206,17 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                       },
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 16.0)),
+                                ].divide(const SizedBox(height: 16.0)),
                               ),
                             ),
                           ]
-                              .divide(SizedBox(height: 24.0))
-                              .addToStart(SizedBox(height: 24.0))
-                              .addToEnd(SizedBox(height: 24.0)),
+                              .divide(const SizedBox(height: 24.0))
+                              .addToStart(const SizedBox(height: 24.0))
+                              .addToEnd(const SizedBox(height: 24.0)),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -238,9 +237,9 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                   ),
                                   options: FFButtonOptions(
                                     height: 48.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).tertiary,
@@ -257,7 +256,7 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 0.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),

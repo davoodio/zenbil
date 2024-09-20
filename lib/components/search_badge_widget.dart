@@ -1,8 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'search_badge_model.dart';
 export 'search_badge_model.dart';
 
@@ -17,8 +15,8 @@ class SearchBadgeWidget extends StatefulWidget {
     required this.fieldsToSearchIn,
     required this.searchTitle,
     required this.preDefineSearch,
-  })  : this.iconColor = iconColor ?? Colors.white,
-        this.goToSearchOnTap = goToSearchOnTap ?? true;
+  })  : iconColor = iconColor ?? Colors.white,
+        goToSearchOnTap = goToSearchOnTap ?? true;
 
   final Color? backColor;
   final Color iconColor;
@@ -66,30 +64,30 @@ class _SearchBadgeWidgetState extends State<SearchBadgeWidget> {
       highlightColor: Colors.transparent,
       onTap: () async {
         logFirebaseEvent('SEARCH_BADGE_Container_sbdyzls3_ON_TAP');
-        if (widget!.goToSearchOnTap) {
+        if (widget.goToSearchOnTap) {
           logFirebaseEvent('Container_navigate_to');
 
           context.pushNamed(
             'Search',
             queryParameters: {
               'tableName': serializeParam(
-                widget!.tableName,
+                widget.tableName,
                 ParamType.String,
               ),
               'fieldsToReturnFromTable': serializeParam(
-                widget!.fieldsToReturnFromTable,
+                widget.fieldsToReturnFromTable,
                 ParamType.String,
               ),
               'fieldsToSearchIn': serializeParam(
-                widget!.fieldsToSearchIn,
+                widget.fieldsToSearchIn,
                 ParamType.String,
               ),
               'searchTitle': serializeParam(
-                widget!.searchTitle,
+                widget.searchTitle,
                 ParamType.String,
               ),
               'preDefineSearch': serializeParam(
-                widget!.preDefineSearch,
+                widget.preDefineSearch,
                 ParamType.String,
               ),
             }.withoutNulls,
@@ -101,20 +99,20 @@ class _SearchBadgeWidgetState extends State<SearchBadgeWidget> {
         height: 44.0,
         decoration: BoxDecoration(
           color: valueOrDefault<Color>(
-            widget!.backColor,
+            widget.backColor,
             FlutterFlowTheme.of(context).primaryBackground,
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             children: [
               Icon(
                 FFIcons.ksearch,
-                color: widget!.iconColor,
+                color: widget.iconColor,
                 size: 25.0,
               ),
             ],

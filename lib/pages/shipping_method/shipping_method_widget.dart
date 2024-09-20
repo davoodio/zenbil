@@ -4,10 +4,7 @@ import '/components/choose_shipping_method_item_widget.dart';
 import '/components/header/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'shipping_method_model.dart';
 export 'shipping_method_model.dart';
 
@@ -49,7 +46,7 @@ class _ShippingMethodWidgetState extends State<ShippingMethodWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
@@ -57,7 +54,7 @@ class _ShippingMethodWidgetState extends State<ShippingMethodWidget> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -105,9 +102,9 @@ class _ShippingMethodWidgetState extends State<ShippingMethodWidget> {
                                     : null;
 
                             return Container(
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: FutureBuilder<List<DeliveryMethodsRow>>(
                                   future: DeliveryMethodsTable().queryRows(
@@ -138,7 +135,7 @@ class _ShippingMethodWidgetState extends State<ShippingMethodWidget> {
                                         snapshot.data!;
 
                                     return ListView.separated(
-                                      padding: EdgeInsets.fromLTRB(
+                                      padding: const EdgeInsets.fromLTRB(
                                         0,
                                         20.0,
                                         0,
@@ -150,7 +147,7 @@ class _ShippingMethodWidgetState extends State<ShippingMethodWidget> {
                                           shippingAddressColumnDeliveryMethodsRowList
                                               .length,
                                       separatorBuilder: (_, __) =>
-                                          SizedBox(height: 16.0),
+                                          const SizedBox(height: 16.0),
                                       itemBuilder: (context,
                                           shippingAddressColumnIndex) {
                                         final shippingAddressColumnDeliveryMethodsRow =

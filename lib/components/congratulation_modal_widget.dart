@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'congratulation_modal_model.dart';
 export 'congratulation_modal_model.dart';
 
@@ -53,14 +52,14 @@ class _CongratulationModalWidgetState extends State<CongratulationModalWidget> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Spacer(),
+          const Spacer(),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(44.0, 0.0, 44.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(44.0, 0.0, 44.0, 0.0),
             child: Container(
               width: 100.0,
               decoration: BoxDecoration(
@@ -68,7 +67,7 @@ class _CongratulationModalWidgetState extends State<CongratulationModalWidget> {
                 borderRadius: BorderRadius.circular(24.0),
               ),
               child: Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +83,7 @@ class _CongratulationModalWidgetState extends State<CongratulationModalWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +113,7 @@ class _CongratulationModalWidgetState extends State<CongratulationModalWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -147,7 +146,7 @@ class _CongratulationModalWidgetState extends State<CongratulationModalWidget> {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

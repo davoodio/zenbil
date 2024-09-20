@@ -6,10 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'delivery_signup_model.dart';
 export 'delivery_signup_model.dart';
 
@@ -63,15 +61,15 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -100,14 +98,14 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                 Expanded(
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 34.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -163,7 +161,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 8.0)),
+                            ].divide(const SizedBox(height: 8.0)),
                           ),
                         ),
                         Form(
@@ -173,7 +171,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: 250.0,
                                 child: TextFormField(
                                   controller:
@@ -181,7 +179,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                   focusNode: _model.fullNameTextFieldFocusNode,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.fullNameTextFieldTextController',
-                                    Duration(milliseconds: 2000),
+                                    const Duration(milliseconds: 2000),
                                     () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
@@ -218,14 +216,14 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                                       .labelLargeFamily),
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 0.0,
                                       ),
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 0.0,
                                       ),
@@ -251,7 +249,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).tfBg,
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -272,7 +270,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                       .asValidator(context),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 250.0,
                                 child: TextFormField(
                                   controller:
@@ -280,7 +278,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                   focusNode: _model.emailTextFieldFocusNode,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.emailTextFieldTextController',
-                                    Duration(milliseconds: 1000),
+                                    const Duration(milliseconds: 1000),
                                     () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
@@ -317,14 +315,14 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                                       .labelLargeFamily),
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 0.0,
                                       ),
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 0.0,
                                       ),
@@ -350,7 +348,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).tfBg,
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -371,7 +369,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                       .asValidator(context),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 250.0,
                                 child: TextFormField(
                                   controller: _model
@@ -380,7 +378,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                       _model.createPasswordTextFieldFocusNode,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.createPasswordTextFieldTextController',
-                                    Duration(milliseconds: 1000),
+                                    const Duration(milliseconds: 1000),
                                     () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
@@ -418,14 +416,14 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                                       .labelLargeFamily),
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 0.0,
                                       ),
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 0.0,
                                       ),
@@ -451,7 +449,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).tfBg,
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 0.0, 0.0),
                                     suffixIcon: InkWell(
                                       onTap: () => safeSetState(
@@ -610,7 +608,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 24.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -618,23 +616,13 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                   children: [
                                     Expanded(
                                       child: FFButtonWidget(
-                                        onPressed: ((_model
-                                                            .fullNameTextFieldTextController
-                                                            .text ==
-                                                        null ||
-                                                    _model.fullNameTextFieldTextController
+                                        onPressed: ((_model.fullNameTextFieldTextController
                                                             .text ==
                                                         '') ||
                                                 (_model.emailTextFieldTextController
                                                             .text ==
-                                                        null ||
-                                                    _model.emailTextFieldTextController
-                                                            .text ==
                                                         '') ||
                                                 (_model.createPasswordTextFieldTextController
-                                                            .text ==
-                                                        null ||
-                                                    _model.createPasswordTextFieldTextController
                                                             .text ==
                                                         ''))
                                             ? null
@@ -703,14 +691,14 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                                   'role': _model
                                                       .deliveryRoleLoaded
                                                       ?.first
-                                                      ?.id,
+                                                      .id,
                                                   'created_at':
                                                       supaSerialize<DateTime>(
                                                           getCurrentTimestamp),
                                                   'role_code': _model
                                                       .deliveryRoleLoaded
                                                       ?.first
-                                                      ?.code,
+                                                      .code,
                                                   'user_id': currentUserUid,
                                                 });
                                                 logFirebaseEvent(
@@ -728,10 +716,10 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                         options: FFButtonOptions(
                                           height: 48.0,
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .tertiary,
@@ -751,7 +739,7 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                                             .titleSmallFamily),
                                               ),
                                           elevation: 0.0,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1.0,
                                           ),
@@ -769,17 +757,17 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                                   ],
                                 ),
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ]
-                          .divide(SizedBox(height: 24.0))
-                          .addToEnd(SizedBox(height: 24.0)),
+                          .divide(const SizedBox(height: 24.0))
+                          .addToEnd(const SizedBox(height: 24.0)),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -796,9 +784,9 @@ class _DeliverySignupWidgetState extends State<DeliverySignupWidget> {
                           context.goNamed('DeliveryLogin');
                         },
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 8.0, 8.0),
                             child: RichText(
                               textScaler: MediaQuery.of(context).textScaler,

@@ -24,11 +24,11 @@ class ProductCardWidget extends StatefulWidget {
     int? marketID,
     this.discountedPrice,
     this.imagesUrl,
-  })  : this.price = price ?? 320.0,
-        this.discount = discount ?? 30.0,
-        this.reviewRate = reviewRate ?? 0.0,
-        this.numberOfReviews = numberOfReviews ?? 0,
-        this.marketID = marketID ?? 0;
+  })  : price = price ?? 320.0,
+        discount = discount ?? 30.0,
+        reviewRate = reviewRate ?? 0.0,
+        numberOfReviews = numberOfReviews ?? 0,
+        marketID = marketID ?? 0;
 
   final String? image;
   final String? productName;
@@ -74,7 +74,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
       child: InkWell(
         splashColor: Colors.transparent,
         focusColor: Colors.transparent,
@@ -88,11 +88,11 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
             'ProductDetail',
             queryParameters: {
               'productId': serializeParam(
-                widget!.productId,
+                widget.productId,
                 ParamType.int,
               ),
               'marketID': serializeParam(
-                widget!.marketID,
+                widget.marketID,
                 ParamType.int,
               ),
             }.withoutNulls,
@@ -115,11 +115,11 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                   Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      if (!(widget!.imagesUrl != null &&
-                              (widget!.imagesUrl)!.isNotEmpty) ||
-                          (widget!.imagesUrl?.length == 1))
+                      if (!(widget.imagesUrl != null &&
+                              (widget.imagesUrl)!.isNotEmpty) ||
+                          (widget.imagesUrl?.length == 1))
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0.0),
                             bottomRight: Radius.circular(0.0),
                             topLeft: Radius.circular(8.0),
@@ -127,7 +127,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                           ),
                           child: Container(
                             height: 120.0,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(0.0),
                                 bottomRight: Radius.circular(0.0),
@@ -136,16 +136,16 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                               ),
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(0.0),
                                 bottomRight: Radius.circular(0.0),
                                 topLeft: Radius.circular(8.0),
                                 topRight: Radius.circular(8.0),
                               ),
                               child: CachedNetworkImage(
-                                fadeInDuration: Duration(milliseconds: 500),
-                                fadeOutDuration: Duration(milliseconds: 500),
-                                imageUrl: widget!.image!,
+                                fadeInDuration: const Duration(milliseconds: 500),
+                                fadeOutDuration: const Duration(milliseconds: 500),
+                                imageUrl: widget.image!,
                                 width: double.infinity,
                                 height: 120.0,
                                 fit: BoxFit.contain,
@@ -153,9 +153,9 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                             ),
                           ),
                         ),
-                      if ((widget!.imagesUrl != null &&
-                              (widget!.imagesUrl)!.isNotEmpty) &&
-                          (widget!.imagesUrl!.length > 1))
+                      if ((widget.imagesUrl != null &&
+                              (widget.imagesUrl)!.isNotEmpty) &&
+                          (widget.imagesUrl!.length > 1))
                         Container(
                           width: double.infinity,
                           height: 120.0,
@@ -166,11 +166,11 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                           child: Builder(
                             builder: (context) {
                               final imageVar =
-                                  widget!.imagesUrl?.toList() ?? [];
+                                  widget.imagesUrl?.toList() ?? [];
 
                               return Semantics(
                                 label: 'Product images',
-                                child: Container(
+                                child: SizedBox(
                                   width: double.infinity,
                                   height: 550.0,
                                   child: Stack(
@@ -193,15 +193,15 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                               Container(
                                                 width: double.infinity,
                                                 height: double.infinity,
-                                                decoration: BoxDecoration(),
+                                                decoration: const BoxDecoration(),
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           0.0),
                                                   child: CachedNetworkImage(
-                                                    fadeInDuration: Duration(
+                                                    fadeInDuration: const Duration(
                                                         milliseconds: 500),
-                                                    fadeOutDuration: Duration(
+                                                    fadeOutDuration: const Duration(
                                                         milliseconds: 500),
                                                     imageUrl:
                                                         valueOrDefault<String>(
@@ -237,7 +237,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                       await _model
                                                           .pageViewController
                                                           ?.previousPage(
-                                                        duration: Duration(
+                                                        duration: const Duration(
                                                             milliseconds: 300),
                                                         curve: Curves.ease,
                                                       );
@@ -246,14 +246,14 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                       width: 24.0,
                                                       height: double.infinity,
                                                       decoration:
-                                                          BoxDecoration(),
+                                                          const BoxDecoration(),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 -1.0, 1.0),
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       4.0,
                                                                       0.0,
@@ -287,7 +287,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                       await _model
                                                           .pageViewController
                                                           ?.nextPage(
-                                                        duration: Duration(
+                                                        duration: const Duration(
                                                             milliseconds: 300),
                                                         curve: Curves.ease,
                                                       );
@@ -296,14 +296,14 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                       width: 24.0,
                                                       height: double.infinity,
                                                       decoration:
-                                                          BoxDecoration(),
+                                                          const BoxDecoration(),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 1.0, 1.0),
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
+                                                              const EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -328,10 +328,10 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 1.0),
+                                            const AlignmentDirectional(0.0, 1.0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 10.0),
                                           child: smooth_page_indicator
                                               .SmoothPageIndicator(
@@ -351,7 +351,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                   .animateToPage(
                                                 i,
                                                 duration:
-                                                    Duration(milliseconds: 500),
+                                                    const Duration(milliseconds: 500),
                                                 curve: Curves.ease,
                                               );
                                               safeSetState(() {});
@@ -390,28 +390,28 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                     ],
                   ),
                   Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
+                    alignment: const AlignmentDirectional(1.0, -1.0),
                     child: wrapWithModel(
                       model: _model.productFavToggleModel,
                       updateCallback: () => safeSetState(() {}),
                       updateOnChange: true,
                       child: ProductFavToggleWidget(
-                        productId: widget!.productId!,
-                        marketId: widget!.marketID,
+                        productId: widget.productId!,
+                        marketId: widget.marketID,
                       ),
                     ),
                   ),
-                  if (widget!.numberOfReviews > 0)
+                  if (widget.numberOfReviews > 0)
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 14.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(12.0, 14.0, 0.0, 0.0),
                       child: Container(
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).alternate,
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               8.0, 2.0, 8.0, 2.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -427,7 +427,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                 child: Text(
                                   valueOrDefault<String>(
                                     formatNumber(
-                                      widget!.reviewRate,
+                                      widget.reviewRate,
                                       formatType: FormatType.custom,
                                       format: '#.#',
                                       locale: '',
@@ -454,7 +454,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                 child: Text(
                                   '(${valueOrDefault<String>(
                                     formatNumber(
-                                      widget!.numberOfReviews,
+                                      widget.numberOfReviews,
                                       formatType: FormatType.compact,
                                     ),
                                     '0',
@@ -475,7 +475,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       ),
                                 ),
                               ),
-                            ].divide(SizedBox(width: 4.0)),
+                            ].divide(const SizedBox(width: 4.0)),
                           ),
                         ),
                       ),
@@ -483,7 +483,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 12.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -495,7 +495,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                         Flexible(
                           child: Text(
                             valueOrDefault<String>(
-                              widget!.productName,
+                              widget.productName,
                               'Samsung 4K LED Ultarafine Tv',
                             ),
                             maxLines: 2,
@@ -538,7 +538,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                   Text(
                                     functions.applyCorrectNumberFormatting(
                                         valueOrDefault<double>(
-                                          (widget!.discountedPrice!) *
+                                          (widget.discountedPrice!) *
                                               FFAppState()
                                                   .country
                                                   .currencyExchangeRate,
@@ -580,16 +580,16 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                       .titleSmallFamily),
                                         ),
                                   ),
-                                ].divide(SizedBox(width: 1.0)),
+                                ].divide(const SizedBox(width: 1.0)),
                               ),
-                              if (widget!.discount > 0.0)
+                              if (widget.discount > 0.0)
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
                                       functions.applyCorrectNumberFormatting(
-                                          widget!.price *
+                                          widget.price *
                                               FFAppState()
                                                   .country
                                                   .currencyExchangeRate,
@@ -617,7 +617,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                     Text(
                                       '-${valueOrDefault<String>(
                                         formatNumber(
-                                          widget!.discount,
+                                          widget.discount,
                                           formatType: FormatType.custom,
                                           format: '###.0',
                                           locale: '',
@@ -640,17 +640,17 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                         .bodyMediumFamily),
                                           ),
                                     ),
-                                  ].divide(SizedBox(width: 2.0)),
+                                  ].divide(const SizedBox(width: 2.0)),
                                 ),
                             ],
                           ),
                         ),
-                      ].divide(SizedBox(width: 2.0)),
+                      ].divide(const SizedBox(width: 2.0)),
                     ),
-                  ].divide(SizedBox(height: 12.0)),
+                  ].divide(const SizedBox(height: 12.0)),
                 ),
               ),
-            ].divide(SizedBox(height: 12.0)),
+            ].divide(const SizedBox(height: 12.0)),
           ),
         ),
       ),

@@ -1,13 +1,10 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'splash_model.dart';
 export 'splash_model.dart';
@@ -95,8 +92,8 @@ class _SplashWidgetState extends State<SplashWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(1.0, 1.0),
-            end: Offset(1.1, 1.1),
+            begin: const Offset(1.0, 1.0),
+            end: const Offset(1.1, 1.1),
           ),
         ],
       ),
@@ -124,21 +121,21 @@ class _SplashWidgetState extends State<SplashWidget>
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(),
-          child: Container(
+          decoration: const BoxDecoration(),
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
@@ -150,7 +147,7 @@ class _SplashWidgetState extends State<SplashWidget>
                         ).animateOnPageLoad(
                             animationsMap['imageOnPageLoadAnimation']!),
                       ),
-                    ].divide(SizedBox(height: 34.0)),
+                    ].divide(const SizedBox(height: 34.0)),
                   ),
                 ),
               ],

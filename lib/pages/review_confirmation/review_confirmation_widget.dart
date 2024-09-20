@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'review_confirmation_model.dart';
 export 'review_confirmation_model.dart';
 
@@ -56,7 +55,7 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -68,7 +67,7 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -85,7 +84,7 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -144,11 +143,11 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                                 ),
                               ],
                             ),
-                          ].divide(SizedBox(height: 8.0)),
+                          ].divide(const SizedBox(height: 8.0)),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -168,7 +167,7 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                                         'ProductDetail',
                                         queryParameters: {
                                           'productId': serializeParam(
-                                            widget!.productId,
+                                            widget.productId,
                                             ParamType.int,
                                           ),
                                           'marketID': serializeParam(
@@ -183,10 +182,10 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                                     ),
                                     options: FFButtonOptions(
                                       height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -234,10 +233,10 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                                     ),
                                     options: FFButtonOptions(
                                       height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color:
                                           FlutterFlowTheme.of(context).tertiary,
@@ -254,7 +253,7 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 0.0,
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -264,10 +263,10 @@ class _ReviewConfirmationWidgetState extends State<ReviewConfirmationWidget> {
                                 ),
                               ],
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
-                    ].divide(SizedBox(height: 30.0)),
+                    ].divide(const SizedBox(height: 30.0)),
                   ),
                 ),
               ],
