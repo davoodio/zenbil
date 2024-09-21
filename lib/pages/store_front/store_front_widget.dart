@@ -215,6 +215,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                           _model.generatedLink = await actions
                                               .generateProductStoreLink(
                                             widget.marketID!,
+                                            _model.market!,
                                           );
                                           logFirebaseEvent('ShareBadge_share');
                                           await Share.share(

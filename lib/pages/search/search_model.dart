@@ -1,3 +1,4 @@
+import '/components/brand_search_widget.dart';
 import '/components/category_search_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/components/header/header_widget.dart';
@@ -27,8 +28,8 @@ class SearchModel extends FlutterFlowModel<SearchWidget> {
   late FlutterFlowDynamicModels<ProductSearchModel> productSearchModels2;
   // Models for ProductSearch dynamic component.
   late FlutterFlowDynamicModels<ProductSearchModel> productSearchModels3;
-  // Models for BrandSearch.
-  late FlutterFlowDynamicModels<MarketSearchModel> brandSearchModels;
+  // Models for BrandSearch dynamic component.
+  late FlutterFlowDynamicModels<BrandSearchModel> brandSearchModels;
   // Models for CategorySearch dynamic component.
   late FlutterFlowDynamicModels<CategorySearchModel> categorySearchModels;
   // Model for EmptyStateStart.
@@ -44,7 +45,7 @@ class SearchModel extends FlutterFlowModel<SearchWidget> {
     marketSearchModels = FlutterFlowDynamicModels(() => MarketSearchModel());
     productSearchModels2 = FlutterFlowDynamicModels(() => ProductSearchModel());
     productSearchModels3 = FlutterFlowDynamicModels(() => ProductSearchModel());
-    brandSearchModels = FlutterFlowDynamicModels(() => MarketSearchModel());
+    brandSearchModels = FlutterFlowDynamicModels(() => BrandSearchModel());
     categorySearchModels =
         FlutterFlowDynamicModels(() => CategorySearchModel());
     emptyStateStartModel = createModel(context, () => EmptyStateModel());

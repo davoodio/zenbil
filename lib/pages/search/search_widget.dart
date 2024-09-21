@@ -1,3 +1,4 @@
+import '/components/brand_search_widget.dart';
 import '/components/category_search_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/components/header/header_widget.dart';
@@ -542,24 +543,24 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                                     safeSetState(
                                                                         () {}),
                                                                 child:
-                                                                    MarketSearchWidget(
+                                                                    BrandSearchWidget(
                                                                   key: Key(
-                                                                    'Keynzt_${getJsonField(
+                                                                    'Key0fj_${getJsonField(
                                                                       searchResultItem,
                                                                       r'''$.id''',
                                                                     ).toString()}',
                                                                   ),
-                                                                  marketName:
+                                                                  brandName:
                                                                       getJsonField(
                                                                     searchResultItem,
                                                                     r'''$.name''',
                                                                   ).toString(),
-                                                                  marketID:
+                                                                  brandID:
                                                                       getJsonField(
                                                                     searchResultItem,
                                                                     r'''$.id''',
                                                                   ),
-                                                                  marketmage:
+                                                                  brandImage:
                                                                       getJsonField(
                                                                     searchResultItem,
                                                                     r'''$.logo_url''',
