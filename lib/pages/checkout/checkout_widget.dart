@@ -836,161 +836,177 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                               ),
                                                         ),
                                                       ),
-                                                      InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'CHECKOUT_PAGE_ChanageAddress_ON_TAP');
-                                                          logFirebaseEvent(
-                                                              'ChanageAddress_bottom_sheet');
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            barrierColor: Colors
-                                                                .transparent,
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () =>
-                                                                    FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
+                                                      if (!_model.isLoading)
+                                                        InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'CHECKOUT_PAGE_ChanageAddress_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'ChanageAddress_bottom_sheet');
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              barrierColor: Colors
+                                                                  .transparent,
+                                                              enableDrag: false,
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () =>
+                                                                      FocusScope.of(
+                                                                              context)
+                                                                          .unfocus(),
                                                                   child:
-                                                                      const SizedBox(
-                                                                    height: double
-                                                                        .infinity,
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
                                                                     child:
-                                                                        AddressInsertWidget(),
+                                                                        const SizedBox(
+                                                                      height: double
+                                                                          .infinity,
+                                                                      child:
+                                                                          AddressInsertWidget(),
+                                                                    ),
                                                                   ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                safeSetState(() =>
+                                                                    _model.addressReturned =
+                                                                        value));
+
+                                                            if (_model
+                                                                    .addressReturned !=
+                                                                null) {
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_update_page_state');
+                                                              _model.deliveryOptions =
+                                                                  [];
+                                                              safeSetState(
+                                                                  () {});
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_update_page_state');
+                                                              _model.userAddress =
+                                                                  _model
+                                                                      .addressReturned;
+                                                              safeSetState(
+                                                                  () {});
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_backend_call');
+                                                              _model.orderAddressUpdated =
+                                                                  await OrdersTable()
+                                                                      .update(
+                                                                data: {
+                                                                  'user_shipping_address_id':
+                                                                      _model
+                                                                          .addressReturned
+                                                                          ?.id,
+                                                                },
+                                                                matchingRows:
+                                                                    (rows) =>
+                                                                        rows.eq(
+                                                                  'id',
+                                                                  widget.order
+                                                                      ?.id,
+                                                                ),
+                                                                returnRows:
+                                                                    true,
+                                                              );
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_backend_call');
+                                                              _model.updatedOrder =
+                                                                  await OrdersTable()
+                                                                      .queryRows(
+                                                                queryFn: (q) =>
+                                                                    q.eq(
+                                                                  'id',
+                                                                  _model
+                                                                      .orderAddressUpdated
+                                                                      ?.first
+                                                                      .id,
                                                                 ),
                                                               );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(() =>
-                                                                  _model.addressReturned =
-                                                                      value));
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_update_app_state');
+                                                              FFAppState()
+                                                                  .dummyVariable = '';
+                                                              safeSetState(
+                                                                  () {});
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_action_block');
+                                                              await _model
+                                                                  .fetchDeliveryMethodsAvailableForOrderGroups(
+                                                                context,
+                                                                order: _model
+                                                                    .orderAddressUpdated
+                                                                    ?.first,
+                                                              );
+                                                              safeSetState(
+                                                                  () {});
+                                                              logFirebaseEvent(
+                                                                  'ChanageAddress_update_app_state');
+                                                              FFAppState()
+                                                                  .dummyVariable = '';
+                                                              safeSetState(
+                                                                  () {});
+                                                            }
 
-                                                          if (_model
-                                                                  .addressReturned !=
-                                                              null) {
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_update_page_state');
-                                                            _model.deliveryOptions =
-                                                                [];
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_update_page_state');
-                                                            _model.userAddress =
-                                                                _model
-                                                                    .addressReturned;
                                                             safeSetState(() {});
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_backend_call');
-                                                            await OrdersTable()
-                                                                .update(
-                                                              data: {
-                                                                'user_shipping_address_id':
-                                                                    _model
-                                                                        .addressReturned
-                                                                        ?.id,
-                                                              },
-                                                              matchingRows:
-                                                                  (rows) =>
-                                                                      rows.eq(
-                                                                'id',
-                                                                widget
-                                                                    .order?.id,
+                                                          },
+                                                          child: Container(
+                                                            decoration:
+                                                                const BoxDecoration(),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                              child:
+                                                                  AutoSizeText(
+                                                                FFLocalizations.of(
+                                                                        context)
+                                                                    .getText(
+                                                                  'e8ptayyf' /* Change / Add New */,
+                                                                ),
+                                                                minFontSize:
+                                                                    8.0,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                    ),
                                                               ),
-                                                            );
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_backend_call');
-                                                            _model.updatedOrder =
-                                                                await OrdersTable()
-                                                                    .queryRows(
-                                                              queryFn: (q) =>
-                                                                  q.eq(
-                                                                'id',
-                                                                widget
-                                                                    .order?.id,
-                                                              ),
-                                                            );
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_update_app_state');
-                                                            FFAppState()
-                                                                .dummyVariable = '';
-                                                            safeSetState(() {});
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_action_block');
-                                                            await _model
-                                                                .fetchDeliveryMethodsAvailableForOrderGroups(
-                                                              context,
-                                                              order: _model
-                                                                  .updatedOrder
-                                                                  ?.first,
-                                                            );
-                                                            safeSetState(() {});
-                                                            logFirebaseEvent(
-                                                                'ChanageAddress_update_app_state');
-                                                            FFAppState()
-                                                                .dummyVariable = '';
-                                                            safeSetState(() {});
-                                                          }
-
-                                                          safeSetState(() {});
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              const BoxDecoration(),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8.0,
-                                                                        8.0,
-                                                                        0.0,
-                                                                        8.0),
-                                                            child: AutoSizeText(
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .getText(
-                                                                'e8ptayyf' /* Change / Add New */,
-                                                              ),
-                                                              minFontSize: 8.0,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts: GoogleFonts
-                                                                            .asMap()
-                                                                        .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                  ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
                                                     ],
                                                   ),
                                                   Row(

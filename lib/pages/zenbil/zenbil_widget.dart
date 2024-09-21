@@ -16,6 +16,7 @@ import '/components/product_card/product_card_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:sticky_headers/sticky_headers.dart';
@@ -563,30 +564,55 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                           final advertisementItem =
                                                               advertisement[
                                                                   advertisementIndex];
-                                                          return wrapWithModel(
-                                                            model: _model
-                                                                .advertiseBannerModels
-                                                                .getModel(
-                                                              advertisementItem
-                                                                  .id
-                                                                  .toString(),
-                                                              advertisementIndex,
-                                                            ),
-                                                            updateCallback: () =>
-                                                                safeSetState(
-                                                                    () {}),
+                                                          return InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              logFirebaseEvent(
+                                                                  'ZENBIL_PAGE_Container_jad0a9wf_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'AdvertiseBanner_action_block');
+                                                              await action_blocks
+                                                                  .advertisementOnClick(
+                                                                context,
+                                                                advertisement:
+                                                                    advertisementItem,
+                                                              );
+                                                            },
                                                             child:
-                                                                AdvertiseBannerWidget(
-                                                              key: Key(
-                                                                'Keyjad_${advertisementItem.id.toString()}',
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .advertiseBannerModels
+                                                                  .getModel(
+                                                                advertisementItem
+                                                                    .id
+                                                                    .toString(),
+                                                                advertisementIndex,
                                                               ),
-                                                              advertise:
-                                                                  advertisementItem,
-                                                              indexInList:
-                                                                  advertisementIndex,
-                                                              numberOfItems: _model
-                                                                  .advertisements
-                                                                  .length,
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              child:
+                                                                  AdvertiseBannerWidget(
+                                                                key: Key(
+                                                                  'Keyjad_${advertisementItem.id.toString()}',
+                                                                ),
+                                                                advertise:
+                                                                    advertisementItem,
+                                                                indexInList:
+                                                                    advertisementIndex,
+                                                                numberOfItems:
+                                                                    _model
+                                                                        .advertisements
+                                                                        .length,
+                                                              ),
                                                             ),
                                                           );
                                                         },

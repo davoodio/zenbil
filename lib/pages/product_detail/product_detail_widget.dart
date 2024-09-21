@@ -23,6 +23,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
@@ -219,6 +220,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                     await actions.generateProductDetailLink(
                                   widget.productId!,
                                   _model.marketData!.id,
+                                  productDetailProductsRow!,
                                 );
                                 logFirebaseEvent('ShareBadge_share');
                                 await Share.share(
@@ -3107,19 +3109,33 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                               itemCount: advertisement.length,
                                                                               itemBuilder: (context, advertisementIndex, _) {
                                                                                 final advertisementItem = advertisement[advertisementIndex];
-                                                                                return wrapWithModel(
-                                                                                  model: _model.advertiseBannerModels.getModel(
-                                                                                    advertisementItem.id.toString(),
-                                                                                    advertisementIndex,
-                                                                                  ),
-                                                                                  updateCallback: () => safeSetState(() {}),
-                                                                                  child: AdvertiseBannerWidget(
-                                                                                    key: Key(
-                                                                                      'Keyqr8_${advertisementItem.id.toString()}',
+                                                                                return InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    logFirebaseEvent('PRODUCT_DETAIL_Container_qr8auk87_ON_TAP');
+                                                                                    logFirebaseEvent('AdvertiseBanner_action_block');
+                                                                                    await action_blocks.advertisementOnClick(
+                                                                                      context,
+                                                                                      advertisement: advertisementItem,
+                                                                                    );
+                                                                                  },
+                                                                                  child: wrapWithModel(
+                                                                                    model: _model.advertiseBannerModels.getModel(
+                                                                                      advertisementItem.id.toString(),
+                                                                                      advertisementIndex,
                                                                                     ),
-                                                                                    advertise: advertisementItem,
-                                                                                    indexInList: advertisementIndex,
-                                                                                    numberOfItems: advertisingQueryAdvertisingRowList.length,
+                                                                                    updateCallback: () => safeSetState(() {}),
+                                                                                    child: AdvertiseBannerWidget(
+                                                                                      key: Key(
+                                                                                        'Keyqr8_${advertisementItem.id.toString()}',
+                                                                                      ),
+                                                                                      advertise: advertisementItem,
+                                                                                      indexInList: advertisementIndex,
+                                                                                      numberOfItems: advertisingQueryAdvertisingRowList.length,
+                                                                                    ),
                                                                                   ),
                                                                                 );
                                                                               },

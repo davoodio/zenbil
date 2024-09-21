@@ -8,7 +8,6 @@ import '/components/shimmer_container_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'checkout_widget.dart' show CheckoutWidget;
 import 'package:flutter/material.dart';
@@ -71,6 +70,8 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   dynamic updatedCalculation;
   // Stores action output result for [Bottom Sheet - addressInsert] action in ChanageAddress widget.
   UserAddressesRow? addressReturned;
+  // Stores action output result for [Backend Call - Update Row(s)] action in ChanageAddress widget.
+  List<OrdersRow>? orderAddressUpdated;
   // Stores action output result for [Backend Call - Query Rows] action in ChanageAddress widget.
   List<OrdersRow>? updatedOrder;
   // State field(s) for paymentOption widget.
@@ -169,14 +170,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
             )?[orderGroupsLoopCounter],
             r'''$.id''',
           ),
-          deliveryAddressId: userAddress?.id,
-        );
-        logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
-        await actions.printAction(
-          getJsonField(
-            orderGroupCalculation,
-            r'''$.calculation.price''',
-          ).toString().toString(),
+          deliveryAddressId: widget!.order?.userAddressId,
         );
         logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
         addToDeliveryOptions(DeliveryOrdersStruct(

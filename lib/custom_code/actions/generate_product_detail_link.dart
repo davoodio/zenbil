@@ -15,16 +15,15 @@ import 'dart:async';
 
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
-Future<String> generateProductDetailLink(int productId, int marketID) async {
+Future<String> generateProductDetailLink(
+    int productId, int marketID, ProductsRow product) async {
 // Set parameters for the Branch link
 
   BranchUniversalObject buo = BranchUniversalObject(
       canonicalIdentifier: 'productDetail/$productId',
-      //canonicalUrl: '',
-      title: 'Check out this Product!',
-      imageUrl:
-          'https://raw.githubusercontent.com/RodrigoSMarques/flutter_branch_sdk/master/assets/branch_logo_qrcode.jpeg',
-      contentDescription: 'Flutter Branch Description',
+      canonicalUrl: 'https://link.zenbil.io',
+      title: product.name ?? '',
+      imageUrl: product.defaultImageUrl ?? '',
       contentMetadata: BranchContentMetaData()
         ..addCustomMetadata('productId', productId)
         ..addCustomMetadata('marketID', marketID));
@@ -35,7 +34,10 @@ Future<String> generateProductDetailLink(int productId, int marketID) async {
     feature: 'sharing',
     stage: 'new share',
   );
-  lp.addControlParam('\$uri_redirect__mode', '1');
+  lp.addControlParam('\$og_image', product.defaultImageUrl ?? '');
+  lp.addControlParam('\$og_title', product.name ?? '');
+  lp.addControlParam('\$og_image_width', 200);
+  lp.addControlParam('\$og_image_height', 200);
 
   // Generate the Branch link
   BranchResponse response =
