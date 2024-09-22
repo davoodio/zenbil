@@ -392,3 +392,10 @@ bool isValueInteger(dynamic value) {
   }
   return false;
 }
+
+int findIndexOfDeliveryOrderForAnOrderGroupId(
+  List<DeliveryOrdersStruct> list,
+  int id,
+) {
+  return list.indexWhere((element) => element.orderGroupId == id);
+}

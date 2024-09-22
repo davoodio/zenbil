@@ -355,8 +355,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                           ),
                                           Builder(
                                             builder: (context) {
-                                              final orderGroupItem =
-                                                  widget.orderGroups!.toList();
+                                              final orderGroupItem = widget
+                                                  .orderGroups!
+                                                  .sortedList(
+                                                      keyOf: (e) => e.id,
+                                                      desc: false)
+                                                  .toList();
 
                                               return Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -610,7 +614,12 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                         'DeliveryMethodItem_update_page_state');
                                                                     _model
                                                                         .updateDeliveryOptionsAtIndex(
-                                                                      orderGroupItemIndex,
+                                                                      functions.findIndexOfDeliveryOrderForAnOrderGroupId(
+                                                                          _model
+                                                                              .deliveryOptions
+                                                                              .toList(),
+                                                                          orderGroupItemItem
+                                                                              .id),
                                                                       (e) => e
                                                                         ..updateSelectedDeliveryMethodForOrderGroup(
                                                                           (e) => e
