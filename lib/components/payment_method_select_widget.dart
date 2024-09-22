@@ -426,7 +426,7 @@ class _PaymentMethodSelectWidgetState extends State<PaymentMethodSelectWidget> {
                                                       FFLocalizations.of(
                                                               context)
                                                           .getText(
-                                                        'oo9x5ouf' /* AMWAL */,
+                                                        'oo9x5ouf' /* Credit Card */,
                                                       ),
                                                       style:
                                                           FlutterFlowTheme.of(

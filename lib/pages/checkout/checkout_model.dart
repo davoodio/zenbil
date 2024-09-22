@@ -4,10 +4,10 @@ import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/delivery_method_item_widget.dart';
 import '/components/info_modal_widget.dart';
+import '/components/pick_how_to_pay_widget.dart';
 import '/components/shimmer_container_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'checkout_widget.dart' show CheckoutWidget;
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
 
   UserAddressesRow? userAddress;
 
-  PaymentTypesRow? paymentMethod;
+  PaymentTypesRow? selectedPaymentType;
 
   List<DeliveryOrdersStruct> deliveryOptions = [];
   void addToDeliveryOptions(DeliveryOrdersStruct item) =>
@@ -74,8 +74,8 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   List<OrdersRow>? orderAddressUpdated;
   // Stores action output result for [Backend Call - Query Rows] action in ChanageAddress widget.
   List<OrdersRow>? updatedOrder;
-  // State field(s) for paymentOption widget.
-  FormFieldController<String>? paymentOptionValueController;
+  // Models for PickHowToPay dynamic component.
+  late FlutterFlowDynamicModels<PickHowToPayModel> pickHowToPayModels;
   // Model for ShimmerContainer component.
   late ShimmerContainerModel shimmerContainerModel1;
   // Model for ShimmerContainer component.
@@ -89,6 +89,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   void initState(BuildContext context) {
     deliveryMethodItemModels =
         FlutterFlowDynamicModels(() => DeliveryMethodItemModel());
+    pickHowToPayModels = FlutterFlowDynamicModels(() => PickHowToPayModel());
     shimmerContainerModel1 =
         createModel(context, () => ShimmerContainerModel());
     shimmerContainerModel2 =
@@ -98,6 +99,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   @override
   void dispose() {
     deliveryMethodItemModels.dispose();
+    pickHowToPayModels.dispose();
     shimmerContainerModel1.dispose();
     shimmerContainerModel2.dispose();
   }
@@ -359,7 +361,4 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
       r'''$.error''',
     );
   }
-
-  /// Additional helper methods.
-  String? get paymentOptionValue => paymentOptionValueController?.value;
 }

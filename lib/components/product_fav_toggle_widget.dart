@@ -79,7 +79,7 @@ class _ProductFavToggleWidgetState extends State<ProductFavToggleWidget> {
               if (FFAppState().UserFavorites.contains(widget.productId))
                 Icon(
                   FFIcons.kreceiptHeart,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).liked,
                   size: 20.0,
                 ),
             ],

@@ -6,14 +6,13 @@ import '/components/address_insert_widget.dart';
 import '/components/delivery_method_item_widget.dart';
 import '/components/info_modal_widget.dart';
 import '/components/order_history_item/order_history_item_widget.dart';
+import '/components/pick_how_to_pay_widget.dart';
 import '/components/shimmer_container_widget.dart';
 import '/components/shimmer_orders_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -1072,149 +1071,119 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleSmall
+                                                                .labelLarge
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .titleSmallFamily,
+                                                                      .labelLargeFamily,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryText,
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
                                                                           FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily),
+                                                                              .labelLargeFamily),
                                                                 ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(20.0, 0.0,
-                                                                20.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        FutureBuilder<
-                                                            List<
-                                                                PaymentTypesRow>>(
-                                                          future:
-                                                              PaymentTypesTable()
-                                                                  .queryRows(
-                                                            queryFn: (q) =>
-                                                                q.eq(
-                                                              'published',
-                                                              true,
-                                                            ),
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 38.0,
-                                                                  height: 38.0,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    valueColor:
-                                                                        AlwaysStoppedAnimation<
-                                                                            Color>(
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<PaymentTypesRow>
-                                                                paymentOptionPaymentTypesRowList =
-                                                                snapshot.data!;
-
-                                                            return FlutterFlowRadioButton(
-                                                              options: paymentOptionPaymentTypesRowList
-                                                                  .map((e) =>
-                                                                      e.type)
-                                                                  .withoutNulls
-                                                                  .toList()
-                                                                  .toList(),
-                                                              onChanged: (val) =>
-                                                                  safeSetState(
-                                                                      () {}),
-                                                              controller: _model
-                                                                      .paymentOptionValueController ??=
-                                                                  FormFieldController<
-                                                                          String>(
-                                                                      null),
-                                                              optionHeight:
-                                                                  32.0,
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
-                                                                      ),
-                                                              selectedTextStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).labelMediumFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
-                                                                      ),
-                                                              buttonPosition:
-                                                                  RadioButtonPosition
-                                                                      .left,
-                                                              direction:
-                                                                  Axis.vertical,
-                                                              radioButtonColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                              inactiveRadioButtonColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                              toggleable: false,
-                                                              horizontalAlignment:
-                                                                  WrapAlignment
-                                                                      .start,
-                                                              verticalAlignment:
-                                                                  WrapCrossAlignment
-                                                                      .start,
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        20.0, 0.0, 20.0, 0.0),
+                                                child: FutureBuilder<
+                                                    List<PaymentTypesRow>>(
+                                                  future: PaymentTypesTable()
+                                                      .queryRows(
+                                                    queryFn: (q) => q.eq(
+                                                      'published',
+                                                      true,
                                                     ),
                                                   ),
-                                                ],
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 38.0,
+                                                          height: 38.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<PaymentTypesRow>
+                                                        listViewPaymentTypesRowList =
+                                                        snapshot.data!;
+
+                                                    return ListView.builder(
+                                                      padding: EdgeInsets.zero,
+                                                      primary: false,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          listViewPaymentTypesRowList
+                                                              .length,
+                                                      itemBuilder: (context,
+                                                          listViewIndex) {
+                                                        final listViewPaymentTypesRow =
+                                                            listViewPaymentTypesRowList[
+                                                                listViewIndex];
+                                                        return wrapWithModel(
+                                                          model: _model
+                                                              .pickHowToPayModels
+                                                              .getModel(
+                                                            listViewPaymentTypesRow
+                                                                .id
+                                                                .toString(),
+                                                            listViewIndex,
+                                                          ),
+                                                          updateCallback: () =>
+                                                              safeSetState(
+                                                                  () {}),
+                                                          child:
+                                                              PickHowToPayWidget(
+                                                            key: Key(
+                                                              'Keywsf_${listViewPaymentTypesRow.id.toString()}',
+                                                            ),
+                                                            activeItem: _model
+                                                                .selectedPaymentType,
+                                                            item:
+                                                                listViewPaymentTypesRow,
+                                                            onSelectedCallback:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'CHECKOUT_Container_wsfab9m0_CALLBACK');
+                                                              logFirebaseEvent(
+                                                                  'PickHowToPay_update_page_state');
+                                                              _model.selectedPaymentType =
+                                                                  listViewPaymentTypesRow;
+                                                              safeSetState(
+                                                                  () {});
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                             ].divide(const SizedBox(height: 8.0)),
                                           ),
@@ -1667,84 +1636,86 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                 child: Builder(
                                   builder: (context) => FFButtonWidget(
                                     onPressed: (_model.isLoading ||
-                                            (_model.paymentOptionValue ==
-                                                    null ||
-                                                _model.paymentOptionValue ==
-                                                    '') ||
+                                            (_model.selectedPaymentType ==
+                                                null) ||
                                             _model.isApiCallUnsuccessful ||
                                             (_model.userAddress == null))
                                         ? null
                                         : () async {
                                             logFirebaseEvent(
                                                 'CHECKOUT_PAGE_CONFIRM_ORDER_BTN_ON_TAP');
-                                            logFirebaseEvent(
-                                                'Button_backend_call');
-                                            await OrdersTable().update(
-                                              data: {
-                                                'user_shipping_address_id':
-                                                    _model.userAddress?.id,
-                                                'price_delivery':
-                                                    _model.deliveryTotalFee,
-                                                'price_total': (widget.order!
-                                                        .priceSubTotal!) +
-                                                    (_model.deliveryTotalFee!),
-                                              },
-                                              matchingRows: (rows) => rows.eq(
-                                                'id',
-                                                widget.order?.id,
-                                              ),
-                                            );
-                                            while (_model
-                                                    .orderGroupsLoopCounter <
-                                                _model.deliveryOptions.length) {
+                                            if (_model.userAddress != null) {
                                               logFirebaseEvent(
                                                   'Button_backend_call');
-                                              await OrderGroupsTable().update(
+                                              await OrdersTable().update(
                                                 data: {
-                                                  'price_delivery': _model
-                                                      .deliveryOptions[_model
-                                                          .orderGroupsLoopCounter]
-                                                      .selectedOptionPrice
-                                                      .roundToDouble(),
-                                                  'price_total': (widget
-                                                          .orderGroups!
-                                                          .where((e) =>
-                                                              e.id ==
-                                                              _model
-                                                                  .deliveryOptions[
-                                                                      _model
-                                                                          .orderGroupsLoopCounter]
-                                                                  .orderGroupId)
-                                                          .toList()
-                                                          .first
+                                                  'user_shipping_address_id':
+                                                      _model.userAddress?.id,
+                                                  'price_delivery':
+                                                      _model.deliveryTotalFee,
+                                                  'price_total': (widget.order!
                                                           .priceSubTotal!) +
-                                                      _model
-                                                          .deliveryOptions[_model
-                                                              .orderGroupsLoopCounter]
-                                                          .selectedOptionPrice
-                                                          .roundToDouble(),
+                                                      (_model
+                                                          .deliveryTotalFee!),
                                                 },
                                                 matchingRows: (rows) => rows.eq(
                                                   'id',
-                                                  _model
-                                                      .deliveryOptions[_model
-                                                          .orderGroupsLoopCounter]
-                                                      .orderGroupId,
+                                                  widget.order?.id,
                                                 ),
                                               );
+                                              while (_model
+                                                      .orderGroupsLoopCounter <
+                                                  _model
+                                                      .deliveryOptions.length) {
+                                                logFirebaseEvent(
+                                                    'Button_backend_call');
+                                                await OrderGroupsTable().update(
+                                                  data: {
+                                                    'price_delivery': _model
+                                                        .deliveryOptions[_model
+                                                            .orderGroupsLoopCounter]
+                                                        .selectedOptionPrice
+                                                        .roundToDouble(),
+                                                    'price_total': (widget
+                                                            .orderGroups!
+                                                            .where((e) =>
+                                                                e.id ==
+                                                                _model
+                                                                    .deliveryOptions[
+                                                                        _model
+                                                                            .orderGroupsLoopCounter]
+                                                                    .orderGroupId)
+                                                            .toList()
+                                                            .first
+                                                            .priceSubTotal!) +
+                                                        _model
+                                                            .deliveryOptions[_model
+                                                                .orderGroupsLoopCounter]
+                                                            .selectedOptionPrice
+                                                            .roundToDouble(),
+                                                  },
+                                                  matchingRows: (rows) =>
+                                                      rows.eq(
+                                                    'id',
+                                                    _model
+                                                        .deliveryOptions[_model
+                                                            .orderGroupsLoopCounter]
+                                                        .orderGroupId,
+                                                  ),
+                                                );
+                                                logFirebaseEvent(
+                                                    'Button_update_page_state');
+                                                _model.orderGroupsLoopCounter =
+                                                    _model.orderGroupsLoopCounter +
+                                                        1;
+                                                safeSetState(() {});
+                                              }
                                               logFirebaseEvent(
                                                   'Button_update_page_state');
-                                              _model.orderGroupsLoopCounter =
-                                                  _model.orderGroupsLoopCounter +
-                                                      1;
+                                              _model.orderGroupsLoopCounter = 0;
                                               safeSetState(() {});
-                                            }
-                                            logFirebaseEvent(
-                                                'Button_update_page_state');
-                                            _model.orderGroupsLoopCounter = 0;
-                                            safeSetState(() {});
-                                            if (_model.userAddress != null) {
-                                              if (_model.paymentOptionValue ==
+                                              if (_model.selectedPaymentType
+                                                      ?.type ==
                                                   PaymentTypes.FIB.name) {
                                                 logFirebaseEvent(
                                                     'Button_navigate_to');
@@ -1775,7 +1746,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                   }.withoutNulls,
                                                 );
                                               } else if (_model
-                                                      .paymentOptionValue ==
+                                                      .selectedPaymentType
+                                                      ?.type ==
                                                   PaymentTypes.Wallet.name) {
                                                 if (FFAppState()
                                                         .Wallet
@@ -1950,7 +1922,8 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                   );
                                                 }
                                               } else if (_model
-                                                      .paymentOptionValue ==
+                                                      .selectedPaymentType
+                                                      ?.type ==
                                                   PaymentTypes.Amwal.name) {
                                                 logFirebaseEvent(
                                                     'Button_action_block');
