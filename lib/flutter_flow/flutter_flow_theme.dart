@@ -200,7 +200,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color tfBg = const Color(0xFFE4E9EA);
   late Color cartBg = const Color(0xFFE8F1FE);
   late Color boxShadow = const Color(0x265C666D);
-  late Color liked = const Color(0xFFF71D6D);
+  late Color liked = const Color(0xFFFE251B);
   late Color secondary25 = const Color(0x4039D2C0);
   late Color secondary50 = const Color(0x8039D2C0);
   late Color primary25 = const Color(0x402473F3);
@@ -617,7 +617,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color tfBg = const Color(0xFF0C0E11);
   late Color cartBg = const Color(0xFF262A34);
   late Color boxShadow = const Color(0x27000000);
-  late Color liked = const Color(0xFFF71D6D);
+  late Color liked = const Color(0xFFFE251B);
   late Color secondary25 = const Color(0x4039D2C0);
   late Color secondary50 = const Color(0x7F39D2C0);
   late Color primary25 = const Color(0x3F2473F3);

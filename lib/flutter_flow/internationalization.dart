@@ -333,11 +333,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'طريقة الدفع',
       'fa': 'روش پرداخت',
     },
-    'x7mwj537': {
-      'en': 'Option 1',
-      'ar': 'الخيار 1',
-      'fa': 'گزینه 1',
-    },
     '4gplc6gd': {
       'en': 'Cost',
       'ar': 'يكلف',
@@ -2987,9 +2982,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fa': 'پرداخت با',
     },
     'oo9x5ouf': {
-      'en': 'AMWAL',
-      'ar': 'أموال',
-      'fa': 'آموال',
+      'en': 'Credit Card',
+      'ar': 'بطاقة إئتمان',
+      'fa': 'کارت اعتباری',
     },
   },
   // ReviewSummary

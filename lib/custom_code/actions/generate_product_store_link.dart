@@ -23,7 +23,6 @@ Future<String> generateProductStoreLink(int marketId, MarketsRow market) async {
     canonicalUrl: 'https://link.zenbil.io',
     title: market.name ?? '',
     imageUrl: market.logoUrl ?? '',
-    contentDescription: market.description ?? '',
     contentMetadata: BranchContentMetaData()
       ..addCustomMetadata('marketId', marketId),
   );
