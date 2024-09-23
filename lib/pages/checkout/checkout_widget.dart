@@ -1956,6 +1956,52 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       PaymentTypes.Amwal,
                                                   walletId: 0,
                                                 );
+                                              } else if (_model
+                                                      .selectedPaymentType
+                                                      ?.type ==
+                                                  PaymentTypes
+                                                      .CashOnDelivery.name) {
+                                                logFirebaseEvent(
+                                                    'Button_backend_call');
+                                                _model.paymentTypeCOD =
+                                                    await PaymentTypesTable()
+                                                        .queryRows(
+                                                  queryFn: (q) => q.eq(
+                                                    'type',
+                                                    PaymentTypes
+                                                        .CashOnDelivery.name,
+                                                  ),
+                                                );
+                                                logFirebaseEvent(
+                                                    'Button_backend_call');
+                                                await OrdersTable().update(
+                                                  data: {
+                                                    'order_status':
+                                                        OrderStatuses
+                                                            .OrderReceived.name,
+                                                    'payment_type_id': _model
+                                                        .paymentTypeCOD
+                                                        ?.first
+                                                        .id,
+                                                  },
+                                                  matchingRows: (rows) =>
+                                                      rows.eq(
+                                                    'id',
+                                                    widget.order?.id,
+                                                  ),
+                                                );
+                                                logFirebaseEvent(
+                                                    'Button_navigate_to');
+
+                                                context.goNamed(
+                                                  'OrderConfirmation',
+                                                  pathParameters: {
+                                                    'order': serializeParam(
+                                                      widget.order,
+                                                      ParamType.SupabaseRow,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
                                               }
                                             } else {
                                               logFirebaseEvent(
