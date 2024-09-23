@@ -84,6 +84,8 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   ApiCallResponse? payWalletResponse;
   // Stores action output result for [Backend Call - Query Rows] action in Button widget.
   List<WalletsRow>? walletQuery;
+  // Stores action output result for [Backend Call - Query Rows] action in Button widget.
+  List<PaymentTypesRow>? paymentTypeCOD;
 
   @override
   void initState(BuildContext context) {

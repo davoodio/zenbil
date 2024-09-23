@@ -37,6 +37,7 @@ void main() async {
 
   // Start final custom actions code
   await actions.oneSignalInitialize();
+  await actions.initBranchDeepLinking();
   // End final custom actions code
 
   runApp(ChangeNotifierProvider(

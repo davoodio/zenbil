@@ -45,6 +45,8 @@ class _ControlWidgetState extends State<ControlWidget>
       _model.actionFinished = await actions.handleDynamicLink(
         context,
       );
+      logFirebaseEvent('Control_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 1000));
       if (getJsonField(
             _model.actionFinished,
             r'''$.success''',
