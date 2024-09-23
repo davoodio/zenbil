@@ -6,14 +6,14 @@
         <string>key_live_ezoJ4eedleh3C5NQrbHitkdawthQO3IU</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:https://link.zenbil.io</string>
- 		<string>applinks:https://bq5sr-alternate.app.link</string>
+		<string>applinks:link.zenbil.io</string>
+ 		<string>applinks:bq5sr-alternate.app.link</string>
 	</array>
 	<key>branch_universal_link_domains</key>
     	<array>
-        	<string>https://link.zenbil.io</string>
-			<string>https://bq5sr.app.link</string>
-        	<string>https://bq5sr-alternate.app.link</string>
+        	<string>link.zenbil.io</string>
+			<string>bq5sr.app.link</string>
+        	<string>bq5sr-alternate.app.link</string>
     	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -46,35 +46,10 @@
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>CFBundleURLSchemes</key>
-            <array>
-                <!--FF_REVERSED_CLIENT_ID-->
-                
-            </array>
+			<array>
+				<string>zenbilconsumer</string>
+			</array>
         </dict>
-
-        <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>link.zenbil.io</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-        <string>https</string>
-        </array>
-    	<key>CFBundleURLTypes</key>
-    	<array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.gettico.zenbil</string>
-            </array>
-            <key>CFBundleURLName</key>
-            <string>com.gettico.zenbil</string>
-        </dict>
-    </array>
-    </dict>
     </array>
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
