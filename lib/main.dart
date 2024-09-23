@@ -1,3 +1,4 @@
+
 import '/custom_code/actions/index.dart' as actions;
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +41,7 @@ void main() async {
   // Start final custom actions code
   await actions.oneSignalInitialize();
   await actions.initBranchDeepLinking();
+  FlutterBranchSdk.validateSDKIntegration();
   // End final custom actions code
 
   runApp(ChangeNotifierProvider(
