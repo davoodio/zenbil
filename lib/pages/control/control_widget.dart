@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -41,249 +40,229 @@ class _ControlWidgetState extends State<ControlWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CONTROL_PAGE_Control_ON_INIT_STATE');
-      logFirebaseEvent('Control_custom_action');
-      _model.actionFinished = await actions.handleDynamicLink(
-        context,
-      );
-      logFirebaseEvent('Control_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 1000));
-      if (getJsonField(
-            _model.actionFinished,
-            r'''$.success''',
-          ) &&
-          (FFAppState().storeID != 0)) {
-        if (FFAppState().productID != 0) {
-          logFirebaseEvent('Control_navigate_to');
-
-          context.goNamed(
-            'ProductDetail',
-            queryParameters: {
-              'productId': serializeParam(
-                FFAppState().productID,
-                ParamType.int,
-              ),
-              'marketID': serializeParam(
-                FFAppState().storeID,
-                ParamType.int,
-              ),
-            }.withoutNulls,
+      await Future.wait([
+        Future(() async {
+          // FetchWallets
+          logFirebaseEvent('Control_FetchWallets');
+          _model.userWallet = await WalletsTable().queryRows(
+            queryFn: (q) => q.eq(
+              'user_id',
+              (currentUserUid != '') &&
+                      (currentUserUid != '')
+                  ? currentUserUid
+                  : '00000000-0000-0000-0000-000000000000',
+            ),
           );
-        } else {
-          logFirebaseEvent('Control_navigate_to');
-
-          context.goNamed(
-            'StoreFront',
-            queryParameters: {
-              'marketID': serializeParam(
-                FFAppState().storeID,
-                ParamType.int,
-              ),
-            }.withoutNulls,
-          );
-        }
-
-        logFirebaseEvent('Control_update_app_state');
-        FFAppState().storeID = 0;
-        FFAppState().productID = 0;
-      } else {
-        await Future.wait([
-          Future(() async {
-            // FetchWallets
-            logFirebaseEvent('Control_FetchWallets');
-            _model.userWallet = await WalletsTable().queryRows(
-              queryFn: (q) => q.eq(
-                'user_id',
-                (currentUserUid != '') &&
-                        (currentUserUid != '')
-                    ? currentUserUid
-                    : '00000000-0000-0000-0000-000000000000',
-              ),
+          if (_model.userWallet!.isNotEmpty) {
+            logFirebaseEvent('Control_update_app_state');
+            FFAppState().Wallet = WalletStruct(
+              walletId: _model.userWallet?.first.id,
+              createdAt: _model.userWallet?.first.createdAt,
+              userId: _model.userWallet?.first.userId,
+              currencyCode: _model.userWallet?.first.currencyCode,
+              transactionSymbol: _model.userWallet?.first.transactionSymbol,
+              balance: _model.userWallet?.first.balance,
             );
-            if (_model.userWallet!.isNotEmpty) {
+            safeSetState(() {});
+          } else {
+            if ((currentUserUid != '') &&
+                (currentUserUid != '')) {
+              logFirebaseEvent('Control_backend_call');
+              _model.walletCreatedForUser = await WalletsTable().insert({
+                'user_id': currentUserUid,
+                'balance': 0.0,
+                'currency_code': FFAppConstants.defaultCurrencyCode,
+                'transaction_symbol': FFAppConstants.defaultCurrencySymbol,
+              });
               logFirebaseEvent('Control_update_app_state');
               FFAppState().Wallet = WalletStruct(
-                walletId: _model.userWallet?.first.id,
-                createdAt: _model.userWallet?.first.createdAt,
-                userId: _model.userWallet?.first.userId,
-                currencyCode: _model.userWallet?.first.currencyCode,
-                transactionSymbol: _model.userWallet?.first.transactionSymbol,
-                balance: _model.userWallet?.first.balance,
+                walletId: _model.walletCreatedForUser?.id,
+                createdAt: _model.walletCreatedForUser?.createdAt,
+                userId: _model.walletCreatedForUser?.userId,
+                currencyCode: _model.walletCreatedForUser?.currencyCode,
+                transactionSymbol:
+                    _model.walletCreatedForUser?.transactionSymbol,
+                balance: _model.walletCreatedForUser?.balance,
               );
               safeSetState(() {});
-            } else {
-              if ((currentUserUid != '') &&
-                  (currentUserUid != '')) {
-                logFirebaseEvent('Control_backend_call');
-                _model.walletCreatedForUser = await WalletsTable().insert({
-                  'user_id': currentUserUid,
-                  'balance': 0.0,
-                  'currency_code': FFAppConstants.defaultCurrencyCode,
-                  'transaction_symbol': FFAppConstants.defaultCurrencySymbol,
-                });
-                logFirebaseEvent('Control_update_app_state');
-                FFAppState().Wallet = WalletStruct(
-                  walletId: _model.walletCreatedForUser?.id,
-                  createdAt: _model.walletCreatedForUser?.createdAt,
-                  userId: _model.walletCreatedForUser?.userId,
-                  currencyCode: _model.walletCreatedForUser?.currencyCode,
-                  transactionSymbol:
-                      _model.walletCreatedForUser?.transactionSymbol,
-                  balance: _model.walletCreatedForUser?.balance,
-                );
-                safeSetState(() {});
-              }
             }
-          }),
-          Future(() async {
-            if (FFAppState().country.currencySymbol != '') {
-              // FetchCurrencyExchangeRate
-              logFirebaseEvent('Control_FetchCurrencyExchangeRate');
-              _model.country = await CountriesTable().queryRows(
-                queryFn: (q) => q.eq(
-                  'currency_symbol',
-                  FFAppState().country.currencySymbol,
-                ),
-              );
-              if ((FFAppConstants.defaultCurrencySymbol == '') &&
-                  (_model.country!.isNotEmpty)) {
-                logFirebaseEvent('Control_update_app_state');
-                FFAppState().updateCountryStruct(
-                  (e) => e
-                    ..currencyExchangeRate =
-                        _model.country?.first.currencyExchangeRate,
-                );
-              } else {
-                logFirebaseEvent('Control_update_app_state');
-                FFAppState().updateCountryStruct(
-                  (e) => e
-                    ..currencyExchangeRate = 1.00
-                    ..currencySymbol = FFAppConstants.defaultCurrencySymbol
-                    ..currencyCode = FFAppConstants.defaultCurrencyCode
-                    ..id = 1,
-                );
-              }
-            } else {
-              logFirebaseEvent('Control_backend_call');
-              _model.defaultCountry = await CountriesTable().queryRows(
-                queryFn: (q) => q.eq(
-                  'code',
-                  FFAppConstants.DefaultCountryCode,
-                ),
-              );
-              if ((_model.defaultCountry != null &&
-                      (_model.defaultCountry)!.isNotEmpty) &&
-                  (_model.defaultCountry!.isNotEmpty)) {
-                logFirebaseEvent('Control_action_block');
-                await action_blocks.setCountry(
-                  context,
-                  country: _model.defaultCountry?.first,
-                );
-              }
-            }
-
-            logFirebaseEvent('Control_action_block');
-            await action_blocks.userControl(context);
-            safeSetState(() {});
-          }),
-          Future(() async {
-            // FetchAppSettings
-            logFirebaseEvent('Control_FetchAppSettings');
-            _model.appSettings = await AppGeneralSettingsTable().queryRows(
-              queryFn: (q) => q,
+          }
+        }),
+        Future(() async {
+          if (FFAppState().country.currencySymbol != '') {
+            // FetchCurrencyExchangeRate
+            logFirebaseEvent('Control_FetchCurrencyExchangeRate');
+            _model.country = await CountriesTable().queryRows(
+              queryFn: (q) => q.eq(
+                'currency_symbol',
+                FFAppState().country.currencySymbol,
+              ),
             );
-            if (_model.appSettings != null &&
-                (_model.appSettings)!.isNotEmpty) {
+            if ((FFAppConstants.defaultCurrencySymbol == '') &&
+                (_model.country!.isNotEmpty)) {
               logFirebaseEvent('Control_update_app_state');
-              FFAppState().updateAppSettingsStruct(
+              FFAppState().updateCountryStruct(
                 (e) => e
-                  ..enableWalletAsPaymentOption = _model.appSettings?.first.enableWalletAsPaymentOption ?? FFAppState().AppSettings.enableWalletAsPaymentOption
-                  ..enableWalletTopup =
-                      _model.appSettings?.first.enableWalletTopup ?? FFAppState().AppSettings.enableWalletTopup
-                  ..enableAdvertisement =
-                      _model.appSettings?.first.enableAdvertisement ?? FFAppState().AppSettings.enableAdvertisement
-                  ..enableAdvertisementOnHome =
-                      _model.appSettings?.first.enableAdvertisementOnHome ?? FFAppState().AppSettings.enableAdvertisementOnHome
-                  ..enableAdvertisementOnCategories = _model
-                          .appSettings?.first.enableAdvertisementOnCategories ?? FFAppState().AppSettings.enableAdvertisementOnCategories
-                  ..enableAdvertisementOnSubCategories = _model.appSettings?.first
-                          .enableAdvertisementOnSubCategories ?? FFAppState()
-                          .AppSettings
-                          .enableAdvertisementOnSubCategories
-                  ..enableAdvertisementOnMarkets = _model.appSettings?.first.enableAdvertisementOnMarkets ?? FFAppState().AppSettings.enableAdvertisementOnMarkets
-                  ..minAmountWalletTopup =
-                      _model.appSettings?.first.minAmountWalletTopup ?? FFAppState().AppSettings.minAmountWalletTopup
-                  ..maxAmountWalletTopup =
-                      _model.appSettings?.first.maxAmountWalletTopup ?? FFAppState().AppSettings.maxAmountWalletTopup
-                  ..social = _model.appSettings?.first.social != null
-                      ? (getJsonField(
-                          functions.getItemAtIndexOfADynamicList(
-                              _model.appSettings!
-                                  .map((e) => e.social)
-                                  .withoutNulls
-                                  .toList()
-                                  .toList(),
-                              0),
-                          r'''$.social''',
-                          true,
-                        )!
-                              .toList()
-                              .map<SocialStruct?>(SocialStruct.maybeFromMap)
-                              .toList() as Iterable<SocialStruct?>)
-                          .withoutNulls
-                      : FFAppState().AppSettings.social.toList()
-                  ..enableAdvertisementOnProductDetail = _model.appSettings?.first
-                          .enableAdvertisementOnProductDetail ?? FFAppState()
-                          .AppSettings
-                          .enableAdvertisementOnProductDetail,
+                  ..currencyExchangeRate =
+                      _model.country?.first.currencyExchangeRate,
+              );
+            } else {
+              logFirebaseEvent('Control_update_app_state');
+              FFAppState().updateCountryStruct(
+                (e) => e
+                  ..currencyExchangeRate = 1.00
+                  ..currencySymbol = FFAppConstants.defaultCurrencySymbol
+                  ..currencyCode = FFAppConstants.defaultCurrencyCode
+                  ..id = 1,
               );
             }
-          }),
-          Future(() async {
-            if (!FFAppState().CurrentUser.isAnon) {
-              // FetchUserFavorites
-              logFirebaseEvent('Control_FetchUserFavorites');
-              _model.userFavorites = await UserFavoritesTable().queryRows(
-                queryFn: (q) => q.eq(
-                  'user_id',
-                  currentUserUid,
+          } else {
+            logFirebaseEvent('Control_backend_call');
+            _model.defaultCountry = await CountriesTable().queryRows(
+              queryFn: (q) => q.eq(
+                'code',
+                FFAppConstants.DefaultCountryCode,
+              ),
+            );
+            if ((_model.defaultCountry != null &&
+                    (_model.defaultCountry)!.isNotEmpty) &&
+                (_model.defaultCountry!.isNotEmpty)) {
+              logFirebaseEvent('Control_action_block');
+              await action_blocks.setCountry(
+                context,
+                country: _model.defaultCountry?.first,
+              );
+            }
+          }
+
+          logFirebaseEvent('Control_action_block');
+          await action_blocks.userControl(context);
+          safeSetState(() {});
+        }),
+        Future(() async {
+          // FetchAppSettings
+          logFirebaseEvent('Control_FetchAppSettings');
+          _model.appSettings = await AppGeneralSettingsTable().queryRows(
+            queryFn: (q) => q,
+          );
+          if (_model.appSettings != null && (_model.appSettings)!.isNotEmpty) {
+            logFirebaseEvent('Control_update_app_state');
+            FFAppState().updateAppSettingsStruct(
+              (e) => e
+                ..enableWalletAsPaymentOption =
+                    _model.appSettings?.first.enableWalletAsPaymentOption ?? FFAppState().AppSettings.enableWalletAsPaymentOption
+                ..enableWalletTopup =
+                    _model.appSettings?.first.enableWalletTopup ?? FFAppState().AppSettings.enableWalletTopup
+                ..enableAdvertisement =
+                    _model.appSettings?.first.enableAdvertisement ?? FFAppState().AppSettings.enableAdvertisement
+                ..enableAdvertisementOnHome =
+                    _model.appSettings?.first.enableAdvertisementOnHome ?? FFAppState().AppSettings.enableAdvertisementOnHome
+                ..enableAdvertisementOnCategories = _model.appSettings?.first.enableAdvertisementOnCategories ?? FFAppState().AppSettings.enableAdvertisementOnCategories
+                ..enableAdvertisementOnSubCategories = _model
+                        .appSettings?.first.enableAdvertisementOnSubCategories ?? FFAppState()
+                        .AppSettings
+                        .enableAdvertisementOnSubCategories
+                ..enableAdvertisementOnMarkets = _model.appSettings?.first.enableAdvertisementOnMarkets ?? FFAppState().AppSettings.enableAdvertisementOnMarkets
+                ..minAmountWalletTopup =
+                    _model.appSettings?.first.minAmountWalletTopup ?? FFAppState().AppSettings.minAmountWalletTopup
+                ..maxAmountWalletTopup =
+                    _model.appSettings?.first.maxAmountWalletTopup ?? FFAppState().AppSettings.maxAmountWalletTopup
+                ..social = _model.appSettings?.first.social != null
+                    ? (getJsonField(
+                        functions.getItemAtIndexOfADynamicList(
+                            _model.appSettings!
+                                .map((e) => e.social)
+                                .withoutNulls
+                                .toList()
+                                .toList(),
+                            0),
+                        r'''$.social''',
+                        true,
+                      )!
+                            .toList()
+                            .map<SocialStruct?>(SocialStruct.maybeFromMap)
+                            .toList() as Iterable<SocialStruct?>)
+                        .withoutNulls
+                    : FFAppState().AppSettings.social.toList()
+                ..enableAdvertisementOnProductDetail = _model
+                        .appSettings?.first.enableAdvertisementOnProductDetail ?? FFAppState()
+                        .AppSettings
+                        .enableAdvertisementOnProductDetail,
+            );
+          }
+        }),
+        Future(() async {
+          if (!FFAppState().CurrentUser.isAnon) {
+            // FetchUserFavorites
+            logFirebaseEvent('Control_FetchUserFavorites');
+            _model.userFavorites = await UserFavoritesTable().queryRows(
+              queryFn: (q) => q.eq(
+                'user_id',
+                currentUserUid,
+              ),
+            );
+            if ((_model.userFavorites != null &&
+                    (_model.userFavorites)!.isNotEmpty) &&
+                (_model.userFavorites!.isNotEmpty)) {
+              logFirebaseEvent('Control_update_app_state');
+              FFAppState().UserFavorites = _model.userFavorites!
+                  .map((e) => e.productId)
+                  .withoutNulls
+                  .toList()
+                  .toList()
+                  .cast<int>();
+            }
+          }
+        }),
+        Future(() async {
+          if (!FFAppState().CurrentUser.isAnon) {
+            if ((FFAppState().Cart != null) &&
+                (FFAppState().Cart.products.isNotEmpty)) {
+              // FetchUserCartProducts
+              logFirebaseEvent('Control_FetchUserCartProducts');
+              _model.userCartProducts = await ProductsTable().queryRows(
+                queryFn: (q) => q.in_(
+                  'id',
+                  FFAppState().Cart.products.map((e) => e.productId).toList(),
                 ),
               );
-              if ((_model.userFavorites != null &&
-                      (_model.userFavorites)!.isNotEmpty) &&
-                  (_model.userFavorites!.isNotEmpty)) {
-                logFirebaseEvent('Control_update_app_state');
-                FFAppState().UserFavorites = _model.userFavorites!
-                    .map((e) => e.productId)
-                    .withoutNulls
-                    .toList()
-                    .toList()
-                    .cast<int>();
-              }
-            }
-          }),
-          Future(() async {
-            if (!FFAppState().CurrentUser.isAnon) {
-              if ((FFAppState().Cart != null) &&
-                  (FFAppState().Cart.products.isNotEmpty)) {
-                // FetchUserCartProducts
-                logFirebaseEvent('Control_FetchUserCartProducts');
-                _model.userCartProducts = await ProductsTable().queryRows(
-                  queryFn: (q) => q.in_(
-                    'id',
-                    FFAppState().Cart.products.map((e) => e.productId).toList(),
-                  ),
-                );
-                while (_model.cartProductsCounter <
-                    FFAppState().Cart.products.length) {
-                  if ((!_model.userCartProducts!
-                          .map((e) => e.id)
-                          .toList()
-                          .toList()
-                          .contains(FFAppState()
-                              .Cart
-                              .products[_model.cartProductsCounter]
-                              .productId)) ||
-                      (_model.userCartProducts
+              while (_model.cartProductsCounter <
+                  FFAppState().Cart.products.length) {
+                if ((!_model.userCartProducts!
+                        .map((e) => e.id)
+                        .toList()
+                        .toList()
+                        .contains(FFAppState()
+                            .Cart
+                            .products[_model.cartProductsCounter]
+                            .productId)) ||
+                    (_model.userCartProducts
+                            ?.where((e) =>
+                                e.id ==
+                                FFAppState()
+                                    .Cart
+                                    .products[_model.cartProductsCounter]
+                                    .productId)
+                            .toList()
+                            .first
+                            .status !=
+                        ProductStatus.Available.name)) {
+                  // IfDeletedAlsoRemoveFromCart
+                  logFirebaseEvent('Control_IfDeletedAlsoRemoveFromCart');
+                  FFAppState().updateCartStruct(
+                    (e) => e
+                      ..updateProducts(
+                        (e) => e.removeAt(_model.cartProductsCounter),
+                      ),
+                  );
+                } else {
+                  // IfNotDeletedUpdateProductInfo
+                  logFirebaseEvent('Control_IfNotDeletedUpdateProductInfo');
+                  FFAppState().updateCartStruct(
+                    (e) => e
+                      ..updateProducts(
+                        (e) => e[_model.cartProductsCounter]
+                          ..price = _model.userCartProducts
                               ?.where((e) =>
                                   e.id ==
                                   FFAppState()
@@ -292,178 +271,149 @@ class _ControlWidgetState extends State<ControlWidget>
                                       .productId)
                               .toList()
                               .first
-                              .status !=
-                          ProductStatus.Available.name)) {
-                    // IfDeletedAlsoRemoveFromCart
-                    logFirebaseEvent('Control_IfDeletedAlsoRemoveFromCart');
-                    FFAppState().updateCartStruct(
-                      (e) => e
-                        ..updateProducts(
-                          (e) => e.removeAt(_model.cartProductsCounter),
-                        ),
-                    );
-                  } else {
-                    // IfNotDeletedUpdateProductInfo
-                    logFirebaseEvent('Control_IfNotDeletedUpdateProductInfo');
-                    FFAppState().updateCartStruct(
-                      (e) => e
-                        ..updateProducts(
-                          (e) => e[_model.cartProductsCounter]
-                            ..price = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .price
-                            ..productName = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .name
-                            ..productDescription = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .description
-                            ..discountPercent = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .discountPercent
-                            ..image = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .defaultImageUrl
-                            ..deliveryMethodId = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .deliveryMethodId
-                            ..weight = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .weight
-                            ..size = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .size
-                            ..deliveryMethodsAvailable = _model
-                                .userCartProducts!
-                                .where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .deliveryMethodsAvailableList
-                                .toList()
-                            ..discountedPrice = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .discountedPrice
-                            ..quantity = _model.userCartProducts!
-                                        .where((e) =>
-                                            e.id ==
-                                            FFAppState()
-                                                .Cart
-                                                .products[
-                                                    _model.cartProductsCounter]
-                                                .productId)
-                                        .toList()
-                                        .first
-                                        .quantityInInventory! <
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .quantity
-                                ? _model.userCartProducts
-                                    ?.where((e) =>
-                                        e.id ==
-                                        FFAppState()
-                                            .Cart
-                                            .products[
-                                                _model.cartProductsCounter]
-                                            .productId)
-                                    .toList()
-                                    .first
-                                    .quantityInInventory
-                                : FFAppState()
-                                    .Cart
-                                    .products[_model.cartProductsCounter]
-                                    .quantity
-                            ..quantityInInventory = _model.userCartProducts
-                                ?.where((e) =>
-                                    e.id ==
-                                    FFAppState()
-                                        .Cart
-                                        .products[_model.cartProductsCounter]
-                                        .productId)
-                                .toList()
-                                .first
-                                .quantityInInventory,
-                        ),
-                    );
-                  }
-
-                  logFirebaseEvent('Control_update_page_state');
-                  _model.cartProductsCounter = _model.cartProductsCounter + 1;
-                  safeSetState(() {});
+                              .price
+                          ..productName = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .name
+                          ..productDescription = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .description
+                          ..discountPercent = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .discountPercent
+                          ..image = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .defaultImageUrl
+                          ..deliveryMethodId = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .deliveryMethodId
+                          ..weight = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .weight
+                          ..size = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .size
+                          ..deliveryMethodsAvailable = _model.userCartProducts!
+                              .where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .deliveryMethodsAvailableList
+                              .toList()
+                          ..discountedPrice = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .discountedPrice
+                          ..quantity = _model.userCartProducts!
+                                      .where((e) =>
+                                          e.id ==
+                                          FFAppState()
+                                              .Cart
+                                              .products[
+                                                  _model.cartProductsCounter]
+                                              .productId)
+                                      .toList()
+                                      .first
+                                      .quantityInInventory! <
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .quantity
+                              ? _model.userCartProducts
+                                  ?.where((e) =>
+                                      e.id ==
+                                      FFAppState()
+                                          .Cart
+                                          .products[_model.cartProductsCounter]
+                                          .productId)
+                                  .toList()
+                                  .first
+                                  .quantityInInventory
+                              : FFAppState()
+                                  .Cart
+                                  .products[_model.cartProductsCounter]
+                                  .quantity
+                          ..quantityInInventory = _model.userCartProducts
+                              ?.where((e) =>
+                                  e.id ==
+                                  FFAppState()
+                                      .Cart
+                                      .products[_model.cartProductsCounter]
+                                      .productId)
+                              .toList()
+                              .first
+                              .quantityInInventory,
+                      ),
+                  );
                 }
+
+                logFirebaseEvent('Control_update_page_state');
+                _model.cartProductsCounter = _model.cartProductsCounter + 1;
+                safeSetState(() {});
               }
             }
-          }),
-        ]);
-      }
+          }
+        }),
+      ]);
     });
 
     animationsMap.addAll({

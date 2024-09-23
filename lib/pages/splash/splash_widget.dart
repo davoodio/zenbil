@@ -1,11 +1,9 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'splash_model.dart';
 export 'splash_model.dart';
 
@@ -33,55 +31,9 @@ class _SplashWidgetState extends State<SplashWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('SPLASH_PAGE_Splash_ON_INIT_STATE');
-      logFirebaseEvent('Splash_custom_action');
-      _model.actionFinished = await actions.handleDynamicLink(
-        context,
-      );
-      logFirebaseEvent('Splash_wait__delay');
-      await Future.delayed(const Duration(milliseconds: 1000));
-      if (getJsonField(
-            _model.actionFinished,
-            r'''$.success''',
-          ) &&
-          (FFAppState().storeID != 0)) {
-        if (FFAppState().productID != 0) {
-          logFirebaseEvent('Splash_navigate_to');
+      logFirebaseEvent('Splash_navigate_to');
 
-          context.goNamed(
-            'ProductDetail',
-            queryParameters: {
-              'productId': serializeParam(
-                FFAppState().productID,
-                ParamType.int,
-              ),
-              'marketID': serializeParam(
-                FFAppState().storeID,
-                ParamType.int,
-              ),
-            }.withoutNulls,
-          );
-        } else {
-          logFirebaseEvent('Splash_navigate_to');
-
-          context.goNamed(
-            'StoreFront',
-            queryParameters: {
-              'marketID': serializeParam(
-                FFAppState().storeID,
-                ParamType.int,
-              ),
-            }.withoutNulls,
-          );
-        }
-
-        logFirebaseEvent('Splash_update_app_state');
-        FFAppState().storeID = 0;
-        FFAppState().productID = 0;
-      } else {
-        logFirebaseEvent('Splash_navigate_to');
-
-        context.goNamed('Control');
-      }
+      context.goNamed('Control');
     });
 
     animationsMap.addAll({
@@ -113,8 +65,6 @@ class _SplashWidgetState extends State<SplashWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
