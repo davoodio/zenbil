@@ -7,6 +7,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:link.zenbil.io</string>
+		<string>applinks:bq5sr.app.link</string>
  		<string>applinks:bq5sr-alternate.app.link</string>
 	</array>
 	<key>branch_universal_link_domains</key>
