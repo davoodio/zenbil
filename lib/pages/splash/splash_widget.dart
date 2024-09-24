@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -31,6 +32,14 @@ class _SplashWidgetState extends State<SplashWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('SPLASH_PAGE_Splash_ON_INIT_STATE');
+      logFirebaseEvent('Splash_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 1000));
+      logFirebaseEvent('Splash_custom_action');
+      await actions.handleDynamicLink(
+        context,
+      );
+      logFirebaseEvent('Splash_wait__delay');
+      await Future.delayed(const Duration(milliseconds: 1000));
       logFirebaseEvent('Splash_navigate_to');
 
       context.goNamed('Control');

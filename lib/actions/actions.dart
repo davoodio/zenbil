@@ -18,7 +18,6 @@ Future userControl(BuildContext context) async {
   String? userAuthProvider;
   List<UserRoleRow>? userRole;
   List<RolesRow>? roleOfTheUser;
-  dynamic dynamicLinkProcessFinished;
 
   if (!loggedIn) {
     logFirebaseEvent('UserControl_custom_action');
@@ -164,17 +163,7 @@ Future userControl(BuildContext context) async {
       }
     }
 
-    logFirebaseEvent('UserControl_custom_action');
-    dynamicLinkProcessFinished = await actions.handleDynamicLink(
-      context,
-    );
-    logFirebaseEvent('UserControl_wait__delay');
-    await Future.delayed(const Duration(milliseconds: 1000));
-    if (getJsonField(
-          dynamicLinkProcessFinished,
-          r'''$.success''',
-        ) &&
-        (FFAppState().storeID != 0)) {
+    if (FFAppState().storeID != 0) {
       if (FFAppState().productID != 0) {
         logFirebaseEvent('UserControl_navigate_to');
 
@@ -204,15 +193,15 @@ Future userControl(BuildContext context) async {
           }.withoutNulls,
         );
       }
-
-      logFirebaseEvent('UserControl_update_app_state');
-      FFAppState().storeID = 0;
-      FFAppState().productID = 0;
     } else {
       logFirebaseEvent('UserControl_navigate_to');
 
       context.goNamed('zenbil');
     }
+
+    logFirebaseEvent('UserControl_update_app_state');
+    FFAppState().storeID = 0;
+    FFAppState().productID = 0;
   }
 }
 
