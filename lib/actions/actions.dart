@@ -13,12 +13,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Future userControl(BuildContext context) async {
+  dynamic dynamicLinkProcessFinished;
   dynamic createdAnonUser;
   UsersRow? currentUserLoaded;
   String? userAuthProvider;
   List<UserRoleRow>? userRole;
   List<RolesRow>? roleOfTheUser;
 
+  logFirebaseEvent('UserControl_custom_action');
+  dynamicLinkProcessFinished = await actions.handleDynamicLink();
+  logFirebaseEvent('UserControl_wait__delay');
+  await Future.delayed(const Duration(milliseconds: 1000));
   if (!loggedIn) {
     logFirebaseEvent('UserControl_custom_action');
     createdAnonUser = await actions.userAnonymousLogin(
@@ -193,15 +198,15 @@ Future userControl(BuildContext context) async {
           }.withoutNulls,
         );
       }
+
+      logFirebaseEvent('UserControl_update_app_state');
+      FFAppState().storeID = 0;
+      FFAppState().productID = 0;
     } else {
       logFirebaseEvent('UserControl_navigate_to');
 
       context.goNamed('zenbil');
     }
-
-    logFirebaseEvent('UserControl_update_app_state');
-    FFAppState().storeID = 0;
-    FFAppState().productID = 0;
   }
 }
 
