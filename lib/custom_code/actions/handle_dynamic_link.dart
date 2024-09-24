@@ -15,7 +15,7 @@ import 'dart:async';
 
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
-Future<dynamic> handleDynamicLink(BuildContext context) async {
+Future<dynamic> handleDynamicLink() async {
   StreamSubscription<Map> streamSubscription =
       FlutterBranchSdk.listSession().listen((data) async {
     if (data.containsKey("+clicked_branch_link") &&

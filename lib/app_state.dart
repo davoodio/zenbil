@@ -72,6 +72,12 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _storeID = prefs.getInt('ff_storeID') ?? _storeID;
+    });
+    _safeInit(() {
+      _productID = prefs.getInt('ff_productID') ?? _productID;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -315,12 +321,14 @@ class FFAppState extends ChangeNotifier {
   int get storeID => _storeID;
   set storeID(int value) {
     _storeID = value;
+    prefs.setInt('ff_storeID', value);
   }
 
   int _productID = 0;
   int get productID => _productID;
   set productID(int value) {
     _productID = value;
+    prefs.setInt('ff_productID', value);
   }
 
   final _countriesAllManager = FutureRequestManager<List<CountriesRow>>();
