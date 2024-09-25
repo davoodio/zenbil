@@ -24,7 +24,7 @@ Future<String> generateProductStoreLink(int marketId, MarketsRow market) async {
     title: market.name ?? '',
     imageUrl: market.logoUrl ?? '',
     contentMetadata: BranchContentMetaData()
-      ..addCustomMetadata('marketId', marketId),
+      ..addCustomMetadata('marketId', '$marketId'),
   );
 
   BranchLinkProperties lp = BranchLinkProperties(

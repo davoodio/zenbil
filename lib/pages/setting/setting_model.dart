@@ -10,8 +10,14 @@ import 'setting_widget.dart' show SettingWidget;
 import 'package:flutter/material.dart';
 
 class SettingModel extends FlutterFlowModel<SettingWidget> {
+  ///  Local state fields for this page.
+
+  String? appversion = '';
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - appVersion] action in Setting widget.
+  dynamic appVersion;
   // Model for AnonUserCard component.
   late AnonUserCardModel anonUserCardModel;
   // Model for UserInfoCard component.

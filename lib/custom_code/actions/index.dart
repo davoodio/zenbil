@@ -1,4 +1,5 @@
 export 'is_anon_user_or_null.dart' show isAnonUserOrNull;
+export 'app_version.dart' show appVersion;
 export 'get_authenticated_user.dart' show getAuthenticatedUser;
 export 'generate_product_detail_link.dart' show generateProductDetailLink;
 export 'user_anonymous_login.dart' show userAnonymousLogin;
@@ -13,7 +14,6 @@ export 'get_user_auth_provider.dart' show getUserAuthProvider;
 export 'translate_text.dart' show translateText;
 export 'portrait_view_set.dart' show portraitViewSet;
 export 'supabase_search.dart' show supabaseSearch;
-export 'app_version.dart' show appVersion;
 export 'get_products_user_liked.dart' show getProductsUserLiked;
 export 'set_session.dart' show setSession;
 export 'one_signal_add_tag.dart' show oneSignalAddTag;
