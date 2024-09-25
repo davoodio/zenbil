@@ -12,15 +12,19 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:flutter/foundation.dart'; // To check the platform
 
 Future oneSignalInitialize() async {
   // Add your function code here!
   //Remove this method to stop OneSignal Debugging
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  if (defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.android) {
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
-  OneSignal.initialize("d0b5bf0e-6eb8-47fa-80b6-b61a4f2aed3b");
+    OneSignal.initialize("d0b5bf0e-6eb8-47fa-80b6-b61a4f2aed3b");
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-  OneSignal.Notifications.requestPermission(true);
+    OneSignal.Notifications.requestPermission(true);
+  }
   //
 }

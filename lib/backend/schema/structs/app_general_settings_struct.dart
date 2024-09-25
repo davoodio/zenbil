@@ -17,6 +17,7 @@ class AppGeneralSettingsStruct extends BaseStruct {
     double? maxAmountWalletTopup,
     List<SocialStruct>? social,
     bool? enableAdvertisementOnProductDetail,
+    bool? brandsEnabledInApp,
   })  : _enableWalletAsPaymentOption = enableWalletAsPaymentOption,
         _enableWalletTopup = enableWalletTopup,
         _enableAdvertisement = enableAdvertisement,
@@ -29,7 +30,8 @@ class AppGeneralSettingsStruct extends BaseStruct {
         _maxAmountWalletTopup = maxAmountWalletTopup,
         _social = social,
         _enableAdvertisementOnProductDetail =
-            enableAdvertisementOnProductDetail;
+            enableAdvertisementOnProductDetail,
+        _brandsEnabledInApp = brandsEnabledInApp;
 
   // "enableWalletAsPaymentOption" field.
   bool? _enableWalletAsPaymentOption;
@@ -131,6 +133,13 @@ class AppGeneralSettingsStruct extends BaseStruct {
   bool hasEnableAdvertisementOnProductDetail() =>
       _enableAdvertisementOnProductDetail != null;
 
+  // "brands_enabled_in_app" field.
+  bool? _brandsEnabledInApp;
+  bool get brandsEnabledInApp => _brandsEnabledInApp ?? false;
+  set brandsEnabledInApp(bool? val) => _brandsEnabledInApp = val;
+
+  bool hasBrandsEnabledInApp() => _brandsEnabledInApp != null;
+
   static AppGeneralSettingsStruct fromMap(Map<String, dynamic> data) =>
       AppGeneralSettingsStruct(
         enableWalletAsPaymentOption:
@@ -152,6 +161,7 @@ class AppGeneralSettingsStruct extends BaseStruct {
         ),
         enableAdvertisementOnProductDetail:
             data['enableAdvertisementOnProductDetail'] as bool?,
+        brandsEnabledInApp: data['brands_enabled_in_app'] as bool?,
       );
 
   static AppGeneralSettingsStruct? maybeFromMap(dynamic data) => data is Map
@@ -172,6 +182,7 @@ class AppGeneralSettingsStruct extends BaseStruct {
         'social': _social?.map((e) => e.toMap()).toList(),
         'enableAdvertisementOnProductDetail':
             _enableAdvertisementOnProductDetail,
+        'brands_enabled_in_app': _brandsEnabledInApp,
       }.withoutNulls;
 
   @override
@@ -219,6 +230,10 @@ class AppGeneralSettingsStruct extends BaseStruct {
         ),
         'enableAdvertisementOnProductDetail': serializeParam(
           _enableAdvertisementOnProductDetail,
+          ParamType.bool,
+        ),
+        'brands_enabled_in_app': serializeParam(
+          _brandsEnabledInApp,
           ParamType.bool,
         ),
       }.withoutNulls;
@@ -282,6 +297,11 @@ class AppGeneralSettingsStruct extends BaseStruct {
           ParamType.bool,
           false,
         ),
+        brandsEnabledInApp: deserializeParam(
+          data['brands_enabled_in_app'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -304,7 +324,8 @@ class AppGeneralSettingsStruct extends BaseStruct {
         maxAmountWalletTopup == other.maxAmountWalletTopup &&
         listEquality.equals(social, other.social) &&
         enableAdvertisementOnProductDetail ==
-            other.enableAdvertisementOnProductDetail;
+            other.enableAdvertisementOnProductDetail &&
+        brandsEnabledInApp == other.brandsEnabledInApp;
   }
 
   @override
@@ -319,7 +340,8 @@ class AppGeneralSettingsStruct extends BaseStruct {
         minAmountWalletTopup,
         maxAmountWalletTopup,
         social,
-        enableAdvertisementOnProductDetail
+        enableAdvertisementOnProductDetail,
+        brandsEnabledInApp
       ]);
 }
 
@@ -334,6 +356,7 @@ AppGeneralSettingsStruct createAppGeneralSettingsStruct({
   double? minAmountWalletTopup,
   double? maxAmountWalletTopup,
   bool? enableAdvertisementOnProductDetail,
+  bool? brandsEnabledInApp,
 }) =>
     AppGeneralSettingsStruct(
       enableWalletAsPaymentOption: enableWalletAsPaymentOption,
@@ -346,4 +369,5 @@ AppGeneralSettingsStruct createAppGeneralSettingsStruct({
       minAmountWalletTopup: minAmountWalletTopup,
       maxAmountWalletTopup: maxAmountWalletTopup,
       enableAdvertisementOnProductDetail: enableAdvertisementOnProductDetail,
+      brandsEnabledInApp: brandsEnabledInApp,
     );

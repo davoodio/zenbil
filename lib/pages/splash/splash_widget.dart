@@ -92,8 +92,8 @@ class _SplashWidgetState extends State<SplashWidget>
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
                             'assets/images/adaptiveIcon_trans.png',
-                            width: 150.0,
-                            height: 150.0,
+                            width: 140.0,
+                            height: 140.0,
                             fit: BoxFit.contain,
                           ),
                         ).animateOnPageLoad(
