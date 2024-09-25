@@ -1306,7 +1306,7 @@ class _SettingWidgetState extends State<SettingWidget> {
                                                       text: FFLocalizations.of(
                                                               context)
                                                           .getText(
-                                                        'jjlx0njo' /* Delete Accoun */,
+                                                        'jjlx0njo' /* Delete Account */,
                                                       ),
                                                       showArrow: true,
                                                       color:
@@ -1396,35 +1396,6 @@ class _SettingWidgetState extends State<SettingWidget> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 20.0, 0.0),
-                                            child: Text(
-                                              '${FFAppConstants.BrandAppName} ${FFAppConstants.appVersion}',
-                                              maxLines: 1,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                            ),
-                                          ),
                                           if (_model.appversion != null &&
                                               _model.appversion != '')
                                             Padding(

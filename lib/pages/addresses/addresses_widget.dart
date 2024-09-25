@@ -121,10 +121,15 @@ class _AddressesWidgetState extends State<AddressesWidget> {
                                     child:
                                         FutureBuilder<List<UserAddressesRow>>(
                                       future: UserAddressesTable().queryRows(
-                                        queryFn: (q) => q.eq(
-                                          'user_id',
-                                          currentUserUid,
-                                        ),
+                                        queryFn: (q) => q
+                                            .eq(
+                                              'user_id',
+                                              currentUserUid,
+                                            )
+                                            .eq(
+                                              'is_deleted',
+                                              false,
+                                            ),
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
