@@ -1647,7 +1647,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fa': 'ما را دنبال کنید',
     },
     'jjlx0njo': {
-      'en': 'Delete Accoun',
+      'en': 'Delete Account',
       'ar': 'تسجيل الخروج',
       'fa': 'خروج از سیستم',
     },
@@ -2578,8 +2578,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '0w5bhe66': {
       'en': 'You sure you want to remove the product from your cart?',
-      'ar': 'هل أنت متأكد أنك تريد إزالة المنتج من سلة التسوق الخاصة بك؟',
-      'fa': 'آیا مطمئن هستید که می خواهید محصول را از سبد خرید خود حذف کنید؟',
+      'ar': 'هل أنت متأكد أنك تريد إزالة هذا العنوان؟',
+      'fa': 'آیا مطمئن هستید که می خواهید این آدرس را حذف کنید؟',
     },
     'bzz1vsjq': {
       'en': 'Yes, Remove',
@@ -2872,6 +2872,31 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Set as Default',
       'ar': 'تعيين كإعداد افتراضي',
       'fa': 'به عنوان پیش فرض تنظیم کنید',
+    },
+    'e0a6powq': {
+      'en': 'Confirm!',
+      'ar': 'يتأكد!',
+      'fa': 'تایید کنید!',
+    },
+    'i1rmwmf8': {
+      'en': 'You sure you want to remove this address?',
+      'ar': 'هل أنت متأكد أنك تريد إزالة هذا العنوان؟',
+      'fa': 'آیا مطمئن هستید که می خواهید این آدرس را حذف کنید؟',
+    },
+    'xflb73wp': {
+      'en': 'Yes, Remove',
+      'ar': 'نعم، قم بإزالة',
+      'fa': 'بله، حذف کنید',
+    },
+    'vak8irjs': {
+      'en': 'Removed!',
+      'ar': 'تمت الإزالة!',
+      'fa': 'حذف شد!',
+    },
+    'sov781s1': {
+      'en': 'Address is successfully removed.',
+      'ar': 'تم إزالة العنوان بنجاح.',
+      'fa': 'آدرس با موفقیت حذف شد.',
     },
   },
   // addressInsert
