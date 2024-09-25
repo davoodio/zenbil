@@ -49,4 +49,7 @@ class DeliveryMethodMappingsRow extends SupabaseDataRow {
   String? get onroVehicleTypeId => getField<String>('onro_vehicle_type_id');
   set onroVehicleTypeId(String? value) =>
       setField<String>('onro_vehicle_type_id', value);
+
+  int? get serviceCapacity => getField<int>('service_capacity');
+  set serviceCapacity(int? value) => setField<int>('service_capacity', value);
 }

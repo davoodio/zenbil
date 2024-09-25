@@ -47,4 +47,16 @@ class SalesCalculationsRow extends SupabaseDataRow {
   String? get transactionStatus => getField<String>('transaction_status');
   set transactionStatus(String? value) =>
       setField<String>('transaction_status', value);
+
+  double? get commisionPercent => getField<double>('commision_percent');
+  set commisionPercent(double? value) =>
+      setField<double>('commision_percent', value);
+
+  double? get marketingPercent => getField<double>('marketing_percent');
+  set marketingPercent(double? value) =>
+      setField<double>('marketing_percent', value);
+
+  double? get platformAmount => getField<double>('platform_amount');
+  set platformAmount(double? value) =>
+      setField<double>('platform_amount', value);
 }

@@ -34,6 +34,7 @@ Future<String> generateProductDetailLink(
     feature: 'sharing',
     stage: 'new share',
   );
+  lp.addControlParam('\$uri_redirect_mode', '1');
   lp.addControlParam('\$og_image', product.defaultImageUrl ?? '');
   lp.addControlParam('\$og_title', product.name ?? '');
   lp.addControlParam('\$og_image_width', 200);

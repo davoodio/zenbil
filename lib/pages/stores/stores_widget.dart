@@ -246,80 +246,86 @@ class _StoresWidgetState extends State<StoresWidget> {
                                             BorderRadius.circular(100.0),
                                       ),
                                     ),
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        logFirebaseEvent(
-                                            'STORES_PAGE_Brand_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Brand_update_page_state');
-                                        _model.marketType = FFAppState()
-                                            .DataTypeEnums
-                                            .marketTypes
-                                            .brand;
-                                        safeSetState(() {});
-                                      },
-                                      text: FFLocalizations.of(context).getText(
-                                        'r729njxm' /* Brands */,
-                                      ),
-                                      options: FFButtonOptions(
-                                        height: 32.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: valueOrDefault<Color>(
-                                          _model.marketType ==
-                                                  FFAppState()
-                                                      .DataTypeEnums
-                                                      .marketTypes
-                                                      .brand
-                                              ? FlutterFlowTheme.of(context)
-                                                  .primaryText
-                                              : FlutterFlowTheme.of(context)
-                                                  .tfBg,
-                                          FlutterFlowTheme.of(context).tfBg,
+                                    if (FFAppState()
+                                        .AppSettings
+                                        .brandsEnabledInApp)
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          logFirebaseEvent(
+                                              'STORES_PAGE_Brand_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Brand_update_page_state');
+                                          _model.marketType = FFAppState()
+                                              .DataTypeEnums
+                                              .marketTypes
+                                              .brand;
+                                          safeSetState(() {});
+                                        },
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          'r729njxm' /* Brands */,
                                         ),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily,
-                                              color: valueOrDefault<Color>(
-                                                _model.marketType ==
-                                                        FFAppState()
-                                                            .DataTypeEnums
-                                                            .marketTypes
-                                                            .brand
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                              ),
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
+                                        options: FFButtonOptions(
+                                          height: 32.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: valueOrDefault<Color>(
+                                            _model.marketType ==
+                                                    FFAppState()
+                                                        .DataTypeEnums
+                                                        .marketTypes
+                                                        .brand
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primaryText
+                                                : FlutterFlowTheme.of(context)
+                                                    .tfBg,
+                                            FlutterFlowTheme.of(context).tfBg,
+                                          ),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmallFamily,
+                                                color: valueOrDefault<Color>(
+                                                  _model.marketType ==
+                                                          FFAppState()
+                                                              .DataTypeEnums
+                                                              .marketTypes
+                                                              .brand
+                                                      ? FlutterFlowTheme.of(
                                                               context)
-                                                          .titleSmallFamily),
-                                            ),
-                                        elevation: 0.0,
-                                        borderSide: const BorderSide(
-                                          color: Colors.transparent,
-                                          width: 0.0,
+                                                          .secondaryBackground
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                                ),
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmallFamily),
+                                              ),
+                                          elevation: 0.0,
+                                          borderSide: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 0.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(100.0),
                                       ),
-                                    ),
                                     if (false)
                                       FFButtonWidget(
                                         onPressed: () async {

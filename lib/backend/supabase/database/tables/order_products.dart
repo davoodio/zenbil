@@ -101,4 +101,9 @@ class OrderProductsRow extends SupabaseDataRow {
 
   String? get note => getField<String>('note');
   set note(String? value) => setField<String>('note', value);
+
+  DateTime? get commisionCalculateTime =>
+      getField<DateTime>('commision_calculate_time');
+  set commisionCalculateTime(DateTime? value) =>
+      setField<DateTime>('commision_calculate_time', value);
 }

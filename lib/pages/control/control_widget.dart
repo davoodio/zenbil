@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -187,12 +186,14 @@ class _ControlWidgetState extends State<ControlWidget>
                 ..enableAdvertisementOnProductDetail = _model
                         .appSettings?.first.enableAdvertisementOnProductDetail ?? FFAppState()
                         .AppSettings
-                        .enableAdvertisementOnProductDetail,
+                        .enableAdvertisementOnProductDetail
+                ..brandsEnabledInApp =
+                    _model.appSettings?.first.brandsEnabledInApp,
             );
           }
         }),
         Future(() async {
-          if (!FFAppState().CurrentUser.isAnon) {
+          if (!FFAppState().CurrentUser.isAnon && loggedIn) {
             // FetchUserFavorites
             logFirebaseEvent('Control_FetchUserFavorites');
             _model.userFavorites = await UserFavoritesTable().queryRows(
@@ -451,81 +452,77 @@ class _ControlWidgetState extends State<ControlWidget>
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        body: SizedBox(
+        backgroundColor: FlutterFlowTheme.of(context).mainBlue,
+        body: Container(
           width: double.infinity,
           height: double.infinity,
-          child: Stack(
-            children: [
-              Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 500),
-                          fadeOutDuration: const Duration(milliseconds: 500),
-                          imageUrl: FFAppConstants.BrandLauncherIcon,
-                          width: 120.0,
-                          height: 120.0,
-                          fit: BoxFit.contain,
-                        ),
-                      ).animateOnPageLoad(
-                          animationsMap['imageOnPageLoadAnimation']!),
-                    ),
-                  ].divide(const SizedBox(height: 34.0)),
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 180.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
+          decoration: const BoxDecoration(),
+          child: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Stack(
+              alignment: const AlignmentDirectional(0.0, 0.0),
+              children: [
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent('CONTROL_PAGE_Text_r2tsrcu8_ON_TAP');
-                          logFirebaseEvent('Text_auth');
-                          GoRouter.of(context).prepareAuthEvent();
-                          await authManager.signOut();
-                          GoRouter.of(context).clearRedirectLocation();
-
-                          context.goNamedAuth('Splash', context.mounted);
-                        },
-                        child: Text(
-                          FFLocalizations.of(context).getText(
-                            'nn5reus3' /* Loading Your Data ... */,
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/adaptiveIcon_trans.png',
+                            width: 140.0,
+                            height: 140.0,
+                            fit: BoxFit.contain,
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
-                              ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['imageOnPageLoadAnimation']!),
                       ),
-                    ],
+                    ].divide(const SizedBox(height: 34.0)),
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent('CONTROL_PAGE_Text_ha4bd2qx_ON_TAP');
+                        logFirebaseEvent('Text_auth');
+                        GoRouter.of(context).prepareAuthEvent();
+                        await authManager.signOut();
+                        GoRouter.of(context).clearRedirectLocation();
+
+                        context.goNamedAuth('Splash', context.mounted);
+                      },
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'acaewof4' /* Loading your information... */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily:
+                                  FlutterFlowTheme.of(context).bodyMediumFamily,
+                              color: const Color(0xB5FFFFFF),
+                              letterSpacing: 0.0,
+                              useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                  FlutterFlowTheme.of(context)
+                                      .bodyMediumFamily),
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

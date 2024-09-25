@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'products_category_model.dart';
 export 'products_category_model.dart';
@@ -384,10 +385,10 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                       );
                                     }
                                     List<ViewProductsCategoriesRow>
-                                        gridViewViewProductsCategoriesRowList =
+                                        staggeredViewViewProductsCategoriesRowList =
                                         snapshot.data!;
 
-                                    if (gridViewViewProductsCategoriesRowList
+                                    if (staggeredViewViewProductsCategoriesRowList
                                         .isEmpty) {
                                       return EmptyStateWidget(
                                         message:
@@ -398,80 +399,79 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                       );
                                     }
 
-                                    return GridView.builder(
-                                      padding: EdgeInsets.zero,
+                                    return MasonryGridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                          const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        crossAxisSpacing: 12.0,
-                                        mainAxisSpacing: 4.0,
-                                        childAspectRatio: 0.62,
                                       ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
+                                      crossAxisSpacing: 10.0,
+                                      mainAxisSpacing: 10.0,
                                       itemCount:
-                                          gridViewViewProductsCategoriesRowList
+                                          staggeredViewViewProductsCategoriesRowList
                                               .length,
-                                      itemBuilder: (context, gridViewIndex) {
-                                        final gridViewViewProductsCategoriesRow =
-                                            gridViewViewProductsCategoriesRowList[
-                                                gridViewIndex];
+                                      shrinkWrap: true,
+                                      itemBuilder:
+                                          (context, staggeredViewIndex) {
+                                        final staggeredViewViewProductsCategoriesRow =
+                                            staggeredViewViewProductsCategoriesRowList[
+                                                staggeredViewIndex];
                                         return Container(
                                           decoration: const BoxDecoration(),
                                           child: ProductCardWidget(
                                             key: Key(
-                                                'Keyuhv_${gridViewIndex}_of_${gridViewViewProductsCategoriesRowList.length}'),
+                                                'Keyuhv_${staggeredViewIndex}_of_${staggeredViewViewProductsCategoriesRowList.length}'),
                                             image:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productDefaultImageUrl!,
                                             productName:
                                                 FFLocalizations.of(context)
                                                     .getVariableText(
                                               enText:
-                                                  gridViewViewProductsCategoriesRow
+                                                  staggeredViewViewProductsCategoriesRow
                                                       .productName,
-                                              arText: gridViewViewProductsCategoriesRow
+                                              arText: staggeredViewViewProductsCategoriesRow
                                                               .productNameArabic !=
                                                           null &&
-                                                      gridViewViewProductsCategoriesRow
+                                                      staggeredViewViewProductsCategoriesRow
                                                               .productNameArabic !=
                                                           ''
-                                                  ? gridViewViewProductsCategoriesRow
+                                                  ? staggeredViewViewProductsCategoriesRow
                                                       .productNameArabic
-                                                  : gridViewViewProductsCategoriesRow
+                                                  : staggeredViewViewProductsCategoriesRow
                                                       .productName,
-                                              faText: gridViewViewProductsCategoriesRow
+                                              faText: staggeredViewViewProductsCategoriesRow
                                                               .productNameKurdish !=
                                                           null &&
-                                                      gridViewViewProductsCategoriesRow
+                                                      staggeredViewViewProductsCategoriesRow
                                                               .productNameKurdish !=
                                                           ''
-                                                  ? gridViewViewProductsCategoriesRow
+                                                  ? staggeredViewViewProductsCategoriesRow
                                                       .productNameKurdish
-                                                  : gridViewViewProductsCategoriesRow
+                                                  : staggeredViewViewProductsCategoriesRow
                                                       .productName,
                                             ),
                                             price:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productPrice,
                                             discount:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productDiscountPercent,
                                             reviewRate:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productReviewRate,
                                             numberOfReviews:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productNumberOfReviews,
                                             productId:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productId!,
                                             discountedPrice:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productDiscountedPrice,
                                             imagesUrl:
-                                                gridViewViewProductsCategoriesRow
+                                                staggeredViewViewProductsCategoriesRow
                                                     .productImagesUrl,
                                           ),
                                         );

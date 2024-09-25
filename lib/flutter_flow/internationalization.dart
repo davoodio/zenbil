@@ -1740,10 +1740,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Control
   {
-    'nn5reus3': {
-      'en': 'Loading Your Data ...',
-      'ar': 'جاري تحميل بياناتك...',
-      'fa': 'در حال بارگیری داده های شما...',
+    'acaewof4': {
+      'en': 'Loading your information...',
+      'ar': '',
+      'fa': '',
     },
     'jdfzeush': {
       'en': 'Home',

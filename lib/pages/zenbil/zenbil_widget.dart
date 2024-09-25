@@ -185,12 +185,13 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                       borderRadius: 8.0,
                       buttonSize: 44.0,
                       icon: Icon(
-                        FFIcons.kreceiptHeart,
+                        Icons.favorite_border_sharp,
                         color: FlutterFlowTheme.of(context).secondaryText,
                         size: 22.0,
                       ),
                       onPressed: () async {
-                        logFirebaseEvent('ZENBIL_PAGE_receiptHeart_ICN_ON_TAP');
+                        logFirebaseEvent(
+                            'ZENBIL_favorite_border_sharp_ICN_ON_TAP');
                         logFirebaseEvent('IconButton_navigate_to');
 
                         context.pushNamed('Favorites');
@@ -1214,220 +1215,233 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                           ),
                                         ),
                                       ),
-                                      StickyHeader(
-                                        overlapHeaders: false,
-                                        header: Container(
-                                          width: double.infinity,
-                                          height: 54.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 20.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Flexible(
-                                                  child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      '7dbwetzu' /* Brands */,
+                                      if (FFAppState()
+                                          .AppSettings
+                                          .brandsEnabledInApp)
+                                        StickyHeader(
+                                          overlapHeaders: false,
+                                          header: Container(
+                                            width: double.infinity,
+                                            height: 54.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 20.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        '7dbwetzu' /* Brands */,
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            shadows: [
+                                                              const Shadow(
+                                                                color: Color(
+                                                                    0x2503080C),
+                                                                offset: Offset(
+                                                                    2.0, 2.0),
+                                                                blurRadius: 6.0,
+                                                              )
+                                                            ],
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmallFamily),
+                                                          ),
                                                     ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily,
-                                                          color: FlutterFlowTheme
+                                                  ),
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'ZENBIL_PAGE_Brand_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Brand_navigate_to');
+
+                                                      context.pushNamed(
+                                                        'Stores',
+                                                        queryParameters: {
+                                                          'marketType':
+                                                              serializeParam(
+                                                            MarketType
+                                                                .Brand.name,
+                                                            ParamType.String,
+                                                          ),
+                                                        }.withoutNulls,
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    8.0,
+                                                                    0.0,
+                                                                    8.0),
+                                                        child: Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'xa42l19t' /* See All */,
+                                                          ),
+                                                          style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          shadows: [
-                                                            const Shadow(
-                                                              color: Color(
-                                                                  0x2503080C),
-                                                              offset: Offset(
-                                                                  2.0, 2.0),
-                                                              blurRadius: 6.0,
-                                                            )
-                                                          ],
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily),
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
                                                         ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'ZENBIL_PAGE_Brand_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'Brand_navigate_to');
-
-                                                    context.pushNamed(
-                                                      'Stores',
-                                                      queryParameters: {
-                                                        'marketType':
-                                                            serializeParam(
-                                                          MarketType.Brand.name,
-                                                          ParamType.String,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    decoration: const BoxDecoration(),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  8.0),
-                                                      child: Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'xa42l19t' /* See All */,
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        content: Container(
-                                          height: 120.0,
-                                          decoration: const BoxDecoration(),
-                                          child: FutureBuilder<List<BrandsRow>>(
-                                            future: BrandsTable().queryRows(
-                                              queryFn: (q) => q.eq(
-                                                'status',
-                                                BrandStatus.Active.name,
-                                              ),
-                                              limit: 100,
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(20.0, 16.0,
-                                                          20.0, 16.0),
-                                                  child: LoaderBoxRowWidget(
-                                                    borderRadius: 6.0,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    shimmerColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .alternate,
-                                                  ),
-                                                );
-                                              }
-                                              List<BrandsRow>
-                                                  listViewBrandsRowList =
-                                                  snapshot.data!;
-
-                                              if (listViewBrandsRowList
-                                                  .isEmpty) {
-                                                return EmptyStateWidget(
-                                                  message: 'No brand.',
-                                                  actionButton: () async {},
-                                                );
-                                              }
-
-                                              return ListView.separated(
-                                                padding: const EdgeInsets.fromLTRB(
-                                                  20.0,
-                                                  0,
-                                                  20.0,
-                                                  0,
+                                          content: Container(
+                                            height: 120.0,
+                                            decoration: const BoxDecoration(),
+                                            child:
+                                                FutureBuilder<List<BrandsRow>>(
+                                              future: BrandsTable().queryRows(
+                                                queryFn: (q) => q.eq(
+                                                  'status',
+                                                  BrandStatus.Active.name,
                                                 ),
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount: listViewBrandsRowList
-                                                    .length,
-                                                separatorBuilder: (_, __) =>
-                                                    const SizedBox(width: 10.0),
-                                                itemBuilder:
-                                                    (context, listViewIndex) {
-                                                  final listViewBrandsRow =
-                                                      listViewBrandsRowList[
-                                                          listViewIndex];
-                                                  return wrapWithModel(
-                                                    model: _model
-                                                        .brandItemModels
-                                                        .getModel(
-                                                      listViewBrandsRow.id
-                                                          .toString(),
-                                                      listViewIndex,
-                                                    ),
-                                                    updateCallback: () =>
-                                                        safeSetState(() {}),
-                                                    child: BrandItemWidget(
-                                                      key: Key(
-                                                        'Keyk65_${listViewBrandsRow.id.toString()}',
-                                                      ),
-                                                      photo: listViewBrandsRow
-                                                          .logoUrl,
-                                                      title: listViewBrandsRow
-                                                          .name,
-                                                      brandId:
-                                                          listViewBrandsRow.id,
+                                                limit: 100,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                20.0,
+                                                                16.0,
+                                                                20.0,
+                                                                16.0),
+                                                    child: LoaderBoxRowWidget(
+                                                      borderRadius: 6.0,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      shimmerColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                     ),
                                                   );
-                                                },
-                                              );
-                                            },
+                                                }
+                                                List<BrandsRow>
+                                                    listViewBrandsRowList =
+                                                    snapshot.data!;
+
+                                                if (listViewBrandsRowList
+                                                    .isEmpty) {
+                                                  return EmptyStateWidget(
+                                                    message: 'No brand.',
+                                                    actionButton: () async {},
+                                                  );
+                                                }
+
+                                                return ListView.separated(
+                                                  padding: const EdgeInsets.fromLTRB(
+                                                    20.0,
+                                                    0,
+                                                    20.0,
+                                                    0,
+                                                  ),
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount:
+                                                      listViewBrandsRowList
+                                                          .length,
+                                                  separatorBuilder: (_, __) =>
+                                                      const SizedBox(width: 10.0),
+                                                  itemBuilder:
+                                                      (context, listViewIndex) {
+                                                    final listViewBrandsRow =
+                                                        listViewBrandsRowList[
+                                                            listViewIndex];
+                                                    return wrapWithModel(
+                                                      model: _model
+                                                          .brandItemModels
+                                                          .getModel(
+                                                        listViewBrandsRow.id
+                                                            .toString(),
+                                                        listViewIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      child: BrandItemWidget(
+                                                        key: Key(
+                                                          'Keyk65_${listViewBrandsRow.id.toString()}',
+                                                        ),
+                                                        photo: listViewBrandsRow
+                                                            .logoUrl,
+                                                        title: listViewBrandsRow
+                                                            .name,
+                                                        brandId:
+                                                            listViewBrandsRow
+                                                                .id,
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
-                                      ),
                                       StickyHeader(
                                         overlapHeaders: false,
                                         header: Container(

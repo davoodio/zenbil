@@ -12,9 +12,13 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:async';
+import 'package:flutter/foundation.dart'; // To check the platform
 
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 Future<void> initBranchDeepLinking() async {
-  await FlutterBranchSdk.init();
+  if (defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.android) {
+    await FlutterBranchSdk.init();
+  }
 }

@@ -33,6 +33,7 @@ Future<String> generateProductStoreLink(int marketId, MarketsRow market) async {
     feature: 'sharing',
     stage: 'new share',
   );
+  lp.addControlParam('\$uri_redirect_mode', '1');
   lp.addControlParam('\$og_image', market.logoUrl ?? '');
   lp.addControlParam('\$og_title', market.name ?? '');
   lp.addControlParam('\$og_description', market.description ?? '');

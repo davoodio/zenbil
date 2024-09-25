@@ -114,4 +114,13 @@ class AppGeneralSettingsRow extends SupabaseDataRow {
       getField<double>('marketing_fee_percentage');
   set marketingFeePercentage(double? value) =>
       setField<double>('marketing_fee_percentage', value);
+
+  bool? get productEditsNeedApproval =>
+      getField<bool>('product_edits_need_approval');
+  set productEditsNeedApproval(bool? value) =>
+      setField<bool>('product_edits_need_approval', value);
+
+  bool? get brandsEnabledInApp => getField<bool>('brands_enabled_in_app');
+  set brandsEnabledInApp(bool? value) =>
+      setField<bool>('brands_enabled_in_app', value);
 }
