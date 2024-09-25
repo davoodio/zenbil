@@ -9,7 +9,9 @@ import '/components/user_info_card_widget.dart';
 import '/components/wallet_front_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -34,6 +36,22 @@ class _SettingWidgetState extends State<SettingWidget> {
     _model = createModel(context, () => SettingModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Setting'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('SETTING_PAGE_Setting_ON_INIT_STATE');
+      logFirebaseEvent('Setting_custom_action');
+      _model.appVersion = await actions.appVersion();
+      logFirebaseEvent('Setting_update_page_state');
+      _model.appversion = '${getJsonField(
+        _model.appVersion,
+        r'''$.version''',
+      ).toString().toString()} ${getJsonField(
+        _model.appVersion,
+        r'''$.build''',
+      ).toString().toString()}';
+      safeSetState(() {});
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -1375,29 +1393,69 @@ class _SettingWidgetState extends State<SettingWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Text(
-                                          '${FFAppConstants.BrandAppName} ${FFAppConstants.appVersion}',
-                                          maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily:
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 0.0),
+                                            child: Text(
+                                              '${FFAppConstants.BrandAppName} ${FFAppConstants.appVersion}',
+                                              maxLines: 1,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                            ),
+                                          ),
+                                          if (_model.appversion != null &&
+                                              _model.appversion != '')
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      20.0, 0.0, 20.0, 0.0),
+                                              child: Text(
+                                                '${FFAppConstants.BrandAppName} ${FFAppConstants.appVersion}',
+                                                maxLines: 1,
+                                                style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
                                               ),
-                                        ),
+                                            ),
+                                        ].divide(const SizedBox(height: 10.0)),
                                       ),
                                     ),
                                   ],

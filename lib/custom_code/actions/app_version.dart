@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 
-Future appVersion() async {
+Future<dynamic> appVersion() async {
   // Add your function code here!
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 

@@ -25,8 +25,8 @@ Future<String> generateProductDetailLink(
       title: product.name ?? '',
       imageUrl: product.defaultImageUrl ?? '',
       contentMetadata: BranchContentMetaData()
-        ..addCustomMetadata('productId', productId)
-        ..addCustomMetadata('marketID', marketID));
+        ..addCustomMetadata('productId', '$productId')
+        ..addCustomMetadata('marketID', '$marketID'));
 
   BranchLinkProperties lp = BranchLinkProperties(
     //alias: 'flutterplugin', //define link url,
