@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'image_widget_model.dart';
@@ -96,14 +97,20 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
                     logFirebaseEvent('IMAGE_WIDGET_COMP_expanded_ON_TAP');
                   },
                   child: Hero(
-                    tag: widget.image!,
+                    tag: functions.resizeImageForGivenWidthAndHeight(
+                        widget.image!,
+                        FFAppConstants.bannerImageDefaultWidth,
+                        FFAppConstants.bannerImageDefaultHeight),
                     transitionOnUserGestures: true,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(0.0),
                       child: CachedNetworkImage(
                         fadeInDuration: const Duration(milliseconds: 500),
                         fadeOutDuration: const Duration(milliseconds: 500),
-                        imageUrl: widget.image!,
+                        imageUrl: functions.resizeImageForGivenWidthAndHeight(
+                            widget.image!,
+                            FFAppConstants.bannerImageDefaultWidth,
+                            FFAppConstants.bannerImageDefaultHeight),
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,
@@ -118,7 +125,10 @@ class _ImageWidgetWidgetState extends State<ImageWidgetWidget> {
                   child: CachedNetworkImage(
                     fadeInDuration: const Duration(milliseconds: 500),
                     fadeOutDuration: const Duration(milliseconds: 500),
-                    imageUrl: widget.image!,
+                    imageUrl: functions.resizeImageForGivenWidthAndHeight(
+                        widget.image!,
+                        FFAppConstants.bannerImageDefaultWidth,
+                        FFAppConstants.bannerImageDefaultHeight),
                     width: double.infinity,
                     height: double.infinity,
                     fit: BoxFit.cover,
