@@ -4,6 +4,7 @@ import '/components/search_badge_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'header_model.dart';
@@ -115,13 +116,14 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               children: [
                 if (widget.title != null && widget.title != '')
                   Flexible(
-                    child: Text(
+                    child: AutoSizeText(
                       valueOrDefault<String>(
                         widget.title,
                         'TITLE',
                       ),
                       textAlign: TextAlign.center,
                       maxLines: 1,
+                      minFontSize: 8.0,
                       style: FlutterFlowTheme.of(context).titleLarge.override(
                             fontFamily:
                                 FlutterFlowTheme.of(context).titleLargeFamily,

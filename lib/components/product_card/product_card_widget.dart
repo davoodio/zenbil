@@ -145,7 +145,11 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                               child: CachedNetworkImage(
                                 fadeInDuration: const Duration(milliseconds: 500),
                                 fadeOutDuration: const Duration(milliseconds: 500),
-                                imageUrl: widget.image!,
+                                imageUrl:
+                                    functions.resizeImageForGivenWidthAndHeight(
+                                        widget.image!,
+                                        FFAppConstants.cardImageDefaultWidth,
+                                        FFAppConstants.cardImageDefaultHeight),
                                 width: double.infinity,
                                 height: 120.0,
                                 fit: BoxFit.contain,
@@ -203,11 +207,13 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                         milliseconds: 500),
                                                     fadeOutDuration: const Duration(
                                                         milliseconds: 500),
-                                                    imageUrl:
-                                                        valueOrDefault<String>(
-                                                      imageVarItem,
-                                                      'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg',
-                                                    ),
+                                                    imageUrl: functions
+                                                        .resizeImageForGivenWidthAndHeight(
+                                                            imageVarItem,
+                                                            FFAppConstants
+                                                                .cardImageDefaultWidth,
+                                                            FFAppConstants
+                                                                .cardImageDefaultHeight),
                                                     width: double.infinity,
                                                     height: double.infinity,
                                                     fit: BoxFit.contain,

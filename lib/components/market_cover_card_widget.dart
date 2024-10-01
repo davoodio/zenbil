@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -108,10 +109,13 @@ class _MarketCoverCardWidgetState extends State<MarketCoverCardWidget> {
                         child: CachedNetworkImage(
                           fadeInDuration: const Duration(milliseconds: 500),
                           fadeOutDuration: const Duration(milliseconds: 500),
-                          imageUrl: valueOrDefault<String>(
-                            widget.image,
-                            'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/9h1d3pusvgam/image_place_02.jpeg',
-                          ),
+                          imageUrl: functions.resizeImageForGivenWidthAndHeight(
+                              valueOrDefault<String>(
+                                widget.image,
+                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/9h1d3pusvgam/image_place_02.jpeg',
+                              ),
+                              FFAppConstants.cardImageDefaultWidth,
+                              FFAppConstants.cardImageDefaultHeight),
                           width: double.infinity,
                           height: double.infinity,
                           fit: BoxFit.cover,

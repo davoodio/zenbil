@@ -93,7 +93,7 @@ class _FavoriteBadgeWidgetState extends State<FavoriteBadgeWidget> {
                 if (FFAppState().UserFavorites.contains(widget.productId))
                   Icon(
                     Icons.favorite_outlined,
-                    color: widget.iconColor,
+                    color: FlutterFlowTheme.of(context).liked,
                     size: 25.0,
                   ),
               ],

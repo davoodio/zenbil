@@ -29,4 +29,8 @@ abstract class FFAppConstants {
   static const String privacyLink = 'https://zenbil.io/privacy-policy';
   static const String termsLink = 'https://zenbil.io/terms-and-conditions';
   static const String contactEmail = 'info@zenbil.io';
+  static const double cardImageDefaultWidth = 200.0;
+  static const double cardImageDefaultHeight = 130.0;
+  static const double bannerImageDefaultWidth = 1000.0;
+  static const double bannerImageDefaultHeight = 400.0;
 }
