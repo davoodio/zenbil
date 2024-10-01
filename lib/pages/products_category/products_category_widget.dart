@@ -74,7 +74,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                   height: double.infinity,
                   decoration: const BoxDecoration(),
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       wrapWithModel(
                         model: _model.headerModel,
@@ -101,7 +101,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
-                            mainAxisSize: MainAxisSize.max,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Builder(
                                 builder: (context) {
@@ -371,6 +371,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                           'quantity_in_inventory',
                                           0,
                                         ),
+                                    limit: 100,
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -480,9 +481,7 @@ class _ProductsCategoryWidgetState extends State<ProductsCategoryWidget> {
                                   },
                                 ),
                               ),
-                            ]
-                                .divide(const SizedBox(height: 20.0))
-                                .addToStart(const SizedBox(height: 20.0)),
+                            ].divide(const SizedBox(height: 20.0)),
                           ),
                         ),
                       ),

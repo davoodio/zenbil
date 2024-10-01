@@ -1,6 +1,7 @@
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,7 +57,10 @@ class _AdvertiseBannerWidgetState extends State<AdvertiseBannerWidget> {
           child: CachedNetworkImage(
             fadeInDuration: const Duration(milliseconds: 500),
             fadeOutDuration: const Duration(milliseconds: 500),
-            imageUrl: widget.advertise!.bannerUrl!,
+            imageUrl: functions.resizeImageForGivenWidthAndHeight(
+                widget.advertise!.bannerUrl!,
+                FFAppConstants.bannerImageDefaultWidth,
+                FFAppConstants.bannerImageDefaultHeight),
             width: double.infinity,
             height: double.infinity,
             fit: BoxFit.cover,

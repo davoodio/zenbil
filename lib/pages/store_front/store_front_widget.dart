@@ -705,6 +705,11 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                   .gt(
                                                     'quantity_in_inventory',
                                                     0,
+                                                  )
+                                                  .eq(
+                                                    'market_product_product_status',
+                                                    ProductStatus
+                                                        .Available.name,
                                                   ),
                                             ),
                                             builder: (context, snapshot) {

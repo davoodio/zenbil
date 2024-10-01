@@ -399,3 +399,14 @@ int findIndexOfDeliveryOrderForAnOrderGroupId(
 ) {
   return list.indexWhere((element) => element.orderGroupId == id);
 }
+
+String resizeImageForGivenWidthAndHeight(
+  String imageURL,
+  double width,
+  double height,
+) {
+  String updatedUrl = imageURL.replaceFirst('/object/', '/render/image/');
+  updatedUrl += '?width=$width&height=$height&resize=contain';
+
+  return updatedUrl;
+}
