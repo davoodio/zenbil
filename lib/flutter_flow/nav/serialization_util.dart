@@ -296,6 +296,8 @@ dynamic deserializeParam<T>(
             return CategoriesRow(data);
           case ProductsCategoriesRow:
             return ProductsCategoriesRow(data);
+          case ViewMarketableProductsRow:
+            return ViewMarketableProductsRow(data);
           case UserFavoritesRow:
             return UserFavoritesRow(data);
           case SalesCalculationsRow:

@@ -849,6 +849,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                       () => safeSetState(() {}),
                                                     ),
                                                     autofocus: false,
+                                                    readOnly: true,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       labelStyle:
@@ -956,7 +957,7 @@ class _AddDomesticAddressWidgetState extends State<AddDomesticAddressWidget> {
                                                                   .titleSmallFamily,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryText,
+                                                              .secondaryText,
                                                           fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:

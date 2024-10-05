@@ -119,16 +119,16 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
     deliveryOptions = [];
     logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
     deliveryMethodsForOrder =
-        await OnroDeliveryAndMethodsGroup.deliveryMethodsCall.call(
+        await SupabaseApiCallGroup.deliveryMethodsCall.call(
       orderId: order?.id,
       jwt: currentJwtToken,
     );
 
-    if (OnroDeliveryAndMethodsGroup.deliveryMethodsCall.success(
+    if (SupabaseApiCallGroup.deliveryMethodsCall.success(
       (deliveryMethodsForOrder.jsonBody ?? ''),
     )!) {
       while (orderGroupsLoopCounter <
-          OnroDeliveryAndMethodsGroup.deliveryMethodsCall
+          SupabaseApiCallGroup.deliveryMethodsCall
               .orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )!
@@ -137,19 +137,19 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
         await OrderGroupsTable().update(
           data: {
             'delivery_method_id': getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_id''',
             ),
             'delivery_method_mapping_id': getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_mapping_id''',
             ),
             'onro_delivery_method_id': getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_id''',
@@ -158,7 +158,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
           matchingRows: (rows) => rows.eq(
             'id',
             getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder?.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.id''',
@@ -169,7 +169,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
         orderGroupCalculation = await calculateDeliveryPricesForOrder(
           context,
           orderGroupId: getJsonField(
-            OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+            SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
               (deliveryMethodsForOrder.jsonBody ?? ''),
             )?[orderGroupsLoopCounter],
             r'''$.id''',
@@ -179,13 +179,13 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
         logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
         addToDeliveryOptions(DeliveryOrdersStruct(
           orderGroupId: getJsonField(
-            OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+            SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
               (deliveryMethodsForOrder.jsonBody ?? ''),
             )?[orderGroupsLoopCounter],
             r'''$.id''',
           ),
           deliveryOptionsAvailable: (getJsonField(
-            OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+            SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
               (deliveryMethodsForOrder.jsonBody ?? ''),
             )?[orderGroupsLoopCounter],
             r'''$.grouped[:].method_type_name''',
@@ -195,37 +195,37 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
               .toList(),
           selectedDeliveryMethodForOrderGroup: OrderGroupDeliveryMethodsStruct(
             methodId: getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_id''',
             ),
             methodTypeId: getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_id''',
             ),
             methodTypeName: getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_name''',
             ).toString().toString(),
             methodMappingId: getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_mapping_id''',
             ),
             methodTypeNameArabic: getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_name_arabic''',
             ).toString().toString(),
             methodTypeNameKurdish: getJsonField(
-              OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
               r'''$.grouped[0].method_type_name_kurdish''',
@@ -292,7 +292,7 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
 
     logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
     isLoading = false;
-    return OnroDeliveryAndMethodsGroup.deliveryMethodsCall.orderGroups(
+    return SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
       (deliveryMethodsForOrder.jsonBody ?? ''),
     );
   }
@@ -306,16 +306,16 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
 
     logFirebaseEvent('calculateDeliveryPricesForOrder_backend_');
     deliveryPricesForOrder =
-        await OnroDeliveryAndMethodsGroup.calculateOrderGroupCall.call(
+        await SupabaseApiCallGroup.calculateOrderGroupCall.call(
       orderGroupId: orderGroupId,
       deliveryAddressId: deliveryAddressId,
       jwt: currentJwtToken,
     );
 
-    if (OnroDeliveryAndMethodsGroup.calculateOrderGroupCall.success(
+    if (SupabaseApiCallGroup.calculateOrderGroupCall.success(
       (deliveryPricesForOrder.jsonBody ?? ''),
     )!) {
-      return OnroDeliveryAndMethodsGroup.calculateOrderGroupCall
+      return SupabaseApiCallGroup.calculateOrderGroupCall
           .orderGroups(
             (deliveryPricesForOrder.jsonBody ?? ''),
           )!
