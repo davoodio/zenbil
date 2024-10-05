@@ -43,6 +43,7 @@ export 'tables/countries.dart';
 export 'tables/users.dart';
 export 'tables/categories.dart';
 export 'tables/products_categories.dart';
+export 'tables/view_marketable_products.dart';
 export 'tables/user_favorites.dart';
 export 'tables/sales_calculations.dart';
 export 'tables/view_market_product.dart';

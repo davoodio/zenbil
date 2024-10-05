@@ -2031,13 +2031,13 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             FFLocalizations.of(
                                                                     context)
                                                                 .getText(
-                                                          'n8aagpr3' /* No address! */,
+                                                          '5374bxgy' /* No address! */,
                                                         ),
                                                         body:
                                                             FFLocalizations.of(
                                                                     context)
                                                                 .getText(
-                                                          '2aauu3sh' /* You should select a shipping a... */,
+                                                          '5n660yy3' /* You should select a shipping a... */,
                                                         ),
                                                         isConfirm: false,
                                                         autoDismiss: true,

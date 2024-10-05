@@ -188,7 +188,9 @@ class _ControlWidgetState extends State<ControlWidget>
                         .AppSettings
                         .enableAdvertisementOnProductDetail
                 ..brandsEnabledInApp =
-                    _model.appSettings?.first.brandsEnabledInApp,
+                    _model.appSettings?.first.brandsEnabledInApp
+                ..minAmountForCheckout =
+                    _model.appSettings?.first.minAmountForCheckout ?? FFAppState().AppSettings.minAmountForCheckout,
             );
           }
         }),

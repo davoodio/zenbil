@@ -73,7 +73,8 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           ),
                           showBackButton: true,
                           showCart: true,
-                          goToCartOnClick: false,
+                          goToCartOnClick: true,
+                          showSearch: false,
                         ),
                       ),
                       Expanded(

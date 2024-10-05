@@ -123,4 +123,9 @@ class AppGeneralSettingsRow extends SupabaseDataRow {
   bool? get brandsEnabledInApp => getField<bool>('brands_enabled_in_app');
   set brandsEnabledInApp(bool? value) =>
       setField<bool>('brands_enabled_in_app', value);
+
+  double? get minAmountForCheckout =>
+      getField<double>('min_amount_for_checkout');
+  set minAmountForCheckout(double? value) =>
+      setField<double>('min_amount_for_checkout', value);
 }

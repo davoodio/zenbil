@@ -18,6 +18,7 @@ class AppGeneralSettingsStruct extends BaseStruct {
     List<SocialStruct>? social,
     bool? enableAdvertisementOnProductDetail,
     bool? brandsEnabledInApp,
+    double? minAmountForCheckout,
   })  : _enableWalletAsPaymentOption = enableWalletAsPaymentOption,
         _enableWalletTopup = enableWalletTopup,
         _enableAdvertisement = enableAdvertisement,
@@ -31,7 +32,8 @@ class AppGeneralSettingsStruct extends BaseStruct {
         _social = social,
         _enableAdvertisementOnProductDetail =
             enableAdvertisementOnProductDetail,
-        _brandsEnabledInApp = brandsEnabledInApp;
+        _brandsEnabledInApp = brandsEnabledInApp,
+        _minAmountForCheckout = minAmountForCheckout;
 
   // "enableWalletAsPaymentOption" field.
   bool? _enableWalletAsPaymentOption;
@@ -140,6 +142,16 @@ class AppGeneralSettingsStruct extends BaseStruct {
 
   bool hasBrandsEnabledInApp() => _brandsEnabledInApp != null;
 
+  // "minAmountForCheckout" field.
+  double? _minAmountForCheckout;
+  double get minAmountForCheckout => _minAmountForCheckout ?? 10000.0;
+  set minAmountForCheckout(double? val) => _minAmountForCheckout = val;
+
+  void incrementMinAmountForCheckout(double amount) =>
+      minAmountForCheckout = minAmountForCheckout + amount;
+
+  bool hasMinAmountForCheckout() => _minAmountForCheckout != null;
+
   static AppGeneralSettingsStruct fromMap(Map<String, dynamic> data) =>
       AppGeneralSettingsStruct(
         enableWalletAsPaymentOption:
@@ -162,6 +174,7 @@ class AppGeneralSettingsStruct extends BaseStruct {
         enableAdvertisementOnProductDetail:
             data['enableAdvertisementOnProductDetail'] as bool?,
         brandsEnabledInApp: data['brands_enabled_in_app'] as bool?,
+        minAmountForCheckout: castToType<double>(data['minAmountForCheckout']),
       );
 
   static AppGeneralSettingsStruct? maybeFromMap(dynamic data) => data is Map
@@ -183,6 +196,7 @@ class AppGeneralSettingsStruct extends BaseStruct {
         'enableAdvertisementOnProductDetail':
             _enableAdvertisementOnProductDetail,
         'brands_enabled_in_app': _brandsEnabledInApp,
+        'minAmountForCheckout': _minAmountForCheckout,
       }.withoutNulls;
 
   @override
@@ -235,6 +249,10 @@ class AppGeneralSettingsStruct extends BaseStruct {
         'brands_enabled_in_app': serializeParam(
           _brandsEnabledInApp,
           ParamType.bool,
+        ),
+        'minAmountForCheckout': serializeParam(
+          _minAmountForCheckout,
+          ParamType.double,
         ),
       }.withoutNulls;
 
@@ -302,6 +320,11 @@ class AppGeneralSettingsStruct extends BaseStruct {
           ParamType.bool,
           false,
         ),
+        minAmountForCheckout: deserializeParam(
+          data['minAmountForCheckout'],
+          ParamType.double,
+          false,
+        ),
       );
 
   @override
@@ -325,7 +348,8 @@ class AppGeneralSettingsStruct extends BaseStruct {
         listEquality.equals(social, other.social) &&
         enableAdvertisementOnProductDetail ==
             other.enableAdvertisementOnProductDetail &&
-        brandsEnabledInApp == other.brandsEnabledInApp;
+        brandsEnabledInApp == other.brandsEnabledInApp &&
+        minAmountForCheckout == other.minAmountForCheckout;
   }
 
   @override
@@ -341,7 +365,8 @@ class AppGeneralSettingsStruct extends BaseStruct {
         maxAmountWalletTopup,
         social,
         enableAdvertisementOnProductDetail,
-        brandsEnabledInApp
+        brandsEnabledInApp,
+        minAmountForCheckout
       ]);
 }
 
@@ -357,6 +382,7 @@ AppGeneralSettingsStruct createAppGeneralSettingsStruct({
   double? maxAmountWalletTopup,
   bool? enableAdvertisementOnProductDetail,
   bool? brandsEnabledInApp,
+  double? minAmountForCheckout,
 }) =>
     AppGeneralSettingsStruct(
       enableWalletAsPaymentOption: enableWalletAsPaymentOption,
@@ -370,4 +396,5 @@ AppGeneralSettingsStruct createAppGeneralSettingsStruct({
       maxAmountWalletTopup: maxAmountWalletTopup,
       enableAdvertisementOnProductDetail: enableAdvertisementOnProductDetail,
       brandsEnabledInApp: brandsEnabledInApp,
+      minAmountForCheckout: minAmountForCheckout,
     );

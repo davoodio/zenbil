@@ -6,6 +6,7 @@ import '/components/cart_badge_widget.dart';
 import '/components/cart_item/cart_item_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/components/header/header_widget.dart';
+import '/components/info_modal_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -293,6 +294,62 @@ class _CartWidgetState extends State<CartWidget> {
                                           ),
                                         ),
                                       ),
+                                    if (FFAppState().Cart.products.isNotEmpty)
+                                      Container(
+                                        width: double.infinity,
+                                        height: 44.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 0.0, 20.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    '(${FFLocalizations.of(context).getVariableText(
+                                                      enText: 'Min. Amount:',
+                                                      arText:
+                                                          'الحد الأدنى للمبلغ:',
+                                                      faText: 'حداقل مقدار:',
+                                                    )} ${functions.applyCorrectNumberFormatting(FFAppState().AppSettings.minAmountForCheckout, FFAppConstants.defaultCurrencyCode, false, true)})',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleLargeFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLargeFamily),
+                                                        ),
+                                                  ),
+                                                ].divide(const SizedBox(width: 8.0)),
+                                              ),
+                                            ].divide(const SizedBox(width: 8.0)),
+                                          ),
+                                        ),
+                                      ),
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           20.0, 0.0, 20.0, 8.0),
@@ -300,108 +357,123 @@ class _CartWidgetState extends State<CartWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
-                                            child: Semantics(
-                                              label: 'Checkout products',
-                                              child: FFButtonWidget(
-                                                onPressed: (FFAppState()
-                                                            .Cart
-                                                            .products.isEmpty)
-                                                    ? null
-                                                    : () async {
-                                                        logFirebaseEvent(
-                                                            'CART_PAGE_Checkoutting_ON_TAP');
-                                                        if (FFAppState()
-                                                            .CurrentUser
-                                                            .isAnon) {
+                                            child: Builder(
+                                              builder: (context) => Semantics(
+                                                label: 'Checkout products',
+                                                child: FFButtonWidget(
+                                                  onPressed: ((FFAppState()
+                                                                  .Cart
+                                                                  .products.isEmpty) ||
+                                                          (functions.calculateCartTotalPrice(
+                                                                  FFAppState()
+                                                                      .Cart
+                                                                      .products
+                                                                      .toList()) <
+                                                              FFAppState()
+                                                                  .AppSettings
+                                                                  .minAmountForCheckout))
+                                                      ? null
+                                                      : () async {
                                                           logFirebaseEvent(
-                                                              'Checkoutting_navigate_to');
+                                                              'CART_PAGE_Checkoutting_ON_TAP');
+                                                          if (FFAppState()
+                                                              .CurrentUser
+                                                              .isAnon) {
+                                                            logFirebaseEvent(
+                                                                'Checkoutting_navigate_to');
 
-                                                          context.pushNamed(
-                                                            'Signup',
-                                                            queryParameters: {
-                                                              'showBackButton':
-                                                                  serializeParam(
-                                                                true,
-                                                                ParamType.bool,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        } else {
-                                                          // FetchUserInfo
-                                                          logFirebaseEvent(
-                                                              'Checkoutting_FetchUserInfo');
-                                                          _model.user =
-                                                              await UsersTable()
-                                                                  .queryRows(
-                                                            queryFn: (q) =>
-                                                                q.eq(
-                                                              'id',
-                                                              currentUserUid,
-                                                            ),
-                                                          );
-                                                          logFirebaseEvent(
-                                                              'Checkoutting_update_page_state');
-                                                          _model.currentUser =
-                                                              _model
-                                                                  .user?.first;
-                                                          // InsertOrder
-                                                          logFirebaseEvent(
-                                                              'Checkoutting_InsertOrder');
-                                                          _model.order =
-                                                              await OrdersTable()
-                                                                  .insert({
-                                                            'user_id':
-                                                                currentUserUid,
-                                                            'user_address_id':
-                                                                _model
-                                                                    .currentUser
-                                                                    ?.defaultAddressId,
-                                                            'order_number':
-                                                                random_data
-                                                                    .randomString(
-                                                              8,
-                                                              16,
-                                                              true,
-                                                              true,
-                                                              true,
-                                                            ),
-                                                            'order_status':
-                                                                OrderStatuses
-                                                                    .Draft.name,
-                                                            'payment_status':
-                                                                OrderPaymentStatus
-                                                                    .Unpaid
-                                                                    .name,
-                                                            'user_shipping_address_id':
-                                                                _model
-                                                                    .currentUser
-                                                                    ?.defaultAddressId,
-                                                            'price_sub_total': functions
-                                                                .calculateCartTotalPrice(
+                                                            context.pushNamed(
+                                                              'Signup',
+                                                              queryParameters: {
+                                                                'showBackButton':
+                                                                    serializeParam(
+                                                                  true,
+                                                                  ParamType
+                                                                      .bool,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          } else {
+                                                            if (functions.calculateCartTotalPrice(
                                                                     FFAppState()
                                                                         .Cart
                                                                         .products
-                                                                        .toList()),
-                                                            'price_total': functions
-                                                                .calculateCartTotalPrice(
-                                                                    FFAppState()
-                                                                        .Cart
-                                                                        .products
-                                                                        .toList()),
-                                                            'price_taxes': 0.0,
-                                                            'price_delivery':
-                                                                0.0,
-                                                            'price_discounts':
-                                                                0.0,
-                                                            'country_id':
+                                                                        .toList()) >=
                                                                 FFAppState()
-                                                                    .country
-                                                                    .id,
-                                                          });
-                                                          logFirebaseEvent(
-                                                              'Checkoutting_update_page_state');
-                                                          _model.uniqueBusinesses =
-                                                              functions
+                                                                    .AppSettings
+                                                                    .minAmountForCheckout) {
+                                                              // FetchUserInfo
+                                                              logFirebaseEvent(
+                                                                  'Checkoutting_FetchUserInfo');
+                                                              _model.user =
+                                                                  await UsersTable()
+                                                                      .queryRows(
+                                                                queryFn: (q) =>
+                                                                    q.eq(
+                                                                  'id',
+                                                                  currentUserUid,
+                                                                ),
+                                                              );
+                                                              logFirebaseEvent(
+                                                                  'Checkoutting_update_page_state');
+                                                              _model.currentUser =
+                                                                  _model.user
+                                                                      ?.first;
+                                                              // InsertOrder
+                                                              logFirebaseEvent(
+                                                                  'Checkoutting_InsertOrder');
+                                                              _model.order =
+                                                                  await OrdersTable()
+                                                                      .insert({
+                                                                'user_id':
+                                                                    currentUserUid,
+                                                                'user_address_id': _model
+                                                                    .currentUser
+                                                                    ?.defaultAddressId,
+                                                                'order_number':
+                                                                    random_data
+                                                                        .randomString(
+                                                                  8,
+                                                                  16,
+                                                                  true,
+                                                                  true,
+                                                                  true,
+                                                                ),
+                                                                'order_status':
+                                                                    OrderStatuses
+                                                                        .Draft
+                                                                        .name,
+                                                                'payment_status':
+                                                                    OrderPaymentStatus
+                                                                        .Unpaid
+                                                                        .name,
+                                                                'user_shipping_address_id': _model
+                                                                    .currentUser
+                                                                    ?.defaultAddressId,
+                                                                'price_sub_total':
+                                                                    functions.calculateCartTotalPrice(FFAppState()
+                                                                        .Cart
+                                                                        .products
+                                                                        .toList()),
+                                                                'price_total': functions.calculateCartTotalPrice(
+                                                                    FFAppState()
+                                                                        .Cart
+                                                                        .products
+                                                                        .toList()),
+                                                                'price_taxes':
+                                                                    0.0,
+                                                                'price_delivery':
+                                                                    0.0,
+                                                                'price_discounts':
+                                                                    0.0,
+                                                                'country_id':
+                                                                    FFAppState()
+                                                                        .country
+                                                                        .id,
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  'Checkoutting_update_page_state');
+                                                              _model.uniqueBusinesses = functions
                                                                   .uniqueIDs(FFAppState()
                                                                       .Cart
                                                                       .products
@@ -410,62 +482,51 @@ class _CartWidgetState extends State<CartWidget> {
                                                                       .toList())
                                                                   .toList()
                                                                   .cast<int>();
-                                                          while (_model
-                                                                  .uniqueBusinesses
-                                                                  .length >
-                                                              _model
-                                                                  .counterOrderGroup) {
-                                                            logFirebaseEvent(
-                                                                'Checkoutting_backend_call');
-                                                            _model.orderGroup =
-                                                                await OrderGroupsTable()
-                                                                    .insert({
-                                                              'order_id': _model
-                                                                  .order?.id,
-                                                              'business_id': _model
-                                                                      .uniqueBusinesses[
+                                                              while (_model
+                                                                      .uniqueBusinesses
+                                                                      .length >
                                                                   _model
-                                                                      .counterOrderGroup],
-                                                              'status':
-                                                                  OrderStatuses
-                                                                      .Draft
-                                                                      .name,
-                                                              'price_sub_total': functions.calculateOrderGroupTotalInCart(
-                                                                  FFAppState()
-                                                                      .Cart
-                                                                      .products
-                                                                      .toList(),
-                                                                  _model.uniqueBusinesses[
+                                                                      .counterOrderGroup) {
+                                                                logFirebaseEvent(
+                                                                    'Checkoutting_backend_call');
+                                                                _model.orderGroup =
+                                                                    await OrderGroupsTable()
+                                                                        .insert({
+                                                                  'order_id':
                                                                       _model
-                                                                          .counterOrderGroup]),
-                                                            });
-                                                            logFirebaseEvent(
-                                                                'Checkoutting_custom_action');
-                                                            await actions
-                                                                .printAction(
-                                                              'Order group: ${_model.orderGroup?.id.toString()}',
-                                                            );
-                                                            logFirebaseEvent(
-                                                                'Checkoutting_update_page_state');
-                                                            _model.addToOrderGroups(
-                                                                _model
-                                                                    .orderGroup!);
-                                                            logFirebaseEvent(
-                                                                'Checkoutting_update_page_state');
-                                                            _model.uniqueproducts = FFAppState()
-                                                                .Cart
-                                                                .products
-                                                                .where((e) =>
-                                                                    e.businessId ==
-                                                                    _model.uniqueBusinesses[
-                                                                        _model
-                                                                            .counterOrderGroup])
-                                                                .toList()
-                                                                .map((e) =>
-                                                                    e.productId)
-                                                                .toList()
-                                                                .cast<int>();
-                                                            while (FFAppState()
+                                                                          .order
+                                                                          ?.id,
+                                                                  'business_id':
+                                                                      _model.uniqueBusinesses[
+                                                                          _model
+                                                                              .counterOrderGroup],
+                                                                  'status':
+                                                                      OrderStatuses
+                                                                          .Draft
+                                                                          .name,
+                                                                  'price_sub_total': functions.calculateOrderGroupTotalInCart(
+                                                                      FFAppState()
+                                                                          .Cart
+                                                                          .products
+                                                                          .toList(),
+                                                                      _model.uniqueBusinesses[
+                                                                          _model
+                                                                              .counterOrderGroup]),
+                                                                });
+                                                                logFirebaseEvent(
+                                                                    'Checkoutting_custom_action');
+                                                                await actions
+                                                                    .printAction(
+                                                                  'Order group: ${_model.orderGroup?.id.toString()}',
+                                                                );
+                                                                logFirebaseEvent(
+                                                                    'Checkoutting_update_page_state');
+                                                                _model.addToOrderGroups(
+                                                                    _model
+                                                                        .orderGroup!);
+                                                                logFirebaseEvent(
+                                                                    'Checkoutting_update_page_state');
+                                                                _model.uniqueproducts = FFAppState()
                                                                     .Cart
                                                                     .products
                                                                     .where((e) =>
@@ -473,216 +534,281 @@ class _CartWidgetState extends State<CartWidget> {
                                                                         _model.uniqueBusinesses[_model
                                                                             .counterOrderGroup])
                                                                     .toList()
-                                                                    .length >
-                                                                _model
-                                                                    .counterOrderProduct) {
-                                                              logFirebaseEvent(
-                                                                  'Checkoutting_update_page_state');
-                                                              _model.currentCartProduct = FFAppState()
-                                                                  .Cart
-                                                                  .products
-                                                                  .where((e) =>
-                                                                      e.businessId ==
-                                                                      _model.uniqueBusinesses[
+                                                                    .map((e) => e
+                                                                        .productId)
+                                                                    .toList()
+                                                                    .cast<
+                                                                        int>();
+                                                                while (FFAppState()
+                                                                        .Cart
+                                                                        .products
+                                                                        .where((e) =>
+                                                                            e.businessId ==
+                                                                            _model.uniqueBusinesses[_model
+                                                                                .counterOrderGroup])
+                                                                        .toList()
+                                                                        .length >
+                                                                    _model
+                                                                        .counterOrderProduct) {
+                                                                  logFirebaseEvent(
+                                                                      'Checkoutting_update_page_state');
+                                                                  _model.currentCartProduct = FFAppState()
+                                                                      .Cart
+                                                                      .products
+                                                                      .where((e) =>
+                                                                          e.businessId ==
                                                                           _model
-                                                                              .counterOrderGroup])
-                                                                  .toList()[_model.counterOrderProduct];
-                                                              logFirebaseEvent(
-                                                                  'Checkoutting_backend_call');
-                                                              _model.orderProduct =
-                                                                  await OrderProductsTable()
-                                                                      .insert({
-                                                                'order_group_id':
-                                                                    _model
-                                                                        .orderGroup
-                                                                        ?.id,
-                                                                'quantity': _model
-                                                                    .currentCartProduct
-                                                                    ?.quantity,
-                                                                'price_total': _model
-                                                                        .currentCartProduct!
-                                                                        .discountedPrice *
-                                                                    _model
-                                                                        .currentCartProduct!
-                                                                        .quantity,
-                                                                'price_sub_total': _model
-                                                                        .currentCartProduct!
-                                                                        .discountedPrice *
-                                                                    _model
-                                                                        .currentCartProduct!
-                                                                        .quantity,
-                                                                'price_discounts': _model
-                                                                    .currentCartProduct
-                                                                    ?.discountPercent,
-                                                                'price_taxes':
-                                                                    _model
+                                                                              .uniqueBusinesses[_model.counterOrderGroup])
+                                                                      .toList()[_model.counterOrderProduct];
+                                                                  logFirebaseEvent(
+                                                                      'Checkoutting_backend_call');
+                                                                  _model.orderProduct =
+                                                                      await OrderProductsTable()
+                                                                          .insert({
+                                                                    'order_group_id':
+                                                                        _model
+                                                                            .orderGroup
+                                                                            ?.id,
+                                                                    'quantity': _model
                                                                         .currentCartProduct
-                                                                        ?.tax,
-                                                                'status':
-                                                                    'Draft',
-                                                                'sum_weight': _model
-                                                                    .currentCartProduct
-                                                                    ?.weight,
-                                                                'sum_size': _model
-                                                                    .currentCartProduct
-                                                                    ?.size,
-                                                                'product_image':
-                                                                    _model
+                                                                        ?.quantity,
+                                                                    'price_total': _model
+                                                                            .currentCartProduct!
+                                                                            .discountedPrice *
+                                                                        _model
+                                                                            .currentCartProduct!
+                                                                            .quantity,
+                                                                    'price_sub_total': _model
+                                                                            .currentCartProduct!
+                                                                            .discountedPrice *
+                                                                        _model
+                                                                            .currentCartProduct!
+                                                                            .quantity,
+                                                                    'price_discounts': _model
+                                                                        .currentCartProduct
+                                                                        ?.discountPercent,
+                                                                    'price_taxes':
+                                                                        _model
+                                                                            .currentCartProduct
+                                                                            ?.tax,
+                                                                    'status':
+                                                                        'Draft',
+                                                                    'sum_weight': _model
+                                                                        .currentCartProduct
+                                                                        ?.weight,
+                                                                    'sum_size': _model
+                                                                        .currentCartProduct
+                                                                        ?.size,
+                                                                    'product_image': _model
                                                                         .currentCartProduct
                                                                         ?.image,
-                                                                'order_id':
-                                                                    _model.order
-                                                                        ?.id,
-                                                                'name': _model
-                                                                    .currentCartProduct
-                                                                    ?.productName,
-                                                                'description': _model
-                                                                    .currentCartProduct
-                                                                    ?.productDescription,
-                                                                'market_id': _model
-                                                                    .currentCartProduct
-                                                                    ?.marketId,
-                                                                'business_id': _model
-                                                                    .currentCartProduct
-                                                                    ?.businessId,
-                                                                'delivery_method_id': _model
-                                                                    .currentCartProduct
-                                                                    ?.deliveryMethodId,
-                                                                'delivery_methods_available_Ids': _model
-                                                                    .currentCartProduct
-                                                                    ?.deliveryMethodsAvailable,
-                                                                'product_id': _model
-                                                                    .currentCartProduct
-                                                                    ?.productId,
-                                                                'note': _model
-                                                                    .currentCartProduct
-                                                                    ?.note,
-                                                              });
-                                                              logFirebaseEvent(
-                                                                  'Checkoutting_custom_action');
-                                                              await actions
-                                                                  .printAction(
-                                                                'Order product: ${_model.orderProduct?.id.toString()}',
-                                                              );
-                                                              logFirebaseEvent(
-                                                                  'Checkoutting_update_page_state');
-                                                              _model.addToOrderproducts(
+                                                                    'order_id':
+                                                                        _model
+                                                                            .order
+                                                                            ?.id,
+                                                                    'name': _model
+                                                                        .currentCartProduct
+                                                                        ?.productName,
+                                                                    'description': _model
+                                                                        .currentCartProduct
+                                                                        ?.productDescription,
+                                                                    'market_id': _model
+                                                                        .currentCartProduct
+                                                                        ?.marketId,
+                                                                    'business_id': _model
+                                                                        .currentCartProduct
+                                                                        ?.businessId,
+                                                                    'delivery_method_id': _model
+                                                                        .currentCartProduct
+                                                                        ?.deliveryMethodId,
+                                                                    'delivery_methods_available_Ids': _model
+                                                                        .currentCartProduct
+                                                                        ?.deliveryMethodsAvailable,
+                                                                    'product_id': _model
+                                                                        .currentCartProduct
+                                                                        ?.productId,
+                                                                    'note': _model
+                                                                        .currentCartProduct
+                                                                        ?.note,
+                                                                  });
+                                                                  logFirebaseEvent(
+                                                                      'Checkoutting_custom_action');
+                                                                  await actions
+                                                                      .printAction(
+                                                                    'Order product: ${_model.orderProduct?.id.toString()}',
+                                                                  );
+                                                                  logFirebaseEvent(
+                                                                      'Checkoutting_update_page_state');
+                                                                  _model.addToOrderproducts(
+                                                                      _model
+                                                                          .orderProduct!);
+                                                                  logFirebaseEvent(
+                                                                      'Checkoutting_custom_action');
+                                                                  await actions
+                                                                      .printAction(
+                                                                    _model
+                                                                        .counterOrderProduct
+                                                                        .toString(),
+                                                                  );
+                                                                  logFirebaseEvent(
+                                                                      'Checkoutting_update_page_state');
+                                                                  _model.counterOrderProduct =
+                                                                      _model.counterOrderProduct +
+                                                                          1;
+                                                                }
+                                                                logFirebaseEvent(
+                                                                    'Checkoutting_custom_action');
+                                                                await actions
+                                                                    .printAction(
                                                                   _model
-                                                                      .orderProduct!);
+                                                                      .counterOrderGroup
+                                                                      .toString(),
+                                                                );
+                                                                logFirebaseEvent(
+                                                                    'Checkoutting_update_page_state');
+                                                                _model.counterOrderGroup =
+                                                                    _model.counterOrderGroup +
+                                                                        1;
+                                                                _model.counterOrderProduct =
+                                                                    0;
+                                                              }
                                                               logFirebaseEvent(
-                                                                  'Checkoutting_custom_action');
-                                                              await actions
-                                                                  .printAction(
-                                                                _model
-                                                                    .counterOrderProduct
-                                                                    .toString(),
+                                                                  'Checkoutting_update_app_state');
+                                                              FFAppState()
+                                                                      .Cart =
+                                                                  CartStruct();
+                                                              logFirebaseEvent(
+                                                                  'Checkoutting_navigate_to');
+
+                                                              context.goNamed(
+                                                                'Checkout',
+                                                                queryParameters:
+                                                                    {
+                                                                  'order':
+                                                                      serializeParam(
+                                                                    _model
+                                                                        .order,
+                                                                    ParamType
+                                                                        .SupabaseRow,
+                                                                  ),
+                                                                  'orderGroups':
+                                                                      serializeParam(
+                                                                    _model
+                                                                        .orderGroups,
+                                                                    ParamType
+                                                                        .SupabaseRow,
+                                                                    isList:
+                                                                        true,
+                                                                  ),
+                                                                  'orderproducts':
+                                                                      serializeParam(
+                                                                    _model
+                                                                        .orderproducts,
+                                                                    ParamType
+                                                                        .SupabaseRow,
+                                                                    isList:
+                                                                        true,
+                                                                  ),
+                                                                }.withoutNulls,
                                                               );
+                                                            } else {
                                                               logFirebaseEvent(
-                                                                  'Checkoutting_update_page_state');
-                                                              _model.counterOrderProduct =
-                                                                  _model.counterOrderProduct +
-                                                                      1;
+                                                                  'Checkoutting_alert_dialog');
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (dialogContext) {
+                                                                  return Dialog(
+                                                                    elevation:
+                                                                        0,
+                                                                    insetPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    alignment: const AlignmentDirectional(
+                                                                            0.0,
+                                                                            0.0)
+                                                                        .resolve(
+                                                                            Directionality.of(context)),
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap: () =>
+                                                                          FocusScope.of(dialogContext)
+                                                                              .unfocus(),
+                                                                      child:
+                                                                          InfoModalWidget(
+                                                                        title: FFLocalizations.of(context)
+                                                                            .getText(
+                                                                          'n8aagpr3' /* Insufficient cart sum! */,
+                                                                        ),
+                                                                        body: FFLocalizations.of(context)
+                                                                            .getText(
+                                                                          '2aauu3sh' /* The cart sum cannot be less th... */,
+                                                                        ),
+                                                                        isConfirm:
+                                                                            false,
+                                                                        autoDismiss:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
                                                             }
-                                                            logFirebaseEvent(
-                                                                'Checkoutting_custom_action');
-                                                            await actions
-                                                                .printAction(
-                                                              _model
-                                                                  .counterOrderGroup
-                                                                  .toString(),
-                                                            );
-                                                            logFirebaseEvent(
-                                                                'Checkoutting_update_page_state');
-                                                            _model.counterOrderGroup =
-                                                                _model.counterOrderGroup +
-                                                                    1;
-                                                            _model.counterOrderProduct =
-                                                                0;
                                                           }
-                                                          logFirebaseEvent(
-                                                              'Checkoutting_update_app_state');
-                                                          FFAppState().Cart =
-                                                              CartStruct();
-                                                          logFirebaseEvent(
-                                                              'Checkoutting_navigate_to');
 
-                                                          context.goNamed(
-                                                            'Checkout',
-                                                            queryParameters: {
-                                                              'order':
-                                                                  serializeParam(
-                                                                _model.order,
-                                                                ParamType
-                                                                    .SupabaseRow,
-                                                              ),
-                                                              'orderGroups':
-                                                                  serializeParam(
-                                                                _model
-                                                                    .orderGroups,
-                                                                ParamType
-                                                                    .SupabaseRow,
-                                                                isList: true,
-                                                              ),
-                                                              'orderproducts':
-                                                                  serializeParam(
-                                                                _model
-                                                                    .orderproducts,
-                                                                ParamType
-                                                                    .SupabaseRow,
-                                                                isList: true,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        }
-
-                                                        safeSetState(() {});
-                                                      },
-                                                text:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  'dpqix3gq' /* CHECKOUT */,
-                                                ),
-                                                options: FFButtonOptions(
-                                                  height: 48.0,
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          24.0, 0.0, 24.0, 0.0),
-                                                  iconPadding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
+                                                          safeSetState(() {});
+                                                        },
+                                                  text: FFLocalizations.of(
                                                           context)
-                                                      .tertiary,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                            letterSpacing: 0.0,
-                                                            useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                .containsKey(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmallFamily),
-                                                          ),
-                                                  elevation: 0.0,
-                                                  borderSide: const BorderSide(
-                                                    color: Colors.transparent,
-                                                    width: 1.0,
+                                                      .getText(
+                                                    'dpqix3gq' /* CHECKOUT */,
                                                   ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  disabledColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .lightBlack,
+                                                  options: FFButtonOptions(
+                                                    height: 48.0,
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                24.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiary,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily),
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderSide: const BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    disabledColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .lightBlack,
+                                                  ),
                                                 ),
                                               ),
                                             ),

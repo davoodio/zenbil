@@ -736,9 +736,9 @@ class PayWalletCall {
 
 /// End UserWalletCalls Group Code
 
-/// Start OnroDeliveryAndMethods Group Code
+/// Start SupabaseApiCall Group Code
 
-class OnroDeliveryAndMethodsGroup {
+class SupabaseApiCallGroup {
   static String getBaseUrl({
     String? jwt = '',
   }) =>
@@ -757,7 +757,7 @@ class DeliveryMethodsCall {
     int? orderId,
     String? jwt = '',
   }) async {
-    final baseUrl = OnroDeliveryAndMethodsGroup.getBaseUrl(
+    final baseUrl = SupabaseApiCallGroup.getBaseUrl(
       jwt: jwt,
     );
 
@@ -802,7 +802,7 @@ class CalculateOrderGroupCall {
     int? deliveryAddressId,
     String? jwt = '',
   }) async {
-    final baseUrl = OnroDeliveryAndMethodsGroup.getBaseUrl(
+    final baseUrl = SupabaseApiCallGroup.getBaseUrl(
       jwt: jwt,
     );
 
@@ -842,7 +842,7 @@ class CalculateOrderGroupCall {
       ) as List?;
 }
 
-/// End OnroDeliveryAndMethods Group Code
+/// End SupabaseApiCall Group Code
 
 /// Start BranchIOApi Group Code
 

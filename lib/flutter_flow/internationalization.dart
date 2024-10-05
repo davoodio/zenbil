@@ -290,6 +290,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'الدفع',
       'fa': 'تسویه حساب',
     },
+    'n8aagpr3': {
+      'en': 'Insufficient cart sum!',
+      'ar': 'مبلغ العربة غير كاف!',
+      'fa': 'مبلغ سبد خرید کافی نیست!',
+    },
+    '2aauu3sh': {
+      'en': 'The cart sum cannot be less than the minimum amount.',
+      'ar': 'لا يمكن أن يكون مبلغ الشراء أقل من الحد الأدنى للمبلغ.',
+      'fa': 'مبلغ سبد خرید نمی تواند کمتر از حداقل مقدار باشد.',
+    },
     '0ad21nz4': {
       'en': 'Home',
       'ar': 'بيت',
@@ -363,15 +373,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'تأكيد الطلب',
       'fa': 'سفارش را تایید کنید',
     },
-    'n8aagpr3': {
+    '5374bxgy': {
       'en': 'No address!',
-      'ar': 'لا يوجد عنوان!',
-      'fa': 'بدون آدرس!',
+      'ar': 'مبلغ العربة غير كاف!',
+      'fa': 'مبلغ سبد خرید کافی نیست!',
     },
-    '2aauu3sh': {
+    '5n660yy3': {
       'en': 'You should select a shipping address.',
-      'ar': 'ينبغي عليك تحديد عنوان الشحن.',
-      'fa': 'شما باید یک آدرس حمل و نقل را انتخاب کنید.',
+      'ar': 'لا يمكن أن يكون مبلغ الشراء أقل من الحد الأدنى للمبلغ.',
+      'fa': 'مبلغ سبد خرید نمی تواند کمتر از حداقل مقدار باشد.',
     },
     'a5bo9q99': {
       'en': 'Sorry!',
