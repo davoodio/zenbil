@@ -11,7 +11,7 @@ abstract class FFAppConstants {
   static const String DefaultCountryCode = 'IQ';
   static const String DefaultAvatar =
       'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/muztoi9l6z3w/avatarMen.png';
-  static const String appVersion = '1.0.11 October 05';
+  static const String appVersion = '1.0.12 October 11';
   static const String defaultCurrencySymbol = 'IQD';
   static const String defaultCurrencyCode = 'IQD';
   static const String AppStoreLink = 'https://link.zenbil.io/zenbil';
@@ -29,8 +29,9 @@ abstract class FFAppConstants {
   static const String privacyLink = 'https://zenbil.io/privacy-policy';
   static const String termsLink = 'https://zenbil.io/terms-and-conditions';
   static const String contactEmail = 'info@zenbil.io';
-  static const double cardImageDefaultWidth = 200.0;
-  static const double cardImageDefaultHeight = 130.0;
+  static const double cardImageDefaultWidth = 300.0;
+  static const double cardImageDefaultHeight = 300.0;
   static const double bannerImageDefaultWidth = 1000.0;
   static const double bannerImageDefaultHeight = 400.0;
+  static const int categoryAllId = 1;
 }

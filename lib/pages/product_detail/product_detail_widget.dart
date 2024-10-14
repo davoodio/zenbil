@@ -10,6 +10,7 @@ import '/components/counter_product_widget.dart';
 import '/components/empty_component_widget.dart';
 import '/components/favorite_badge_widget.dart';
 import '/components/info_modal_widget.dart';
+import '/components/loaders/loader_box_row/loader_box_row_widget.dart';
 import '/components/market_type_badge_widget.dart';
 import '/components/product_card/product_card_widget.dart';
 import '/components/product_fav_toggle_widget.dart';
@@ -74,6 +75,25 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
       logFirebaseEvent('ProductDetail_update_page_state');
       _model.cartProducts =
           FFAppState().Cart.products.toList().cast<CartProductStruct>();
+      logFirebaseEvent('ProductDetail_backend_call');
+      _model.productCategories = await ViewProductsCategoriesTable().queryRows(
+        queryFn: (q) => q
+            .eq(
+              'product_id',
+              widget.productId,
+            )
+            .neq(
+              'category_id',
+              FFAppConstants.categoryAllId,
+            ),
+      );
+      logFirebaseEvent('ProductDetail_update_page_state');
+      _model.productCategoryIds = _model.productCategories!
+          .map((e) => e.categoryId)
+          .withoutNulls
+          .toList()
+          .toList()
+          .cast<int>();
       if ((widget.marketID != null) && (widget.marketID != 0)) {
         logFirebaseEvent('ProductDetail_backend_call');
         _model.marketLoaded = await MarketsTable().queryRows(
@@ -2800,49 +2820,54 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                       }
                                                     },
                                                   ),
-                                                  if (productDetailProductsRow
-                                                          .subCategoryId !=
-                                                      null)
+                                                  if (_model.productCategoryIds.isNotEmpty)
                                                     FutureBuilder<
-                                                        List<ProductsRow>>(
-                                                      future: ProductsTable()
-                                                          .queryRows(
+                                                        List<
+                                                            ViewDistinctProductsCategoriesRow>>(
+                                                      future:
+                                                          ViewDistinctProductsCategoriesTable()
+                                                              .queryRows(
                                                         queryFn: (q) => q
-                                                            .eq(
-                                                              'sub_category_id',
-                                                              productDetailProductsRow
-                                                                  .subCategoryId,
-                                                            )
                                                             .neq(
                                                               'id',
-                                                              productDetailProductsRow
-                                                                  .id,
+                                                              widget.productId,
+                                                            )
+                                                            .overlaps(
+                                                              'category_ids',
+                                                              _model
+                                                                  .productCategoryIds,
                                                             ),
-                                                        limit: 5,
+                                                        limit: 10,
                                                       ),
                                                       builder:
                                                           (context, snapshot) {
                                                         // Customize what your widget looks like when it's loading.
                                                         if (!snapshot.hasData) {
-                                                          return Center(
+                                                          return const Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        20.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
                                                             child: SizedBox(
-                                                              width: 38.0,
-                                                              height: 38.0,
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 220.0,
                                                               child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                ),
+                                                                  LoaderBoxRowWidget(
+                                                                height: 220.0,
+                                                                borderRadius:
+                                                                    4.0,
+                                                                numberOfItems:
+                                                                    2,
                                                               ),
                                                             ),
                                                           );
                                                         }
-                                                        List<ProductsRow>
-                                                            relatedProductsAllProductsRowList =
+                                                        List<ViewDistinctProductsCategoriesRow>
+                                                            relatedProductsAllViewDistinctProductsCategoriesRowList =
                                                             snapshot.data!;
 
                                                         return Container(
@@ -2850,7 +2875,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                               const BoxDecoration(),
                                                           child: Builder(
                                                             builder: (context) {
-                                                              if (relatedProductsAllProductsRowList.isNotEmpty) {
+                                                              if (relatedProductsAllViewDistinctProductsCategoriesRowList.isNotEmpty) {
                                                                 return Column(
                                                                   mainAxisSize:
                                                                       MainAxisSize
@@ -2913,7 +2938,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   alignment: const AlignmentDirectional(0.0, 0.0),
                                                                                   child: Builder(
                                                                                     builder: (context) {
-                                                                                      final relatedProduct = relatedProductsAllProductsRowList.toList();
+                                                                                      final relatedProduct = relatedProductsAllViewDistinctProductsCategoriesRowList.toList();
 
                                                                                       return ListView.separated(
                                                                                         padding: EdgeInsets.zero,
@@ -2928,27 +2953,31 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                             children: [
                                                                                               wrapWithModel(
                                                                                                 model: _model.productCardModels.getModel(
-                                                                                                  relatedProductItem.id.toString(),
+                                                                                                  relatedProductItem.id!.toString(),
                                                                                                   relatedProductIndex,
                                                                                                 ),
                                                                                                 updateCallback: () => safeSetState(() {}),
                                                                                                 child: ProductCardWidget(
                                                                                                   key: Key(
-                                                                                                    'Keyur8_${relatedProductItem.id.toString()}',
+                                                                                                    'Keyur8_${relatedProductItem.id!.toString()}',
                                                                                                   ),
                                                                                                   image: relatedProductItem.defaultImageUrl!,
-                                                                                                  productName: FFLocalizations.of(context).getVariableText(
-                                                                                                    enText: relatedProductItem.name,
-                                                                                                    arText: relatedProductItem.nameArabic != null && relatedProductItem.nameArabic != '' ? relatedProductItem.nameArabic : relatedProductItem.name,
-                                                                                                    faText: relatedProductItem.nameKurdish != null && relatedProductItem.nameKurdish != '' ? relatedProductItem.nameKurdish : relatedProductItem.name,
+                                                                                                  productName: valueOrDefault<String>(
+                                                                                                    FFLocalizations.of(context).getVariableText(
+                                                                                                      enText: relatedProductItem.name,
+                                                                                                      arText: relatedProductItem.nameArabic != null && relatedProductItem.nameArabic != '' ? relatedProductItem.nameArabic : relatedProductItem.name,
+                                                                                                      faText: relatedProductItem.nameKurdish != null && relatedProductItem.nameKurdish != '' ? relatedProductItem.nameKurdish : relatedProductItem.name,
+                                                                                                    ),
+                                                                                                    '-',
                                                                                                   ),
                                                                                                   price: relatedProductItem.price,
                                                                                                   discount: relatedProductItem.discountPercent,
                                                                                                   reviewRate: relatedProductItem.reviewRate,
                                                                                                   numberOfReviews: relatedProductItem.numberOfReviews,
-                                                                                                  productId: relatedProductItem.id,
-                                                                                                  marketID: widget.marketID,
+                                                                                                  productId: relatedProductItem.id!,
+                                                                                                  marketID: _model.marketData?.id,
                                                                                                   discountedPrice: relatedProductItem.discountedPrice,
+                                                                                                  imagesUrl: relatedProductItem.imagesUrl,
                                                                                                 ),
                                                                                               ),
                                                                                             ],

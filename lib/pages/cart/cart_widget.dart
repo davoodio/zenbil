@@ -472,6 +472,25 @@ class _CartWidgetState extends State<CartWidget> {
                                                                         .id,
                                                               });
                                                               logFirebaseEvent(
+                                                                  'Checkoutting_backend_call');
+                                                              await OrdersTable()
+                                                                  .update(
+                                                                data: {
+                                                                  'order_number': (1000 +
+                                                                          _model
+                                                                              .order!
+                                                                              .id)
+                                                                      .toString(),
+                                                                },
+                                                                matchingRows:
+                                                                    (rows) =>
+                                                                        rows.eq(
+                                                                  'id',
+                                                                  _model.order
+                                                                      ?.id,
+                                                                ),
+                                                              );
+                                                              logFirebaseEvent(
                                                                   'Checkoutting_update_page_state');
                                                               _model.uniqueBusinesses = functions
                                                                   .uniqueIDs(FFAppState()

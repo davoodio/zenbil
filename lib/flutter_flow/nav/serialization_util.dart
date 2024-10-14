@@ -268,6 +268,8 @@ dynamic deserializeParam<T>(
             return DeliveryMethodMappingsRow(data);
           case BrandsRow:
             return BrandsRow(data);
+          case ViewDistinctProductsCategoriesRow:
+            return ViewDistinctProductsCategoriesRow(data);
           case ConversationMessagesRow:
             return ConversationMessagesRow(data);
           case CitiesRow:
@@ -276,6 +278,8 @@ dynamic deserializeParam<T>(
             return WalletsRow(data);
           case ViewAdvertisingNamesRow:
             return ViewAdvertisingNamesRow(data);
+          case ViewOrderAdminRow:
+            return ViewOrderAdminRow(data);
           case DeliveryMethodsRow:
             return DeliveryMethodsRow(data);
           case DeliveryMethodTypesRow:

@@ -46,8 +46,21 @@ class ProductDetailModel extends FlutterFlowModel<ProductDetailWidget> {
 
   bool isSameProductFound = false;
 
+  List<int> productCategoryIds = [];
+  void addToProductCategoryIds(int item) => productCategoryIds.add(item);
+  void removeFromProductCategoryIds(int item) =>
+      productCategoryIds.remove(item);
+  void removeAtIndexFromProductCategoryIds(int index) =>
+      productCategoryIds.removeAt(index);
+  void insertAtIndexInProductCategoryIds(int index, int item) =>
+      productCategoryIds.insert(index, item);
+  void updateProductCategoryIdsAtIndex(int index, Function(int) updateFn) =>
+      productCategoryIds[index] = updateFn(productCategoryIds[index]);
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - Query Rows] action in ProductDetail widget.
+  List<ViewProductsCategoriesRow>? productCategories;
   // Stores action output result for [Backend Call - Query Rows] action in ProductDetail widget.
   List<MarketsRow>? marketLoaded;
   // Stores action output result for [Backend Call - Query Rows] action in ProductDetail widget.
