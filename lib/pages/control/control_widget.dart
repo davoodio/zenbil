@@ -39,6 +39,8 @@ class _ControlWidgetState extends State<ControlWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CONTROL_PAGE_Control_ON_INIT_STATE');
+      logFirebaseEvent('Control_set_dark_mode_settings');
+      setDarkModeSetting(context, ThemeMode.light);
       await Future.wait([
         Future(() async {
           // FetchWallets

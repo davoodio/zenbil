@@ -837,125 +837,126 @@ class _SettingWidgetState extends State<SettingWidget> {
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  20.0, 0.0, 20.0, 0.0),
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 48.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Icon(
-                                                        Icons
-                                                            .dark_mode_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        size: 24.0,
-                                                      ),
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      16.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'swdcz12e' /* Dark Mode */,
+                                        if (false)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 0.0),
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 48.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .dark_mode_outlined,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          size: 24.0,
+                                                        ),
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'swdcz12e' /* Dark Mode */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelLargeFamily,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).labelLargeFamily),
+                                                                  ),
                                                             ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLargeFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .labelLargeFamily),
-                                                                ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                                Switch.adaptive(
-                                                  value: _model.switchValue ??=
-                                                      Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark,
-                                                  onChanged: (newValue) async {
-                                                    safeSetState(() =>
-                                                        _model.switchValue =
-                                                            newValue);
-                                                    if (newValue) {
-                                                      logFirebaseEvent(
-                                                          'SETTING_Switch_egidl29y_ON_TOGGLE_ON');
-                                                      logFirebaseEvent(
-                                                          'Switch_set_dark_mode_settings');
-                                                      setDarkModeSetting(
-                                                          context,
-                                                          ThemeMode.dark);
-                                                    } else {
-                                                      logFirebaseEvent(
-                                                          'SETTING_Switch_egidl29y_ON_TOGGLE_OFF');
-                                                      logFirebaseEvent(
-                                                          'Switch_set_dark_mode_settings');
-                                                      setDarkModeSetting(
-                                                          context,
-                                                          ThemeMode.light);
-                                                    }
-                                                  },
-                                                  activeColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  activeTrackColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent1,
-                                                  inactiveTrackColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .alternate,
-                                                  inactiveThumbColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryText,
-                                                ),
-                                              ],
+                                                  Switch.adaptive(
+                                                    value: _model
+                                                            .switchValue ??=
+                                                        Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark,
+                                                    onChanged:
+                                                        (newValue) async {
+                                                      safeSetState(() =>
+                                                          _model.switchValue =
+                                                              newValue);
+                                                      if (newValue) {
+                                                        logFirebaseEvent(
+                                                            'SETTING_Switch_egidl29y_ON_TOGGLE_ON');
+                                                        logFirebaseEvent(
+                                                            'Switch_set_dark_mode_settings');
+                                                        setDarkModeSetting(
+                                                            context,
+                                                            ThemeMode.dark);
+                                                      } else {
+                                                        logFirebaseEvent(
+                                                            'SETTING_Switch_egidl29y_ON_TOGGLE_OFF');
+                                                        logFirebaseEvent(
+                                                            'Switch_set_dark_mode_settings');
+                                                        setDarkModeSetting(
+                                                            context,
+                                                            ThemeMode.light);
+                                                      }
+                                                    },
+                                                    activeColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    activeTrackColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .accent1,
+                                                    inactiveTrackColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .alternate,
+                                                    inactiveThumbColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryText,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
                                         Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(

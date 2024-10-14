@@ -8,7 +8,6 @@ import '/components/categories_item/categories_item_widget.dart';
 import '/components/empty_state_widget.dart';
 import '/components/loaders/loader_box_grid/loader_box_grid_widget.dart';
 import '/components/loaders/loader_box_row/loader_box_row_widget.dart';
-import '/components/loaders/loader_query_inside/loader_query_inside_widget.dart';
 import '/components/market_cover_card_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/notification_badge_widget.dart';
@@ -1790,7 +1789,20 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return const LoaderQueryInsideWidget();
+                                                return const Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          20.0, 0.0, 0.0, 0.0),
+                                                  child: SizedBox(
+                                                    width: double.infinity,
+                                                    height: 220.0,
+                                                    child: LoaderBoxRowWidget(
+                                                      height: 220.0,
+                                                      borderRadius: 4.0,
+                                                      numberOfItems: 2,
+                                                    ),
+                                                  ),
+                                                );
                                               }
                                               List<ProductsRow>
                                                   productPopularsProductsRowList =
@@ -2001,7 +2013,20 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return const LoaderQueryInsideWidget();
+                                                return const Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          20.0, 0.0, 0.0, 0.0),
+                                                  child: SizedBox(
+                                                    width: double.infinity,
+                                                    height: 220.0,
+                                                    child: LoaderBoxRowWidget(
+                                                      height: 220.0,
+                                                      borderRadius: 4.0,
+                                                      numberOfItems: 2,
+                                                    ),
+                                                  ),
+                                                );
                                               }
                                               List<ProductsRow>
                                                   productPopularsProductsRowList =
@@ -2404,7 +2429,20 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
-                                                return const LoaderQueryInsideWidget();
+                                                return const Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          20.0, 0.0, 0.0, 0.0),
+                                                  child: SizedBox(
+                                                    width: double.infinity,
+                                                    height: 220.0,
+                                                    child: LoaderBoxRowWidget(
+                                                      height: 220.0,
+                                                      borderRadius: 4.0,
+                                                      numberOfItems: 2,
+                                                    ),
+                                                  ),
+                                                );
                                               }
                                               List<ProductsRow>
                                                   productPopularsProductsRowList =
@@ -2761,7 +2799,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                   0,
                                                 )
                                                 .order('created_at'),
-                                            limit: 200,
+                                            limit: 100,
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.

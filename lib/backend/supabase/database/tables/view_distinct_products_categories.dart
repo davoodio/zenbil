@@ -1,24 +1,26 @@
 import '../database.dart';
 
-class ProductsTable extends SupabaseTable<ProductsRow> {
+class ViewDistinctProductsCategoriesTable
+    extends SupabaseTable<ViewDistinctProductsCategoriesRow> {
   @override
-  String get tableName => 'products';
+  String get tableName => 'view_distinct_products_categories';
 
   @override
-  ProductsRow createRow(Map<String, dynamic> data) => ProductsRow(data);
+  ViewDistinctProductsCategoriesRow createRow(Map<String, dynamic> data) =>
+      ViewDistinctProductsCategoriesRow(data);
 }
 
-class ProductsRow extends SupabaseDataRow {
-  ProductsRow(super.data);
+class ViewDistinctProductsCategoriesRow extends SupabaseDataRow {
+  ViewDistinctProductsCategoriesRow(super.data);
 
   @override
-  SupabaseTable get table => ProductsTable();
+  SupabaseTable get table => ViewDistinctProductsCategoriesTable();
 
-  int get id => getField<int>('id')!;
-  set id(int value) => setField<int>('id', value);
+  int? get id => getField<int>('id');
+  set id(int? value) => setField<int>('id', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
@@ -173,4 +175,16 @@ class ProductsRow extends SupabaseDataRow {
       getField<String>('status_to_be_after_business_reactivation');
   set statusToBeAfterBusinessReactivation(String? value) =>
       setField<String>('status_to_be_after_business_reactivation', value);
+
+  List<int> get categoryIds => getListField<int>('category_ids');
+  set categoryIds(List<int>? value) => setListField<int>('category_ids', value);
+
+  List<String> get categoryNames => getListField<String>('category_names');
+  set categoryNames(List<String>? value) =>
+      setListField<String>('category_names', value);
+
+  List<String> get categoryDescriptions =>
+      getListField<String>('category_descriptions');
+  set categoryDescriptions(List<String>? value) =>
+      setListField<String>('category_descriptions', value);
 }
