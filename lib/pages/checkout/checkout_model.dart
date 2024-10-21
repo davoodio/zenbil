@@ -55,12 +55,27 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
 
   bool isApiCallUnsuccessful = false;
 
+  List<DeliveryMethodTypesRow> deliberyTypes = [];
+  void addToDeliberyTypes(DeliveryMethodTypesRow item) =>
+      deliberyTypes.add(item);
+  void removeFromDeliberyTypes(DeliveryMethodTypesRow item) =>
+      deliberyTypes.remove(item);
+  void removeAtIndexFromDeliberyTypes(int index) =>
+      deliberyTypes.removeAt(index);
+  void insertAtIndexInDeliberyTypes(int index, DeliveryMethodTypesRow item) =>
+      deliberyTypes.insert(index, item);
+  void updateDeliberyTypesAtIndex(
+          int index, Function(DeliveryMethodTypesRow) updateFn) =>
+      deliberyTypes[index] = updateFn(deliberyTypes[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in Checkout widget.
   List<UserAddressesRow>? userAddressOnOrder;
   // Stores action output result for [Action Block - fetchDeliveryMethodsAvailableForOrderGroups] action in Checkout widget.
   List<dynamic>? groupedDeliveryMethodsForOrder;
+  // Stores action output result for [Backend Call - Query Rows] action in Checkout widget.
+  List<DeliveryMethodTypesRow>? deliveryTypesLoaded;
   // Stores action output result for [Bottom Sheet - InfoModal] action in IconButton widget.
   bool? cancelConfirm;
   // Models for DeliveryMethodItem dynamic component.

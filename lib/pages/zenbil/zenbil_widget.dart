@@ -691,7 +691,7 @@ class _ZenbilWidgetState extends State<ZenbilWidget> {
                                                 Text(
                                                   FFLocalizations.of(context)
                                                       .getText(
-                                                    'cnb861qw' /* Stars */,
+                                                    'mfu72il2' /* Stars */,
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)

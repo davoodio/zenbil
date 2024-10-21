@@ -1,6 +1,8 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/address_card_widget.dart';
+import '/components/empty_state_widget.dart';
+import '/components/loaders/loader_query/loader_query_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -66,52 +68,64 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 32.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 32.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            FFLocalizations.of(context).getText(
-                              'bqxk57d9' /* Select Address */,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 10.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                'bqxk57d9' /* Select Address */,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .titleSmallFamily,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      const Shadow(
+                                        color: Color(0x2503080C),
+                                        offset: Offset(2.0, 2.0),
+                                        blurRadius: 6.0,
+                                      )
+                                    ],
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .titleSmallFamily),
+                                  ),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 17.0,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
-                                ),
                           ),
-                        ),
-                        FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 10.0,
-                          buttonSize: 40.0,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 24.0,
+                          FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 10.0,
+                            buttonSize: 40.0,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
+                            ),
+                            onPressed: () async {
+                              logFirebaseEvent(
+                                  'ADDRESS_INSERT_keyboard_arrow_down_ICN_O');
+                              logFirebaseEvent('IconButton_bottom_sheet');
+                              Navigator.pop(context);
+                            },
                           ),
-                          onPressed: () async {
-                            logFirebaseEvent(
-                                'ADDRESS_INSERT_keyboard_arrow_down_ICN_O');
-                            logFirebaseEvent('IconButton_bottom_sheet');
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: FutureBuilder<List<UserAddressesRow>>(
@@ -129,23 +143,27 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 38.0,
-                                height: 38.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
+                            return const LoaderQueryWidget();
                           }
                           List<UserAddressesRow> listViewUserAddressesRowList =
                               snapshot.data!;
 
+                          if (listViewUserAddressesRowList.isEmpty) {
+                            return EmptyStateWidget(
+                              message: FFLocalizations.of(context).getText(
+                                '3m2dki9l' /* No address, Please start add y... */,
+                              ),
+                              actionButton: () async {},
+                            );
+                          }
+
                           return ListView.separated(
-                            padding: EdgeInsets.zero,
+                            padding: const EdgeInsets.fromLTRB(
+                              0,
+                              16.0,
+                              0,
+                              16.0,
+                            ),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: listViewUserAddressesRowList.length,
@@ -153,31 +171,39 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                             itemBuilder: (context, listViewIndex) {
                               final listViewUserAddressesRow =
                                   listViewUserAddressesRowList[listViewIndex];
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  logFirebaseEvent(
-                                      'ADDRESS_INSERT_Container_okn8l4od_ON_TAP');
-                                  logFirebaseEvent('AddressCard_bottom_sheet');
-                                  Navigator.pop(
-                                      context, listViewUserAddressesRow);
-                                },
-                                child: wrapWithModel(
-                                  model: _model.addressCardModels.getModel(
-                                    listViewUserAddressesRow.id.toString(),
-                                    listViewIndex,
-                                  ),
-                                  updateCallback: () => safeSetState(() {}),
-                                  updateOnChange: true,
-                                  child: AddressCardWidget(
-                                    key: Key(
-                                      'Keyokn_${listViewUserAddressesRow.id.toString()}',
+                              return Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      20.0, 0.0, 20.0, 0.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'ADDRESS_INSERT_Container_okn8l4od_ON_TAP');
+                                      logFirebaseEvent(
+                                          'AddressCard_bottom_sheet');
+                                      Navigator.pop(
+                                          context, listViewUserAddressesRow);
+                                    },
+                                    child: wrapWithModel(
+                                      model: _model.addressCardModels.getModel(
+                                        listViewUserAddressesRow.id.toString(),
+                                        listViewIndex,
+                                      ),
+                                      updateCallback: () => safeSetState(() {}),
+                                      updateOnChange: true,
+                                      child: AddressCardWidget(
+                                        key: Key(
+                                          'Keyokn_${listViewUserAddressesRow.id.toString()}',
+                                        ),
+                                        userAddresss: listViewUserAddressesRow,
+                                        showSetDefaultButton: false,
+                                      ),
                                     ),
-                                    userAddresss: listViewUserAddressesRow,
-                                    showSetDefaultButton: false,
                                   ),
                                 ),
                               );
@@ -237,7 +263,7 @@ class _AddressInsertWidgetState extends State<AddressInsertWidget> {
                         ],
                       ),
                     ),
-                  ].divide(const SizedBox(height: 24.0)),
+                  ],
                 ),
               ),
             ),

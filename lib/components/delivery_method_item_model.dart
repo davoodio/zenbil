@@ -1,4 +1,5 @@
 import '/backend/schema/structs/index.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'delivery_method_item_widget.dart' show DeliveryMethodItemWidget;
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class DeliveryMethodItemModel
           int index, Function(DeliveryOrdersStruct) updateFn) =>
       orderGroupDeliveryMethod[index] =
           updateFn(orderGroupDeliveryMethod[index]);
+
+  DeliveryMethodTypesRow? deliveryType;
 
   ///  State fields for stateful widgets in this component.
 

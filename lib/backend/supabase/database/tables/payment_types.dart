@@ -31,4 +31,7 @@ class PaymentTypesRow extends SupabaseDataRow {
 
   String? get type => getField<String>('type');
   set type(String? value) => setField<String>('type', value);
+
+  String? get image => getField<String>('image');
+  set image(String? value) => setField<String>('image', value);
 }

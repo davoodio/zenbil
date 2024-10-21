@@ -1,6 +1,5 @@
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/cart_badge_widget.dart';
 import '/components/header/header_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'cart_widget.dart' show CartWidget;
@@ -63,12 +62,26 @@ class CartModel extends FlutterFlowModel<CartWidget> {
     updateFn(currentCartProduct ??= CartProductStruct());
   }
 
+  int counterWarehouse = 0;
+
+  List<int> uniqueBusinessWarehouses = [];
+  void addToUniqueBusinessWarehouses(int item) =>
+      uniqueBusinessWarehouses.add(item);
+  void removeFromUniqueBusinessWarehouses(int item) =>
+      uniqueBusinessWarehouses.remove(item);
+  void removeAtIndexFromUniqueBusinessWarehouses(int index) =>
+      uniqueBusinessWarehouses.removeAt(index);
+  void insertAtIndexInUniqueBusinessWarehouses(int index, int item) =>
+      uniqueBusinessWarehouses.insert(index, item);
+  void updateUniqueBusinessWarehousesAtIndex(
+          int index, Function(int) updateFn) =>
+      uniqueBusinessWarehouses[index] =
+          updateFn(uniqueBusinessWarehouses[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Model for Header component.
   late HeaderModel headerModel;
-  // Model for CartBadge component.
-  late CartBadgeModel cartBadgeModel;
   // Stores action output result for [Backend Call - Query Rows] action in Checkoutting widget.
   List<UsersRow>? user;
   // Stores action output result for [Backend Call - Insert Row] action in Checkoutting widget.
@@ -81,12 +94,10 @@ class CartModel extends FlutterFlowModel<CartWidget> {
   @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    cartBadgeModel = createModel(context, () => CartBadgeModel());
   }
 
   @override
   void dispose() {
     headerModel.dispose();
-    cartBadgeModel.dispose();
   }
 }

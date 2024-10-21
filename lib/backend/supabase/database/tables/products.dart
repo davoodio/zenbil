@@ -173,4 +173,7 @@ class ProductsRow extends SupabaseDataRow {
       getField<String>('status_to_be_after_business_reactivation');
   set statusToBeAfterBusinessReactivation(String? value) =>
       setField<String>('status_to_be_after_business_reactivation', value);
+
+  int? get warehouseId => getField<int>('warehouse_id');
+  set warehouseId(int? value) => setField<int>('warehouse_id', value);
 }

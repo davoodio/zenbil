@@ -49,4 +49,21 @@ class DeliveryMethodTypesRow extends SupabaseDataRow {
 
   String? get kurdishName => getField<String>('kurdish_name');
   set kurdishName(String? value) => setField<String>('kurdish_name', value);
+
+  String? get description => getField<String>('description');
+  set description(String? value) => setField<String>('description', value);
+
+  String? get descriptionArabic => getField<String>('description_arabic');
+  set descriptionArabic(String? value) =>
+      setField<String>('description_arabic', value);
+
+  String? get descriptionKurdish => getField<String>('description_kurdish');
+  set descriptionKurdish(String? value) =>
+      setField<String>('description_kurdish', value);
+
+  String? get image => getField<String>('image');
+  set image(String? value) => setField<String>('image', value);
+
+  int? get sortOrder => getField<int>('sort_order');
+  set sortOrder(int? value) => setField<int>('sort_order', value);
 }

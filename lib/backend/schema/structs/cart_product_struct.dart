@@ -26,6 +26,7 @@ class CartProductStruct extends BaseStruct {
     double? discountedPrice,
     String? note,
     int? quantityInInventory,
+    int? warehouseId,
   })  : _productName = productName,
         _productDescription = productDescription,
         _price = price,
@@ -44,7 +45,8 @@ class CartProductStruct extends BaseStruct {
         _deliveryMethodsAvailable = deliveryMethodsAvailable,
         _discountedPrice = discountedPrice,
         _note = note,
-        _quantityInInventory = quantityInInventory;
+        _quantityInInventory = quantityInInventory,
+        _warehouseId = warehouseId;
 
   // "product_name" field.
   String? _productName;
@@ -216,6 +218,15 @@ class CartProductStruct extends BaseStruct {
 
   bool hasQuantityInInventory() => _quantityInInventory != null;
 
+  // "warehouse_id" field.
+  int? _warehouseId;
+  int get warehouseId => _warehouseId ?? 0;
+  set warehouseId(int? val) => _warehouseId = val;
+
+  void incrementWarehouseId(int amount) => warehouseId = warehouseId + amount;
+
+  bool hasWarehouseId() => _warehouseId != null;
+
   static CartProductStruct fromMap(Map<String, dynamic> data) =>
       CartProductStruct(
         productName: data['product_name'] as String?,
@@ -238,6 +249,7 @@ class CartProductStruct extends BaseStruct {
         discountedPrice: castToType<double>(data['discountedPrice']),
         note: data['note'] as String?,
         quantityInInventory: castToType<int>(data['quantity_in_inventory']),
+        warehouseId: castToType<int>(data['warehouse_id']),
       );
 
   static CartProductStruct? maybeFromMap(dynamic data) => data is Map
@@ -264,6 +276,7 @@ class CartProductStruct extends BaseStruct {
         'discountedPrice': _discountedPrice,
         'note': _note,
         'quantity_in_inventory': _quantityInInventory,
+        'warehouse_id': _warehouseId,
       }.withoutNulls;
 
   @override
@@ -343,6 +356,10 @@ class CartProductStruct extends BaseStruct {
         ),
         'quantity_in_inventory': serializeParam(
           _quantityInInventory,
+          ParamType.int,
+        ),
+        'warehouse_id': serializeParam(
+          _warehouseId,
           ParamType.int,
         ),
       }.withoutNulls;
@@ -444,6 +461,11 @@ class CartProductStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        warehouseId: deserializeParam(
+          data['warehouse_id'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -472,7 +494,8 @@ class CartProductStruct extends BaseStruct {
             deliveryMethodsAvailable, other.deliveryMethodsAvailable) &&
         discountedPrice == other.discountedPrice &&
         note == other.note &&
-        quantityInInventory == other.quantityInInventory;
+        quantityInInventory == other.quantityInInventory &&
+        warehouseId == other.warehouseId;
   }
 
   @override
@@ -495,7 +518,8 @@ class CartProductStruct extends BaseStruct {
         deliveryMethodsAvailable,
         discountedPrice,
         note,
-        quantityInInventory
+        quantityInInventory,
+        warehouseId
       ]);
 }
 
@@ -518,6 +542,7 @@ CartProductStruct createCartProductStruct({
   double? discountedPrice,
   String? note,
   int? quantityInInventory,
+  int? warehouseId,
 }) =>
     CartProductStruct(
       productName: productName,
@@ -538,4 +563,5 @@ CartProductStruct createCartProductStruct({
       discountedPrice: discountedPrice,
       note: note,
       quantityInInventory: quantityInInventory,
+      warehouseId: warehouseId,
     );

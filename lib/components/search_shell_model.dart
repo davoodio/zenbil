@@ -22,10 +22,8 @@ class SearchShellModel extends FlutterFlowModel<SearchShellWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for SearchField widget.
-  final searchFieldKey = GlobalKey();
   FocusNode? searchFieldFocusNode;
   TextEditingController? searchFieldTextController;
-  String? searchFieldSelectedOption;
   String? Function(BuildContext, String?)? searchFieldTextControllerValidator;
   // Stores action output result for [Custom Action - supabaseSearch] action in SearchField widget.
   dynamic searchResult;
@@ -38,5 +36,6 @@ class SearchShellModel extends FlutterFlowModel<SearchShellWidget> {
   @override
   void dispose() {
     searchFieldFocusNode?.dispose();
+    searchFieldTextController?.dispose();
   }
 }

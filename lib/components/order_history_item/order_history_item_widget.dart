@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -66,32 +67,37 @@ class _OrderHistoryItemWidgetState extends State<OrderHistoryItemWidget> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: 54.0,
-                  height: 54.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).white,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4.0,
-                        color: FlutterFlowTheme.of(context).boxShadow,
-                        offset: const Offset(
-                          0.0,
-                          2.0,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4.0),
+                  child: Container(
+                    width: 54.0,
+                    height: 54.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).white,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4.0,
+                          color: FlutterFlowTheme.of(context).boxShadow,
+                          offset: const Offset(
+                            0.0,
+                            2.0,
+                          ),
+                          spreadRadius: 0.0,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0.0),
+                      child: CachedNetworkImage(
+                        fadeInDuration: const Duration(milliseconds: 500),
+                        fadeOutDuration: const Duration(milliseconds: 500),
+                        imageUrl: valueOrDefault<String>(
+                          widget.photo,
+                          'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg',
                         ),
-                        spreadRadius: 0.0,
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(0.0),
-                    child: Image.network(
-                      valueOrDefault<String>(
-                        widget.photo,
-                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/dashboard-ztguqr/assets/9r58rfhytwms/image-placeholder-icon-5.jpeg',
+                        fit: BoxFit.cover,
                       ),
-                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

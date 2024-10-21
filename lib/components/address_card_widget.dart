@@ -58,7 +58,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -157,10 +157,12 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                   ),
                                   options: FFButtonOptions(
                                     height: 40.0,
-                                    padding: const EdgeInsets.all(12.0),
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
                                     iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
+                                        0.0, 0.0, 30.0, 0.0),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
@@ -179,17 +181,19 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(4.0),
                                   ),
                                 ),
                               if (widget.showSetDefaultButton)
                                 FlutterFlowIconButton(
-                                  borderRadius: 8.0,
+                                  borderRadius: 4.0,
                                   buttonSize: 40.0,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   icon: Icon(
                                     FFIcons.kdeleteDefault,
                                     color: FlutterFlowTheme.of(context).error,
-                                    size: 24.0,
+                                    size: 20.0,
                                   ),
                                   onPressed: () async {
                                     logFirebaseEvent(
@@ -317,12 +321,13 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           letterSpacing: 0.0,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
                               FlutterFlowTheme.of(context).labelSmallFamily),
+                          lineHeight: 1.7,
                         ),
                   ),
                 ),
               ],
             ),
-          ].divide(const SizedBox(height: 12.0)),
+          ].divide(const SizedBox(height: 16.0)),
         ),
       ),
     );

@@ -27,10 +27,12 @@ int incrementDecrementNumber(
 double calculateOrderGroupTotalInCart(
   List<CartProductStruct> cartProducts,
   int businessId,
+  int warehouseId,
 ) {
   double sum = 0;
-  var orderGroupCartProducts =
-      cartProducts.where((j) => j.businessId == businessId).toList();
+  var orderGroupCartProducts = cartProducts
+      .where((j) => j.businessId == businessId && j.warehouseId == warehouseId)
+      .toList();
 
   for (var i in orderGroupCartProducts) {
     double tmp = i.discountedPrice * i.quantity;
