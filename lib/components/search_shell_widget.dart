@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -34,8 +33,6 @@ class SearchShellWidget extends StatefulWidget {
 class _SearchShellWidgetState extends State<SearchShellWidget> {
   late SearchShellModel _model;
 
-  bool searchFieldFocusListenerRegistered = false;
-
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -48,7 +45,84 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
     _model = createModel(context, () => SearchShellModel());
 
     _model.searchFieldTextController ??= TextEditingController();
+    _model.searchFieldFocusNode ??= FocusNode();
+    _model.searchFieldFocusNode!.addListener(
+      () async {
+        logFirebaseEvent('SEARCH_SHELL_SearchField_ON_FOCUS_CHANGE');
+        if (_model.searchFieldTextController.text != '') {
+          logFirebaseEvent('SearchField_custom_action');
+          _model.searchResultFocusChange = await actions.supabaseSearch(
+            widget.tableName!,
+            functions
+                .textSeparatorToList(widget.fieldsToReturnFromTable!, ',')
+                .toList(),
+            functions
+                .textSeparatorToList(widget.fieldsToSearchIn!, ',')
+                .toList(),
+            _model.searchFieldTextController.text,
+            0,
+            widget.maxNumberOfResults,
+            false,
+            widget.preDefineSearch!,
+          );
+          if (getJsonField(
+            _model.searchResultFocusChange,
+            r'''$.success''',
+          )) {
+            logFirebaseEvent('SearchField_update_component_state');
+            _model.numberOfResults = getJsonField(
+              _model.searchResultFocusChange,
+              r'''$.count''',
+            );
+            _model.searchResultBody = getJsonField(
+              _model.searchResultFocusChange,
+              r'''$.*''',
+            );
+            _model.searchError = null;
+            _model.updatePage(() {});
+            if (_model.numberOfResults! > 0) {
+              logFirebaseEvent('SearchField_update_component_state');
+              _model.hasResults = true;
+              _model.successButNoResult = false;
+              _model.result = getJsonField(
+                _model.searchResultFocusChange,
+                r'''$.result''',
+              );
+              _model.updatePage(() {});
+            } else {
+              logFirebaseEvent('SearchField_update_component_state');
+              _model.hasResults = false;
+              _model.successButNoResult = true;
+              _model.updatePage(() {});
+            }
+          } else {
+            logFirebaseEvent('SearchField_update_component_state');
+            _model.isTestMode = false;
+            _model.numberOfResults = null;
+            _model.hasResults = false;
+            _model.successButNoResult = false;
+            _model.searchResultBody = null;
+            _model.result = null;
+            _model.searchError = getJsonField(
+              _model.searchResultFocusChange,
+              r'''$.error''',
+            ).toString().toString();
+            _model.updatePage(() {});
+          }
+        } else {
+          logFirebaseEvent('SearchField_update_component_state');
+          _model.isTestMode = false;
+          _model.numberOfResults = null;
+          _model.hasResults = false;
+          _model.successButNoResult = false;
+          _model.searchResultBody = null;
+          _model.result = null;
+          _model.updatePage(() {});
+        }
 
+        safeSetState(() {});
+      },
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -64,422 +138,251 @@ class _SearchShellWidgetState extends State<SearchShellWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Autocomplete<String>(
-          initialValue: const TextEditingValue(),
-          optionsBuilder: (textEditingValue) {
-            if (textEditingValue.text == '') {
-              return const Iterable<String>.empty();
-            }
-            return () {
-              if (widget.tableName == 'view_market_product') {
-                return widget.autoCompleteOptions!
-                    .map((e) => getJsonField(
-                          e,
-                          r'''$.product_name''',
-                        ))
-                    .toList()
-                    .map((e) => e.toString())
-                    .toList();
-              } else if (widget.tableName == 'view_products_categories') {
-                return widget.autoCompleteOptions!
-                    .map((e) => getJsonField(
-                          e,
-                          r'''$.product_name''',
-                        ))
-                    .toList()
-                    .map((e) => e.toString())
-                    .toList();
-              } else {
-                return widget.autoCompleteOptions!
-                    .map((e) => getJsonField(
-                          e,
-                          r'''$.name''',
-                        ))
-                    .toList()
-                    .map((e) => e.toString())
-                    .toList();
-              }
-            }()
-                .where((option) {
-              final lowercaseOption = option.toLowerCase();
-              return lowercaseOption
-                  .contains(textEditingValue.text.toLowerCase());
-            });
-          },
-          optionsViewBuilder: (context, onSelected, options) {
-            return AutocompleteOptionsList(
-              textFieldKey: _model.searchFieldKey,
-              textController: _model.searchFieldTextController!,
-              options: options.toList(),
-              onSelected: onSelected,
-              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                    letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).bodyMediumFamily),
-                  ),
-              textHighlightStyle: FlutterFlowTheme.of(context)
-                  .labelSmall
-                  .override(
-                    fontFamily: FlutterFlowTheme.of(context).labelSmallFamily,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: 14.0,
-                    letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).labelSmallFamily),
-                  ),
-              elevation: 4.0,
-              optionBackgroundColor: const Color(0x00000000),
-              optionHighlightColor: const Color(0x00000000),
-              maxHeight: 200.0,
-            );
-          },
-          onSelected: (String selection) {
-            safeSetState(() => _model.searchFieldSelectedOption = selection);
-            FocusScope.of(context).unfocus();
-          },
-          fieldViewBuilder: (
-            context,
-            textEditingController,
-            focusNode,
-            onEditingComplete,
-          ) {
-            _model.searchFieldFocusNode = focusNode;
-            if (!searchFieldFocusListenerRegistered) {
-              searchFieldFocusListenerRegistered = true;
-              _model.searchFieldFocusNode!.addListener(
-                () async {
-                  logFirebaseEvent('SEARCH_SHELL_SearchField_ON_FOCUS_CHANGE');
-                  if (_model.searchFieldTextController.text != '') {
-                    logFirebaseEvent('SearchField_custom_action');
-                    _model.searchResultFocusChange =
-                        await actions.supabaseSearch(
-                      widget.tableName!,
-                      functions
-                          .textSeparatorToList(
-                              widget.fieldsToReturnFromTable!, ',')
-                          .toList(),
-                      functions
-                          .textSeparatorToList(widget.fieldsToSearchIn!, ',')
-                          .toList(),
-                      _model.searchFieldTextController.text,
-                      0,
-                      widget.maxNumberOfResults,
-                      false,
-                      widget.preDefineSearch!,
-                    );
-                    if (getJsonField(
-                      _model.searchResultFocusChange,
-                      r'''$.success''',
-                    )) {
-                      logFirebaseEvent('SearchField_update_component_state');
-                      _model.numberOfResults = getJsonField(
-                        _model.searchResultFocusChange,
-                        r'''$.count''',
-                      );
-                      _model.searchResultBody = getJsonField(
-                        _model.searchResultFocusChange,
-                        r'''$.*''',
-                      );
-                      _model.searchError = null;
-                      _model.updatePage(() {});
-                      if (_model.numberOfResults! > 0) {
-                        logFirebaseEvent('SearchField_update_component_state');
-                        _model.hasResults = true;
-                        _model.successButNoResult = false;
-                        _model.result = getJsonField(
-                          _model.searchResultFocusChange,
-                          r'''$.result''',
-                        );
-                        _model.updatePage(() {});
-                      } else {
-                        logFirebaseEvent('SearchField_update_component_state');
-                        _model.hasResults = false;
-                        _model.successButNoResult = true;
-                        _model.updatePage(() {});
-                      }
-                    } else {
-                      logFirebaseEvent('SearchField_update_component_state');
-                      _model.isTestMode = false;
-                      _model.numberOfResults = null;
-                      _model.hasResults = false;
-                      _model.successButNoResult = false;
-                      _model.searchResultBody = null;
-                      _model.result = null;
-                      _model.searchError = getJsonField(
-                        _model.searchResultFocusChange,
-                        r'''$.error''',
-                      ).toString();
-                      _model.updatePage(() {});
-                    }
-                  } else {
+        TextFormField(
+          controller: _model.searchFieldTextController,
+          focusNode: _model.searchFieldFocusNode,
+          onChanged: (_) => EasyDebounce.debounce(
+            '_model.searchFieldTextController',
+            const Duration(milliseconds: 100),
+            () async {
+              logFirebaseEvent('SEARCH_SHELL_SearchField_ON_TEXTFIELD_CH');
+              if (_model.searchFieldTextController.text != '') {
+                logFirebaseEvent('SearchField_custom_action');
+                _model.searchResult = await actions.supabaseSearch(
+                  widget.tableName!,
+                  functions
+                      .textSeparatorToList(
+                          widget.fieldsToReturnFromTable!, ',')
+                      .toList(),
+                  functions
+                      .textSeparatorToList(widget.fieldsToSearchIn!, ',')
+                      .toList(),
+                  _model.searchFieldTextController.text,
+                  0,
+                  widget.maxNumberOfResults,
+                  true,
+                  widget.preDefineSearch!,
+                );
+                if (getJsonField(
+                  _model.searchResult,
+                  r'''$.success''',
+                )) {
+                  logFirebaseEvent('SearchField_update_component_state');
+                  _model.numberOfResults = getJsonField(
+                    _model.searchResult,
+                    r'''$.count''',
+                  );
+                  _model.searchResultBody = getJsonField(
+                    _model.searchResult,
+                    r'''$.*''',
+                  );
+                  _model.searchError = null;
+                  _model.updatePage(() {});
+                  if (_model.numberOfResults! > 0) {
                     logFirebaseEvent('SearchField_update_component_state');
-                    _model.isTestMode = false;
-                    _model.numberOfResults = null;
-                    _model.hasResults = false;
+                    _model.hasResults = true;
                     _model.successButNoResult = false;
-                    _model.searchResultBody = null;
-                    _model.result = null;
-                    _model.updatePage(() {});
-                  }
-
-                  safeSetState(() {});
-                },
-              );
-            }
-            _model.searchFieldTextController = textEditingController;
-            return TextFormField(
-              key: _model.searchFieldKey,
-              controller: textEditingController,
-              focusNode: focusNode,
-              onEditingComplete: onEditingComplete,
-              onChanged: (_) => EasyDebounce.debounce(
-                '_model.searchFieldTextController',
-                const Duration(milliseconds: 100),
-                () async {
-                  logFirebaseEvent('SEARCH_SHELL_SearchField_ON_TEXTFIELD_CH');
-                  if (_model.searchFieldTextController.text != '') {
-                    logFirebaseEvent('SearchField_custom_action');
-                    _model.searchResult = await actions.supabaseSearch(
-                      widget.tableName!,
-                      functions
-                          .textSeparatorToList(
-                              widget.fieldsToReturnFromTable!, ',')
-                          .toList(),
-                      functions
-                          .textSeparatorToList(widget.fieldsToSearchIn!, ',')
-                          .toList(),
-                      _model.searchFieldTextController.text,
-                      0,
-                      widget.maxNumberOfResults,
-                      true,
-                      widget.preDefineSearch!,
-                    );
-                    if (getJsonField(
+                    _model.result = getJsonField(
                       _model.searchResult,
-                      r'''$.success''',
-                    )) {
-                      logFirebaseEvent('SearchField_update_component_state');
-                      _model.numberOfResults = getJsonField(
-                        _model.searchResult,
-                        r'''$.count''',
-                      );
-                      _model.searchResultBody = getJsonField(
-                        _model.searchResult,
-                        r'''$.*''',
-                      );
-                      _model.searchError = null;
-                      _model.updatePage(() {});
-                      if (_model.numberOfResults! > 0) {
-                        logFirebaseEvent('SearchField_update_component_state');
-                        _model.hasResults = true;
-                        _model.successButNoResult = false;
-                        _model.result = getJsonField(
-                          _model.searchResult,
-                          r'''$.result''',
-                        );
-                        _model.updatePage(() {});
-                      } else {
-                        logFirebaseEvent('SearchField_update_component_state');
-                        _model.hasResults = false;
-                        _model.successButNoResult = true;
-                        _model.updatePage(() {});
-                      }
-                    } else {
-                      logFirebaseEvent('SearchField_update_component_state');
-                      _model.isTestMode = false;
-                      _model.numberOfResults = null;
-                      _model.hasResults = false;
-                      _model.successButNoResult = false;
-                      _model.searchResultBody = null;
-                      _model.result = null;
-                      _model.searchError = getJsonField(
-                        _model.searchResult,
-                        r'''$.error''',
-                      ).toString();
-                      _model.updatePage(() {});
-                    }
+                      r'''$.result''',
+                    );
+                    _model.updatePage(() {});
                   } else {
                     logFirebaseEvent('SearchField_update_component_state');
-                    _model.isTestMode = false;
-                    _model.numberOfResults = null;
                     _model.hasResults = false;
-                    _model.successButNoResult = false;
-                    _model.searchResultBody = null;
-                    _model.result = null;
+                    _model.successButNoResult = true;
                     _model.updatePage(() {});
                   }
+                } else {
+                  logFirebaseEvent('SearchField_update_component_state');
+                  _model.isTestMode = false;
+                  _model.numberOfResults = null;
+                  _model.hasResults = false;
+                  _model.successButNoResult = false;
+                  _model.searchResultBody = null;
+                  _model.result = null;
+                  _model.searchError = getJsonField(
+                    _model.searchResult,
+                    r'''$.error''',
+                  ).toString();
+                  _model.updatePage(() {});
+                }
+              } else {
+                logFirebaseEvent('SearchField_update_component_state');
+                _model.isTestMode = false;
+                _model.numberOfResults = null;
+                _model.hasResults = false;
+                _model.successButNoResult = false;
+                _model.searchResultBody = null;
+                _model.result = null;
+                _model.updatePage(() {});
+              }
 
-                  safeSetState(() {});
-                },
-              ),
-              autofocus: true,
-              obscureText: false,
-              decoration: InputDecoration(
-                isDense: false,
-                labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).labelMediumFamily,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 12.0,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelMediumFamily),
-                    ),
-                hintText: FFLocalizations.of(context).getText(
-                  'ek1xovlj' /* Search */,
+              safeSetState(() {});
+            },
+          ),
+          autofocus: true,
+          obscureText: false,
+          decoration: InputDecoration(
+            isDense: false,
+            labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                  fontFamily: FlutterFlowTheme.of(context).labelMediumFamily,
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 12.0,
+                  letterSpacing: 0.0,
+                  useGoogleFonts: GoogleFonts.asMap().containsKey(
+                      FlutterFlowTheme.of(context).labelMediumFamily),
                 ),
-                hintStyle: FlutterFlowTheme.of(context).labelSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).labelSmallFamily,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      fontSize: 14.0,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelSmallFamily),
-                    ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                contentPadding:
-                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                prefixIcon: Icon(
-                  FFIcons.ksearch,
+            hintText: FFLocalizations.of(context).getText(
+              'ek1xovlj' /* Search */,
+            ),
+            hintStyle: FlutterFlowTheme.of(context).labelSmall.override(
+                  fontFamily: FlutterFlowTheme.of(context).labelSmallFamily,
                   color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 20.0,
+                  fontSize: 14.0,
+                  letterSpacing: 0.0,
+                  useGoogleFonts: GoogleFonts.asMap().containsKey(
+                      FlutterFlowTheme.of(context).labelSmallFamily),
                 ),
-                suffixIcon: _model.searchFieldTextController!.text.isNotEmpty
-                    ? InkWell(
-                        onTap: () async {
-                          _model.searchFieldTextController?.clear();
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: FlutterFlowTheme.of(context).secondaryText,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: FlutterFlowTheme.of(context).primaryText,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: FlutterFlowTheme.of(context).error,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: FlutterFlowTheme.of(context).error,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            contentPadding:
+                const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            prefixIcon: Icon(
+              FFIcons.ksearch,
+              color: FlutterFlowTheme.of(context).secondaryText,
+              size: 20.0,
+            ),
+            suffixIcon: _model.searchFieldTextController!.text.isNotEmpty
+                ? InkWell(
+                    onTap: () async {
+                      _model.searchFieldTextController?.clear();
+                      logFirebaseEvent(
+                          'SEARCH_SHELL_SearchField_ON_TEXTFIELD_CH');
+                      if (_model.searchFieldTextController.text != '') {
+                        logFirebaseEvent('SearchField_custom_action');
+                        _model.searchResult = await actions.supabaseSearch(
+                          widget.tableName!,
+                          functions
+                              .textSeparatorToList(
+                                  widget.fieldsToReturnFromTable!, ',')
+                              .toList(),
+                          functions
+                              .textSeparatorToList(
+                                  widget.fieldsToSearchIn!, ',')
+                              .toList(),
+                          _model.searchFieldTextController.text,
+                          0,
+                          widget.maxNumberOfResults,
+                          true,
+                          widget.preDefineSearch!,
+                        );
+                        if (getJsonField(
+                          _model.searchResult,
+                          r'''$.success''',
+                        )) {
                           logFirebaseEvent(
-                              'SEARCH_SHELL_SearchField_ON_TEXTFIELD_CH');
-                          if (_model.searchFieldTextController.text != '') {
-                            logFirebaseEvent('SearchField_custom_action');
-                            _model.searchResult = await actions.supabaseSearch(
-                              widget.tableName!,
-                              functions
-                                  .textSeparatorToList(
-                                      widget.fieldsToReturnFromTable!, ',')
-                                  .toList(),
-                              functions
-                                  .textSeparatorToList(
-                                      widget.fieldsToSearchIn!, ',')
-                                  .toList(),
-                              _model.searchFieldTextController.text,
-                              0,
-                              widget.maxNumberOfResults,
-                              true,
-                              widget.preDefineSearch!,
-                            );
-                            if (getJsonField(
+                              'SearchField_update_component_state');
+                          _model.numberOfResults = getJsonField(
+                            _model.searchResult,
+                            r'''$.count''',
+                          );
+                          _model.searchResultBody = getJsonField(
+                            _model.searchResult,
+                            r'''$.*''',
+                          );
+                          _model.searchError = null;
+                          _model.updatePage(() {});
+                          if (_model.numberOfResults! > 0) {
+                            logFirebaseEvent(
+                                'SearchField_update_component_state');
+                            _model.hasResults = true;
+                            _model.successButNoResult = false;
+                            _model.result = getJsonField(
                               _model.searchResult,
-                              r'''$.success''',
-                            )) {
-                              logFirebaseEvent(
-                                  'SearchField_update_component_state');
-                              _model.numberOfResults = getJsonField(
-                                _model.searchResult,
-                                r'''$.count''',
-                              );
-                              _model.searchResultBody = getJsonField(
-                                _model.searchResult,
-                                r'''$.*''',
-                              );
-                              _model.searchError = null;
-                              _model.updatePage(() {});
-                              if (_model.numberOfResults! > 0) {
-                                logFirebaseEvent(
-                                    'SearchField_update_component_state');
-                                _model.hasResults = true;
-                                _model.successButNoResult = false;
-                                _model.result = getJsonField(
-                                  _model.searchResult,
-                                  r'''$.result''',
-                                );
-                                _model.updatePage(() {});
-                              } else {
-                                logFirebaseEvent(
-                                    'SearchField_update_component_state');
-                                _model.hasResults = false;
-                                _model.successButNoResult = true;
-                                _model.updatePage(() {});
-                              }
-                            } else {
-                              logFirebaseEvent(
-                                  'SearchField_update_component_state');
-                              _model.isTestMode = false;
-                              _model.numberOfResults = null;
-                              _model.hasResults = false;
-                              _model.successButNoResult = false;
-                              _model.searchResultBody = null;
-                              _model.result = null;
-                              _model.searchError = getJsonField(
-                                _model.searchResult,
-                                r'''$.error''',
-                              ).toString();
-                              _model.updatePage(() {});
-                            }
+                              r'''$.result''',
+                            );
+                            _model.updatePage(() {});
                           } else {
                             logFirebaseEvent(
                                 'SearchField_update_component_state');
-                            _model.isTestMode = false;
-                            _model.numberOfResults = null;
                             _model.hasResults = false;
-                            _model.successButNoResult = false;
-                            _model.searchResultBody = null;
-                            _model.result = null;
+                            _model.successButNoResult = true;
                             _model.updatePage(() {});
                           }
+                        } else {
+                          logFirebaseEvent(
+                              'SearchField_update_component_state');
+                          _model.isTestMode = false;
+                          _model.numberOfResults = null;
+                          _model.hasResults = false;
+                          _model.successButNoResult = false;
+                          _model.searchResultBody = null;
+                          _model.result = null;
+                          _model.searchError = getJsonField(
+                            _model.searchResult,
+                            r'''$.error''',
+                          ).toString();
+                          _model.updatePage(() {});
+                        }
+                      } else {
+                        logFirebaseEvent('SearchField_update_component_state');
+                        _model.isTestMode = false;
+                        _model.numberOfResults = null;
+                        _model.hasResults = false;
+                        _model.successButNoResult = false;
+                        _model.searchResultBody = null;
+                        _model.result = null;
+                        _model.updatePage(() {});
+                      }
 
-                          safeSetState(() {});
-                          safeSetState(() {});
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 20.0,
-                        ),
-                      )
-                    : null,
+                      safeSetState(() {});
+                      safeSetState(() {});
+                    },
+                    child: Icon(
+                      Icons.clear,
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      size: 20.0,
+                    ),
+                  )
+                : null,
+          ),
+          style: FlutterFlowTheme.of(context).labelSmall.override(
+                fontFamily: FlutterFlowTheme.of(context).labelSmallFamily,
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 14.0,
+                letterSpacing: 0.0,
+                useGoogleFonts: GoogleFonts.asMap()
+                    .containsKey(FlutterFlowTheme.of(context).labelSmallFamily),
               ),
-              style: FlutterFlowTheme.of(context).labelSmall.override(
-                    fontFamily: FlutterFlowTheme.of(context).labelSmallFamily,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: 14.0,
-                    letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).labelSmallFamily),
-                  ),
-              keyboardType: TextInputType.emailAddress,
-              validator: _model.searchFieldTextControllerValidator
-                  .asValidator(context),
-            );
-          },
+          validator:
+              _model.searchFieldTextControllerValidator.asValidator(context),
         ),
         if (_model.isTestMode)
           Column(

@@ -27,6 +27,8 @@ class TrackOrderModel extends FlutterFlowModel<TrackOrderWidget> {
   late OrderTimeLineModel orderTimeLineModel3;
   // Model for OrderTimeLine component.
   late OrderTimeLineModel orderTimeLineModel4;
+  // Model for OrderTimeLine component.
+  late OrderTimeLineModel orderTimeLineModel5;
   // Stores action output result for [Backend Call - API (getOrderDetails)] action in Button widget.
   ApiCallResponse? trackOrderResponse;
 
@@ -41,6 +43,7 @@ class TrackOrderModel extends FlutterFlowModel<TrackOrderWidget> {
     orderTimeLineModel2 = createModel(context, () => OrderTimeLineModel());
     orderTimeLineModel3 = createModel(context, () => OrderTimeLineModel());
     orderTimeLineModel4 = createModel(context, () => OrderTimeLineModel());
+    orderTimeLineModel5 = createModel(context, () => OrderTimeLineModel());
   }
 
   @override
@@ -54,5 +57,6 @@ class TrackOrderModel extends FlutterFlowModel<TrackOrderWidget> {
     orderTimeLineModel2.dispose();
     orderTimeLineModel3.dispose();
     orderTimeLineModel4.dispose();
+    orderTimeLineModel5.dispose();
   }
 }

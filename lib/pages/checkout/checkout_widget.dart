@@ -5,6 +5,7 @@ import '/backend/supabase/supabase.dart';
 import '/components/address_insert_widget.dart';
 import '/components/delivery_method_item_widget.dart';
 import '/components/info_modal_widget.dart';
+import '/components/loaders/loader_box/loader_box_widget.dart';
 import '/components/order_history_item/order_history_item_widget.dart';
 import '/components/pick_how_to_pay_widget.dart';
 import '/components/shimmer_container_widget.dart';
@@ -55,64 +56,81 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('CHECKOUT_PAGE_Checkout_ON_INIT_STATE');
-      if ((widget.order != null) &&
-          (widget.order?.userShippingAddressId != null)) {
-        await Future.wait([
-          Future(() async {
-            logFirebaseEvent('Checkout_backend_call');
-            _model.userAddressOnOrder = await UserAddressesTable().queryRows(
-              queryFn: (q) => q.eq(
-                'id',
-                widget.order?.userShippingAddressId,
-              ),
-            );
-            logFirebaseEvent('Checkout_update_page_state');
-            _model.userAddress = _model.userAddressOnOrder?.first;
-            safeSetState(() {});
-          }),
-          Future(() async {
-            logFirebaseEvent('Checkout_update_app_state');
-            FFAppState().dummyVariable = '';
-            safeSetState(() {});
-            logFirebaseEvent('Checkout_action_block');
-            _model.groupedDeliveryMethodsForOrder =
-                await _model.fetchDeliveryMethodsAvailableForOrderGroups(
-              context,
-              order: widget.order,
-            );
-            logFirebaseEvent('Checkout_update_app_state');
-            FFAppState().dummyVariable = '';
-            safeSetState(() {});
-          }),
-        ]);
-      } else {
-        logFirebaseEvent('Checkout_alert_dialog');
-        await showDialog(
-          context: context,
-          builder: (dialogContext) {
-            return Dialog(
-              elevation: 0,
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              alignment: const AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
-              child: GestureDetector(
-                onTap: () => FocusScope.of(dialogContext).unfocus(),
-                child: InfoModalWidget(
-                  title: FFLocalizations.of(context).getText(
-                    'vx5r4aub' /* No address! */,
+      await Future.wait([
+        Future(() async {
+          if ((widget.order != null) &&
+              (widget.order?.userShippingAddressId != null)) {
+            await Future.wait([
+              Future(() async {
+                logFirebaseEvent('Checkout_backend_call');
+                _model.userAddressOnOrder =
+                    await UserAddressesTable().queryRows(
+                  queryFn: (q) => q.eq(
+                    'id',
+                    widget.order?.userShippingAddressId,
                   ),
-                  body: FFLocalizations.of(context).getText(
-                    'vebm2tsp' /* You should select a shipping a... */,
+                );
+                logFirebaseEvent('Checkout_update_page_state');
+                _model.userAddress = _model.userAddressOnOrder?.first;
+                safeSetState(() {});
+              }),
+              Future(() async {
+                logFirebaseEvent('Checkout_update_app_state');
+                FFAppState().dummyVariable = '';
+                safeSetState(() {});
+                logFirebaseEvent('Checkout_action_block');
+                _model.groupedDeliveryMethodsForOrder =
+                    await _model.fetchDeliveryMethodsAvailableForOrderGroups(
+                  context,
+                  order: widget.order,
+                );
+                logFirebaseEvent('Checkout_update_app_state');
+                FFAppState().dummyVariable = '';
+                safeSetState(() {});
+              }),
+            ]);
+          } else {
+            logFirebaseEvent('Checkout_alert_dialog');
+            await showDialog(
+              context: context,
+              builder: (dialogContext) {
+                return Dialog(
+                  elevation: 0,
+                  insetPadding: EdgeInsets.zero,
+                  backgroundColor: Colors.transparent,
+                  alignment: const AlignmentDirectional(0.0, 0.0)
+                      .resolve(Directionality.of(context)),
+                  child: GestureDetector(
+                    onTap: () => FocusScope.of(dialogContext).unfocus(),
+                    child: InfoModalWidget(
+                      title: FFLocalizations.of(context).getText(
+                        'vx5r4aub' /* No address! */,
+                      ),
+                      body: FFLocalizations.of(context).getText(
+                        'vebm2tsp' /* You should select a shipping a... */,
+                      ),
+                      isConfirm: false,
+                      autoDismiss: true,
+                    ),
                   ),
-                  isConfirm: false,
-                  autoDismiss: true,
-                ),
-              ),
+                );
+              },
             );
-          },
-        );
-      }
+          }
+        }),
+        Future(() async {
+          logFirebaseEvent('Checkout_backend_call');
+          _model.deliveryTypesLoaded =
+              await DeliveryMethodTypesTable().queryRows(
+            queryFn: (q) => q,
+          );
+          logFirebaseEvent('Checkout_update_page_state');
+          _model.deliberyTypes = _model.deliveryTypesLoaded!
+              .toList()
+              .cast<DeliveryMethodTypesRow>();
+          safeSetState(() {});
+        }),
+      ]);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -168,8 +186,6 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                         borderRadius: 8.0,
                                         borderWidth: 0.0,
                                         buttonSize: 48.0,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
                                         icon: Icon(
                                           FFIcons.kdismissDefault,
                                           color: FlutterFlowTheme.of(context)
@@ -309,26 +325,34 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 20.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 20.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Flexible(
-                                                  child: Text(
-                                                    'You’re buying ${widget.orderproducts?.length.toString()} products',
-                                                    maxLines: 1,
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 0.0, 20.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Icon(
+                                                FFIcons.kpackage,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                size: 24.0,
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      'zetkh747' /* You’re buying  */,
+                                                    ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .titleSmall
@@ -341,6 +365,17 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                   .of(context)
                                                               .primaryText,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          shadows: [
+                                                            const Shadow(
+                                                              color: Color(
+                                                                  0x2503080C),
+                                                              offset: Offset(
+                                                                  2.0, 2.0),
+                                                              blurRadius: 6.0,
+                                                            )
+                                                          ],
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
                                                               .containsKey(
@@ -349,464 +384,586 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  5.0,
+                                                                  8.0,
+                                                                  5.0),
+                                                      child: Text(
+                                                        valueOrDefault<String>(
+                                                          widget.orderproducts
+                                                              ?.length
+                                                              .toString(),
+                                                          '0',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  shadows: [
+                                                                    const Shadow(
+                                                                      color: Color(
+                                                                          0x2503080C),
+                                                                      offset: Offset(
+                                                                          2.0,
+                                                                          2.0),
+                                                                      blurRadius:
+                                                                          6.0,
+                                                                    )
+                                                                  ],
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily),
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    valueOrDefault<String>(
+                                                      valueOrDefault<int>(
+                                                                widget
+                                                                    .orderproducts
+                                                                    ?.length,
+                                                                0,
+                                                              ) ==
+                                                              1
+                                                          ? ' product'
+                                                          : ' products',
+                                                      '-',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          shadows: [
+                                                            const Shadow(
+                                                              color: Color(
+                                                                  0x2503080C),
+                                                              offset: Offset(
+                                                                  2.0, 2.0),
+                                                              blurRadius: 6.0,
+                                                            )
+                                                          ],
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily),
+                                                        ),
+                                                  ),
+                                                ].divide(const SizedBox(width: 2.0)),
+                                              ),
+                                            ].divide(const SizedBox(width: 8.0)),
                                           ),
-                                          Builder(
-                                            builder: (context) {
-                                              final orderGroupItem = widget
-                                                  .orderGroups!
-                                                  .sortedList(
-                                                      keyOf: (e) => e.id,
-                                                      desc: false)
-                                                  .toList();
+                                        ),
+                                        Builder(
+                                          builder: (context) {
+                                            final orderGroupItem = widget
+                                                .orderGroups!
+                                                .sortedList(
+                                                    keyOf: (e) => e.id,
+                                                    desc: false)
+                                                .toList();
 
-                                              return Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: List.generate(
-                                                    orderGroupItem.length,
-                                                    (orderGroupItemIndex) {
-                                                  final orderGroupItemItem =
-                                                      orderGroupItem[
-                                                          orderGroupItemIndex];
-                                                  return Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Container(
-                                                        width: double.infinity,
-                                                        decoration:
-                                                            const BoxDecoration(),
-                                                        child: Builder(
-                                                          builder: (context) {
-                                                            final orderproductItem = widget
-                                                                .orderproducts!
-                                                                .where((e) =>
-                                                                    e.orderGroupId ==
-                                                                    orderGroupItemItem
-                                                                        .id)
-                                                                .toList();
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: List.generate(
+                                                  orderGroupItem.length,
+                                                  (orderGroupItemIndex) {
+                                                final orderGroupItemItem =
+                                                    orderGroupItem[
+                                                        orderGroupItemIndex];
+                                                return Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground40,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6.0),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          decoration:
+                                                              const BoxDecoration(),
+                                                          child: Builder(
+                                                            builder: (context) {
+                                                              final orderproductItem = widget
+                                                                  .orderproducts!
+                                                                  .where((e) =>
+                                                                      e.orderGroupId ==
+                                                                      orderGroupItemItem
+                                                                          .id)
+                                                                  .toList();
 
-                                                            return ListView
-                                                                .separated(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .fromLTRB(
-                                                                0,
-                                                                20.0,
-                                                                0,
-                                                                20.0,
-                                                              ),
-                                                              primary: false,
-                                                              shrinkWrap: true,
-                                                              scrollDirection:
-                                                                  Axis.vertical,
-                                                              itemCount:
-                                                                  orderproductItem
-                                                                      .length,
-                                                              separatorBuilder: (_,
-                                                                      __) =>
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          10.0),
-                                                              itemBuilder: (context,
-                                                                  orderproductItemIndex) {
-                                                                final orderproductItemItem =
-                                                                    orderproductItem[
-                                                                        orderproductItemIndex];
-                                                                return Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
+                                                              return ListView
+                                                                  .separated(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .fromLTRB(
+                                                                  0,
+                                                                  20.0,
+                                                                  0,
+                                                                  20.0,
+                                                                ),
+                                                                primary: false,
+                                                                shrinkWrap:
+                                                                    true,
+                                                                scrollDirection:
+                                                                    Axis.vertical,
+                                                                itemCount:
+                                                                    orderproductItem
+                                                                        .length,
+                                                                separatorBuilder: (_,
+                                                                        __) =>
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            10.0),
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        orderproductItemIndex) {
+                                                                  final orderproductItemItem =
+                                                                      orderproductItem[
+                                                                          orderproductItemIndex];
+                                                                  return Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            10.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            OrderHistoryItemWidget(
+                                                                          key: Key(
+                                                                              'Keyvm0_${orderproductItemIndex}_of_${orderproductItem.length}'),
+                                                                          photo:
+                                                                              orderproductItemItem.productImage,
+                                                                          productName:
+                                                                              orderproductItemItem.name,
+                                                                          price:
+                                                                              (orderproductItemItem.priceTotal!) * FFAppState().country.currencyExchangeRate,
+                                                                          showReview:
+                                                                              false,
+                                                                        ),
+                                                                      ),
+                                                                    ].divide(const SizedBox(
+                                                                        height:
+                                                                            16.0)),
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                        StyledDivider(
+                                                          height: 1.0,
+                                                          thickness: 1.0,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .lightBlack,
+                                                          lineStyle:
+                                                              DividerLineStyle
+                                                                  .dashed,
+                                                        ),
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        16.0,
+                                                                        0.0,
+                                                                        16.0),
+                                                            child: Stack(
+                                                              children: [
+                                                                if (!_model
+                                                                        .isLoading &&
+                                                                    (_model.userAddress !=
+                                                                        null) &&
+                                                                    (_model.deliveryOptions
+                                                                            .where((e) =>
+                                                                                e.orderGroupId ==
+                                                                                orderGroupItemItem
+                                                                                    .id)
+                                                                            .toList().isNotEmpty) &&
+                                                                    ((_model.deliberyTypes
+                                                                            .isNotEmpty) &&
+                                                                        (_model.deliberyTypes.isNotEmpty)))
+                                                                  Container(
+                                                                    decoration:
+                                                                        const BoxDecoration(),
+                                                                    child:
+                                                                        Padding(
                                                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                          20.0,
+                                                                          10.0,
                                                                           0.0,
-                                                                          20.0,
+                                                                          10.0,
                                                                           0.0),
                                                                       child:
-                                                                          OrderHistoryItemWidget(
-                                                                        key: Key(
-                                                                            'Keyvm0_${orderproductItemIndex}_of_${orderproductItem.length}'),
-                                                                        photo: orderproductItemItem
-                                                                            .productImage,
-                                                                        productName:
-                                                                            orderproductItemItem.name,
-                                                                        price: (orderproductItemItem.priceTotal!) *
-                                                                            FFAppState().country.currencyExchangeRate,
-                                                                        showReview:
-                                                                            false,
+                                                                          wrapWithModel(
+                                                                        model: _model
+                                                                            .deliveryMethodItemModels
+                                                                            .getModel(
+                                                                          orderGroupItemItem
+                                                                              .id
+                                                                              .toString(),
+                                                                          orderGroupItemIndex,
+                                                                        ),
+                                                                        updateCallback:
+                                                                            () =>
+                                                                                safeSetState(() {}),
+                                                                        updateOnChange:
+                                                                            true,
+                                                                        child:
+                                                                            DeliveryMethodItemWidget(
+                                                                          key:
+                                                                              Key(
+                                                                            'Keynvr_${orderGroupItemItem.id.toString()}',
+                                                                          ),
+                                                                          orderGroupId:
+                                                                              orderGroupItemItem.id,
+                                                                          letChangeTheMethod:
+                                                                              true,
+                                                                          deliveryOrder: _model.deliveryOptions.where((e) => e.orderGroupId == orderGroupItemItem.id).toList().isNotEmpty
+                                                                              ? _model.deliveryOptions.where((e) => e.orderGroupId == orderGroupItemItem.id).toList().first
+                                                                              : null,
+                                                                          indexInList:
+                                                                              orderGroupItemIndex,
+                                                                          deliveryTypes:
+                                                                              _model.deliberyTypes,
+                                                                          onMethodChanged:
+                                                                              (selectedMethod) async {
+                                                                            logFirebaseEvent('CHECKOUT_Container_nvr9jkeu_CALLBACK');
+                                                                            logFirebaseEvent('DeliveryMethodItem_update_page_state');
+                                                                            _model.isLoading =
+                                                                                true;
+                                                                            safeSetState(() {});
+                                                                            logFirebaseEvent('DeliveryMethodItem_backend_call');
+                                                                            await OrderGroupsTable().update(
+                                                                              data: {
+                                                                                'onro_delivery_method_id': getJsonField(
+                                                                                  functions.returnJsonWithASpecificKeyValue(
+                                                                                      getJsonField(
+                                                                                        _model.groupedDeliveryMethodsForOrder!
+                                                                                            .where((e) =>
+                                                                                                orderGroupItemItem.id ==
+                                                                                                getJsonField(
+                                                                                                  e,
+                                                                                                  r'''$.id''',
+                                                                                                ))
+                                                                                            .toList()
+                                                                                            .first,
+                                                                                        r'''$.grouped''',
+                                                                                        true,
+                                                                                      )!,
+                                                                                      selectedMethod,
+                                                                                      'method_type_name'),
+                                                                                  r'''$.method_type_id''',
+                                                                                ),
+                                                                                'delivery_method_id': getJsonField(
+                                                                                  functions.returnJsonWithASpecificKeyValue(
+                                                                                      getJsonField(
+                                                                                        _model.groupedDeliveryMethodsForOrder!
+                                                                                            .where((e) =>
+                                                                                                orderGroupItemItem.id ==
+                                                                                                getJsonField(
+                                                                                                  e,
+                                                                                                  r'''$.id''',
+                                                                                                ))
+                                                                                            .toList()
+                                                                                            .first,
+                                                                                        r'''$.grouped''',
+                                                                                        true,
+                                                                                      )!,
+                                                                                      selectedMethod,
+                                                                                      'method_type_name'),
+                                                                                  r'''$.method_id''',
+                                                                                ),
+                                                                                'delivery_method_mapping_id': getJsonField(
+                                                                                  functions.returnJsonWithASpecificKeyValue(
+                                                                                      getJsonField(
+                                                                                        _model.groupedDeliveryMethodsForOrder!
+                                                                                            .where((e) =>
+                                                                                                orderGroupItemItem.id ==
+                                                                                                getJsonField(
+                                                                                                  e,
+                                                                                                  r'''$.id''',
+                                                                                                ))
+                                                                                            .toList()
+                                                                                            .first,
+                                                                                        r'''$.grouped''',
+                                                                                        true,
+                                                                                      )!,
+                                                                                      selectedMethod,
+                                                                                      'method_type_name'),
+                                                                                  r'''$.method_mapping_id''',
+                                                                                ),
+                                                                              },
+                                                                              matchingRows: (rows) => rows.eq(
+                                                                                'id',
+                                                                                orderGroupItemItem.id,
+                                                                              ),
+                                                                            );
+                                                                            logFirebaseEvent('DeliveryMethodItem_action_block');
+                                                                            _model.updatedCalculation =
+                                                                                await _model.calculateDeliveryPricesForOrder(
+                                                                              context,
+                                                                              orderGroupId: orderGroupItemItem.id,
+                                                                              deliveryAddressId: _model.userAddress?.id,
+                                                                            );
+                                                                            logFirebaseEvent('DeliveryMethodItem_custom_action');
+                                                                            await actions.printAction(
+                                                                              _model.updatedCalculation!.toString(),
+                                                                            );
+                                                                            logFirebaseEvent('DeliveryMethodItem_update_page_state');
+                                                                            _model.updateDeliveryOptionsAtIndex(
+                                                                              functions.findIndexOfDeliveryOrderForAnOrderGroupId(_model.deliveryOptions.toList(), orderGroupItemItem.id),
+                                                                              (e) => e
+                                                                                ..updateSelectedDeliveryMethodForOrderGroup(
+                                                                                  (e) => e
+                                                                                    ..methodId = getJsonField(
+                                                                                      functions.returnJsonWithASpecificKeyValue(
+                                                                                          getJsonField(
+                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                                .where((e) =>
+                                                                                                    orderGroupItemItem.id ==
+                                                                                                    getJsonField(
+                                                                                                      e,
+                                                                                                      r'''$.id''',
+                                                                                                    ))
+                                                                                                .toList()
+                                                                                                .first,
+                                                                                            r'''$.grouped''',
+                                                                                            true,
+                                                                                          )!,
+                                                                                          selectedMethod,
+                                                                                          'method_type_name'),
+                                                                                      r'''$.method_id''',
+                                                                                    )
+                                                                                    ..methodTypeId = getJsonField(
+                                                                                      functions.returnJsonWithASpecificKeyValue(
+                                                                                          getJsonField(
+                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                                .where((e) =>
+                                                                                                    orderGroupItemItem.id ==
+                                                                                                    getJsonField(
+                                                                                                      e,
+                                                                                                      r'''$.id''',
+                                                                                                    ))
+                                                                                                .toList()
+                                                                                                .first,
+                                                                                            r'''$.grouped''',
+                                                                                            true,
+                                                                                          )!,
+                                                                                          selectedMethod,
+                                                                                          'method_type_name'),
+                                                                                      r'''$.method_type_id''',
+                                                                                    )
+                                                                                    ..methodTypeName = getJsonField(
+                                                                                      functions.returnJsonWithASpecificKeyValue(
+                                                                                          getJsonField(
+                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                                .where((e) =>
+                                                                                                    orderGroupItemItem.id ==
+                                                                                                    getJsonField(
+                                                                                                      e,
+                                                                                                      r'''$.id''',
+                                                                                                    ))
+                                                                                                .toList()
+                                                                                                .first,
+                                                                                            r'''$.grouped''',
+                                                                                            true,
+                                                                                          )!,
+                                                                                          selectedMethod,
+                                                                                          'method_type_name'),
+                                                                                      r'''$.method_type_name''',
+                                                                                    ).toString()
+                                                                                    ..methodMappingId = getJsonField(
+                                                                                      functions.returnJsonWithASpecificKeyValue(
+                                                                                          getJsonField(
+                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                                .where((e) =>
+                                                                                                    orderGroupItemItem.id ==
+                                                                                                    getJsonField(
+                                                                                                      e,
+                                                                                                      r'''$.id''',
+                                                                                                    ))
+                                                                                                .toList()
+                                                                                                .first,
+                                                                                            r'''$.grouped''',
+                                                                                            true,
+                                                                                          )!,
+                                                                                          selectedMethod,
+                                                                                          'method_type_name'),
+                                                                                      r'''$.method_mapping_id''',
+                                                                                    )
+                                                                                    ..methodTypeNameArabic = getJsonField(
+                                                                                      functions.returnJsonWithASpecificKeyValue(
+                                                                                          getJsonField(
+                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                                .where((e) =>
+                                                                                                    orderGroupItemItem.id ==
+                                                                                                    getJsonField(
+                                                                                                      e,
+                                                                                                      r'''$.id''',
+                                                                                                    ))
+                                                                                                .toList()
+                                                                                                .first,
+                                                                                            r'''$.grouped''',
+                                                                                            true,
+                                                                                          )!,
+                                                                                          selectedMethod,
+                                                                                          'method_type_name'),
+                                                                                      r'''$.method_type_name_arabic''',
+                                                                                    ).toString()
+                                                                                    ..methodTypeNameKurdish = getJsonField(
+                                                                                      functions.returnJsonWithASpecificKeyValue(
+                                                                                          getJsonField(
+                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                                .where((e) =>
+                                                                                                    orderGroupItemItem.id ==
+                                                                                                    getJsonField(
+                                                                                                      e,
+                                                                                                      r'''$.id''',
+                                                                                                    ))
+                                                                                                .toList()
+                                                                                                .first,
+                                                                                            r'''$.grouped''',
+                                                                                            true,
+                                                                                          )!,
+                                                                                          selectedMethod,
+                                                                                          'method_type_name'),
+                                                                                      r'''$.method_type_name_kurdish''',
+                                                                                    ).toString(),
+                                                                                )
+                                                                                ..selectedOptionPrice = functions.roundToNearestDouble(getJsonField(
+                                                                                  _model.updatedCalculation,
+                                                                                  r'''$.calculation.price''',
+                                                                                ))
+                                                                                ..selectedOptionCurrencyCode = getJsonField(
+                                                                                  _model.updatedCalculation,
+                                                                                  r'''$.calculation.currencyCode''',
+                                                                                ).toString(),
+                                                                            );
+                                                                            logFirebaseEvent('DeliveryMethodItem_update_page_state');
+                                                                            _model.deliveryTotalFee =
+                                                                                functions.calculateDeliveryTotalOnCheckout(_model.deliveryOptions.toList());
+                                                                            logFirebaseEvent('DeliveryMethodItem_update_page_state');
+                                                                            _model.isLoading =
+                                                                                false;
+                                                                            safeSetState(() {});
+
+                                                                            safeSetState(() {});
+                                                                          },
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ].divide(const SizedBox(
-                                                                      height:
-                                                                          16.0)),
-                                                                );
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Stack(
-                                                        children: [
-                                                          if (!_model
-                                                                  .isLoading &&
-                                                              (_model.userAddress !=
-                                                                  null) &&
-                                                              (_model.deliveryOptions
-                                                                      .where((e) =>
-                                                                          e.orderGroupId ==
-                                                                          orderGroupItemItem
-                                                                              .id)
-                                                                      .toList().isNotEmpty))
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          20.0,
-                                                                          0.0,
-                                                                          20.0,
-                                                                          0.0),
-                                                              child:
-                                                                  wrapWithModel(
-                                                                model: _model
-                                                                    .deliveryMethodItemModels
-                                                                    .getModel(
-                                                                  orderGroupItemItem
-                                                                      .id
-                                                                      .toString(),
-                                                                  orderGroupItemIndex,
-                                                                ),
-                                                                updateCallback: () =>
-                                                                    safeSetState(
-                                                                        () {}),
-                                                                updateOnChange:
-                                                                    true,
-                                                                child:
-                                                                    DeliveryMethodItemWidget(
-                                                                  key: Key(
-                                                                    'Keynvr_${orderGroupItemItem.id.toString()}',
                                                                   ),
-                                                                  orderGroupId:
-                                                                      orderGroupItemItem
-                                                                          .id,
-                                                                  letChangeTheMethod:
-                                                                      true,
-                                                                  deliveryOrder: _model.deliveryOptions.where((e) => e.orderGroupId == orderGroupItemItem.id).toList().isNotEmpty
-                                                                      ? _model
-                                                                          .deliveryOptions
-                                                                          .where((e) =>
-                                                                              e.orderGroupId ==
-                                                                              orderGroupItemItem.id)
-                                                                          .toList()
-                                                                          .first
-                                                                      : null,
-                                                                  indexInList:
-                                                                      orderGroupItemIndex,
-                                                                  onMethodChanged:
-                                                                      (selectedMethod) async {
-                                                                    logFirebaseEvent(
-                                                                        'CHECKOUT_Container_nvr9jkeu_CALLBACK');
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_update_page_state');
-                                                                    _model.isLoading =
-                                                                        true;
-                                                                    safeSetState(
-                                                                        () {});
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_backend_call');
-                                                                    await OrderGroupsTable()
-                                                                        .update(
-                                                                      data: {
-                                                                        'onro_delivery_method_id':
-                                                                            getJsonField(
-                                                                          functions.returnJsonWithASpecificKeyValue(
-                                                                              getJsonField(
-                                                                                _model.groupedDeliveryMethodsForOrder!
-                                                                                    .where((e) =>
-                                                                                        orderGroupItemItem.id ==
-                                                                                        getJsonField(
-                                                                                          e,
-                                                                                          r'''$.id''',
-                                                                                        ))
-                                                                                    .toList()
-                                                                                    .first,
-                                                                                r'''$.grouped''',
-                                                                                true,
-                                                                              )!,
-                                                                              selectedMethod,
-                                                                              'method_type_name'),
-                                                                          r'''$.method_type_id''',
-                                                                        ),
-                                                                        'delivery_method_id':
-                                                                            getJsonField(
-                                                                          functions.returnJsonWithASpecificKeyValue(
-                                                                              getJsonField(
-                                                                                _model.groupedDeliveryMethodsForOrder!
-                                                                                    .where((e) =>
-                                                                                        orderGroupItemItem.id ==
-                                                                                        getJsonField(
-                                                                                          e,
-                                                                                          r'''$.id''',
-                                                                                        ))
-                                                                                    .toList()
-                                                                                    .first,
-                                                                                r'''$.grouped''',
-                                                                                true,
-                                                                              )!,
-                                                                              selectedMethod,
-                                                                              'method_type_name'),
-                                                                          r'''$.method_id''',
-                                                                        ),
-                                                                        'delivery_method_mapping_id':
-                                                                            getJsonField(
-                                                                          functions.returnJsonWithASpecificKeyValue(
-                                                                              getJsonField(
-                                                                                _model.groupedDeliveryMethodsForOrder!
-                                                                                    .where((e) =>
-                                                                                        orderGroupItemItem.id ==
-                                                                                        getJsonField(
-                                                                                          e,
-                                                                                          r'''$.id''',
-                                                                                        ))
-                                                                                    .toList()
-                                                                                    .first,
-                                                                                r'''$.grouped''',
-                                                                                true,
-                                                                              )!,
-                                                                              selectedMethod,
-                                                                              'method_type_name'),
-                                                                          r'''$.method_mapping_id''',
-                                                                        ),
-                                                                      },
-                                                                      matchingRows:
-                                                                          (rows) =>
-                                                                              rows.eq(
-                                                                        'id',
-                                                                        orderGroupItemItem
-                                                                            .id,
-                                                                      ),
-                                                                    );
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_action_block');
-                                                                    _model.updatedCalculation =
-                                                                        await _model
-                                                                            .calculateDeliveryPricesForOrder(
-                                                                      context,
-                                                                      orderGroupId:
-                                                                          orderGroupItemItem
-                                                                              .id,
-                                                                      deliveryAddressId: _model
-                                                                          .userAddress
-                                                                          ?.id,
-                                                                    );
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_custom_action');
-                                                                    await actions
-                                                                        .printAction(
-                                                                      _model
-                                                                          .updatedCalculation!
-                                                                          .toString(),
-                                                                    );
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_update_page_state');
-                                                                    _model
-                                                                        .updateDeliveryOptionsAtIndex(
-                                                                      functions.findIndexOfDeliveryOrderForAnOrderGroupId(
-                                                                          _model
-                                                                              .deliveryOptions
-                                                                              .toList(),
-                                                                          orderGroupItemItem
-                                                                              .id),
-                                                                      (e) => e
-                                                                        ..updateSelectedDeliveryMethodForOrderGroup(
-                                                                          (e) => e
-                                                                            ..methodId =
-                                                                                getJsonField(
-                                                                              functions.returnJsonWithASpecificKeyValue(
-                                                                                  getJsonField(
-                                                                                    _model.groupedDeliveryMethodsForOrder!
-                                                                                        .where((e) =>
-                                                                                            orderGroupItemItem.id ==
-                                                                                            getJsonField(
-                                                                                              e,
-                                                                                              r'''$.id''',
-                                                                                            ))
-                                                                                        .toList()
-                                                                                        .first,
-                                                                                    r'''$.grouped''',
-                                                                                    true,
-                                                                                  )!,
-                                                                                  selectedMethod,
-                                                                                  'method_type_name'),
-                                                                              r'''$.method_id''',
-                                                                            )
-                                                                            ..methodTypeId =
-                                                                                getJsonField(
-                                                                              functions.returnJsonWithASpecificKeyValue(
-                                                                                  getJsonField(
-                                                                                    _model.groupedDeliveryMethodsForOrder!
-                                                                                        .where((e) =>
-                                                                                            orderGroupItemItem.id ==
-                                                                                            getJsonField(
-                                                                                              e,
-                                                                                              r'''$.id''',
-                                                                                            ))
-                                                                                        .toList()
-                                                                                        .first,
-                                                                                    r'''$.grouped''',
-                                                                                    true,
-                                                                                  )!,
-                                                                                  selectedMethod,
-                                                                                  'method_type_name'),
-                                                                              r'''$.method_type_id''',
-                                                                            )
-                                                                            ..methodTypeName =
-                                                                                getJsonField(
-                                                                              functions.returnJsonWithASpecificKeyValue(
-                                                                                  getJsonField(
-                                                                                    _model.groupedDeliveryMethodsForOrder!
-                                                                                        .where((e) =>
-                                                                                            orderGroupItemItem.id ==
-                                                                                            getJsonField(
-                                                                                              e,
-                                                                                              r'''$.id''',
-                                                                                            ))
-                                                                                        .toList()
-                                                                                        .first,
-                                                                                    r'''$.grouped''',
-                                                                                    true,
-                                                                                  )!,
-                                                                                  selectedMethod,
-                                                                                  'method_type_name'),
-                                                                              r'''$.method_type_name''',
-                                                                            ).toString()
-                                                                            ..methodMappingId =
-                                                                                getJsonField(
-                                                                              functions.returnJsonWithASpecificKeyValue(
-                                                                                  getJsonField(
-                                                                                    _model.groupedDeliveryMethodsForOrder!
-                                                                                        .where((e) =>
-                                                                                            orderGroupItemItem.id ==
-                                                                                            getJsonField(
-                                                                                              e,
-                                                                                              r'''$.id''',
-                                                                                            ))
-                                                                                        .toList()
-                                                                                        .first,
-                                                                                    r'''$.grouped''',
-                                                                                    true,
-                                                                                  )!,
-                                                                                  selectedMethod,
-                                                                                  'method_type_name'),
-                                                                              r'''$.method_mapping_id''',
-                                                                            )
-                                                                            ..methodTypeNameArabic =
-                                                                                getJsonField(
-                                                                              functions.returnJsonWithASpecificKeyValue(
-                                                                                  getJsonField(
-                                                                                    _model.groupedDeliveryMethodsForOrder!
-                                                                                        .where((e) =>
-                                                                                            orderGroupItemItem.id ==
-                                                                                            getJsonField(
-                                                                                              e,
-                                                                                              r'''$.id''',
-                                                                                            ))
-                                                                                        .toList()
-                                                                                        .first,
-                                                                                    r'''$.grouped''',
-                                                                                    true,
-                                                                                  )!,
-                                                                                  selectedMethod,
-                                                                                  'method_type_name'),
-                                                                              r'''$.method_type_name_arabic''',
-                                                                            ).toString()
-                                                                            ..methodTypeNameKurdish = getJsonField(
-                                                                              functions.returnJsonWithASpecificKeyValue(
-                                                                                  getJsonField(
-                                                                                    _model.groupedDeliveryMethodsForOrder!
-                                                                                        .where((e) =>
-                                                                                            orderGroupItemItem.id ==
-                                                                                            getJsonField(
-                                                                                              e,
-                                                                                              r'''$.id''',
-                                                                                            ))
-                                                                                        .toList()
-                                                                                        .first,
-                                                                                    r'''$.grouped''',
-                                                                                    true,
-                                                                                  )!,
-                                                                                  selectedMethod,
-                                                                                  'method_type_name'),
-                                                                              r'''$.method_type_name_kurdish''',
-                                                                            ).toString(),
-                                                                        )
-                                                                        ..selectedOptionPrice =
-                                                                            functions.roundToNearestDouble(getJsonField(
-                                                                          _model
-                                                                              .updatedCalculation,
-                                                                          r'''$.calculation.price''',
-                                                                        ))
-                                                                        ..selectedOptionCurrencyCode =
-                                                                            getJsonField(
-                                                                          _model
-                                                                              .updatedCalculation,
-                                                                          r'''$.calculation.currencyCode''',
-                                                                        ).toString(),
-                                                                    );
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_update_page_state');
-                                                                    _model.deliveryTotalFee =
-                                                                        functions.calculateDeliveryTotalOnCheckout(_model
-                                                                            .deliveryOptions
-                                                                            .toList());
-                                                                    logFirebaseEvent(
-                                                                        'DeliveryMethodItem_update_page_state');
-                                                                    _model.isLoading =
-                                                                        false;
-                                                                    safeSetState(
-                                                                        () {});
-
-                                                                    safeSetState(
-                                                                        () {});
-                                                                  },
-                                                                ),
-                                                              ),
+                                                                if (_model
+                                                                    .isLoading)
+                                                                  ShimmerOrdersWidget(
+                                                                    key: Key(
+                                                                        'Key5lh_${orderGroupItemIndex}_of_${orderGroupItem.length}'),
+                                                                    boxColor: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .accent4,
+                                                                    amountListItems:
+                                                                        1,
+                                                                  ),
+                                                              ],
                                                             ),
-                                                          if (_model.isLoading)
-                                                            ShimmerOrdersWidget(
-                                                              key: Key(
-                                                                  'Key5lh_${orderGroupItemIndex}_of_${orderGroupItem.length}'),
-                                                              amountListItems:
-                                                                  1,
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  );
-                                                }).divide(
-                                                    const SizedBox(height: 24.0)),
-                                              );
-                                            },
-                                          ),
-                                        ].divide(const SizedBox(height: 16.0)),
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 20.0, 0.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+                                            );
+                                          },
+                                        ),
+                                      ].divide(const SizedBox(height: 16.0)),
+                                    ),
+                                    StyledDivider(
+                                      height: 24.0,
+                                      thickness: 2.0,
+                                      color: FlutterFlowTheme.of(context).tfBg,
+                                      lineStyle: DividerLineStyle.dashed,
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground40,
+                                              borderRadius:
+                                                  BorderRadius.circular(6.0),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 20.0, 10.0, 20.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -817,31 +974,59 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'u375a2u4' /* Billing & Delivery Address */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelLarge
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .labelLargeFamily),
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Icon(
+                                                              FFIcons
+                                                                  .kmapPinCheck,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                              size: 24.0,
+                                                            ),
+                                                            Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'u375a2u4' /* Delivery Address */,
                                                               ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    shadows: [
+                                                                      const Shadow(
+                                                                        color: Color(
+                                                                            0x2503080C),
+                                                                        offset: Offset(
+                                                                            2.0,
+                                                                            2.0),
+                                                                        blurRadius:
+                                                                            6.0,
+                                                                      )
+                                                                    ],
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                  ),
+                                                            ),
+                                                          ].divide(const SizedBox(
+                                                              width: 8.0)),
                                                         ),
                                                       ),
                                                       if (!_model.isLoading)
@@ -976,14 +1161,25 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                           },
                                                           child: Container(
                                                             decoration:
-                                                                const BoxDecoration(),
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                              border:
+                                                                  Border.all(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                              ),
+                                                            ),
                                                             child: Padding(
                                                               padding:
                                                                   const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           8.0,
                                                                           8.0,
-                                                                          0.0,
+                                                                          8.0,
                                                                           8.0),
                                                               child:
                                                                   AutoSizeText(
@@ -1003,7 +1199,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                               .bodyMediumFamily,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .secondaryText,
+                                                                          .primaryText,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       useGoogleFonts: GoogleFonts
@@ -1036,7 +1232,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .labelSmallFamily,
-                                                                fontSize: 16.0,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
@@ -1047,165 +1243,218 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
                                                                             .labelSmallFamily),
+                                                                lineHeight: 1.7,
                                                               ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                ].divide(const SizedBox(height: 8.0)),
+                                                ].divide(
+                                                    const SizedBox(height: 16.0)),
                                               ),
                                             ),
                                           ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        20.0, 0.0, 20.0, 0.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'zk91df73' /* Payment Method */,
-                                                        ),
-                                                        style:
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground40,
+                                              borderRadius:
+                                                  BorderRadius.circular(6.0),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 20.0, 10.0, 20.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Icon(
+                                                        FFIcons.kpayment,
+                                                        color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLargeFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .labelLargeFamily),
-                                                                ),
+                                                                .primaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'zk91df73' /* Payment Method */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                shadows: [
+                                                                  const Shadow(
+                                                                    color: Color(
+                                                                        0x2503080C),
+                                                                    offset:
+                                                                        Offset(
+                                                                            2.0,
+                                                                            2.0),
+                                                                    blurRadius:
+                                                                        6.0,
+                                                                  )
+                                                                ],
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ].divide(
+                                                        const SizedBox(width: 8.0)),
+                                                  ),
+                                                  FutureBuilder<
+                                                      List<PaymentTypesRow>>(
+                                                    future: PaymentTypesTable()
+                                                        .queryRows(
+                                                      queryFn: (q) => q.eq(
+                                                        'published',
+                                                        true,
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        20.0, 0.0, 20.0, 0.0),
-                                                child: FutureBuilder<
-                                                    List<PaymentTypesRow>>(
-                                                  future: PaymentTypesTable()
-                                                      .queryRows(
-                                                    queryFn: (q) => q.eq(
-                                                      'published',
-                                                      true,
-                                                    ),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 38.0,
-                                                          height: 38.0,
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return const SizedBox(
+                                                          width:
+                                                              double.infinity,
                                                           child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    List<PaymentTypesRow>
-                                                        listViewPaymentTypesRowList =
-                                                        snapshot.data!;
-
-                                                    return ListView.builder(
-                                                      padding: EdgeInsets.zero,
-                                                      primary: false,
-                                                      shrinkWrap: true,
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount:
-                                                          listViewPaymentTypesRowList
-                                                              .length,
-                                                      itemBuilder: (context,
-                                                          listViewIndex) {
-                                                        final listViewPaymentTypesRow =
-                                                            listViewPaymentTypesRowList[
-                                                                listViewIndex];
-                                                        return wrapWithModel(
-                                                          model: _model
-                                                              .pickHowToPayModels
-                                                              .getModel(
-                                                            listViewPaymentTypesRow
-                                                                .id
-                                                                .toString(),
-                                                            listViewIndex,
-                                                          ),
-                                                          updateCallback: () =>
-                                                              safeSetState(
-                                                                  () {}),
-                                                          child:
-                                                              PickHowToPayWidget(
-                                                            key: Key(
-                                                              'Keywsf_${listViewPaymentTypesRow.id.toString()}',
-                                                            ),
-                                                            activeItem: _model
-                                                                .selectedPaymentType,
-                                                            item:
-                                                                listViewPaymentTypesRow,
-                                                            onSelectedCallback:
-                                                                () async {
-                                                              logFirebaseEvent(
-                                                                  'CHECKOUT_Container_wsfab9m0_CALLBACK');
-                                                              logFirebaseEvent(
-                                                                  'PickHowToPay_update_page_state');
-                                                              _model.selectedPaymentType =
-                                                                  listViewPaymentTypesRow;
-                                                              safeSetState(
-                                                                  () {});
-                                                            },
+                                                              LoaderBoxWidget(
+                                                            borderRadius: 6.0,
                                                           ),
                                                         );
-                                                      },
-                                                    );
-                                                  },
-                                                ),
+                                                      }
+                                                      List<PaymentTypesRow>
+                                                          listViewPaymentTypesRowList =
+                                                          snapshot.data!;
+
+                                                      return ListView.separated(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        primary: false,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            listViewPaymentTypesRowList
+                                                                .length,
+                                                        separatorBuilder:
+                                                            (_, __) => const SizedBox(
+                                                                height: 8.0),
+                                                        itemBuilder: (context,
+                                                            listViewIndex) {
+                                                          final listViewPaymentTypesRow =
+                                                              listViewPaymentTypesRowList[
+                                                                  listViewIndex];
+                                                          return wrapWithModel(
+                                                            model: _model
+                                                                .pickHowToPayModels
+                                                                .getModel(
+                                                              listViewPaymentTypesRow
+                                                                  .id
+                                                                  .toString(),
+                                                              listViewIndex,
+                                                            ),
+                                                            updateCallback: () =>
+                                                                safeSetState(
+                                                                    () {}),
+                                                            child:
+                                                                PickHowToPayWidget(
+                                                              key: Key(
+                                                                'Keywsf_${listViewPaymentTypesRow.id.toString()}',
+                                                              ),
+                                                              activeItem: _model
+                                                                  .selectedPaymentType,
+                                                              item:
+                                                                  listViewPaymentTypesRow,
+                                                              disabled: (listViewPaymentTypesRow
+                                                                          .type ==
+                                                                      'Wallet') &&
+                                                                  (FFAppState()
+                                                                          .Wallet
+                                                                          .balance <
+                                                                      ((widget.order!.priceSubTotal!) * FFAppState().country.currencyExchangeRate +
+                                                                          (_model.deliveryTotalFee != null
+                                                                              ? _model.deliveryTotalFee!
+                                                                              : 0.0))),
+                                                              orderFee: (widget
+                                                                          .order!
+                                                                          .priceSubTotal!) *
+                                                                      FFAppState()
+                                                                          .country
+                                                                          .currencyExchangeRate +
+                                                                  (_model.deliveryTotalFee !=
+                                                                          null
+                                                                      ? _model
+                                                                          .deliveryTotalFee!
+                                                                      : 0.0),
+                                                              onSelectedCallback:
+                                                                  () async {
+                                                                logFirebaseEvent(
+                                                                    'CHECKOUT_Container_wsfab9m0_CALLBACK');
+                                                                logFirebaseEvent(
+                                                                    'PickHowToPay_update_page_state');
+                                                                _model.selectedPaymentType =
+                                                                    listViewPaymentTypesRow;
+                                                                safeSetState(
+                                                                    () {});
+                                                              },
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ].divide(
+                                                    const SizedBox(height: 16.0)),
                                               ),
-                                            ].divide(const SizedBox(height: 8.0)),
+                                            ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    20.0, 0.0, 20.0, 0.0),
-                                            child: Container(
-                                              width: 100.0,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Container(
+                                            width: 100.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground40,
+                                              borderRadius:
+                                                  BorderRadius.circular(6.0),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      10.0, 20.0, 10.0, 20.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -1213,6 +1462,15 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
+                                                      Icon(
+                                                        FFIcons
+                                                            .kmoneyWithdrawal,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        size: 24.0,
+                                                      ),
                                                       Expanded(
                                                         child: Text(
                                                           FFLocalizations.of(
@@ -1232,6 +1490,21 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                     .primaryText,
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                shadows: [
+                                                                  const Shadow(
+                                                                    color: Color(
+                                                                        0x2503080C),
+                                                                    offset:
+                                                                        Offset(
+                                                                            2.0,
+                                                                            2.0),
+                                                                    blurRadius:
+                                                                        6.0,
+                                                                  )
+                                                                ],
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
@@ -1254,49 +1527,30 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'i3dz3t4g' /* Products Price */,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelSmallFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .labelSmallFamily),
-                                                                ),
-                                                          ),
-                                                          Flexible(
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                StyledDivider(
-                                                                  height: 1.0,
-                                                                  thickness:
-                                                                      1.0,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .lightBlack,
-                                                                  lineStyle:
-                                                                      DividerLineStyle
-                                                                          .dashed,
-                                                                ),
-                                                              ],
+                                                          Expanded(
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'i3dz3t4g' /* Products Price */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelSmallFamily,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).labelSmallFamily),
+                                                                  ),
                                                             ),
                                                           ),
                                                           Row(
@@ -1345,49 +1599,30 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'qubhbma1' /* Shipping Fees */,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelSmallFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .labelSmallFamily),
-                                                                ),
-                                                          ),
-                                                          Flexible(
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                StyledDivider(
-                                                                  height: 1.0,
-                                                                  thickness:
-                                                                      1.0,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .lightBlack,
-                                                                  lineStyle:
-                                                                      DividerLineStyle
-                                                                          .dashed,
-                                                                ),
-                                                              ],
+                                                          Expanded(
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'qubhbma1' /* Shipping Fees */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelSmallFamily,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).labelSmallFamily),
+                                                                  ),
                                                             ),
                                                           ),
                                                           Row(
@@ -1460,49 +1695,33 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'xm9edubi' /* Total */,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily),
-                                                                ),
-                                                          ),
-                                                          Flexible(
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                StyledDivider(
-                                                                  height: 1.0,
-                                                                  thickness:
-                                                                      1.0,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .lightBlack,
-                                                                  lineStyle:
-                                                                      DividerLineStyle
-                                                                          .dashed,
-                                                                ),
-                                                              ],
+                                                          Expanded(
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'xm9edubi' /* Total */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                  ),
                                                             ),
                                                           ),
                                                           Row(
@@ -1537,6 +1756,14 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                               fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
                                                                               color: FlutterFlowTheme.of(context).primaryText,
                                                                               letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              shadows: [
+                                                                                const Shadow(
+                                                                                  color: Color(0x2503080C),
+                                                                                  offset: Offset(2.0, 2.0),
+                                                                                  blurRadius: 6.0,
+                                                                                )
+                                                                              ],
                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
                                                                             ),
                                                                       ),
@@ -1626,267 +1853,219 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                               ),
                                             ),
                                           ),
-                                        ].divide(const SizedBox(height: 32.0)),
-                                      ),
-                                    ].divide(const SizedBox(height: 40.0)),
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ]
+                                  .addToStart(const SizedBox(height: 20.0))
+                                  .addToEnd(const SizedBox(height: 20.0)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 20.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Builder(
-                                  builder: (context) => FFButtonWidget(
-                                    onPressed: (_model.isLoading ||
-                                            (_model.selectedPaymentType ==
-                                                null) ||
-                                            _model.isApiCallUnsuccessful ||
-                                            (_model.userAddress == null))
-                                        ? null
-                                        : () async {
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Builder(
+                                builder: (context) => FFButtonWidget(
+                                  onPressed: (_model.isLoading ||
+                                          (_model.selectedPaymentType ==
+                                              null) ||
+                                          _model.isApiCallUnsuccessful ||
+                                          (_model.userAddress == null))
+                                      ? null
+                                      : () async {
+                                          logFirebaseEvent(
+                                              'CHECKOUT_PAGE_CONFIRM_ORDER_BTN_ON_TAP');
+                                          if (_model.userAddress != null) {
                                             logFirebaseEvent(
-                                                'CHECKOUT_PAGE_CONFIRM_ORDER_BTN_ON_TAP');
-                                            if (_model.userAddress != null) {
+                                                'Button_backend_call');
+                                            await OrdersTable().update(
+                                              data: {
+                                                'user_shipping_address_id':
+                                                    _model.userAddress?.id,
+                                                'price_delivery':
+                                                    _model.deliveryTotalFee,
+                                                'price_total': (widget.order!
+                                                        .priceSubTotal!) +
+                                                    (_model.deliveryTotalFee!),
+                                              },
+                                              matchingRows: (rows) => rows.eq(
+                                                'id',
+                                                widget.order?.id,
+                                              ),
+                                            );
+                                            while (_model
+                                                    .orderGroupsLoopCounter <
+                                                _model.deliveryOptions.length) {
                                               logFirebaseEvent(
                                                   'Button_backend_call');
-                                              await OrdersTable().update(
+                                              await OrderGroupsTable().update(
                                                 data: {
-                                                  'user_shipping_address_id':
-                                                      _model.userAddress?.id,
-                                                  'price_delivery':
-                                                      _model.deliveryTotalFee,
-                                                  'price_total': (widget.order!
+                                                  'price_delivery': _model
+                                                      .deliveryOptions[_model
+                                                          .orderGroupsLoopCounter]
+                                                      .selectedOptionPrice
+                                                      .roundToDouble(),
+                                                  'price_total': (widget
+                                                          .orderGroups!
+                                                          .where((e) =>
+                                                              e.id ==
+                                                              _model
+                                                                  .deliveryOptions[
+                                                                      _model
+                                                                          .orderGroupsLoopCounter]
+                                                                  .orderGroupId)
+                                                          .toList()
+                                                          .first
                                                           .priceSubTotal!) +
-                                                      (_model
-                                                          .deliveryTotalFee!),
+                                                      _model
+                                                          .deliveryOptions[_model
+                                                              .orderGroupsLoopCounter]
+                                                          .selectedOptionPrice
+                                                          .roundToDouble(),
                                                 },
                                                 matchingRows: (rows) => rows.eq(
                                                   'id',
-                                                  widget.order?.id,
+                                                  _model
+                                                      .deliveryOptions[_model
+                                                          .orderGroupsLoopCounter]
+                                                      .orderGroupId,
                                                 ),
                                               );
-                                              while (_model
-                                                      .orderGroupsLoopCounter <
-                                                  _model
-                                                      .deliveryOptions.length) {
-                                                logFirebaseEvent(
-                                                    'Button_backend_call');
-                                                await OrderGroupsTable().update(
-                                                  data: {
-                                                    'price_delivery': _model
-                                                        .deliveryOptions[_model
-                                                            .orderGroupsLoopCounter]
-                                                        .selectedOptionPrice
-                                                        .roundToDouble(),
-                                                    'price_total': (widget
-                                                            .orderGroups!
-                                                            .where((e) =>
-                                                                e.id ==
-                                                                _model
-                                                                    .deliveryOptions[
-                                                                        _model
-                                                                            .orderGroupsLoopCounter]
-                                                                    .orderGroupId)
-                                                            .toList()
-                                                            .first
-                                                            .priceSubTotal!) +
-                                                        _model
-                                                            .deliveryOptions[_model
-                                                                .orderGroupsLoopCounter]
-                                                            .selectedOptionPrice
-                                                            .roundToDouble(),
-                                                  },
-                                                  matchingRows: (rows) =>
-                                                      rows.eq(
-                                                    'id',
-                                                    _model
-                                                        .deliveryOptions[_model
-                                                            .orderGroupsLoopCounter]
-                                                        .orderGroupId,
-                                                  ),
-                                                );
-                                                logFirebaseEvent(
-                                                    'Button_update_page_state');
-                                                _model.orderGroupsLoopCounter =
-                                                    _model.orderGroupsLoopCounter +
-                                                        1;
-                                                safeSetState(() {});
-                                              }
                                               logFirebaseEvent(
                                                   'Button_update_page_state');
-                                              _model.orderGroupsLoopCounter = 0;
+                                              _model.orderGroupsLoopCounter =
+                                                  _model.orderGroupsLoopCounter +
+                                                      1;
                                               safeSetState(() {});
-                                              if (_model.selectedPaymentType
-                                                      ?.type ==
-                                                  PaymentTypes.FIB.name) {
-                                                logFirebaseEvent(
-                                                    'Button_navigate_to');
+                                            }
+                                            logFirebaseEvent(
+                                                'Button_update_page_state');
+                                            _model.orderGroupsLoopCounter = 0;
+                                            safeSetState(() {});
+                                            if (_model.selectedPaymentType
+                                                    ?.type ==
+                                                PaymentTypes.FIB.name) {
+                                              logFirebaseEvent(
+                                                  'Button_navigate_to');
 
-                                                context.pushNamed(
-                                                  'FIBPayment',
-                                                  queryParameters: {
-                                                    'transactionType':
-                                                        serializeParam(
-                                                      TransactionType.Order,
-                                                      ParamType.Enum,
-                                                    ),
-                                                    'order': serializeParam(
-                                                      widget.order,
-                                                      ParamType.SupabaseRow,
-                                                    ),
-                                                    'paymentAmount':
-                                                        serializeParam(
-                                                      (widget.order!
-                                                                  .priceSubTotal!) *
-                                                              FFAppState()
-                                                                  .country
-                                                                  .currencyExchangeRate +
-                                                          (_model
-                                                              .deliveryTotalFee!),
-                                                      ParamType.double,
-                                                    ),
-                                                  }.withoutNulls,
-                                                );
-                                              } else if (_model
-                                                      .selectedPaymentType
-                                                      ?.type ==
-                                                  PaymentTypes.Wallet.name) {
-                                                if (FFAppState()
-                                                        .Wallet
-                                                        .balance >=
-                                                    widget
-                                                        .order!.priceTotal!) {
-                                                  logFirebaseEvent(
-                                                      'Button_backend_call');
-                                                  _model.payWalletResponse =
-                                                      await UserWalletCallsGroup
-                                                          .payWalletCall
-                                                          .call(
-                                                    paymentType: TransactionType
-                                                        .Order.name,
-                                                    recordId: widget.order?.id,
-                                                    walletId: FFAppState()
-                                                        .Wallet
-                                                        .walletId,
-                                                    amount: (widget.order!
+                                              context.pushNamed(
+                                                'FIBPayment',
+                                                queryParameters: {
+                                                  'transactionType':
+                                                      serializeParam(
+                                                    TransactionType.Order,
+                                                    ParamType.Enum,
+                                                  ),
+                                                  'order': serializeParam(
+                                                    widget.order,
+                                                    ParamType.SupabaseRow,
+                                                  ),
+                                                  'paymentAmount':
+                                                      serializeParam(
+                                                    (widget.order!
                                                                 .priceSubTotal!) *
                                                             FFAppState()
                                                                 .country
                                                                 .currencyExchangeRate +
                                                         (_model
                                                             .deliveryTotalFee!),
-                                                    currencyUnit: FFAppState()
-                                                        .country
-                                                        .currencyCode,
-                                                    jwt: currentJwtToken,
-                                                  );
+                                                    ParamType.double,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            } else if (_model
+                                                    .selectedPaymentType
+                                                    ?.type ==
+                                                PaymentTypes.Wallet.name) {
+                                              if (FFAppState().Wallet.balance >=
+                                                  widget.order!.priceTotal!) {
+                                                logFirebaseEvent(
+                                                    'Button_backend_call');
+                                                _model.payWalletResponse =
+                                                    await UserWalletCallsGroup
+                                                        .payWalletCall
+                                                        .call(
+                                                  paymentType: TransactionType
+                                                      .Order.name,
+                                                  recordId: widget.order?.id,
+                                                  walletId: FFAppState()
+                                                      .Wallet
+                                                      .walletId,
+                                                  amount: (widget.order!
+                                                              .priceSubTotal!) *
+                                                          FFAppState()
+                                                              .country
+                                                              .currencyExchangeRate +
+                                                      (_model
+                                                          .deliveryTotalFee!),
+                                                  currencyUnit: FFAppState()
+                                                      .country
+                                                      .currencyCode,
+                                                  jwt: currentJwtToken,
+                                                );
 
-                                                  if ((_model.payWalletResponse
-                                                          ?.succeeded ??
-                                                      true)) {
-                                                    logFirebaseEvent(
-                                                        'Button_backend_call');
-                                                    _model.walletQuery =
-                                                        await WalletsTable()
-                                                            .queryRows(
-                                                      queryFn: (q) => q.eq(
-                                                        'id',
-                                                        FFAppState()
-                                                            .Wallet
-                                                            .walletId,
-                                                      ),
-                                                    );
-                                                    if ((_model.walletQuery !=
-                                                                null &&
-                                                            (_model.walletQuery)!
-                                                                .isNotEmpty) &&
-                                                        (_model.walletQuery!.isNotEmpty)) {
-                                                      logFirebaseEvent(
-                                                          'Button_update_app_state');
+                                                if ((_model.payWalletResponse
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  logFirebaseEvent(
+                                                      'Button_backend_call');
+                                                  _model.walletQuery =
+                                                      await WalletsTable()
+                                                          .queryRows(
+                                                    queryFn: (q) => q.eq(
+                                                      'id',
                                                       FFAppState()
-                                                          .updateWalletStruct(
-                                                        (e) => e
-                                                          ..balance = _model
-                                                              .walletQuery
-                                                              ?.first
-                                                              .balance,
-                                                      );
-                                                    }
+                                                          .Wallet
+                                                          .walletId,
+                                                    ),
+                                                  );
+                                                  if ((_model.walletQuery !=
+                                                              null &&
+                                                          (_model.walletQuery)!
+                                                              .isNotEmpty) &&
+                                                      (_model.walletQuery!.isNotEmpty)) {
                                                     logFirebaseEvent(
-                                                        'Button_backend_call');
-                                                    await OrdersTable().update(
-                                                      data: {
-                                                        'order_status':
-                                                            OrderStatuses
-                                                                .OrderReceived
-                                                                .name,
-                                                      },
-                                                      matchingRows: (rows) =>
-                                                          rows.eq(
-                                                        'id',
-                                                        widget.order?.id,
-                                                      ),
-                                                    );
-                                                    logFirebaseEvent(
-                                                        'Button_navigate_to');
-
-                                                    context.goNamed(
-                                                      'OrderConfirmation',
-                                                      pathParameters: {
-                                                        'order': serializeParam(
-                                                          widget.order,
-                                                          ParamType.SupabaseRow,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  } else {
-                                                    logFirebaseEvent(
-                                                        'Button_alert_dialog');
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder: (dialogContext) {
-                                                        return Dialog(
-                                                          elevation: 0,
-                                                          insetPadding:
-                                                              EdgeInsets.zero,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          alignment: const AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () =>
-                                                                FocusScope.of(
-                                                                        dialogContext)
-                                                                    .unfocus(),
-                                                            child:
-                                                                InfoModalWidget(
-                                                              title: FFLocalizations
-                                                                      .of(context)
-                                                                  .getText(
-                                                                'riemyto1' /* Sorry! */,
-                                                              ),
-                                                              body:
-                                                                  'Error: ${(_model.payWalletResponse?.jsonBody ?? '').toString()}',
-                                                              isConfirm: false,
-                                                              autoDismiss: true,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
+                                                        'Button_update_app_state');
+                                                    FFAppState()
+                                                        .updateWalletStruct(
+                                                      (e) => e
+                                                        ..balance = _model
+                                                            .walletQuery
+                                                            ?.first
+                                                            .balance,
                                                     );
                                                   }
+                                                  logFirebaseEvent(
+                                                      'Button_backend_call');
+                                                  await OrdersTable().update(
+                                                    data: {
+                                                      'order_status':
+                                                          OrderStatuses
+                                                              .OrderReceived
+                                                              .name,
+                                                    },
+                                                    matchingRows: (rows) =>
+                                                        rows.eq(
+                                                      'id',
+                                                      widget.order?.id,
+                                                    ),
+                                                  );
+                                                  logFirebaseEvent(
+                                                      'Button_navigate_to');
+
+                                                  context.goNamed(
+                                                    'OrderConfirmation',
+                                                    pathParameters: {
+                                                      'order': serializeParam(
+                                                        widget.order,
+                                                        ParamType.SupabaseRow,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
                                                 } else {
                                                   logFirebaseEvent(
                                                       'Button_alert_dialog');
@@ -1915,13 +2094,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                             title: FFLocalizations
                                                                     .of(context)
                                                                 .getText(
-                                                              'a5bo9q99' /* Sorry! */,
+                                                              'riemyto1' /* Sorry! */,
                                                             ),
-                                                            body: FFLocalizations
-                                                                    .of(context)
-                                                                .getText(
-                                                              'zax5th2r' /* Wallet amount is less than the... */,
-                                                            ),
+                                                            body:
+                                                                'Error: ${(_model.payWalletResponse?.jsonBody ?? '').toString()}',
                                                             isConfirm: false,
                                                             autoDismiss: true,
                                                           ),
@@ -1930,165 +2106,203 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                     },
                                                   );
                                                 }
-                                              } else if (_model
-                                                      .selectedPaymentType
-                                                      ?.type ==
-                                                  PaymentTypes.Amwal.name) {
+                                              } else {
                                                 logFirebaseEvent(
-                                                    'Button_action_block');
-                                                await action_blocks
-                                                    .paymentExecution(
-                                                  context,
-                                                  transactionType:
-                                                      TransactionType.Order,
-                                                  currencyCode: FFAppState()
-                                                      .country
-                                                      .currencyCode,
-                                                  order: widget.order,
-                                                  paymentAmount: (widget.order!
-                                                              .priceSubTotal!) *
-                                                          FFAppState()
-                                                              .country
-                                                              .currencyExchangeRate +
-                                                      (_model
-                                                          .deliveryTotalFee!),
-                                                  paymentMethod:
-                                                      PaymentTypes.Amwal,
-                                                  walletId: 0,
-                                                );
-                                              } else if (_model
-                                                      .selectedPaymentType
-                                                      ?.type ==
-                                                  PaymentTypes
-                                                      .CashOnDelivery.name) {
-                                                logFirebaseEvent(
-                                                    'Button_backend_call');
-                                                _model.paymentTypeCOD =
-                                                    await PaymentTypesTable()
-                                                        .queryRows(
-                                                  queryFn: (q) => q.eq(
-                                                    'type',
-                                                    PaymentTypes
-                                                        .CashOnDelivery.name,
-                                                  ),
-                                                );
-                                                logFirebaseEvent(
-                                                    'Button_backend_call');
-                                                await OrdersTable().update(
-                                                  data: {
-                                                    'order_status':
-                                                        OrderStatuses
-                                                            .OrderReceived.name,
-                                                    'payment_type_id': _model
-                                                        .paymentTypeCOD
-                                                        ?.first
-                                                        .id,
+                                                    'Button_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: GestureDetector(
+                                                        onTap: () =>
+                                                            FocusScope.of(
+                                                                    dialogContext)
+                                                                .unfocus(),
+                                                        child: InfoModalWidget(
+                                                          title: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'a5bo9q99' /* Sorry! */,
+                                                          ),
+                                                          body: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'zax5th2r' /* Wallet amount is less than the... */,
+                                                          ),
+                                                          isConfirm: false,
+                                                          autoDismiss: true,
+                                                        ),
+                                                      ),
+                                                    );
                                                   },
-                                                  matchingRows: (rows) =>
-                                                      rows.eq(
-                                                    'id',
-                                                    widget.order?.id,
-                                                  ),
-                                                );
-                                                logFirebaseEvent(
-                                                    'Button_navigate_to');
-
-                                                context.goNamed(
-                                                  'OrderConfirmation',
-                                                  pathParameters: {
-                                                    'order': serializeParam(
-                                                      widget.order,
-                                                      ParamType.SupabaseRow,
-                                                    ),
-                                                  }.withoutNulls,
                                                 );
                                               }
-                                            } else {
+                                            } else if (_model
+                                                    .selectedPaymentType
+                                                    ?.type ==
+                                                PaymentTypes.Amwal.name) {
                                               logFirebaseEvent(
-                                                  'Button_alert_dialog');
-                                              await showDialog(
-                                                context: context,
-                                                builder: (dialogContext) {
-                                                  return Dialog(
-                                                    elevation: 0,
-                                                    insetPadding:
-                                                        EdgeInsets.zero,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    child: GestureDetector(
-                                                      onTap: () =>
-                                                          FocusScope.of(
-                                                                  dialogContext)
-                                                              .unfocus(),
-                                                      child: InfoModalWidget(
-                                                        title:
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                          '5374bxgy' /* No address! */,
-                                                        ),
-                                                        body:
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                          '5n660yy3' /* You should select a shipping a... */,
-                                                        ),
-                                                        isConfirm: false,
-                                                        autoDismiss: true,
-                                                      ),
-                                                    ),
-                                                  );
+                                                  'Button_action_block');
+                                              await action_blocks
+                                                  .paymentExecution(
+                                                context,
+                                                transactionType:
+                                                    TransactionType.Order,
+                                                currencyCode: FFAppState()
+                                                    .country
+                                                    .currencyCode,
+                                                order: widget.order,
+                                                paymentAmount: (widget.order!
+                                                            .priceSubTotal!) *
+                                                        FFAppState()
+                                                            .country
+                                                            .currencyExchangeRate +
+                                                    (_model.deliveryTotalFee!),
+                                                paymentMethod:
+                                                    PaymentTypes.Amwal,
+                                                walletId: 0,
+                                              );
+                                            } else if (_model
+                                                    .selectedPaymentType
+                                                    ?.type ==
+                                                PaymentTypes
+                                                    .CashOnDelivery.name) {
+                                              logFirebaseEvent(
+                                                  'Button_backend_call');
+                                              _model.paymentTypeCOD =
+                                                  await PaymentTypesTable()
+                                                      .queryRows(
+                                                queryFn: (q) => q.eq(
+                                                  'type',
+                                                  PaymentTypes
+                                                      .CashOnDelivery.name,
+                                                ),
+                                              );
+                                              logFirebaseEvent(
+                                                  'Button_backend_call');
+                                              await OrdersTable().update(
+                                                data: {
+                                                  'order_status': OrderStatuses
+                                                      .OrderReceived.name,
+                                                  'payment_type_id': _model
+                                                      .paymentTypeCOD
+                                                      ?.first
+                                                      .id,
                                                 },
+                                                matchingRows: (rows) => rows.eq(
+                                                  'id',
+                                                  widget.order?.id,
+                                                ),
+                                              );
+                                              logFirebaseEvent(
+                                                  'Button_navigate_to');
+
+                                              context.goNamed(
+                                                'OrderConfirmation',
+                                                pathParameters: {
+                                                  'order': serializeParam(
+                                                    widget.order,
+                                                    ParamType.SupabaseRow,
+                                                  ),
+                                                }.withoutNulls,
                                               );
                                             }
+                                          } else {
+                                            logFirebaseEvent(
+                                                'Button_alert_dialog');
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: GestureDetector(
+                                                    onTap: () => FocusScope.of(
+                                                            dialogContext)
+                                                        .unfocus(),
+                                                    child: InfoModalWidget(
+                                                      title: FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        '5374bxgy' /* No address! */,
+                                                      ),
+                                                      body: FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        '5n660yy3' /* You should select a shipping a... */,
+                                                      ),
+                                                      isConfirm: false,
+                                                      autoDismiss: true,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
 
-                                            safeSetState(() {});
-                                          },
-                                    text: FFLocalizations.of(context).getText(
-                                      '9cbl9cmi' /* Confirm Order */,
+                                          safeSetState(() {});
+                                        },
+                                  text: FFLocalizations.of(context).getText(
+                                    '9cbl9cmi' /* Confirm Order */,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 58.0,
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily),
+                                        ),
+                                    elevation: 0.0,
+                                    borderSide: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
                                     ),
-                                    options: FFButtonOptions(
-                                      height: 48.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily),
-                                          ),
-                                      elevation: 0.0,
-                                      borderSide: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      disabledColor:
-                                          FlutterFlowTheme.of(context)
-                                              .lightBlack,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(0.0),
+                                      bottomRight: Radius.circular(0.0),
+                                      topLeft: Radius.circular(8.0),
+                                      topRight: Radius.circular(8.0),
                                     ),
+                                    disabledColor:
+                                        FlutterFlowTheme.of(context).lightBlack,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -4,6 +4,10 @@ import 'cart_item_widget.dart' show CartItemWidget;
 import 'package:flutter/material.dart';
 
 class CartItemModel extends FlutterFlowModel<CartItemWidget> {
+  ///  Local state fields for this component.
+
+  bool showNote = false;
+
   ///  State fields for stateful widgets in this component.
 
   // Model for CounterProduct component.

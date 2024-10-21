@@ -104,6 +104,14 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
                               color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 18.0,
                               letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                              shadows: [
+                                const Shadow(
+                                  color: Color(0x11000000),
+                                  offset: Offset(2.0, 2.0),
+                                  blurRadius: 4.0,
+                                )
+                              ],
                               useGoogleFonts: GoogleFonts.asMap().containsKey(
                                   FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
@@ -118,18 +126,23 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
                 child: Stack(
                   children: [
                     if (widget.photo != '')
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 500),
-                          fadeOutDuration: const Duration(milliseconds: 500),
-                          imageUrl: functions.resizeImageForGivenWidthAndHeight(
-                              widget.photo,
-                              FFAppConstants.cardImageDefaultWidth,
-                              FFAppConstants.cardImageDefaultHeight),
-                          width: double.infinity,
-                          height: double.infinity,
-                          fit: BoxFit.cover,
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(0.0),
+                          child: CachedNetworkImage(
+                            fadeInDuration: const Duration(milliseconds: 500),
+                            fadeOutDuration: const Duration(milliseconds: 500),
+                            imageUrl:
+                                functions.resizeImageForGivenWidthAndHeight(
+                                    widget.photo,
+                                    FFAppConstants.cardImageDefaultWidth,
+                                    FFAppConstants.cardImageDefaultHeight),
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     if (widget.photo == '')
@@ -145,9 +158,9 @@ class _CategoriesItemNewWidgetState extends State<CategoriesItemNewWidget> {
                 ),
               ),
               Icon(
-                FFIcons.kchevronRight,
+                FFIcons.kangleRight,
                 color: FlutterFlowTheme.of(context).alternate,
-                size: 40.0,
+                size: 28.0,
               ),
             ].divide(const SizedBox(width: 8.0)),
           ),

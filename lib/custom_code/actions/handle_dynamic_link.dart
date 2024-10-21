@@ -12,28 +12,31 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:async';
-
+import 'package:flutter/foundation.dart'; // To check the platform
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 Future<dynamic> handleDynamicLink() async {
-  StreamSubscription<Map> streamSubscription =
-      FlutterBranchSdk.listSession().listen((data) async {
-    if (data.containsKey("+clicked_branch_link") &&
-        data["+clicked_branch_link"] == true) {
-      if (data.containsKey("marketId")) {
-        int marketID = int.parse(data["marketId"]);
-        print('Navigating to ProductsStore with marketId: $marketID');
-        FFAppState().storeID = marketID;
+  if (defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.android) {
+    StreamSubscription<Map> streamSubscription =
+        FlutterBranchSdk.listSession().listen((data) async {
+      if (data.containsKey("+clicked_branch_link") &&
+          data["+clicked_branch_link"] == true) {
+        if (data.containsKey("marketId")) {
+          int marketID = int.parse(data["marketId"]);
+          print('Navigating to ProductsStore with marketId: $marketID');
+          FFAppState().storeID = marketID;
+        }
+        if (data.containsKey("marketID") && data.containsKey("productId")) {
+          int marketID = int.parse(data["marketID"]);
+          int productID = int.parse(data["productId"]);
+          FFAppState().storeID = marketID;
+          FFAppState().productID = productID;
+        }
       }
-      if (data.containsKey("marketID") && data.containsKey("productId")) {
-        int marketID = int.parse(data["marketID"]);
-        int productID = int.parse(data["productId"]);
-        FFAppState().storeID = marketID;
-        FFAppState().productID = productID;
-      }
-    }
-  }, onError: (error) {
-    print('listSession error: ${error.toString()}');
-  });
+    }, onError: (error) {
+      print('listSession error: ${error.toString()}');
+    });
+  }
   return {'success': true};
 }

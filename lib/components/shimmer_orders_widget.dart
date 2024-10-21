@@ -90,7 +90,7 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            20.0, 24.0, 20.0, 24.0),
+                            20.0, 16.0, 20.0, 16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -147,29 +147,6 @@ class _ShimmerOrdersWidgetState extends State<ShimmerOrdersWidget>
                                 Container(
                                   width: 10.0,
                                   height: 10.0,
-                                  decoration: BoxDecoration(
-                                    color: widget.boxColor,
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 40.0,
-                                  height: 20.0,
-                                  decoration: BoxDecoration(
-                                    color: widget.boxColor,
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                ),
-                                Container(
-                                  width: 60.0,
-                                  height: 20.0,
                                   decoration: BoxDecoration(
                                     color: widget.boxColor,
                                     borderRadius: BorderRadius.circular(5.0),

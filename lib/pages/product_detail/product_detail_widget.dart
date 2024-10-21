@@ -3559,6 +3559,10 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                             productDetailProductsRow.deliveryMethodsAvailableList,
                                                                         discountedPrice:
                                                                             productDetailProductsRow.discountedPrice,
+                                                                        quantityInInventory:
+                                                                            productDetailProductsRow.quantityInInventory,
+                                                                        warehouseId:
+                                                                            productDetailProductsRow.warehouseId,
                                                                       ));
                                                                     }
                                                                   } else {
@@ -3622,6 +3626,9 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                       quantityInInventory:
                                                                           productDetailProductsRow
                                                                               .quantityInInventory,
+                                                                      warehouseId:
+                                                                          productDetailProductsRow
+                                                                              .warehouseId,
                                                                     ));
                                                                   }
 

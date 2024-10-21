@@ -346,9 +346,41 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                               .withoutNulls
                                               .toList()
                                               .contains(
-                                                  OrderStatuses.Preparing.name))
+                                                  OrderStatuses.Declined.name))
                                             wrapWithModel(
                                               model: _model.orderTimeLineModel2,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: OrderTimeLineWidget(
+                                                status: 'Declined',
+                                                description:
+                                                    'Your order is declined.',
+                                                position: true,
+                                                endOfIndex: true,
+                                                createdDate: dateTimeFormat(
+                                                  "yMMMd",
+                                                  widget.orderGroup?.createdAt,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
+                                                createdTime: dateTimeFormat(
+                                                  "Hm",
+                                                  widget.orderGroup?.createdAt,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
+                                              ),
+                                            ),
+                                          if (deliveryTimelineRowsOrderGroupDeliveryTimelineRowList
+                                              .map((e) => e.status)
+                                              .withoutNulls
+                                              .toList()
+                                              .contains(
+                                                  OrderStatuses.Preparing.name))
+                                            wrapWithModel(
+                                              model: _model.orderTimeLineModel3,
                                               updateCallback: () =>
                                                   safeSetState(() {}),
                                               child: OrderTimeLineWidget(
@@ -422,7 +454,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                               .contains(OrderStatuses
                                                   .HasBeenShipped.name))
                                             wrapWithModel(
-                                              model: _model.orderTimeLineModel3,
+                                              model: _model.orderTimeLineModel4,
                                               updateCallback: () =>
                                                   safeSetState(() {}),
                                               child: OrderTimeLineWidget(
@@ -496,7 +528,7 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                               .contains(
                                                   OrderStatuses.Completed.name))
                                             wrapWithModel(
-                                              model: _model.orderTimeLineModel4,
+                                              model: _model.orderTimeLineModel5,
                                               updateCallback: () =>
                                                   safeSetState(() {}),
                                               child: OrderTimeLineWidget(

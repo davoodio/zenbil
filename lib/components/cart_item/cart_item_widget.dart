@@ -106,60 +106,65 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
+                      Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Flexible(
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.productCart?.productName,
-                                'name',
-                              ),
-                              maxLines: 1,
-                              style: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleSmallFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleSmallFamily),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    widget.productCart?.productName,
+                                    'name',
                                   ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.productCart?.productDescription,
-                                'description',
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleSmallFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily),
+                                      ),
+                                ),
                               ),
-                              maxLines: 2,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    fontSize: 13.0,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodyMediumFamily),
-                                  ),
-                            ),
+                            ],
                           ),
-                        ],
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    widget.productCart?.productDescription,
+                                    'description',
+                                  ),
+                                  maxLines: 2,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .bodyMediumFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 13.0,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily),
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ].divide(const SizedBox(height: 4.0)),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -426,7 +431,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           ),
                         ],
                       ),
-                    ].divide(const SizedBox(height: 4.0)),
+                    ].divide(const SizedBox(height: 8.0)),
                   ),
                 ),
               ].divide(const SizedBox(width: 16.0)),
@@ -435,115 +440,144 @@ class _CartItemWidgetState extends State<CartItemWidget> {
           Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'twjbyt8b' /* Add note special request */,
-                      ),
-                      style: FlutterFlowTheme.of(context).titleSmall.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).titleSmallFamily,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).titleSmallFamily),
-                          ),
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('CART_ITEM_COMP_Row_cian26t3_ON_TAP');
+                  logFirebaseEvent('Row_update_component_state');
+                  _model.showNote = !_model.showNote;
+                  safeSetState(() {});
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(
+                      FFIcons.knotePin,
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      size: 20.0,
                     ),
-                  ),
-                ],
-              ),
-              TextFormField(
-                controller: _model.noteSpecialRequestTextFieldTextController,
-                focusNode: _model.noteSpecialRequestTextFieldFocusNode,
-                onChanged: (_) => EasyDebounce.debounce(
-                  '_model.noteSpecialRequestTextFieldTextController',
-                  const Duration(milliseconds: 100),
-                  () async {
-                    logFirebaseEvent(
-                        'CART_ITEM_NoteSpecialRequestTextField_ON');
-                    logFirebaseEvent(
-                        'NoteSpecialRequestTextField_update_app_s');
-                    FFAppState().updateCartStruct(
-                      (e) => e
-                        ..updateProducts(
-                          (e) => e[widget.index!]
-                            ..note = _model
-                                .noteSpecialRequestTextFieldTextController.text,
+                    Expanded(
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'twjbyt8b' /* Add note and special requests */,
                         ),
-                    );
-                    _model.updatePage(() {});
-                  },
-                ),
-                autofocus: false,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).labelMediumFamily,
-                        letterSpacing: 0.0,
-                        useGoogleFonts: GoogleFonts.asMap().containsKey(
-                            FlutterFlowTheme.of(context).labelMediumFamily),
+                        maxLines: 1,
+                        style: FlutterFlowTheme.of(context).titleSmall.override(
+                              fontFamily:
+                                  FlutterFlowTheme.of(context).titleSmallFamily,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 12.0,
+                              letterSpacing: 0.0,
+                              useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                  FlutterFlowTheme.of(context)
+                                      .titleSmallFamily),
+                            ),
                       ),
-                  hintText: FFLocalizations.of(context).getText(
-                    '923svstl' /* special request */,
-                  ),
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily:
-                            FlutterFlowTheme.of(context).labelMediumFamily,
-                        color: FlutterFlowTheme.of(context).lightBlack,
-                        fontSize: 16.0,
-                        letterSpacing: 0.0,
-                        useGoogleFonts: GoogleFonts.asMap().containsKey(
-                            FlutterFlowTheme.of(context).labelMediumFamily),
-                      ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).lightBlack,
-                      width: 1.0,
                     ),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primary,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  contentPadding:
-                      const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                  ].divide(const SizedBox(width: 4.0)),
                 ),
-                style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).labelMediumFamily,
-                      fontSize: 16.0,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelMediumFamily),
-                    ),
-                maxLines: 3,
-                minLines: 1,
-                validator: _model
-                    .noteSpecialRequestTextFieldTextControllerValidator
-                    .asValidator(context),
               ),
+              if (_model.showNote)
+                TextFormField(
+                  controller: _model.noteSpecialRequestTextFieldTextController,
+                  focusNode: _model.noteSpecialRequestTextFieldFocusNode,
+                  onChanged: (_) => EasyDebounce.debounce(
+                    '_model.noteSpecialRequestTextFieldTextController',
+                    const Duration(milliseconds: 100),
+                    () async {
+                      logFirebaseEvent(
+                          'CART_ITEM_NoteSpecialRequestTextField_ON');
+                      logFirebaseEvent(
+                          'NoteSpecialRequestTextField_update_app_s');
+                      FFAppState().updateCartStruct(
+                        (e) => e
+                          ..updateProducts(
+                            (e) => e[widget.index!]
+                              ..note = _model
+                                  .noteSpecialRequestTextFieldTextController
+                                  .text,
+                          ),
+                      );
+                      _model.updatePage(() {});
+                    },
+                  ),
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelStyle: FlutterFlowTheme.of(context)
+                        .labelMedium
+                        .override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).labelMediumFamily,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).labelMediumFamily),
+                        ),
+                    hintText: FFLocalizations.of(context).getText(
+                      '923svstl' /* special request */,
+                    ),
+                    hintStyle: FlutterFlowTheme.of(context)
+                        .labelMedium
+                        .override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).labelMediumFamily,
+                          color: FlutterFlowTheme.of(context).lightBlack,
+                          fontSize: 14.0,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).labelMediumFamily),
+                        ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).lightBlack,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primary,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    filled: true,
+                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    contentPadding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  ),
+                  style: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily:
+                            FlutterFlowTheme.of(context).labelMediumFamily,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        fontSize: 14.0,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey(
+                            FlutterFlowTheme.of(context).labelMediumFamily),
+                      ),
+                  maxLines: 3,
+                  minLines: 1,
+                  validator: _model
+                      .noteSpecialRequestTextFieldTextControllerValidator
+                      .asValidator(context),
+                ),
             ].divide(const SizedBox(height: 8.0)),
           ),
         ].divide(const SizedBox(height: 16.0)),
