@@ -85,8 +85,11 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                     context,
                     order: widget.order,
                   );
-                  logFirebaseEvent('Checkout_update_app_state');
-                  FFAppState().dummyVariable = '';
+                  logFirebaseEvent('Checkout_update_page_state');
+                  _model.groupedDeliveryMethodsForOrderState = _model
+                      .groupedDeliveryMethodsForOrder!
+                      .toList()
+                      .cast<dynamic>();
                   safeSetState(() {});
                 }
               }),
@@ -704,7 +707,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                 'onro_delivery_method_id': getJsonField(
                                                                                   functions.returnJsonWithASpecificKeyValue(
                                                                                       getJsonField(
-                                                                                        _model.groupedDeliveryMethodsForOrder!
+                                                                                        _model.groupedDeliveryMethodsForOrderState
                                                                                             .where((e) =>
                                                                                                 orderGroupItemItem.id ==
                                                                                                 getJsonField(
@@ -723,7 +726,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                 'delivery_method_id': getJsonField(
                                                                                   functions.returnJsonWithASpecificKeyValue(
                                                                                       getJsonField(
-                                                                                        _model.groupedDeliveryMethodsForOrder!
+                                                                                        _model.groupedDeliveryMethodsForOrderState
                                                                                             .where((e) =>
                                                                                                 orderGroupItemItem.id ==
                                                                                                 getJsonField(
@@ -742,7 +745,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                 'delivery_method_mapping_id': getJsonField(
                                                                                   functions.returnJsonWithASpecificKeyValue(
                                                                                       getJsonField(
-                                                                                        _model.groupedDeliveryMethodsForOrder!
+                                                                                        _model.groupedDeliveryMethodsForOrderState
                                                                                             .where((e) =>
                                                                                                 orderGroupItemItem.id ==
                                                                                                 getJsonField(
@@ -784,7 +787,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                     ..methodId = getJsonField(
                                                                                       functions.returnJsonWithASpecificKeyValue(
                                                                                           getJsonField(
-                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                            _model.groupedDeliveryMethodsForOrderState
                                                                                                 .where((e) =>
                                                                                                     orderGroupItemItem.id ==
                                                                                                     getJsonField(
@@ -803,7 +806,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                     ..methodTypeId = getJsonField(
                                                                                       functions.returnJsonWithASpecificKeyValue(
                                                                                           getJsonField(
-                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                            _model.groupedDeliveryMethodsForOrderState
                                                                                                 .where((e) =>
                                                                                                     orderGroupItemItem.id ==
                                                                                                     getJsonField(
@@ -822,7 +825,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                     ..methodTypeName = getJsonField(
                                                                                       functions.returnJsonWithASpecificKeyValue(
                                                                                           getJsonField(
-                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                            _model.groupedDeliveryMethodsForOrderState
                                                                                                 .where((e) =>
                                                                                                     orderGroupItemItem.id ==
                                                                                                     getJsonField(
@@ -841,7 +844,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                     ..methodMappingId = getJsonField(
                                                                                       functions.returnJsonWithASpecificKeyValue(
                                                                                           getJsonField(
-                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                            _model.groupedDeliveryMethodsForOrderState
                                                                                                 .where((e) =>
                                                                                                     orderGroupItemItem.id ==
                                                                                                     getJsonField(
@@ -860,7 +863,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                     ..methodTypeNameArabic = getJsonField(
                                                                                       functions.returnJsonWithASpecificKeyValue(
                                                                                           getJsonField(
-                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                            _model.groupedDeliveryMethodsForOrderState
                                                                                                 .where((e) =>
                                                                                                     orderGroupItemItem.id ==
                                                                                                     getJsonField(
@@ -879,7 +882,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                                     ..methodTypeNameKurdish = getJsonField(
                                                                                       functions.returnJsonWithASpecificKeyValue(
                                                                                           getJsonField(
-                                                                                            _model.groupedDeliveryMethodsForOrder!
+                                                                                            _model.groupedDeliveryMethodsForOrderState
                                                                                                 .where((e) =>
                                                                                                     orderGroupItemItem.id ==
                                                                                                     getJsonField(
@@ -1154,19 +1157,21 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                   null) {
                                                                 logFirebaseEvent(
                                                                     'ChanageAddress_action_block');
-                                                                await _model
-                                                                    .fetchDeliveryMethodsAvailableForOrderGroups(
+                                                                _model.changedAddressGroupedDeliveryMethods =
+                                                                    await _model
+                                                                        .fetchDeliveryMethodsAvailableForOrderGroups(
                                                                   context,
                                                                   order: _model
                                                                       .orderAddressUpdated
                                                                       ?.first,
                                                                 );
-                                                                safeSetState(
-                                                                    () {});
                                                                 logFirebaseEvent(
-                                                                    'ChanageAddress_update_app_state');
-                                                                FFAppState()
-                                                                    .dummyVariable = '';
+                                                                    'ChanageAddress_update_page_state');
+                                                                _model.groupedDeliveryMethodsForOrderState = _model
+                                                                    .changedAddressGroupedDeliveryMethods!
+                                                                    .toList()
+                                                                    .cast<
+                                                                        dynamic>();
                                                                 safeSetState(
                                                                     () {});
                                                               }
