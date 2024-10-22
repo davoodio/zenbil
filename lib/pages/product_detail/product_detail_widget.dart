@@ -27,10 +27,10 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -2729,37 +2729,40 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                         ),
                                                                                       ),
                                                                                       Expanded(
-                                                                                        child: Theme(
-                                                                                          data: ThemeData(
-                                                                                            checkboxTheme: const CheckboxThemeData(
-                                                                                              visualDensity: VisualDensity.compact,
-                                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                                            ),
-                                                                                            unselectedWidgetColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          ),
-                                                                                          child: CheckboxListTile(
-                                                                                            value: _model.mostHelpfulCheckboxListTileValue ??= false,
-                                                                                            onChanged: (newValue) async {
-                                                                                              safeSetState(() => _model.mostHelpfulCheckboxListTileValue = newValue!);
-                                                                                            },
-                                                                                            title: Text(
-                                                                                              FFLocalizations.of(context).getText(
-                                                                                                'o67vbor8' /* Only with photos */,
+                                                                                        child: Material(
+                                                                                          color: Colors.transparent,
+                                                                                          child: Theme(
+                                                                                            data: ThemeData(
+                                                                                              checkboxTheme: const CheckboxThemeData(
+                                                                                                visualDensity: VisualDensity.compact,
+                                                                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                                                                               ),
-                                                                                              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
-                                                                                                    fontSize: 13.0,
-                                                                                                    letterSpacing: 0.0,
-                                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
-                                                                                                  ),
+                                                                                              unselectedWidgetColor: FlutterFlowTheme.of(context).secondaryText,
                                                                                             ),
-                                                                                            tileColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                            activeColor: FlutterFlowTheme.of(context).primary,
-                                                                                            checkColor: FlutterFlowTheme.of(context).info,
-                                                                                            dense: true,
-                                                                                            controlAffinity: ListTileControlAffinity.leading,
-                                                                                            shape: RoundedRectangleBorder(
-                                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                                            child: CheckboxListTile(
+                                                                                              value: _model.mostHelpfulCheckboxListTileValue ??= false,
+                                                                                              onChanged: (newValue) async {
+                                                                                                safeSetState(() => _model.mostHelpfulCheckboxListTileValue = newValue!);
+                                                                                              },
+                                                                                              title: Text(
+                                                                                                FFLocalizations.of(context).getText(
+                                                                                                  'o67vbor8' /* Only with photos */,
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
+                                                                                                      fontSize: 13.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
+                                                                                                    ),
+                                                                                              ),
+                                                                                              tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                              activeColor: FlutterFlowTheme.of(context).primary,
+                                                                                              checkColor: FlutterFlowTheme.of(context).info,
+                                                                                              dense: true,
+                                                                                              controlAffinity: ListTileControlAffinity.leading,
+                                                                                              shape: RoundedRectangleBorder(
+                                                                                                borderRadius: BorderRadius.circular(4.0),
+                                                                                              ),
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -3168,7 +3171,7 @@ class _ProductDetailWidgetState extends State<ProductDetailWidget> {
                                                                                   ),
                                                                                 );
                                                                               },
-                                                                              carouselController: _model.carouselController ??= CarouselController(),
+                                                                              carouselController: _model.carouselController ??= CarouselSliderController(),
                                                                               options: CarouselOptions(
                                                                                 initialPage: max(0, min(0, advertisement.length - 1)),
                                                                                 viewportFraction: 1.0,

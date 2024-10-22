@@ -343,89 +343,96 @@ class _AddAddressPopupWidgetState extends State<AddAddressPopupWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: Theme(
-                      data: ThemeData(
-                        checkboxTheme: CheckboxThemeData(
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Theme(
+                        data: ThemeData(
+                          checkboxTheme: CheckboxThemeData(
+                            visualDensity: VisualDensity.compact,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
                           ),
+                          unselectedWidgetColor:
+                              FlutterFlowTheme.of(context).secondaryText,
                         ),
-                        unselectedWidgetColor:
-                            FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                      child: CheckboxListTile(
-                        value: _model.cbDefaultValue ??= true,
-                        onChanged: (newValue) async {
-                          safeSetState(() => _model.cbDefaultValue = newValue!);
-                        },
-                        title: Text(
-                          FFLocalizations.of(context).getText(
-                            'kunhv5t5' /* Default address */,
+                        child: CheckboxListTile(
+                          value: _model.cbDefaultValue ??= true,
+                          onChanged: (newValue) async {
+                            safeSetState(
+                                () => _model.cbDefaultValue = newValue!);
+                          },
+                          title: Text(
+                            FFLocalizations.of(context).getText(
+                              'kunhv5t5' /* Default address */,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .labelMediumFamily,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .labelMediumFamily),
+                                ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelMediumFamily,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
-                              ),
+                          tileColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          checkColor: FlutterFlowTheme.of(context).info,
+                          dense: false,
+                          controlAffinity: ListTileControlAffinity.leading,
                         ),
-                        tileColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        activeColor: FlutterFlowTheme.of(context).primary,
-                        checkColor: FlutterFlowTheme.of(context).info,
-                        dense: false,
-                        controlAffinity: ListTileControlAffinity.leading,
                       ),
                     ),
                   ),
                   Expanded(
-                    child: Theme(
-                      data: ThemeData(
-                        checkboxTheme: CheckboxThemeData(
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Theme(
+                        data: ThemeData(
+                          checkboxTheme: CheckboxThemeData(
+                            visualDensity: VisualDensity.compact,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
                           ),
+                          unselectedWidgetColor:
+                              FlutterFlowTheme.of(context).secondaryText,
                         ),
-                        unselectedWidgetColor:
-                            FlutterFlowTheme.of(context).secondaryText,
-                      ),
-                      child: CheckboxListTile(
-                        value: _model.cbShippingValue ??= true,
-                        onChanged: (newValue) async {
-                          safeSetState(
-                              () => _model.cbShippingValue = newValue!);
-                        },
-                        title: Text(
-                          FFLocalizations.of(context).getText(
-                            'r43429w7' /* Shipping address */,
+                        child: CheckboxListTile(
+                          value: _model.cbShippingValue ??= true,
+                          onChanged: (newValue) async {
+                            safeSetState(
+                                () => _model.cbShippingValue = newValue!);
+                          },
+                          title: Text(
+                            FFLocalizations.of(context).getText(
+                              'r43429w7' /* Shipping address */,
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .labelMediumFamily,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .labelMediumFamily),
+                                ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelMediumFamily,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
-                              ),
+                          tileColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          checkColor: FlutterFlowTheme.of(context).info,
+                          dense: false,
+                          controlAffinity: ListTileControlAffinity.leading,
                         ),
-                        tileColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        activeColor: FlutterFlowTheme.of(context).primary,
-                        checkColor: FlutterFlowTheme.of(context).info,
-                        dense: false,
-                        controlAffinity: ListTileControlAffinity.leading,
                       ),
                     ),
                   ),

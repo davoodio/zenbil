@@ -17,8 +17,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -450,7 +450,7 @@ class _StoreFrontWidgetState extends State<StoreFrontWidget> {
                                                                     },
                                                                     carouselController:
                                                                         _model.carouselController ??=
-                                                                            CarouselController(),
+                                                                            CarouselSliderController(),
                                                                     options:
                                                                         CarouselOptions(
                                                                       initialPage: max(

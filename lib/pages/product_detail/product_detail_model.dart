@@ -14,8 +14,8 @@ import '/components/review_summary_section_widget.dart';
 import '/components/share_badge_widget.dart';
 import '/components/shimmer_page_detail_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'product_detail_widget.dart' show ProductDetailWidget;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'product_detail_widget.dart' show ProductDetailWidget;
 import 'package:flutter/material.dart';
 
 class ProductDetailModel extends FlutterFlowModel<ProductDetailWidget> {
@@ -112,7 +112,7 @@ class ProductDetailModel extends FlutterFlowModel<ProductDetailWidget> {
   // Models for ProductCard dynamic component.
   late FlutterFlowDynamicModels<ProductCardModel> productCardModels;
   // State field(s) for Carousel widget.
-  CarouselController? carouselController;
+  CarouselSliderController? carouselController;
   int carouselCurrentIndex = 0;
 
   // Models for AdvertiseBanner dynamic component.

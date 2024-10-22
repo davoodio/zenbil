@@ -114,7 +114,9 @@ class _CartBadgeWidgetState extends State<CartBadgeWidget> {
                               valueOrDefault<String>(
                                 FFAppState().Cart.products.length.toString(),
                                 '0',
-                              ).maybeHandleOverflow(maxChars: 2),
+                              ).maybeHandleOverflow(
+                                maxChars: 2,
+                              ),
                               maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium

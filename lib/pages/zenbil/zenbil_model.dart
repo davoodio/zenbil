@@ -8,8 +8,8 @@ import '/components/notification_badge_widget.dart';
 import '/components/product_card/product_card_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'zenbil_widget.dart' show ZenbilWidget;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'zenbil_widget.dart' show ZenbilWidget;
 import 'package:flutter/material.dart';
 
 class ZenbilModel extends FlutterFlowModel<ZenbilWidget> {
@@ -80,7 +80,7 @@ class ZenbilModel extends FlutterFlowModel<ZenbilWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Carousel widget.
-  CarouselController? carouselController;
+  CarouselSliderController? carouselController;
   int carouselCurrentIndex = 0;
 
   // Models for AdvertiseBanner dynamic component.
