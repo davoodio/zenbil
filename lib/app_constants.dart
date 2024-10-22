@@ -11,7 +11,7 @@ abstract class FFAppConstants {
   static const String DefaultCountryCode = 'IQ';
   static const String DefaultAvatar =
       'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/teams/Ng3pjnz11EXZuZaIgfKa/assets/muztoi9l6z3w/avatarMen.png';
-  static const String appVersion = '1.0.12 October 11';
+  static const String appVersion = '1.0.13 October 22';
   static const String defaultCurrencySymbol = 'IQD';
   static const String defaultCurrencyCode = 'IQD';
   static const String AppStoreLink = 'https://link.zenbil.io/zenbil';
