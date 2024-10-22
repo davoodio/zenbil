@@ -357,20 +357,62 @@ class _TrackOrderWidgetState extends State<TrackOrderWidget> {
                                                     'Your order is declined.',
                                                 position: true,
                                                 endOfIndex: true,
-                                                createdDate: dateTimeFormat(
-                                                  "yMMMd",
-                                                  widget.orderGroup?.createdAt,
-                                                  locale: FFLocalizations.of(
-                                                          context)
-                                                      .languageCode,
-                                                ),
-                                                createdTime: dateTimeFormat(
-                                                  "Hm",
-                                                  widget.orderGroup?.createdAt,
-                                                  locale: FFLocalizations.of(
-                                                          context)
-                                                      .languageCode,
-                                                ),
+                                                createdDate:
+                                                    deliveryTimelineRowsOrderGroupDeliveryTimelineRowList
+                                                                .where((e) =>
+                                                                    e.status ==
+                                                                    OrderStatuses
+                                                                        .Declined
+                                                                        .name)
+                                                                .toList().isNotEmpty
+                                                        ? valueOrDefault<
+                                                            String>(
+                                                            dateTimeFormat(
+                                                              "yMMMd",
+                                                              deliveryTimelineRowsOrderGroupDeliveryTimelineRowList
+                                                                  .where((e) =>
+                                                                      e.status ==
+                                                                      OrderStatuses
+                                                                          .Declined
+                                                                          .name)
+                                                                  .toList()
+                                                                  .first
+                                                                  .createdAt,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            ),
+                                                            '-',
+                                                          )
+                                                        : '-',
+                                                createdTime:
+                                                    deliveryTimelineRowsOrderGroupDeliveryTimelineRowList
+                                                                .where((e) =>
+                                                                    e.status ==
+                                                                    OrderStatuses
+                                                                        .Declined
+                                                                        .name)
+                                                                .toList().isNotEmpty
+                                                        ? valueOrDefault<
+                                                            String>(
+                                                            dateTimeFormat(
+                                                              "Hm",
+                                                              deliveryTimelineRowsOrderGroupDeliveryTimelineRowList
+                                                                  .where((e) =>
+                                                                      e.status ==
+                                                                      OrderStatuses
+                                                                          .Declined
+                                                                          .name)
+                                                                  .toList()
+                                                                  .first
+                                                                  .createdAt,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            ),
+                                                            '-',
+                                                          )
+                                                        : '-',
                                               ),
                                             ),
                                           if (deliveryTimelineRowsOrderGroupDeliveryTimelineRowList

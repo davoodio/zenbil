@@ -647,3 +647,29 @@ Future addAddress(BuildContext context) async {
     );
   }
 }
+
+Future walletSetter(BuildContext context) async {
+  List<WalletsRow>? userWallet;
+
+  // FetchWallets
+  logFirebaseEvent('WalletSetter_FetchWallets');
+  userWallet = await WalletsTable().queryRows(
+    queryFn: (q) => q.eq(
+      'user_id',
+      (currentUserUid != '') && (currentUserUid != '')
+          ? currentUserUid
+          : '00000000-0000-0000-0000-000000000000',
+    ),
+  );
+  if (userWallet.isNotEmpty) {
+    logFirebaseEvent('WalletSetter_update_app_state');
+    FFAppState().Wallet = WalletStruct(
+      walletId: userWallet.first.id,
+      createdAt: userWallet.first.createdAt,
+      userId: userWallet.first.userId,
+      currencyCode: userWallet.first.currencyCode,
+      transactionSymbol: userWallet.first.transactionSymbol,
+      balance: userWallet.first.balance,
+    );
+  }
+}
