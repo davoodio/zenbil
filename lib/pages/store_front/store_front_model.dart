@@ -7,8 +7,8 @@ import '/components/product_card/product_card_widget.dart';
 import '/components/search_badge_widget.dart';
 import '/components/share_badge_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'store_front_widget.dart' show StoreFrontWidget;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'store_front_widget.dart' show StoreFrontWidget;
 import 'package:flutter/material.dart';
 
 class StoreFrontModel extends FlutterFlowModel<StoreFrontWidget> {
@@ -37,7 +37,7 @@ class StoreFrontModel extends FlutterFlowModel<StoreFrontWidget> {
   // Model for ImageWidget component.
   late ImageWidgetModel imageWidgetModel2;
   // State field(s) for Carousel widget.
-  CarouselController? carouselController;
+  CarouselSliderController? carouselController;
   int carouselCurrentIndex = 1;
 
   // Model for MarketTypeBadge component.

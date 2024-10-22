@@ -78,15 +78,17 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                 logFirebaseEvent('Checkout_update_app_state');
                 FFAppState().dummyVariable = '';
                 safeSetState(() {});
-                logFirebaseEvent('Checkout_action_block');
-                _model.groupedDeliveryMethodsForOrder =
-                    await _model.fetchDeliveryMethodsAvailableForOrderGroups(
-                  context,
-                  order: widget.order,
-                );
-                logFirebaseEvent('Checkout_update_app_state');
-                FFAppState().dummyVariable = '';
-                safeSetState(() {});
+                if (widget.order?.userAddressId != null) {
+                  logFirebaseEvent('Checkout_action_block');
+                  _model.groupedDeliveryMethodsForOrder =
+                      await _model.fetchDeliveryMethodsAvailableForOrderGroups(
+                    context,
+                    order: widget.order,
+                  );
+                  logFirebaseEvent('Checkout_update_app_state');
+                  FFAppState().dummyVariable = '';
+                  safeSetState(() {});
+                }
               }),
             ]);
           } else {
@@ -1145,23 +1147,29 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                   .dummyVariable = '';
                                                               safeSetState(
                                                                   () {});
-                                                              logFirebaseEvent(
-                                                                  'ChanageAddress_action_block');
-                                                              await _model
-                                                                  .fetchDeliveryMethodsAvailableForOrderGroups(
-                                                                context,
-                                                                order: _model
-                                                                    .orderAddressUpdated
-                                                                    ?.first,
-                                                              );
-                                                              safeSetState(
-                                                                  () {});
-                                                              logFirebaseEvent(
-                                                                  'ChanageAddress_update_app_state');
-                                                              FFAppState()
-                                                                  .dummyVariable = '';
-                                                              safeSetState(
-                                                                  () {});
+                                                              if (_model
+                                                                      .orderAddressUpdated
+                                                                      ?.first
+                                                                      .userAddressId !=
+                                                                  null) {
+                                                                logFirebaseEvent(
+                                                                    'ChanageAddress_action_block');
+                                                                await _model
+                                                                    .fetchDeliveryMethodsAvailableForOrderGroups(
+                                                                  context,
+                                                                  order: _model
+                                                                      .orderAddressUpdated
+                                                                      ?.first,
+                                                                );
+                                                                safeSetState(
+                                                                    () {});
+                                                                logFirebaseEvent(
+                                                                    'ChanageAddress_update_app_state');
+                                                                FFAppState()
+                                                                    .dummyVariable = '';
+                                                                safeSetState(
+                                                                    () {});
+                                                              }
                                                             }
 
                                                             safeSetState(() {});

@@ -176,7 +176,9 @@ class _NavBarItemWidgetState extends State<NavBarItemWidget> {
             ),
           ),
           AutoSizeText(
-            widget.currentItemName.maybeHandleOverflow(maxChars: 12),
+            widget.currentItemName.maybeHandleOverflow(
+              maxChars: 12,
+            ),
             minFontSize: 9.0,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Neometric',

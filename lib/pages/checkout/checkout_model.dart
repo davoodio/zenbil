@@ -8,6 +8,7 @@ import '/components/pick_how_to_pay_widget.dart';
 import '/components/shimmer_container_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'checkout_widget.dart' show CheckoutWidget;
 import 'package:flutter/material.dart';
@@ -189,73 +190,80 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
             )?[orderGroupsLoopCounter],
             r'''$.id''',
           ),
-          deliveryAddressId: widget!.order?.userAddressId,
+          deliveryAddressId: order?.userShippingAddressId,
         );
         logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
-        addToDeliveryOptions(DeliveryOrdersStruct(
-          orderGroupId: getJsonField(
-            SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
-              (deliveryMethodsForOrder.jsonBody ?? ''),
-            )?[orderGroupsLoopCounter],
-            r'''$.id''',
-          ),
-          deliveryOptionsAvailable: (getJsonField(
-            SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
-              (deliveryMethodsForOrder.jsonBody ?? ''),
-            )?[orderGroupsLoopCounter],
-            r'''$.grouped[:].method_type_name''',
-            true,
-          ) as List)
-              .map<String>((s) => s.toString())
-              .toList(),
-          selectedDeliveryMethodForOrderGroup: OrderGroupDeliveryMethodsStruct(
-            methodId: getJsonField(
+        await actions.printAction(
+          'Calculation: ${orderGroupCalculation?.toString()}',
+        );
+        if (orderGroupCalculation != null) {
+          logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
+          addToDeliveryOptions(DeliveryOrdersStruct(
+            orderGroupId: getJsonField(
               SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
-              r'''$.grouped[0].method_id''',
+              r'''$.id''',
             ),
-            methodTypeId: getJsonField(
+            deliveryOptionsAvailable: (getJsonField(
               SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
                 (deliveryMethodsForOrder.jsonBody ?? ''),
               )?[orderGroupsLoopCounter],
-              r'''$.grouped[0].method_type_id''',
+              r'''$.grouped[:].method_type_name''',
+              true,
+            ) as List)
+                .map<String>((s) => s.toString())
+                .toList(),
+            selectedDeliveryMethodForOrderGroup:
+                OrderGroupDeliveryMethodsStruct(
+              methodId: getJsonField(
+                SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
+                  (deliveryMethodsForOrder.jsonBody ?? ''),
+                )?[orderGroupsLoopCounter],
+                r'''$.grouped[0].method_id''',
+              ),
+              methodTypeId: getJsonField(
+                SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
+                  (deliveryMethodsForOrder.jsonBody ?? ''),
+                )?[orderGroupsLoopCounter],
+                r'''$.grouped[0].method_type_id''',
+              ),
+              methodTypeName: getJsonField(
+                SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
+                  (deliveryMethodsForOrder.jsonBody ?? ''),
+                )?[orderGroupsLoopCounter],
+                r'''$.grouped[0].method_type_name''',
+              ).toString().toString(),
+              methodMappingId: getJsonField(
+                SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
+                  (deliveryMethodsForOrder.jsonBody ?? ''),
+                )?[orderGroupsLoopCounter],
+                r'''$.grouped[0].method_mapping_id''',
+              ),
+              methodTypeNameArabic: getJsonField(
+                SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
+                  (deliveryMethodsForOrder.jsonBody ?? ''),
+                )?[orderGroupsLoopCounter],
+                r'''$.grouped[0].method_type_name_arabic''',
+              ).toString().toString(),
+              methodTypeNameKurdish: getJsonField(
+                SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
+                  (deliveryMethodsForOrder.jsonBody ?? ''),
+                )?[orderGroupsLoopCounter],
+                r'''$.grouped[0].method_type_name_kurdish''',
+              ).toString().toString(),
             ),
-            methodTypeName: getJsonField(
-              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder.jsonBody ?? ''),
-              )?[orderGroupsLoopCounter],
-              r'''$.grouped[0].method_type_name''',
+            selectedOptionPrice: functions.roundToNearestDouble(getJsonField(
+              orderGroupCalculation,
+              r'''$.calculation.price''',
+            )),
+            selectedOptionCurrencyCode: getJsonField(
+              orderGroupCalculation,
+              r'''$.calculation.currencyCode''',
             ).toString().toString(),
-            methodMappingId: getJsonField(
-              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder.jsonBody ?? ''),
-              )?[orderGroupsLoopCounter],
-              r'''$.grouped[0].method_mapping_id''',
-            ),
-            methodTypeNameArabic: getJsonField(
-              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder.jsonBody ?? ''),
-              )?[orderGroupsLoopCounter],
-              r'''$.grouped[0].method_type_name_arabic''',
-            ).toString().toString(),
-            methodTypeNameKurdish: getJsonField(
-              SupabaseApiCallGroup.deliveryMethodsCall.orderGroups(
-                (deliveryMethodsForOrder.jsonBody ?? ''),
-              )?[orderGroupsLoopCounter],
-              r'''$.grouped[0].method_type_name_kurdish''',
-            ).toString().toString(),
-          ),
-          selectedOptionPrice: functions.roundToNearestDouble(getJsonField(
-            orderGroupCalculation,
-            r'''$.calculation.price''',
-          )),
-          selectedOptionCurrencyCode: getJsonField(
-            orderGroupCalculation,
-            r'''$.calculation.currencyCode''',
-          ).toString().toString(),
-        ));
-        orderGroupsLoopCounter = orderGroupsLoopCounter + 1;
+          ));
+          orderGroupsLoopCounter = orderGroupsLoopCounter + 1;
+        }
       }
       logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
       orderGroupsLoopCounter = 0;

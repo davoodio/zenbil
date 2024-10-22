@@ -643,57 +643,59 @@ class _RatingsReviewsWidgetState extends State<RatingsReviewsWidget> {
                                                                   ),
                                                                   Expanded(
                                                                     child:
-                                                                        Theme(
-                                                                      data:
-                                                                          ThemeData(
-                                                                        checkboxTheme:
-                                                                            const CheckboxThemeData(
-                                                                          visualDensity:
-                                                                              VisualDensity.compact,
-                                                                          materialTapTargetSize:
-                                                                              MaterialTapTargetSize.shrinkWrap,
-                                                                        ),
-                                                                        unselectedWidgetColor:
-                                                                            FlutterFlowTheme.of(context).secondaryText,
-                                                                      ),
+                                                                        Material(
+                                                                      color: Colors
+                                                                          .transparent,
                                                                       child:
-                                                                          CheckboxListTile(
-                                                                        value: _model.mostHelpfulCheckboxListTileValue ??=
-                                                                            false,
-                                                                        onChanged:
-                                                                            (newValue) async {
-                                                                          safeSetState(() =>
-                                                                              _model.mostHelpfulCheckboxListTileValue = newValue!);
-                                                                        },
-                                                                        title:
-                                                                            Text(
-                                                                          FFLocalizations.of(context)
-                                                                              .getText(
-                                                                            'vx64qejh' /* Only with photos */,
+                                                                          Theme(
+                                                                        data:
+                                                                            ThemeData(
+                                                                          checkboxTheme:
+                                                                              const CheckboxThemeData(
+                                                                            visualDensity:
+                                                                                VisualDensity.compact,
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
                                                                           ),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyLarge
-                                                                              .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
-                                                                                fontSize: 13.0,
-                                                                                letterSpacing: 0.0,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
-                                                                              ),
+                                                                          unselectedWidgetColor:
+                                                                              FlutterFlowTheme.of(context).secondaryText,
                                                                         ),
-                                                                        tileColor:
-                                                                            FlutterFlowTheme.of(context).secondaryBackground,
-                                                                        activeColor:
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                        checkColor:
-                                                                            FlutterFlowTheme.of(context).info,
-                                                                        dense:
-                                                                            true,
-                                                                        controlAffinity:
-                                                                            ListTileControlAffinity.leading,
-                                                                        shape:
-                                                                            RoundedRectangleBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(4.0),
+                                                                        child:
+                                                                            CheckboxListTile(
+                                                                          value: _model.mostHelpfulCheckboxListTileValue ??=
+                                                                              false,
+                                                                          onChanged:
+                                                                              (newValue) async {
+                                                                            safeSetState(() =>
+                                                                                _model.mostHelpfulCheckboxListTileValue = newValue!);
+                                                                          },
+                                                                          title:
+                                                                              Text(
+                                                                            FFLocalizations.of(context).getText(
+                                                                              'vx64qejh' /* Only with photos */,
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
+                                                                                  fontSize: 13.0,
+                                                                                  letterSpacing: 0.0,
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
+                                                                                ),
+                                                                          ),
+                                                                          tileColor:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          activeColor:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          checkColor:
+                                                                              FlutterFlowTheme.of(context).info,
+                                                                          dense:
+                                                                              true,
+                                                                          controlAffinity:
+                                                                              ListTileControlAffinity.leading,
+                                                                          shape:
+                                                                              RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(4.0),
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ),

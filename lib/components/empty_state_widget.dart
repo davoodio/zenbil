@@ -159,7 +159,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                         FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
-                                'EMPTY_STATE_COMP_READ_MORE_BTN_ON_TAP');
+                                'EMPTY_STATE_START_SHOPPING_BTN_ON_TAP');
                             logFirebaseEvent('Button_execute_callback');
                             await widget.actionButton?.call();
                           },
@@ -306,7 +306,7 @@ class _EmptyStateWidgetState extends State<EmptyStateWidget> {
                         FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
-                                'EMPTY_STATE_COMP_READ_MORE_BTN_ON_TAP');
+                                'EMPTY_STATE_START_SHOPPING_BTN_ON_TAP');
                             logFirebaseEvent('Button_execute_callback');
                             await widget.actionButton?.call();
                           },

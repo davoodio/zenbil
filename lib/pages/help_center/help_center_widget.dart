@@ -172,7 +172,7 @@ class _HelpCenterWidgetState extends State<HelpCenterWidget>
                                 labelColor:
                                     FlutterFlowTheme.of(context).primaryText,
                                 unselectedLabelColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    FlutterFlowTheme.of(context).primaryText,
                                 labelPadding: const EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 5.0, 0.0),
                                 labelStyle: FlutterFlowTheme.of(context)
