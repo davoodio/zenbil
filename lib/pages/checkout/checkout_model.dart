@@ -68,6 +68,21 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
           int index, Function(DeliveryMethodTypesRow) updateFn) =>
       deliberyTypes[index] = updateFn(deliberyTypes[index]);
 
+  List<dynamic> groupedDeliveryMethodsForOrderState = [];
+  void addToGroupedDeliveryMethodsForOrderState(dynamic item) =>
+      groupedDeliveryMethodsForOrderState.add(item);
+  void removeFromGroupedDeliveryMethodsForOrderState(dynamic item) =>
+      groupedDeliveryMethodsForOrderState.remove(item);
+  void removeAtIndexFromGroupedDeliveryMethodsForOrderState(int index) =>
+      groupedDeliveryMethodsForOrderState.removeAt(index);
+  void insertAtIndexInGroupedDeliveryMethodsForOrderState(
+          int index, dynamic item) =>
+      groupedDeliveryMethodsForOrderState.insert(index, item);
+  void updateGroupedDeliveryMethodsForOrderStateAtIndex(
+          int index, Function(dynamic) updateFn) =>
+      groupedDeliveryMethodsForOrderState[index] =
+          updateFn(groupedDeliveryMethodsForOrderState[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in Checkout widget.
@@ -89,6 +104,8 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
   List<OrdersRow>? orderAddressUpdated;
   // Stores action output result for [Backend Call - Query Rows] action in ChanageAddress widget.
   List<OrdersRow>? updatedOrder;
+  // Stores action output result for [Action Block - fetchDeliveryMethodsAvailableForOrderGroups] action in ChanageAddress widget.
+  List<dynamic>? changedAddressGroupedDeliveryMethods;
   // Models for PickHowToPay dynamic component.
   late FlutterFlowDynamicModels<PickHowToPayModel> pickHowToPayModels;
   // Model for ShimmerContainer component.
