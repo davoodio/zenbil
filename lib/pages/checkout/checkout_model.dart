@@ -8,7 +8,6 @@ import '/components/pick_how_to_pay_widget.dart';
 import '/components/shimmer_container_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'checkout_widget.dart' show CheckoutWidget;
 import 'package:flutter/material.dart';
@@ -191,10 +190,6 @@ class CheckoutModel extends FlutterFlowModel<CheckoutWidget> {
             r'''$.id''',
           ),
           deliveryAddressId: order?.userShippingAddressId,
-        );
-        logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
-        await actions.printAction(
-          'Calculation: ${orderGroupCalculation?.toString()}',
         );
         if (orderGroupCalculation != null) {
           logFirebaseEvent('fetchDeliveryMethodsAvailableForOrderGro');
