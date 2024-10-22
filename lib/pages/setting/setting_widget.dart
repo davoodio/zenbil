@@ -9,6 +9,7 @@ import '/components/user_info_card_widget.dart';
 import '/components/wallet_front_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -39,17 +40,29 @@ class _SettingWidgetState extends State<SettingWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('SETTING_PAGE_Setting_ON_INIT_STATE');
-      logFirebaseEvent('Setting_custom_action');
-      _model.appVersion = await actions.appVersion();
-      logFirebaseEvent('Setting_update_page_state');
-      _model.appversion = '${getJsonField(
-        _model.appVersion,
-        r'''$.version''',
-      ).toString().toString()} ${getJsonField(
-        _model.appVersion,
-        r'''$.build''',
-      ).toString().toString()}';
-      safeSetState(() {});
+      await Future.wait([
+        Future(() async {
+          logFirebaseEvent('Setting_custom_action');
+          _model.appVersion = await actions.appVersion();
+          logFirebaseEvent('Setting_update_page_state');
+          _model.appversion = '${getJsonField(
+            _model.appVersion,
+            r'''$.version''',
+          ).toString().toString()} ${getJsonField(
+            _model.appVersion,
+            r'''$.build''',
+          ).toString().toString()}';
+          safeSetState(() {});
+        }),
+        Future(() async {
+          logFirebaseEvent('Setting_action_block');
+          await action_blocks.walletSetter(context);
+        }),
+        Future(() async {
+          logFirebaseEvent('Setting_action_block');
+          await action_blocks.setCurrentUserInAppState(context);
+        }),
+      ]);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -999,48 +1012,50 @@ class _SettingWidgetState extends State<SettingWidget> {
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  20.0, 0.0, 20.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              logFirebaseEvent(
-                                                  'SETTING_PAGE_Help_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Help_navigate_to');
+                                        if (false)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 0.0, 20.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'SETTING_PAGE_Help_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Help_navigate_to');
 
-                                              context.pushNamed('HelpCenter');
-                                            },
-                                            child: wrapWithModel(
-                                              model: _model.helpModel,
-                                              updateCallback: () =>
-                                                  safeSetState(() {}),
-                                              child: MenuSettingItemWidget(
-                                                icon: Icon(
-                                                  FFIcons.khelp,
+                                                context.pushNamed('HelpCenter');
+                                              },
+                                              child: wrapWithModel(
+                                                model: _model.helpModel,
+                                                updateCallback: () =>
+                                                    safeSetState(() {}),
+                                                child: MenuSettingItemWidget(
+                                                  icon: Icon(
+                                                    FFIcons.khelp,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 22.0,
+                                                  ),
+                                                  text: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'wqoya4id' /* Help Center */,
+                                                  ),
+                                                  showArrow: true,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
-                                                  size: 22.0,
                                                 ),
-                                                text:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  'wqoya4id' /* Help Center */,
-                                                ),
-                                                showArrow: true,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
                                               ),
                                             ),
                                           ),
-                                        ),
                                         Builder(
                                           builder: (context) => Padding(
                                             padding:

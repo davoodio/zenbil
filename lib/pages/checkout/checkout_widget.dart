@@ -130,6 +130,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
               .cast<DeliveryMethodTypesRow>();
           safeSetState(() {});
         }),
+        Future(() async {
+          logFirebaseEvent('Checkout_action_block');
+          await action_blocks.walletSetter(context);
+        }),
       ]);
     });
 
@@ -153,14 +157,13 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          body: SafeArea(
-            top: true,
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: Stack(
-                children: [
-                  Container(
+          body: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Stack(
+              children: [
+                SafeArea(
+                  child: Container(
                     width: double.infinity,
                     height: double.infinity,
                     decoration: const BoxDecoration(),
@@ -1107,6 +1110,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                                       _model
                                                                           .addressReturned
                                                                           ?.id,
+                                                                  'user_address_id':
+                                                                      _model
+                                                                          .addressReturned
+                                                                          ?.id,
                                                                 },
                                                                 matchingRows:
                                                                     (rows) =>
@@ -1860,364 +1867,194 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                 ),
                               ]
                                   .addToStart(const SizedBox(height: 20.0))
-                                  .addToEnd(const SizedBox(height: 20.0)),
+                                  .addToEnd(const SizedBox(height: 60.0)),
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Builder(
-                                builder: (context) => FFButtonWidget(
-                                  onPressed: (_model.isLoading ||
-                                          (_model.selectedPaymentType ==
-                                              null) ||
-                                          _model.isApiCallUnsuccessful ||
-                                          (_model.userAddress == null))
-                                      ? null
-                                      : () async {
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Builder(
+                          builder: (context) => FFButtonWidget(
+                            onPressed: (_model.isLoading ||
+                                    (_model.selectedPaymentType == null) ||
+                                    _model.isApiCallUnsuccessful ||
+                                    (_model.userAddress == null))
+                                ? null
+                                : () async {
+                                    logFirebaseEvent(
+                                        'CHECKOUT_PAGE_CONFIRM_ORDER_BTN_ON_TAP');
+                                    if (_model.userAddress != null) {
+                                      logFirebaseEvent('Button_backend_call');
+                                      await OrdersTable().update(
+                                        data: {
+                                          'user_shipping_address_id':
+                                              _model.userAddress?.id,
+                                          'price_delivery':
+                                              _model.deliveryTotalFee,
+                                          'price_total':
+                                              (widget.order!.priceSubTotal!) +
+                                                  (_model.deliveryTotalFee!),
+                                          'user_address_id':
+                                              _model.userAddress?.id,
+                                        },
+                                        matchingRows: (rows) => rows.eq(
+                                          'id',
+                                          widget.order?.id,
+                                        ),
+                                      );
+                                      while (_model.orderGroupsLoopCounter <
+                                          _model.deliveryOptions.length) {
+                                        logFirebaseEvent('Button_backend_call');
+                                        await OrderGroupsTable().update(
+                                          data: {
+                                            'price_delivery': _model
+                                                .deliveryOptions[_model
+                                                    .orderGroupsLoopCounter]
+                                                .selectedOptionPrice
+                                                .roundToDouble(),
+                                            'price_total': (widget.orderGroups!
+                                                    .where((e) =>
+                                                        e.id ==
+                                                        _model
+                                                            .deliveryOptions[_model
+                                                                .orderGroupsLoopCounter]
+                                                            .orderGroupId)
+                                                    .toList()
+                                                    .first
+                                                    .priceSubTotal!) +
+                                                _model
+                                                    .deliveryOptions[_model
+                                                        .orderGroupsLoopCounter]
+                                                    .selectedOptionPrice
+                                                    .roundToDouble(),
+                                          },
+                                          matchingRows: (rows) => rows.eq(
+                                            'id',
+                                            _model
+                                                .deliveryOptions[_model
+                                                    .orderGroupsLoopCounter]
+                                                .orderGroupId,
+                                          ),
+                                        );
+                                        logFirebaseEvent(
+                                            'Button_update_page_state');
+                                        _model.orderGroupsLoopCounter =
+                                            _model.orderGroupsLoopCounter + 1;
+                                        safeSetState(() {});
+                                      }
+                                      logFirebaseEvent(
+                                          'Button_update_page_state');
+                                      _model.orderGroupsLoopCounter = 0;
+                                      safeSetState(() {});
+                                      if (_model.selectedPaymentType?.type ==
+                                          PaymentTypes.FIB.name) {
+                                        logFirebaseEvent('Button_navigate_to');
+
+                                        context.pushNamed(
+                                          'FIBPayment',
+                                          queryParameters: {
+                                            'transactionType': serializeParam(
+                                              TransactionType.Order,
+                                              ParamType.Enum,
+                                            ),
+                                            'order': serializeParam(
+                                              widget.order,
+                                              ParamType.SupabaseRow,
+                                            ),
+                                            'paymentAmount': serializeParam(
+                                              (widget.order!.priceSubTotal!) *
+                                                      FFAppState()
+                                                          .country
+                                                          .currencyExchangeRate +
+                                                  (_model.deliveryTotalFee!),
+                                              ParamType.double,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      } else if (_model
+                                              .selectedPaymentType?.type ==
+                                          PaymentTypes.Wallet.name) {
+                                        if (FFAppState().Wallet.balance >=
+                                            widget.order!.priceTotal!) {
                                           logFirebaseEvent(
-                                              'CHECKOUT_PAGE_CONFIRM_ORDER_BTN_ON_TAP');
-                                          if (_model.userAddress != null) {
+                                              'Button_backend_call');
+                                          _model.payWalletResponse =
+                                              await UserWalletCallsGroup
+                                                  .payWalletCall
+                                                  .call(
+                                            paymentType:
+                                                TransactionType.Order.name,
+                                            recordId: widget.order?.id,
+                                            walletId:
+                                                FFAppState().Wallet.walletId,
+                                            amount: (widget.order!
+                                                        .priceSubTotal!) *
+                                                    FFAppState()
+                                                        .country
+                                                        .currencyExchangeRate +
+                                                (_model.deliveryTotalFee!),
+                                            currencyUnit: FFAppState()
+                                                .country
+                                                .currencyCode,
+                                            jwt: currentJwtToken,
+                                          );
+
+                                          if ((_model.payWalletResponse
+                                                  ?.succeeded ??
+                                              true)) {
+                                            logFirebaseEvent(
+                                                'Button_backend_call');
+                                            _model.walletQuery =
+                                                await WalletsTable().queryRows(
+                                              queryFn: (q) => q.eq(
+                                                'id',
+                                                FFAppState().Wallet.walletId,
+                                              ),
+                                            );
+                                            if ((_model.walletQuery != null &&
+                                                    (_model.walletQuery)!
+                                                        .isNotEmpty) &&
+                                                (_model.walletQuery!.isNotEmpty)) {
+                                              logFirebaseEvent(
+                                                  'Button_update_app_state');
+                                              FFAppState().updateWalletStruct(
+                                                (e) => e
+                                                  ..balance = _model.walletQuery
+                                                      ?.first.balance,
+                                              );
+                                            }
                                             logFirebaseEvent(
                                                 'Button_backend_call');
                                             await OrdersTable().update(
                                               data: {
-                                                'user_shipping_address_id':
-                                                    _model.userAddress?.id,
-                                                'price_delivery':
-                                                    _model.deliveryTotalFee,
-                                                'price_total': (widget.order!
-                                                        .priceSubTotal!) +
-                                                    (_model.deliveryTotalFee!),
+                                                'order_status': OrderStatuses
+                                                    .OrderReceived.name,
                                               },
                                               matchingRows: (rows) => rows.eq(
                                                 'id',
                                                 widget.order?.id,
                                               ),
                                             );
-                                            while (_model
-                                                    .orderGroupsLoopCounter <
-                                                _model.deliveryOptions.length) {
-                                              logFirebaseEvent(
-                                                  'Button_backend_call');
-                                              await OrderGroupsTable().update(
-                                                data: {
-                                                  'price_delivery': _model
-                                                      .deliveryOptions[_model
-                                                          .orderGroupsLoopCounter]
-                                                      .selectedOptionPrice
-                                                      .roundToDouble(),
-                                                  'price_total': (widget
-                                                          .orderGroups!
-                                                          .where((e) =>
-                                                              e.id ==
-                                                              _model
-                                                                  .deliveryOptions[
-                                                                      _model
-                                                                          .orderGroupsLoopCounter]
-                                                                  .orderGroupId)
-                                                          .toList()
-                                                          .first
-                                                          .priceSubTotal!) +
-                                                      _model
-                                                          .deliveryOptions[_model
-                                                              .orderGroupsLoopCounter]
-                                                          .selectedOptionPrice
-                                                          .roundToDouble(),
-                                                },
-                                                matchingRows: (rows) => rows.eq(
-                                                  'id',
-                                                  _model
-                                                      .deliveryOptions[_model
-                                                          .orderGroupsLoopCounter]
-                                                      .orderGroupId,
-                                                ),
-                                              );
-                                              logFirebaseEvent(
-                                                  'Button_update_page_state');
-                                              _model.orderGroupsLoopCounter =
-                                                  _model.orderGroupsLoopCounter +
-                                                      1;
-                                              safeSetState(() {});
-                                            }
                                             logFirebaseEvent(
-                                                'Button_update_page_state');
-                                            _model.orderGroupsLoopCounter = 0;
-                                            safeSetState(() {});
-                                            if (_model.selectedPaymentType
-                                                    ?.type ==
-                                                PaymentTypes.FIB.name) {
-                                              logFirebaseEvent(
-                                                  'Button_navigate_to');
+                                                'Button_navigate_to');
 
-                                              context.pushNamed(
-                                                'FIBPayment',
-                                                queryParameters: {
-                                                  'transactionType':
-                                                      serializeParam(
-                                                    TransactionType.Order,
-                                                    ParamType.Enum,
-                                                  ),
-                                                  'order': serializeParam(
-                                                    widget.order,
-                                                    ParamType.SupabaseRow,
-                                                  ),
-                                                  'paymentAmount':
-                                                      serializeParam(
-                                                    (widget.order!
-                                                                .priceSubTotal!) *
-                                                            FFAppState()
-                                                                .country
-                                                                .currencyExchangeRate +
-                                                        (_model
-                                                            .deliveryTotalFee!),
-                                                    ParamType.double,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            } else if (_model
-                                                    .selectedPaymentType
-                                                    ?.type ==
-                                                PaymentTypes.Wallet.name) {
-                                              if (FFAppState().Wallet.balance >=
-                                                  widget.order!.priceTotal!) {
-                                                logFirebaseEvent(
-                                                    'Button_backend_call');
-                                                _model.payWalletResponse =
-                                                    await UserWalletCallsGroup
-                                                        .payWalletCall
-                                                        .call(
-                                                  paymentType: TransactionType
-                                                      .Order.name,
-                                                  recordId: widget.order?.id,
-                                                  walletId: FFAppState()
-                                                      .Wallet
-                                                      .walletId,
-                                                  amount: (widget.order!
-                                                              .priceSubTotal!) *
-                                                          FFAppState()
-                                                              .country
-                                                              .currencyExchangeRate +
-                                                      (_model
-                                                          .deliveryTotalFee!),
-                                                  currencyUnit: FFAppState()
-                                                      .country
-                                                      .currencyCode,
-                                                  jwt: currentJwtToken,
-                                                );
-
-                                                if ((_model.payWalletResponse
-                                                        ?.succeeded ??
-                                                    true)) {
-                                                  logFirebaseEvent(
-                                                      'Button_backend_call');
-                                                  _model.walletQuery =
-                                                      await WalletsTable()
-                                                          .queryRows(
-                                                    queryFn: (q) => q.eq(
-                                                      'id',
-                                                      FFAppState()
-                                                          .Wallet
-                                                          .walletId,
-                                                    ),
-                                                  );
-                                                  if ((_model.walletQuery !=
-                                                              null &&
-                                                          (_model.walletQuery)!
-                                                              .isNotEmpty) &&
-                                                      (_model.walletQuery!.isNotEmpty)) {
-                                                    logFirebaseEvent(
-                                                        'Button_update_app_state');
-                                                    FFAppState()
-                                                        .updateWalletStruct(
-                                                      (e) => e
-                                                        ..balance = _model
-                                                            .walletQuery
-                                                            ?.first
-                                                            .balance,
-                                                    );
-                                                  }
-                                                  logFirebaseEvent(
-                                                      'Button_backend_call');
-                                                  await OrdersTable().update(
-                                                    data: {
-                                                      'order_status':
-                                                          OrderStatuses
-                                                              .OrderReceived
-                                                              .name,
-                                                    },
-                                                    matchingRows: (rows) =>
-                                                        rows.eq(
-                                                      'id',
-                                                      widget.order?.id,
-                                                    ),
-                                                  );
-                                                  logFirebaseEvent(
-                                                      'Button_navigate_to');
-
-                                                  context.goNamed(
-                                                    'OrderConfirmation',
-                                                    pathParameters: {
-                                                      'order': serializeParam(
-                                                        widget.order,
-                                                        ParamType.SupabaseRow,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
-                                                } else {
-                                                  logFirebaseEvent(
-                                                      'Button_alert_dialog');
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: GestureDetector(
-                                                          onTap: () =>
-                                                              FocusScope.of(
-                                                                      dialogContext)
-                                                                  .unfocus(),
-                                                          child:
-                                                              InfoModalWidget(
-                                                            title: FFLocalizations
-                                                                    .of(context)
-                                                                .getText(
-                                                              'riemyto1' /* Sorry! */,
-                                                            ),
-                                                            body:
-                                                                'Error: ${(_model.payWalletResponse?.jsonBody ?? '').toString()}',
-                                                            isConfirm: false,
-                                                            autoDismiss: true,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                }
-                                              } else {
-                                                logFirebaseEvent(
-                                                    'Button_alert_dialog');
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return Dialog(
-                                                      elevation: 0,
-                                                      insetPadding:
-                                                          EdgeInsets.zero,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      child: GestureDetector(
-                                                        onTap: () =>
-                                                            FocusScope.of(
-                                                                    dialogContext)
-                                                                .unfocus(),
-                                                        child: InfoModalWidget(
-                                                          title: FFLocalizations
-                                                                  .of(context)
-                                                              .getText(
-                                                            'a5bo9q99' /* Sorry! */,
-                                                          ),
-                                                          body: FFLocalizations
-                                                                  .of(context)
-                                                              .getText(
-                                                            'zax5th2r' /* Wallet amount is less than the... */,
-                                                          ),
-                                                          isConfirm: false,
-                                                          autoDismiss: true,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              }
-                                            } else if (_model
-                                                    .selectedPaymentType
-                                                    ?.type ==
-                                                PaymentTypes.Amwal.name) {
-                                              logFirebaseEvent(
-                                                  'Button_action_block');
-                                              await action_blocks
-                                                  .paymentExecution(
-                                                context,
-                                                transactionType:
-                                                    TransactionType.Order,
-                                                currencyCode: FFAppState()
-                                                    .country
-                                                    .currencyCode,
-                                                order: widget.order,
-                                                paymentAmount: (widget.order!
-                                                            .priceSubTotal!) *
-                                                        FFAppState()
-                                                            .country
-                                                            .currencyExchangeRate +
-                                                    (_model.deliveryTotalFee!),
-                                                paymentMethod:
-                                                    PaymentTypes.Amwal,
-                                                walletId: 0,
-                                              );
-                                            } else if (_model
-                                                    .selectedPaymentType
-                                                    ?.type ==
-                                                PaymentTypes
-                                                    .CashOnDelivery.name) {
-                                              logFirebaseEvent(
-                                                  'Button_backend_call');
-                                              _model.paymentTypeCOD =
-                                                  await PaymentTypesTable()
-                                                      .queryRows(
-                                                queryFn: (q) => q.eq(
-                                                  'type',
-                                                  PaymentTypes
-                                                      .CashOnDelivery.name,
+                                            context.goNamed(
+                                              'OrderConfirmation',
+                                              pathParameters: {
+                                                'order': serializeParam(
+                                                  widget.order,
+                                                  ParamType.SupabaseRow,
                                                 ),
-                                              );
-                                              logFirebaseEvent(
-                                                  'Button_backend_call');
-                                              await OrdersTable().update(
-                                                data: {
-                                                  'order_status': OrderStatuses
-                                                      .OrderReceived.name,
-                                                  'payment_type_id': _model
-                                                      .paymentTypeCOD
-                                                      ?.first
-                                                      .id,
-                                                },
-                                                matchingRows: (rows) => rows.eq(
-                                                  'id',
-                                                  widget.order?.id,
-                                                ),
-                                              );
-                                              logFirebaseEvent(
-                                                  'Button_navigate_to');
-
-                                              context.goNamed(
-                                                'OrderConfirmation',
-                                                pathParameters: {
-                                                  'order': serializeParam(
-                                                    widget.order,
-                                                    ParamType.SupabaseRow,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            }
+                                              }.withoutNulls,
+                                            );
                                           } else {
                                             logFirebaseEvent(
                                                 'Button_alert_dialog');
@@ -2243,13 +2080,10 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                                       title: FFLocalizations.of(
                                                               context)
                                                           .getText(
-                                                        '5374bxgy' /* No address! */,
+                                                        'riemyto1' /* Sorry! */,
                                                       ),
-                                                      body: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '5n660yy3' /* You should select a shipping a... */,
-                                                      ),
+                                                      body:
+                                                          'Error: ${(_model.payWalletResponse?.jsonBody ?? '').toString()}',
                                                       isConfirm: false,
                                                       autoDismiss: true,
                                                     ),
@@ -2258,57 +2092,182 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                                               },
                                             );
                                           }
+                                        } else {
+                                          logFirebaseEvent(
+                                              'Button_alert_dialog');
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: const AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: GestureDetector(
+                                                  onTap: () => FocusScope.of(
+                                                          dialogContext)
+                                                      .unfocus(),
+                                                  child: InfoModalWidget(
+                                                    title: FFLocalizations.of(
+                                                            context)
+                                                        .getText(
+                                                      'a5bo9q99' /* Sorry! */,
+                                                    ),
+                                                    body: FFLocalizations.of(
+                                                            context)
+                                                        .getText(
+                                                      'zax5th2r' /* Wallet amount is less than the... */,
+                                                    ),
+                                                    isConfirm: false,
+                                                    autoDismiss: true,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      } else if (_model
+                                              .selectedPaymentType?.type ==
+                                          PaymentTypes.Amwal.name) {
+                                        logFirebaseEvent('Button_action_block');
+                                        await action_blocks.paymentExecution(
+                                          context,
+                                          transactionType:
+                                              TransactionType.Order,
+                                          currencyCode:
+                                              FFAppState().country.currencyCode,
+                                          order: widget.order,
+                                          paymentAmount: (widget
+                                                      .order!.priceSubTotal!) *
+                                                  FFAppState()
+                                                      .country
+                                                      .currencyExchangeRate +
+                                              (_model.deliveryTotalFee!),
+                                          paymentMethod: PaymentTypes.Amwal,
+                                          walletId: 0,
+                                        );
+                                      } else if (_model
+                                              .selectedPaymentType?.type ==
+                                          PaymentTypes.CashOnDelivery.name) {
+                                        logFirebaseEvent('Button_backend_call');
+                                        _model.paymentTypeCOD =
+                                            await PaymentTypesTable().queryRows(
+                                          queryFn: (q) => q.eq(
+                                            'type',
+                                            PaymentTypes.CashOnDelivery.name,
+                                          ),
+                                        );
+                                        logFirebaseEvent('Button_backend_call');
+                                        await OrdersTable().update(
+                                          data: {
+                                            'order_status': OrderStatuses
+                                                .OrderReceived.name,
+                                            'payment_type_id': _model
+                                                .paymentTypeCOD?.first.id,
+                                          },
+                                          matchingRows: (rows) => rows.eq(
+                                            'id',
+                                            widget.order?.id,
+                                          ),
+                                        );
+                                        logFirebaseEvent('Button_navigate_to');
 
-                                          safeSetState(() {});
+                                        context.goNamed(
+                                          'OrderConfirmation',
+                                          pathParameters: {
+                                            'order': serializeParam(
+                                              widget.order,
+                                              ParamType.SupabaseRow,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      }
+                                    } else {
+                                      logFirebaseEvent('Button_alert_dialog');
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: const AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: GestureDetector(
+                                              onTap: () =>
+                                                  FocusScope.of(dialogContext)
+                                                      .unfocus(),
+                                              child: InfoModalWidget(
+                                                title:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  '5374bxgy' /* No address! */,
+                                                ),
+                                                body:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  '5n660yy3' /* You should select a shipping a... */,
+                                                ),
+                                                isConfirm: false,
+                                                autoDismiss: true,
+                                              ),
+                                            ),
+                                          );
                                         },
-                                  text: FFLocalizations.of(context).getText(
-                                    '9cbl9cmi' /* Confirm Order */,
-                                  ),
-                                  options: FFButtonOptions(
-                                    height: 58.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily),
-                                        ),
-                                    elevation: 0.0,
-                                    borderSide: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(0.0),
-                                      bottomRight: Radius.circular(0.0),
-                                      topLeft: Radius.circular(8.0),
-                                      topRight: Radius.circular(8.0),
-                                    ),
-                                    disabledColor:
-                                        FlutterFlowTheme.of(context).lightBlack,
-                                  ),
-                                ),
-                              ),
+                                      );
+                                    }
+
+                                    safeSetState(() {});
+                                  },
+                            text: FFLocalizations.of(context).getText(
+                              '9cbl9cmi' /* Confirm Order */,
                             ),
-                          ],
+                            options: FFButtonOptions(
+                              height: 68.0,
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .titleSmallFamily,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .titleSmallFamily),
+                                  ),
+                              elevation: 0.0,
+                              borderSide: const BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(8.0),
+                              ),
+                              disabledColor:
+                                  FlutterFlowTheme.of(context).lightBlack,
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

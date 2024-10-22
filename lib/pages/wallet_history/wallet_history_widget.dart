@@ -79,7 +79,8 @@ class _WalletHistoryWidgetState extends State<WalletHistoryWidget> {
                           ),
                           showBackButton: true,
                           showCart: true,
-                          goToCartOnClick: false,
+                          goToCartOnClick: true,
+                          showSearch: false,
                         ),
                       ),
                       Padding(

@@ -1036,8 +1036,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                           context.goNamed('zenbil');
                                         } else {
                                           logFirebaseEvent(
-                                              'updateUser_navigate_back');
-                                          context.safePop();
+                                              'updateUser_navigate_to');
+                                          if (Navigator.of(context).canPop()) {
+                                            context.pop();
+                                          }
+                                          context.pushNamed('Setting');
                                         }
                                       },
                                       text: FFLocalizations.of(context).getText(

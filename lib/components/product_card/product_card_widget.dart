@@ -494,33 +494,39 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            valueOrDefault<String>(
-                              widget.productName,
-                              'Samsung 4K LED Ultarafine Tv',
+                    Container(
+                      height: 38.0,
+                      decoration: const BoxDecoration(),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              valueOrDefault<String>(
+                                widget.productName,
+                                'Samsung 4K LED Ultarafine Tv',
+                              ),
+                              maxLines: 2,
+                              style: FlutterFlowTheme.of(context)
+                                  .labelSmall
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .labelSmallFamily,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 13.0,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .labelSmallFamily),
+                                  ),
                             ),
-                            maxLines: 2,
-                            style: FlutterFlowTheme.of(context)
-                                .labelSmall
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .labelSmallFamily,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 13.0,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .labelSmallFamily),
-                                ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,

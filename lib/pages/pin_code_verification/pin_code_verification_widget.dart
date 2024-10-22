@@ -7,7 +7,6 @@ import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pin_code_verification_model.dart';
 export 'pin_code_verification_model.dart';
@@ -77,175 +76,186 @@ class _PinCodeVerificationWidgetState extends State<PinCodeVerificationWidget> {
                         Expanded(
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Row(
+                              Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(0.0),
-                                    child: SvgPicture.asset(
-                                      Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? 'assets/images/e-com-ill-white-20.svg'
-                                          : 'assets/images/e-com-ill-black-20.svg',
-                                      width: 240.0,
-                                      height: 240.0,
-                                      fit: BoxFit.contain,
-                                    ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        child: Image.asset(
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? 'assets/images/logo_blue_trans.png'
+                                              : 'assets/images/logo_blue_trans.png',
+                                          width: 200.0,
+                                          height: 160.0,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'x1tweg8e' /* Enter 6-digits code */,
+                              SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'x1tweg8e' /* Enter 6-digits code */,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .displaySmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .displaySmallFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmallFamily),
+                                                        ),
                                               ),
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmall
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .displaySmallFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .displaySmallFamily),
-                                                      ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'am2c0hvz' /* Enter the 6-digits code that y... */,
-                                              ),
-                                              textAlign: TextAlign.start,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelLargeFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily),
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ].divide(const SizedBox(height: 8.0)),
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      PinCodeTextField(
-                                        autoDisposeControllers: false,
-                                        appContext: context,
-                                        length: 6,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleLargeFamily),
-                                            ),
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        enableActiveFill: false,
-                                        autoFocus: true,
-                                        enablePinAutofill: true,
-                                        errorTextSpace: 36.0,
-                                        showCursor: true,
-                                        cursorColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                        obscureText: true,
-                                        obscuringCharacter: '-',
-                                        hintCharacter: '-',
-                                        keyboardType: TextInputType.number,
-                                        pinTheme: PinTheme(
-                                          fieldHeight: 44.0,
-                                          fieldWidth: 44.0,
-                                          borderWidth: 0.0,
-                                          borderRadius: const BorderRadius.only(
-                                            bottomLeft: Radius.circular(4.0),
-                                            bottomRight: Radius.circular(4.0),
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                          shape: PinCodeFieldShape.box,
-                                          activeColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .lightBlack,
-                                          inactiveColor:
-                                              FlutterFlowTheme.of(context).tfBg,
-                                          selectedColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .lightBlack,
+                                          ],
                                         ),
-                                        controller: _model.pinCodeController,
-                                        onChanged: (_) {},
-                                        onCompleted: (_) async {
-                                          logFirebaseEvent(
-                                              'PIN_CODE_VERIFICATION_PinCode_6tm9qnyt_O');
-                                          logFirebaseEvent(
-                                              'PinCode_update_page_state');
-                                          _model.pincodeCompleted = true;
-                                          safeSetState(() {});
-                                        },
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
-                                        validator: _model
-                                            .pinCodeControllerValidator
-                                            .asValidator(context),
-                                      ),
-                                    ].divide(const SizedBox(height: 16.0)),
-                                  ),
-                                ].divide(const SizedBox(height: 24.0)),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'am2c0hvz' /* Enter the 6-digits code that y... */,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLargeFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLargeFamily),
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ].divide(const SizedBox(height: 8.0)),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        PinCodeTextField(
+                                          autoDisposeControllers: false,
+                                          appContext: context,
+                                          length: 6,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleLarge
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLargeFamily),
+                                              ),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          enableActiveFill: false,
+                                          autoFocus: true,
+                                          enablePinAutofill: true,
+                                          errorTextSpace: 36.0,
+                                          showCursor: true,
+                                          cursorColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                          obscureText: false,
+                                          hintCharacter: '-',
+                                          keyboardType: TextInputType.number,
+                                          pinTheme: PinTheme(
+                                            fieldHeight: 44.0,
+                                            fieldWidth: 44.0,
+                                            borderWidth: 0.0,
+                                            borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(4.0),
+                                              bottomRight: Radius.circular(4.0),
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                            shape: PinCodeFieldShape.box,
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .lightBlack,
+                                            inactiveColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .tfBg,
+                                            selectedColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .lightBlack,
+                                          ),
+                                          controller: _model.pinCodeController,
+                                          onChanged: (_) {},
+                                          onCompleted: (_) async {
+                                            logFirebaseEvent(
+                                                'PIN_CODE_VERIFICATION_PinCode_6tm9qnyt_O');
+                                            logFirebaseEvent(
+                                                'PinCode_update_page_state');
+                                            _model.pincodeCompleted = true;
+                                            safeSetState(() {});
+                                          },
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          validator: _model
+                                              .pinCodeControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ].divide(const SizedBox(height: 16.0)),
+                                    ),
+                                  ].divide(const SizedBox(height: 24.0)),
+                                ),
                               ),
                             ],
                           ),
